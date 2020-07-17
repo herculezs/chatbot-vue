@@ -6,8 +6,9 @@ import store from '@store';
 import router from '@/router';
 import globalMixin from '@/mixins/global';
 import events from '@utils/events';
-import App from './App.vue';
+import VueCarousel from 'vue-carousel';
 
+import App from './App.vue';
 
 // eslint-disable-next-line
 require('moment/locale/lv');
@@ -19,6 +20,7 @@ Vue.prototype.$events = events;
 
 Vue.mixin(globalMixin);
 Vue.use(Notifications);
+Vue.use(VueCarousel);
 
 window.app = new Vue({
   router,
