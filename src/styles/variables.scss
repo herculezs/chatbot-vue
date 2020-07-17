@@ -1,0 +1,29 @@
+//Fonts
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-display: swap;
+  src: local('Roboto'), url(https://fonts.gstatic.com/s/roboto/v19/KFOmCnqEu92Fr1Mu72xKOzY.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+
+@import url("https://use.fontawesome.com/releases/v5.2.0/css/all.css");
+
+$defaultFont: 'Roboto', sans-serif;
+
+// Color
+$defaultColor: #2f2f2f;
+$accentColor: #f88d4c;
+$dangerColor: #f66a6a;
+$tertiaryColor: #64e2b5;
+$primaryColor: #5a83ec;
+$elementColor: #ededed;
+
+//border
+$defaultBorder: 1px solid $elementColor;
+
+//Calendar
+$calendarFontDefaultColor: #595959;
+$calendarFontSecondColor: #BFBFBF;
+$calendarFontTertiaryColor: #9D9D9D;
+
