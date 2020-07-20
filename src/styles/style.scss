@@ -9,12 +9,18 @@ html, body{
   box-sizing: border-box;
 }
 
-.main, .main__content{
+.text-center{
+  text-align: center;
+}
+
+.main{
   width: 100%;
   height: 100%;
 }
 
 .main__content{
+  width: 100%;
+  min-height: 100%;
   padding: 120px 24px 0;
 }
 
@@ -33,6 +39,18 @@ html, body{
   font-size: 18px;
   letter-spacing: 0;
   line-height: 24px;
+}
+
+.caption{
+  color: $txtColor2;
+  font-family: $defaultFont;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+
+.button__caption{
+  margin-top: 32px;
 }
 
 .button{
