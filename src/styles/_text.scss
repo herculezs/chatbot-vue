@@ -35,3 +35,62 @@
   letter-spacing: 0;
   line-height: 16px;
 }
+
+.h1{
+  color: $txtColor1;
+  font-family: $titleFont;
+  font-size: 68px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 88px;
+}
+.h2{
+  color: $txtColor1;
+  font-family: $titleFont;
+  font-size: 48px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 64px;
+}
+.h3{
+  color: $txtColor1;
+  font-family: $titleFont;
+  font-size: 38px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 56px;
+}
+.h4{
+  color: $txtColor1;
+  font-family: $titleFont;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 40px;
+}
+.h5{
+  color: $txtColor1;
+  font-family: $titleFont;
+  font-size: 20px;
+  margin-bottom: 16px;
+  margin-top: 16px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 32px;
+}
+.caption{
+  color: $txtColor1;
+  font-family: $titleFont;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+.personality_text{
+  color: $txtColor1;
+  font-family: $titleFont;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 24px;
+}

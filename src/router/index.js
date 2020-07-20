@@ -9,8 +9,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: () => import('@views/Home.vue'),
+      name: 'Main',
+      component: () => import('@views/Main.vue'),
+    },
+    {
+      path: '/questions',
+      name: 'Questions',
+      component: () => import('@views/Questions.vue'),
+    },
+    {
+      path: '/questionsdrag',
+      name: 'QuestionsDrag',
+      component: () => import('@views/QuestionsDrag.vue'),
     },
   ],
 });
