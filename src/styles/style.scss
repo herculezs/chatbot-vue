@@ -1,3 +1,7 @@
+@import "text";
+@import "buttons";
+@import "form";
+
 html, body{
   margin: 0;
   padding: 0;
@@ -21,66 +25,5 @@ html, body{
 .main__content{
   width: 100%;
   min-height: 100%;
-  padding: 120px 24px 0;
-}
-
-.title{
-  color: $txtColor1;
-  font-family: $titleFont;
-  font-size: 28px;
-  font-weight: bold;
-  letter-spacing: 0;
-  line-height: 40px;
-}
-
-.text{
-  color: $txtColor1;
-  font-family: $defaultFont;
-  font-size: 18px;
-  letter-spacing: 0;
-  line-height: 24px;
-}
-
-.caption{
-  color: $txtColor2;
-  font-family: $defaultFont;
-  font-size: 14px;
-  letter-spacing: 0;
-  line-height: 16px;
-}
-
-.button__caption{
-  margin-top: 32px;
-}
-
-.button{
-  border: none;
-  color: #FFFFFF;
-  font-family: $btnFont;
-  font-weight: bold;
-  text-align: center;
-  text-transform: capitalize;
-}
-
-.button_theme-default{
-  background-color: $btnColor1;
-  box-shadow: 0 8px 24px 0 rgba(0,52,80,0.32);
-  transition: 0.3s background-color;
-  &:hover{
-    background-color: #2375b6;
-  }
-  &:active{
-    background-color: #15507d;
-  }
-}
-
-.button_size-m{
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  padding: 23px 25px 22px;
-  border-radius: 8px;
-}
-
-.button_w-100{
-  width: 100%;
+  padding: 100px 24px 0;
 }

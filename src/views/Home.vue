@@ -1,7 +1,6 @@
 <template>
   <div class="onBoarding">
-
-    <Onboarding />
+      <Onboarding />
   </div>
 </template>
 

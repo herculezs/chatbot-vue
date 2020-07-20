@@ -1,16 +1,20 @@
 <template>
   <carousel
-    :per-page="1"
-    :mouse-drag="true "
-    paginationActiveColor="#009AF0"
-    paginationColor="#fff"
+    :per-page="carousel.options.perPage"
+    :mouse-drag="carousel.options.mouseDrag"
+    :paginationActiveColor="carousel.options.paginationActiveColor"
+    :paginationColor="carousel.options.paginationColor"
+    class="onBoarding-carousel"
+    @pageChange="changeSlide"
   >
     <slide>
       <video
         class="onBoarding__video"
-        ref="videoRef"
+        ref="videoRef1"
         src="../../assets/step1_animation.mp4"
         loop
+        muted="muted"
+        type="video/mp4"
       >
       </video>
       <div class="title onBoarding__title">
@@ -22,17 +26,19 @@
       <button class="button button_w-100 button_theme-default button_size-m">Get starter</button>
     </slide>
     <slide>
-<!--      <video-->
-<!--        class="onBoarding__video"-->
-<!--        ref="videoRef"-->
-<!--        src="../../assets/step2_animation.mp4"-->
-<!--        loop-->
-<!--      >-->
-<!--      </video>-->
+        <video
+          class="onBoarding__video"
+          ref="videoRef2"
+          src="../../assets/step2_animation.mp4"
+          loop
+          muted="muted"
+          type="video/mp4"
+        >
+        </video>
       <div class="title onBoarding__title">
         Questions!
       </div>
-      <div class="text onBoarding__text">
+      <div class="text text_br-indent text-center">
         First, I will ask you scenario-based questions and give you report.
       </div>
       <div class="text onBoarding__text">
@@ -41,36 +47,65 @@
       </div>
       <button class="button button_w-100 button_theme-default button_size-m">Next</button>
     </slide>
-    <slide>
-      <div class="form">
-        <ValidationProvider v-slot="v">
-          <input v-model="value" type="text">
-          <span>{{ v.errors[0] }}</span>
-        </ValidationProvider>
-        <vue-tel-input
-          class="input-tel"
-          v-model="phone"
-          defaultCountry="GB"
-          placeholder="65 243 236"
-          enabledCountryCode
-          validCharactersOnly
-        >
-          <template slot="arrow-icon">
-          <span class="input-tel__arrow-icon">
-            ⌄
-          </span>
+    <slide class="slide-details">
+      <div class="title onBoarding__title">
+        Details
+      </div>
+      <div class="sub-title text-center onBoarding__sub-title">
+        What shall I call you?
+      </div>
+      <form class="form">
+        <div class="form-group">
+          <input
+            class="form__input"
+            placeholder="Your name"
+            v-model="formData.name"
+          />
+          <template v-if="$v.formData.name.$error">
+            <div
+              class="form__input-error"
+              v-if="!$v.formData.name.required"
+            >
+              Field is required
+            </div>
           </template>
-        </vue-tel-input>
+        </div>
+        <div class="form-group">
+          <vue-tel-input
+            class="form__input-tel"
+            v-model="formData.phone"
+            defaultCountry="GB"
+            placeholder="65 243 236"
+            enabledCountryCode
+            validCharactersOnly
+          >
+            <template slot="arrow-icon">
+              <span class="form__input-tel-arrow-icon">
+                ⌄
+              </span>
+            </template>
+          </vue-tel-input>
+          <template v-if="$v.formData.phone.$error">
+            <div
+              class="form__input-error"
+              v-if="!$v.formData.phone.required"
+            >
+              Field is required
+            </div>
+          </template>
+        </div>
         <div class="caption text-center">
           We need your phone number so we
           can notify you of the results. We won’t contact you otherwise.
         </div>
-      </div>
+      </form>
 
-      <div class="title onBoarding__title">
-        Details
-      </div>
-      <button class="button button_w-100 button_theme-default button_size-m">Start</button>
+      <button
+        class="button button_w-100 button_theme-default button_size-m slide-details__button"
+        @click.prevent="start"
+      >
+        Start
+      </button>
       <div class="caption button__caption text-center">
         By using our service, you consent to our Privacy
         Policy and agree to its terms which can be found on our website - 3-60.me
@@ -80,19 +115,62 @@
 </template>
 
 <script>
-import { ValidationProvider } from 'vee-validate';
+import { validationMixin } from 'vuelidate';
+
+const { required } = require('vuelidate/lib/validators');
 
 export default {
-  components: {
-    ValidationProvider,
+  mixins: [validationMixin],
+  validations: {
+    formData: {
+      name: {
+        required,
+      },
+      phone: {
+        required,
+      },
+    },
   },
   data: () => ({
-    phone: null,
-    value,
+    formData: {
+      phone: null,
+      name: '',
+    },
+    carousel: {
+      options: {
+        perPage: 1,
+        mouseDrag: true,
+        paginationActiveColor: '#009AF0',
+        paginationColor: '#fff',
+      },
+      refBySlide: {
+        0: 'videoRef1',
+        1: 'videoRef2',
+      },
+    },
+    currentPage: 0,
   }),
   mounted() {
-    this.$refs.videoRef.src = '';
-    this.$refs.videoRef.play();
+    this.$nextTick(() => {
+      this.playVideo(this.currentPage);
+    });
+  },
+  methods: {
+    start() {
+      this.$v.$touch();
+      if (!this.$v.$invalid) console.log('some api');
+    },
+    playVideo(currentSlide, prevSlide) {
+      const currentVideo = this.$refs[this.carousel.refBySlide[currentSlide]];
+      const prevVideo = this.$refs[this.carousel.refBySlide[prevSlide]];
+
+      if (currentVideo) currentVideo.play();
+      if (prevVideo) prevVideo.pause();
+    },
+    changeSlide(numberSlide) {
+      this.playVideo(numberSlide, this.currentPage);
+      this.currentPage = numberSlide;
+    },
   },
 };
 </script>
@@ -102,9 +180,12 @@ export default {
     margin-bottom: 24px;
     text-align: center;
   }
+  .onBoarding__sub-title{
+    margin-bottom: 24px;
+  }
   .onBoarding__text{
     text-align: center;
-    margin-bottom: 16px;
+    margin-bottom: 40px;
   }
   .VueCarousel-slide{
     padding: 0 24px 24px;
@@ -112,55 +193,26 @@ export default {
   .VueCarousel{
     margin: 0 -24px;
   }
+  .onBoarding-carousel{
+    .VueCarousel-dot, .VueCarousel-dot-container{
+      margin-top: 0 !important;
+    }
+  }
   .onBoarding{
     background-color: $bgColor1;
   }
   .onBoarding__video{
     width: 100%;
     margin: -40px auto 30px;
+    padding-top: 10%;
     display: block;
   }
-  .input-tel{
-    font-family: $defaultFont;
-    &.vue-tel-input{
-      border-radius: 4px;
-      border-color: #ddd;
-    }
-    .vti__input{
-      font-size: 16px;
-      padding: 24px 10px 23px 52px;
-      font-family: $defaultFont;
-      border-radius: 4px;
-      color: #999;
-    }
-    .vti__selection .vti__country-code{
-      color: #999;
-      font-size: 16px;
-      font-family: $defaultFont;
-      position: absolute;
-      left: 100px;
-      font-weight: bold;
-    }
-    .vti__dropdown.open{
-      outline: none;
-    }
-    .vti__dropdown{
-      width: 120px;
-      border-right: 1px solid #ddd;
-      background-color: #fff;
-    }
-    .vti__selection{
-      justify-content: center;
-    }
-    .input-tel__arrow-icon{
-      position: relative;
-      right: -10px;
-      top: -1px;
-      font-size: 16px;
-      color: #999;
-    }
-    .vti__flag.gb{
-      transform: scale(1.6);
-    }
+  .slide-details{
+    display: flex;
+    flex-direction: column;
   }
+  .slide-details__button{
+    margin-top: auto;
+  }
+
 </style>
