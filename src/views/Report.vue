@@ -95,8 +95,8 @@ export default {
       series: [
         {
           type: 'pie',
-          radius: '80%',
-          center: ['50%', '50%'],
+          radius: '70%',
+          center: ['50%', '44%'],
           selectedMode: 'single',
           data: [
             {
@@ -151,7 +151,17 @@ export default {
     margin: 0 -24px;
     background-color: #fff;
     padding: 0 24px;
-    height: 100%;
+    position: relative;
+    &:after{
+      content: '';
+      display: block;
+      width: 100%;
+      height: 1px;
+      background-color: #e9eaf0;
+      position: absolute;
+      left: 0;
+      bottom: 40px;
+    }
     .echarts{
       width: 100%;
       height: 310px;
