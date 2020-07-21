@@ -9,6 +9,7 @@ import events from '@utils/events';
 import VueCarousel from 'vue-carousel';
 import VueTelInput from 'vue-tel-input';
 
+
 import App from './App.vue';
 
 // eslint-disable-next-line

@@ -11,6 +11,10 @@
               class="questions-item__content"
             >
               {{ item.content }}
+              <img
+                class="questions-item__icon-drag"
+                src="../assets/icon-arrow-up-down.svg"
+                alt="drag">
             </div>
           </div>
         </transition-group>

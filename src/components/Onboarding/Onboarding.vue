@@ -55,7 +55,10 @@
         What shall I call you?
       </div>
       <form class="form">
-        <div class="form-group">
+        <div
+          class="form-group"
+          :class="{'form-group-error': $v.formData.name.$error}"
+        >
           <input
             class="form__input"
             placeholder="Your name"
@@ -70,7 +73,10 @@
             </div>
           </template>
         </div>
-        <div class="form-group">
+        <div
+          class="form-group"
+          :class="{'form-group-error': $v.formData.name.$error}"
+        >
           <vue-tel-input
             class="form__input-tel"
             v-model="formData.phone"
