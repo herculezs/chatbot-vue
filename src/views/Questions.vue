@@ -2,24 +2,24 @@
   <div class="questions">
     <div class="progress-bar">
       <div class="progress-bar__value">
-        <div class="progress-bar__current-value" :style="{'width': progressBarValue}"></div>
+        <div class="progress-bar__current-value" :style="{'width': getPercentByStep}"></div>
       </div>
       <div class="progress-bar__info">
-        1 / 16
+        {{ currentStep }} / {{ allStepCount }}
       </div>
     </div>
     <div class="h5">
-      Question 1
+      Question {{ currentStep }}
     </div>
     <div class="text questions__text">
-      You are out with friends and the conversation upsets one of the group. Do you:
+      {{ getDataByStep.question }}
     </div>
     <div class="h5 questions-list__title">
       Select one of answers
     </div>
     <div class="questions-list">
       <div class="questions-item"
-           v-for="item in dataFromServer"
+           v-for="item in getDataByStep.answers"
            :key="item.id"
            :class="{'active' : item.id === selectedQuestion}"
       >
@@ -50,31 +50,67 @@
 export default {
   name: 'Questions',
   data: () => ({
-    progressBarValue: '0%',
     dataFromServer: [
       {
-        id: 1,
-        content: 'Tell them to pull themselves together',
-      },
-      {
-        id: 2,
-        content: 'Find out what the issue is and buy them a drink',
+        question: 'You are out with friends and the conversation upsets one of the group. Do you:',
+        answers: [
+          {
+            id: 1,
+            content: 'Tell them to pull themselves together',
+          },
+          {
+            id: 2,
+            content: 'Find out what the issue is and buy them a drink',
 
+          },
+          {
+            id: 3,
+            content: 'Take them on the side, '
+              + 'find out what’s wrong and listen to them as long as it takes',
+          },
+        ],
       },
       {
-        id: 3,
-        content: 'Take them on the side, '
-          + 'find out what’s wrong and listen to them as long as it takes',
+        question: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Do you:',
+        answers: [
+          {
+            id: 1,
+            content: 'Donec nec justo eget felis facilisis fermentum',
+          },
+          {
+            id: 2,
+            content: 'Donec consectetuer ligula vulputate sem tristique',
+
+          },
+          {
+            id: 3,
+            content: 'Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae',
+          },
+        ],
       },
     ],
+    currentStep: 1,
+    allStepCount: 2,
     selectedQuestion: null,
   }),
+  computed: {
+    getPercentByStep() {
+      return `${this.currentStep * 100 / this.allStepCount}%`;
+    },
+    getDataByStep() {
+      return this.dataFromServer[this.currentStep - 1];
+    },
+  },
   methods: {
     selectedQuestions(question) {
       this.selectedQuestion = question.id;
     },
+    setStep(step) {
+      this.currentStep = step;
+    },
     nextStep() {
-      console.log('nextStep');
+      const nextStep = this.currentStep + 1;
+      if (nextStep <= this.allStepCount) this.setStep(this.currentStep + 1);
     },
   },
 };
@@ -105,45 +141,5 @@ export default {
     line-height: 16px;
     width: 60px;
     margin-left: 15px;
-  }
-
-  .questions-item{
-    margin-bottom: 24px;
-    &.active{
-      .questions-item__content{
-        border-color: $mnColor2;
-        background-color: $mnColor3;
-        box-shadow: 0 4px 16px 0 rgba(0,93,145,0.32);
-      }
-    }
-  }
-  .questions-item__content{
-    position: relative;
-    border-radius: 4px;
-    background-color: #FFFFFF;
-    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.16);
-    padding: 16px 53px 16px 24px;
-    color:$txtColor2;
-    font-family: $defaultFont;
-    font-size: 18px;
-    letter-spacing: 0;
-    line-height: 24px;
-    border: 1px solid transparent;
-  }
-  .questions-item__icon-checked{
-    position: absolute;
-    right: 24px;
-    top: 28px;
-  }
-  .questions-list__title{
-    margin-bottom: 24px;
-  }
-  .questions-list{
-    margin-bottom: 32px;
-  }
-
-
-  .questions__text{
-    margin-bottom: 40px;
   }
 </style>

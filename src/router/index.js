@@ -19,8 +19,8 @@ export default new Router({
     },
     {
       path: '/questionsdrag',
-      name: 'QuestionsDrag',
-      component: () => import('@views/QuestionsDrag.vue'),
+      name: 'QuestionsDragTest',
+      component: () => import('@views/QuestionsDragTest.vue'),
     },
   ],
 });
