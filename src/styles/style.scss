@@ -11,11 +11,14 @@
 @import "~bootstrap/scss/code";
 @import "~bootstrap/scss/transitions";
 @import "~bootstrap/scss/dropdown";
+@import "~bootstrap/scss/modal";
 
 @import "text";
 @import "buttons";
 @import "form";
 @import "question";
+@import "modal";
+@import "indents";
 
 html, body{
   margin: 0;

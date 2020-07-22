@@ -13,10 +13,10 @@
           {{ title }}
         </div>
       <div class="card-info">
-        <div class="card-info__text">
+        <div class="card-info__text ">
           {{ showText }}
         </div>
-        <b-collapse class="card-collapse-content" v-model="show.content">
+        <b-collapse v-model="show.content">
           <div class="card-info__text mt-3">
             {{ hideText }}
           </div>

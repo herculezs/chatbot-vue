@@ -1,11 +1,9 @@
 <template>
   <div class="report">
-    <div class="report__header">
-      <h1 class="h4 report__title">Well done John!</h1>
-      <h2 class="text text-center">Here’s your first report</h2>
-    </div>
+    <h1 class="h4 text-center mb-1">Well done John!</h1>
+    <h2 class="text mb-5 text-center">Here’s your first report</h2>
 
-    <h3 class="h5">Report</h3>
+    <h3 class="h5 mb-3">Report</h3>
     <div class="diagram">
       <ECharts
         :options="pie"
@@ -14,7 +12,7 @@
       />
     </div>
 
-    <div class="h5">
+    <div class="h5 mb-4">
       You think you are
     </div>
     <Card
@@ -23,7 +21,7 @@
       :hideText="cardData.debator.hideText"
     />
 
-    <div class="h5">
+    <div class="h5 mb-4">
       Based on your answers you are
     </div>
     <Card
@@ -33,9 +31,31 @@
       :defaultOpen="true"
     />
 
-    <button class="button button_w-100 button_theme-default button_size-m">
+    <b-modal
+      id="modal-multi-1"
+      hide-footer
+      >
+      <template v-slot:modal-title>
+        Share with friends
+      </template>
+      <p class="text mb-3">
+        Well John, it’s time to find out what your friends think about your personality.
+      </p>
+      <p class="text mb-4">
+        Send this link to as many people as you like.
+        Remember the wisdom of crowd; the more people you send it to the wiser the result!
+      </p>
+      <InputCopy class="mb-4" />
+      <p class="text mb-5">
+        or you can share on your social networks
+      </p>
+      <Share />
+    </b-modal>
+
+    <button v-b-modal.modal-multi-1 class="button button_w-100 button_theme-default button_size-m">
       Share With Friends
     </button>
+
   </div>
 </template>
 
@@ -45,11 +65,15 @@ import 'echarts/lib/chart/map';
 import 'echarts/lib/component/legend';
 import ECharts from 'vue-echarts';
 import Card from '@components/Card/Card.vue';
+import InputCopy from '@components/InputCopy/InputCopy.vue';
+import Share from '@components/Share/Share.vue';
 
 export default {
   components: {
     ECharts,
     Card,
+    InputCopy,
+    Share,
   },
   name: 'Report',
   data: () => ({
@@ -151,14 +175,5 @@ export default {
       width: 100%;
       height: 310px;
     }
-  }
-
-  .report__title{
-    margin-bottom: 8px;
-    text-align: center;
-    margin-top: 0;
-  }
-  .report__header{
-    margin-bottom: 32px;
   }
 </style>

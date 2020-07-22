@@ -125,3 +125,22 @@
     margin-bottom: 0;
   }
 }
+
+.form__input-copy{
+  position: relative;
+}
+.form__button-copy{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 64px;
+  height: 100%;
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  border-left: 1px solid $formInputBorderColor;
+  outline: none;
+  &:hover,&:focus{
+    outline: none;
+  }
+}

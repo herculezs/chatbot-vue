@@ -1,6 +1,6 @@
 <template>
   <div class="questions">
-    <div class="progress-bar">
+    <div class="progress-bar mb-4">
       <div class="progress-bar__value">
         <div class="progress-bar__current-value" :style="{'width': getPercentByStep}"></div>
       </div>
@@ -8,13 +8,13 @@
         {{ currentStep }} / {{ allStepCount }}
       </div>
     </div>
-    <div class="h5">
+    <div class="h5 mb-3">
       Question {{ currentStep }}
     </div>
     <div class="text questions__text">
       {{ getDataByStep.question }}
     </div>
-    <div class="h5 questions-list__title">
+    <div class="h5 mb-4">
       Select one of answers
     </div>
     <div class="questions-list">
