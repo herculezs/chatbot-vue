@@ -8,7 +8,7 @@ import globalMixin from '@/mixins/global';
 import events from '@utils/events';
 import VueCarousel from 'vue-carousel';
 import VueTelInput from 'vue-tel-input';
-
+import { BootstrapVue } from 'bootstrap-vue';
 
 import App from './App.vue';
 
@@ -24,6 +24,7 @@ Vue.mixin(globalMixin);
 Vue.use(Notifications);
 Vue.use(VueCarousel);
 Vue.use(VueTelInput);
+Vue.use(BootstrapVue);
 
 window.app = new Vue({
   router,
