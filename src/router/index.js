@@ -32,5 +32,10 @@ export default new Router({
       name: 'personality-type',
       component: () => import('@views/PersonalityType.vue'),
     },
+    {
+      path: '/create-password',
+      name: 'create-password',
+      component: () => import('@views/CreatePassword.vue'),
+    },
   ],
 });
