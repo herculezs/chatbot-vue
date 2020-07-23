@@ -3,15 +3,31 @@
     <div
       class="h5 card__title"
       :class="{'animation-hide-show': animations.cardShow,
-       'animation-show-hide': animations.cardHide}"
+     'animation-show-hide': animations.cardHide}"
       v-if="!show.card"
     >
       {{ title }}
     </div>
+    <img
+      :src="img"
+      alt="defender"
+      class="card__title-img"
+      :class="{'animation-hide-show': animations.cardShow,
+     'animation-show-hide': animations.cardHide}"
+      v-if="!show.card"
+    >
+
     <b-collapse v-model="show.card">
-        <div class="h5 text-center" style="margin-top: 0;">
+      <div class="card-content-caption">
+        <div class="h5 card-content-caption__title">
           {{ title }}
         </div>
+        <img
+          src="../../../public/img/defender.svg"
+          alt="defender"
+          class="card-content-caption__img"
+        >
+      </div>
       <div class="card-info">
         <div class="card-info__text ">
           {{ showText }}
@@ -34,6 +50,7 @@
 </template>
 
 <script>
+
 export default {
   props: {
     title: {
@@ -43,6 +60,9 @@ export default {
       type: String,
     },
     hideText: {
+      type: String,
+    },
+    img: {
       type: String,
     },
     defaultOpen: {
@@ -104,6 +124,7 @@ export default {
     margin-bottom: 32px;
     overflow: hidden;
     cursor: pointer;
+    position: relative;
   }
   .card__title{
     transition: opacity .3s;
@@ -129,12 +150,43 @@ export default {
     }
   }
 
-  .card__title.animation-hide-show{
+  .card-chip{
+    position: relative;
+  }
+  .card__title-img{
+    position: absolute;
+    height: 100%;
+    width: auto;
+    right: 0;
+    top: 0;
+    transition: opacity .3s;
+    opacity: 1;
+  }
+
+  .card__title.animation-hide-show,
+  .card__title-img.animation-hide-show{
     opacity: 0;
     display: none;
   }
-  .card__title.animation-show-hide{
+  .card__title.animation-show-hide,
+  .card__title-img.animation-show-hide{
     opacity: 0;
+  }
+
+  .card-content-caption{
+    position: relative;
+    margin-bottom: 24px;
+  }
+  .card-content-caption__title{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+  }
+  .card-content-caption__img{
+    width: 50%;
+    display: block;
+    margin: 0 auto;
   }
 
 </style>

@@ -3,7 +3,31 @@
     <h1 class="h4 text-center mb-1">Well done John!</h1>
     <h2 class="text mb-5 text-center">Here’s your first report</h2>
 
-    <h3 class="h5 mb-3">Report</h3>
+    <div class="report-notifications">
+      To keep respones private (and honest), I will wait until I have recieved at
+      least 4 responses, I will send you their answers and update you as I receive more.
+    </div>
+    <div class="diagram__title-with-respondents mb-3">
+      <h3 class="h5 m-0">Report</h3>
+      <div class="report__respondents">
+        <svg class="report__respondents-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.42 15.93">
+          <circle
+            fill="none"
+            stroke="#999"
+            stroke-miterlimit="10"
+            cx="6.21"
+            cy="4"
+            r="3.91"/>
+          <path
+            fill="none" stroke="#999" stroke-miterlimit="10"
+            d="M2.29,16a5.71,5.71,0,0,1,11.34-.92,5.62,5.62,0,0,1,.08.92"
+            transform="translate(-1.79 -0.07)"
+          />
+        </svg>
+        Respondents:  {{ respondentsCount }}
+      </div>
+    </div>
+
     <div class="diagram">
       <ECharts
         :options="pie"
@@ -17,6 +41,7 @@
     </div>
     <Card
       :title="cardData.debator.title"
+      :img="cardData.debator.img"
       :showText="cardData.debator.showText"
       :hideText="cardData.debator.hideText"
     />
@@ -28,6 +53,7 @@
       :title="cardData.debator.title"
       :showText="cardData.debator.showText"
       :hideText="cardData.debator.hideText"
+      :img="cardData.debator.img"
       :defaultOpen="true"
     />
 
@@ -77,9 +103,11 @@ export default {
   },
   name: 'Report',
   data: () => ({
+    respondentsCount: 6,
     cardData: {
       debator: {
         title: 'Debator',
+        img: '/img/defender.svg',
         showText: 'Flexible and charming '
           + 'artists, always ready to explore and experience something new.\n'
           + '          Flexible and charming artists, always ready '
@@ -175,5 +203,34 @@ export default {
       width: 100%;
       height: 310px;
     }
+  }
+  .report__respondents{
+    color: $txtColor3;
+    font-family: $defaultFont;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 17px;
+    display: flex;
+    align-items: center;
+  }
+  .report__respondents-icon{
+    width: 14px;
+    height: 17px;
+    margin-right: 5px;
+  }
+  .diagram__title-with-respondents{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .report-notifications{
+    padding: 16px;
+    border: 1px solid #ddd;
+    font-family: $defaultFont;
+    font-size: 14px;
+    line-height: 16px;
+    color: $txtColor2;
+    border-radius: 4px;
+    margin-bottom: 30px;
   }
 </style>
