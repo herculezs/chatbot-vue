@@ -37,5 +37,10 @@ export default new Router({
       name: 'create-password',
       component: () => import('@views/CreatePassword.vue'),
     },
+    {
+      path: '/reset-password',
+      name: 'create-password',
+      component: () => import('@views/ResetPassword.vue'),
+    },
   ],
 });
