@@ -27,5 +27,10 @@ export default new Router({
       name: 'report',
       component: () => import('@views/Report.vue'),
     },
+    {
+      path: '/personality-type',
+      name: 'personality-type',
+      component: () => import('@views/PersonalityType.vue'),
+    },
   ],
 });
