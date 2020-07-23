@@ -1,15 +1,12 @@
 <template>
-  <carousel
-    :per-page="carousel.options.perPage"
-    :mouse-drag="carousel.options.mouseDrag"
-    :paginationActiveColor="carousel.options.paginationActiveColor"
-    :paginationColor="carousel.options.paginationColor"
+  <VueSlickCarousel
+    v-bind="carousel.settings"
     class="onBoarding-carousel"
-    @pageChange="changeSlide"
+    @beforeChange="changeSlide"
   >
-    <slide>
+    <div>
       <video
-        class="onBoarding__video"
+        class="onBoarding__video onBoarding__video_step1"
         ref="videoRef1"
         src="../../assets/step1_animation.mp4"
         loop
@@ -23,11 +20,13 @@
       <div class="text onBoarding__text">
         I’m here to help you understand more about yourself and others.
       </div>
-      <button class="button button_w-100 button_theme-default button_size-m">Get starter</button>
-    </slide>
-    <slide>
+      <button class="button button_w-100 button_theme-default button_size-m onBoarding__button">
+        Get starter
+      </button>
+    </div>
+    <div>
         <video
-          class="onBoarding__video"
+          class="onBoarding__video onBoarding__video_step2"
           ref="videoRef2"
           src="../../assets/step2_animation.mp4"
           loop
@@ -38,16 +37,18 @@
       <div class="title onBoarding__title">
         Questions!
       </div>
-      <div class="text text_br-indent text-center">
+      <div class="text mb-4 text-center">
         First, I will ask you scenario-based questions and give you report.
       </div>
       <div class="text onBoarding__text">
         Then, I will ask you to share a special link with your friends so we can
         find out how they think you would react in certain scenarios too.
       </div>
-      <button class="button button_w-100 button_theme-default button_size-m">Next</button>
-    </slide>
-    <slide class="slide-details">
+      <button class="button button_w-100 button_theme-default button_size-m onBoarding__button">
+        Next
+      </button>
+    </div>
+    <div class="slide-details">
       <div class="title onBoarding__title">
         Details
       </div>
@@ -116,16 +117,20 @@
         By using our service, you consent to our Privacy
         Policy and agree to its terms which can be found on our website - 3-60.me
       </div>
-    </slide>
-  </carousel>
+    </div>
+  </VueSlickCarousel>
 </template>
 
 <script>
+import VueSlickCarousel from 'vue-slick-carousel';
 import { validationMixin } from 'vuelidate';
 
 const { required } = require('vuelidate/lib/validators');
 
 export default {
+  components: {
+    VueSlickCarousel,
+  },
   mixins: [validationMixin],
   validations: {
     formData: {
@@ -143,11 +148,20 @@ export default {
       name: '',
     },
     carousel: {
-      options: {
-        perPage: 1,
-        mouseDrag: true,
-        paginationActiveColor: '#009AF0',
-        paginationColor: '#fff',
+      settings: {
+        // perPage: 1,
+        // mouseDrag: true,
+        // paginationActiveColor: '#009AF0',
+        // paginationColor: '#fff',
+        arrows: false,
+        dots: true,
+        dotsClass: 'slick-dots',
+        edgeFriction: 0.35,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        adaptiveHeight: true,
       },
       refBySlide: {
         0: 'videoRef1',
@@ -173,9 +187,9 @@ export default {
       if (currentVideo) currentVideo.play();
       if (prevVideo) prevVideo.pause();
     },
-    changeSlide(numberSlide) {
-      this.playVideo(numberSlide, this.currentPage);
-      this.currentPage = numberSlide;
+    changeSlide(prevSlide, nextSlide) {
+      this.playVideo(nextSlide, this.currentPage);
+      this.currentPage = nextSlide;
     },
   },
 };
@@ -183,7 +197,9 @@ export default {
 
 <style lang="scss">
   .onBoarding__title{
-    margin-bottom: 24px;
+    margin-bottom: 3vh;
+    font-size: 3.5vh;
+    line-height: 5vh;
     text-align: center;
   }
   .onBoarding__sub-title{
@@ -191,27 +207,47 @@ export default {
   }
   .onBoarding__text{
     text-align: center;
-    margin-bottom: 40px;
+    /*margin-bottom: 40px;*/
+    margin-bottom: 4vh;
+    font-size: 2.25vh;
+    line-height: 3vh;
   }
-  .VueCarousel-slide{
-    padding: 0 24px 24px;
+
+  .onBoarding__button{
+    font-size: 2vh;
+    padding: 3vh;
   }
-  .VueCarousel{
-    margin: 0 -24px;
-  }
+
   .onBoarding-carousel{
-    .VueCarousel-dot, .VueCarousel-dot-container{
-      margin-top: 0 !important;
+    margin: 0 -24px;
+    .slick-slide{
+      padding: 0 24px 24px;
+    }
+    .slick-dots li button:before{
+      font-size: 12px;
+      color: #fff;
+      opacity: 1;
+    }
+    .slick-dots li.slick-active button:before{
+      color: $mnColor2
     }
   }
+
   .onBoarding{
     background-color: $bgColor1;
   }
   .onBoarding__video{
-    width: 100%;
-    margin: -40px auto 30px;
+   /* width: 100%;
+    margin: -40px auto 30px;*/
+    margin: -5vh auto 3.75vh;
     padding-top: 10%;
     display: block;
+  }
+  .onBoarding__video_step1{
+    height: 50vh;
+  }
+  .onBoarding__video_step2{
+    height: 38.375vh;
   }
   .slide-details{
     display: flex;

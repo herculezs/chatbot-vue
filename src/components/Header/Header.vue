@@ -18,10 +18,15 @@
 
 <style lang="scss">
   .header{
-    padding: 24px;
+    /*padding: 24px;*/
+    padding: 3vh;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
+  }
+  .header__logo{
+    width: 7vh;
+    height: 7vh;
   }
 </style>
