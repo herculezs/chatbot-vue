@@ -85,3 +85,16 @@
   letter-spacing: 0;
   line-height: 24px;
 }
+.link{
+  color: $lnkColo1;
+  font-family: $defaultFont;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: 24px;
+  text-decoration: none;
+  &:hover, &:focus{
+    color: $lnkColo1;
+    text-decoration: none;
+
+  }
+}

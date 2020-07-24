@@ -10,7 +10,7 @@
   }
   .vti__input{
     font-size: 16px;
-    padding: 24px 10px 23px 52px;
+    padding: 19px 10px 19px 52px;
     font-family: $defaultFont;
     border-radius: $formInputBorderRadius;
     color: $formInputColor;
@@ -124,6 +124,12 @@
   &:last-child{
     margin-bottom: 0;
   }
+}
+.form-group_link{
+  margin-top: -8px;
+}
+.form-group_submit{
+  margin-top: 32px;
 }
 
 .form__input-copy{

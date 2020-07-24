@@ -1,21 +1,23 @@
 <template>
-  <div class="reset-password">
-    <h1 class="h4 text-center mb-6">Reset your password</h1>
+  <div class="enter-security-code">
+    <h1 class="h4 text-center mb-3">Enter security code</h1>
+    <div class="text text-center mb-4">
+      Please check your phone for SMS with your security code
+    </div>
     <form class="form">
       <div
         class="form-group"
-        :class="{'form-group-error': $v.formData.phone.$error}"
+        :class="{'form-group-error': $v.formData.code.$error}"
       >
         <input
           class="form__input"
-          placeholder="Phone number"
-          type="password"
-          v-model="formData.phone"
+          placeholder="Enter code"
+          v-model="formData.code"
         />
-        <template v-if="$v.formData.phone.$error">
+        <template v-if="$v.formData.code.$error">
           <div
             class="form__input-error"
-            v-if="!$v.formData.phone.required"
+            v-if="!$v.formData.code.required"
           >
             Field is required
           </div>
@@ -23,8 +25,8 @@
       </div>
       <div class="form-group form-group_submit">
         <button
-          class="button button_w-100 button_theme-default button_size-m"
-          @click.prevent="resetPassword"
+          class="form button button_w-100 button_theme-default button_size-m"
+          @click.prevent="submit"
         >
           Continue
         </button>
@@ -43,19 +45,19 @@ export default {
   mixins: [validationMixin],
   validations: {
     formData: {
-      phone: {
+      code: {
         required,
       },
     },
   },
   data: () => ({
     formData: {
-      phone: null,
+      code: null,
     },
   }),
   computed: {},
   methods: {
-    resetPassword() {
+    submit() {
       this.$v.$touch();
       if (!this.$v.$invalid) console.log('some api');
     },

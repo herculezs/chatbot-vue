@@ -38,9 +38,24 @@ export default new Router({
       component: () => import('@views/CreatePassword.vue'),
     },
     {
+      path: '/create-new-password',
+      name: 'create-new-password',
+      component: () => import('@views/CreateNewPassword.vue'),
+    },
+    {
       path: '/reset-password',
       name: 'create-password',
       component: () => import('@views/ResetPassword.vue'),
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@views/Login.vue'),
+    },
+    {
+      path: '/enter-security-code',
+      name: 'enter-security-code',
+      component: () => import('@views/EnterSecurityCode.vue'),
     },
   ],
 });

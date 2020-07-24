@@ -1,6 +1,6 @@
 <template>
   <div class="reset-password">
-    <h1 class="h4 text-center mb-6">Reset your password</h1>
+    <h1 class="h4 text-center mb-6">Login</h1>
     <form class="form">
       <div
         class="form-group"
@@ -9,7 +9,6 @@
         <input
           class="form__input"
           placeholder="Phone number"
-          type="password"
           v-model="formData.phone"
         />
         <template v-if="$v.formData.phone.$error">
@@ -21,12 +20,34 @@
           </div>
         </template>
       </div>
+      <div
+        class="form-group"
+        :class="{'form-group-error': $v.formData.password.$error}"
+      >
+        <input
+          class="form__input"
+          placeholder="Password"
+          type="password"
+          v-model="formData.password"
+        />
+        <template v-if="$v.formData.password.$error">
+          <div
+            class="form__input-error"
+            v-if="!$v.formData.password.required"
+          >
+            Field is required
+          </div>
+        </template>
+      </div>
+      <div class="form-group form-group_link">
+        <a href="#" class="link">Forgot password?</a>
+      </div>
       <div class="form-group form-group_submit">
         <button
-          class="button button_w-100 button_theme-default button_size-m"
-          @click.prevent="resetPassword"
+          class="form button button_w-100 button_theme-default button_size-m"
+          @click.prevent="login"
         >
-          Continue
+          Log in
         </button>
       </div>
     </form>
@@ -46,16 +67,20 @@ export default {
       phone: {
         required,
       },
+      password: {
+        required,
+      },
     },
   },
   data: () => ({
     formData: {
       phone: null,
+      password: null,
     },
   }),
   computed: {},
   methods: {
-    resetPassword() {
+    login() {
       this.$v.$touch();
       if (!this.$v.$invalid) console.log('some api');
     },
