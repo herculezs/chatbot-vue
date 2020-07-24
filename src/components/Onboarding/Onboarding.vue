@@ -108,7 +108,8 @@
       </form>
 
       <button
-        class="button button_w-100 button_theme-default button_size-m slide-details__button"
+        class="button button_w-100 button_theme-default
+        button_size-m slide-details__button onBoarding__button"
         @click.prevent="start"
       >
         Start
@@ -215,7 +216,7 @@ export default {
 
   .onBoarding__button{
     font-size: 2vh;
-    padding: 3vh;
+    padding: 2.5vh 3.125vh;
   }
 
   .onBoarding-carousel{

@@ -34,6 +34,20 @@
         ref="pie"
         autoresize
       />
+      <div class="diagram__legend">
+        <div
+          class="diagram__legend-list"
+          :style="{'width': this.getWidthLegend}"
+        >
+          <div
+            class="diagram__legend-item"
+            v-for="(item, index) in pie.series[0].data"
+            :key="index">
+            <i class="diagram__legend-icon" :style="{'background-color': item.itemStyle.color}"></i>
+            <span class="diagram__legend-title">{{ item.name }}</span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="h5 mb-4">
@@ -120,20 +134,20 @@ export default {
       },
     },
     pie: {
-      legend: {
-        type: 'plain',
-        bottom: 10,
-        icon: 'circle',
-        itemWidth: 10,
-        itemHeight: 10,
-        itemGap: 12,
-        left: 0,
-      },
+      // legend: {
+      //   type: 'plain',
+      //   bottom: 10,
+      //   icon: 'circle',
+      //   itemWidth: 10,
+      //   itemHeight: 10,
+      //   itemGap: 12,
+      //   left: 0,
+      // },
       series: [
         {
           type: 'pie',
           radius: '70%',
-          center: ['50%', '44%'],
+          center: ['50%', '50%'],
           selectedMode: 'single',
           data: [
             {
@@ -178,7 +192,11 @@ export default {
       ],
     },
   }),
-  computed: {},
+  computed: {
+    getWidthLegend() {
+      return `${25 * this.pie.series[0].data.length}%`;
+    },
+  },
   methods: {},
 };
 </script>
@@ -233,4 +251,31 @@ export default {
     border-radius: 4px;
     margin-bottom: 30px;
   }
+
+  .diagram__legend{
+    border-top: 1px solid #e9eaf0;
+    margin: 0 -24px;
+    padding: 10px 24px ;
+    overflow: scroll;
+  }
+  .diagram__legend-list{
+    display: flex;
+    justify-content: space-between;
+  }
+  .diagram__legend-item{
+    margin-right: 10px;
+  }
+  .diagram__legend-title{
+    font-size: 12px;
+    font-family: $defaultFont;
+    color: #505D6F;
+  }
+  .diagram__legend-icon{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    margin-right: 5px;
+  }
+
 </style>

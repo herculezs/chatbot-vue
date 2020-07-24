@@ -37,16 +37,16 @@
     font-size: 16px;
     font-family: $defaultFont;
     position: absolute;
-    left: 100px;
+    left: 114px;
     font-weight: bold;
   }
   .vti__dropdown.open{
     outline: none;
   }
   .vti__dropdown{
-    width: 120px;
+    min-width: 100px;
     border-right: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 4px 0 0 4px;
   }
   .vti__selection{
     justify-content: center;
@@ -80,7 +80,7 @@
 }
 
 .form__input{
-  padding: 24px 10px 23px 24px;
+  padding: 19px 10px 19px 24px;
   width: 100%;
   border-radius: $formInputBorderRadius;
   border: 1px solid $formInputBorderColor;
