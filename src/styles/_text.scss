@@ -4,7 +4,11 @@
   font-size: 28px;
   font-weight: bold;
   letter-spacing: 0;
-  line-height: 40px;
+  line-height: 44px;
+  @media (max-height: $xsMaxHeight) {
+    font-size: 26px;
+    line-height: 30px;
+  }
 }
 
 .sub-title{
@@ -27,6 +31,11 @@
   letter-spacing: 0;
   line-height: 24px;
   margin: 0;
+  @media (max-height: $xsMaxHeight) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
 }
 
 .caption{

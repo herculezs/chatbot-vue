@@ -31,6 +31,10 @@
   letter-spacing: 0.5px;
   padding: 20px 25px;
   border-radius: 8px;
+  @media (max-height: $xsMaxHeight) {
+    padding: 15px 20px;
+  }
+
 }
 
 .button_w-100{
@@ -40,5 +44,11 @@
 .button_theme-transparent{
   background-color: transparent;
   color: $btnColor2;
+  text-transform: uppercase;
+}
+
+.button_theme-transparent-default{
+  background-color: transparent;
+  color: $btnColor1;
   text-transform: uppercase;
 }

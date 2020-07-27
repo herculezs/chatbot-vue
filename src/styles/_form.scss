@@ -15,6 +15,10 @@
     border-radius: $formInputBorderRadius;
     color: $formInputColor;
     font-weight: bold;
+    @media (max-height: $xsMaxHeight) {
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
     &::-webkit-input-placeholder {
       color: $formInputColor;
       font-weight: normal;
@@ -86,6 +90,10 @@
   border: 1px solid $formInputBorderColor;
   font-size: 16px;
   color: $formInputColor;
+  @media (max-height: $xsMaxHeight) {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
   &:focus{
     outline: none;
     border-color: #66afe9;

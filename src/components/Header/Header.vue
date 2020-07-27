@@ -13,6 +13,9 @@
         </g>
       </g>
     </svg>
+    <div class="header__link">
+      Sign in
+    </div>
   </div>
 </template>
 
@@ -24,9 +27,22 @@
     top: 0;
     left: 0;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   .header__logo{
     width: 7vh;
     height: 7vh;
+    min-width: 40px;
+    min-height: 40px;
+  }
+  .header__link{
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: $titleFont;
+    color: $txtColor1;
+    cursor: pointer;
+    font-size: 16px;
   }
 </style>

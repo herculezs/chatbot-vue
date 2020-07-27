@@ -4,7 +4,7 @@
     class="onBoarding-carousel"
     @beforeChange="changeSlide"
   >
-    <div>
+    <div class="onBoarding-carousel__slide">
       <video
         class="onBoarding__video onBoarding__video_step1"
         ref="videoRef1"
@@ -14,17 +14,18 @@
         type="video/mp4"
       >
       </video>
-      <div class="title onBoarding__title">
-        Welcome!
+      <div>
+        <button class="button button_w-100
+        button_theme-default button_size-m onBoarding-carousel__button">
+          Get starter
+        </button>
+        <button class="button
+      button_w-100 button_theme-transparent-default button_size-m">
+          Sign in
+        </button>
       </div>
-      <div class="text onBoarding__text">
-        I’m here to help you understand more about yourself and others.
-      </div>
-      <button class="button button_w-100 button_theme-default button_size-m onBoarding__button">
-        Get starter
-      </button>
     </div>
-    <div>
+    <div class="onBoarding-carousel__slide">
         <video
           class="onBoarding__video onBoarding__video_step2"
           ref="videoRef2"
@@ -34,21 +35,21 @@
           type="video/mp4"
         >
         </video>
-      <div class="title onBoarding__title">
+      <div class="title onBoarding__titl text-center mb-4">
         Questions!
       </div>
-      <div class="text mb-4 text-center">
-        First, I will ask you scenario-based questions and give you report.
+      <div class="text onBoarding__tex text-center mb-3">
+        Step 1: Answer 16 quick questions and receive your first report.
       </div>
-      <div class="text onBoarding__text">
-        Then, I will ask you to share a special link with your friends so we can
-        find out how they think you would react in certain scenarios too.
+      <div class="text onBoarding__tex text-center mb-5">
+        Step 2: Ask your contacts to answer 16 quick questions
+        about you to receive a comparative report.
       </div>
-      <button class="button button_w-100 button_theme-default button_size-m onBoarding__button">
+      <button class="button button_w-100 button_theme-default button_size-m">
         Next
       </button>
     </div>
-    <div class="slide-details">
+    <div class="onBoarding-carousel__slide">
       <div class="title onBoarding__title">
         Details
       </div>
@@ -111,12 +112,12 @@
 
       <button
         class="button button_w-100 button_theme-default
-        button_size-m slide-details__button onBoarding__button"
+        button_size-m slide-details__button"
         @click.prevent="start"
       >
         Start
       </button>
-      <div class="caption button__caption text-center">
+      <div class="caption onBoarding-carousel-button__caption text-center">
         By using our service, you consent to our Privacy
         Policy and agree to its terms which can be found on our website - 3-60.me
       </div>
@@ -215,7 +216,10 @@ export default {
     text-align: center;
   }
   .onBoarding__sub-title{
-    margin-bottom: 24px;
+    margin-bottom: 3vh;
+  }
+  .onBoarding-carousel-button__caption{
+    margin-top: 3vh;
   }
   .onBoarding__text{
     text-align: center;
@@ -225,13 +229,30 @@ export default {
     line-height: 3vh;
   }
 
-  .onBoarding__button{
-    font-size: 2vh;
-    padding: 2.5vh 3.125vh;
+  /*.onBoarding__button{*/
+  /*  font-size: 2vh;*/
+  /*  padding: 2.5vh 3.125vh;*/
+  /*}*/
+  .onBoarding-carousel__button{
+    margin-bottom: 4vh;
   }
 
   .onBoarding-carousel{
     margin: 0 -24px;
+    height: calc(100vh - 19vh); //150px
+    min-height: 450px;
+    .slick-list,
+    .slick-track,
+    .slick-slide,
+    .slick-slide > div,
+    .onBoarding-carousel__slide {
+      height: 100% !important;
+    }
+    .onBoarding-carousel__slide{
+      display: flex !important;
+      flex-direction: column;
+      justify-content: space-between;
+    }
     .slick-slide{
       padding: 0 24px 24px;
     }
@@ -251,7 +272,7 @@ export default {
   .onBoarding__video{
    /* width: 100%;
     margin: -40px auto 30px;*/
-    margin: -5vh auto 3.75vh;
+    margin: 0 auto 3.75vh;
     padding-top: 10%;
     display: block;
   }
@@ -259,12 +280,15 @@ export default {
     height: 50vh;
   }
   .onBoarding__video_step2{
-    height: 38.375vh;
+    height: 36vh;
+    @media (max-height: $xsMaxHeight) {
+      height: 28vh;
+    }
   }
-  .slide-details{
-    display: flex;
-    flex-direction: column;
-  }
+  /*.slide-details{*/
+  /*  display: flex;*/
+  /*  flex-direction: column;*/
+  /*}*/
   .slide-details__button{
     margin-top: auto;
   }
