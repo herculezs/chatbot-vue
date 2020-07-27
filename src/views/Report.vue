@@ -29,32 +29,6 @@
         </div>
       </div>
 
-      <div class="diagram">
-        <ECharts
-          :options="pie"
-          ref="pie"
-          autoresize
-        />
-        <div class="diagram__legend">
-          <div
-            class="diagram__legend-list"
-            :style="{'width': this.getWidthLegend}"
-          >
-            <div
-              class="diagram__legend-item"
-              v-for="(item, index) in pie.series[0].data"
-              :key="index">
-              <i
-                class="diagram__legend-icon"
-                :style="{'background-color': item.itemStyle.color}"
-              >
-              </i>
-              <span class="diagram__legend-title">{{ item.name }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div class="h5 mb-4">
         You think you are
       </div>
@@ -96,6 +70,32 @@
         </p>
         <Share />
       </b-modal>
+
+      <div class="diagram mb-5">
+        <ECharts
+          :options="pie"
+          ref="pie"
+          autoresize
+        />
+        <div class="diagram__legend">
+          <div
+            class="diagram__legend-list"
+            :style="{'width': this.getWidthLegend}"
+          >
+            <div
+              class="diagram__legend-item"
+              v-for="(item, index) in pie.series[0].data"
+              :key="index">
+              <i
+                class="diagram__legend-icon"
+                :style="{'background-color': item.itemStyle.color}"
+              >
+              </i>
+              <span class="diagram__legend-title">{{ item.name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <button
         v-b-modal.modal-multi-1
@@ -212,7 +212,8 @@ export default {
 
 <style lang="scss">
   .diagram{
-    margin: 0 -24px 16px;
+    margin-left: -24px;
+    margin-right: -24px;
     background-color: #fff;
     padding: 0 24px;
     position: relative;
