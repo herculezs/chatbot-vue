@@ -1,16 +1,20 @@
 <template>
   <div class="create-password">
-    <h1 class="h4 text-center mb-6">Create your password</h1>
-    <CreatePassword @submit="changePassword" />
+    <Content>
+      <h1 class="h4 text-center mb-6">Create your password</h1>
+      <CreatePassword @submit="changePassword" />
+    </Content>
   </div>
 </template>
 
 <script>
 import CreatePassword from '@components/CreatePassword/CreatePassword.vue';
+import Content from '@components/Content/Content.vue';
 
 export default {
   components: {
     CreatePassword,
+    Content,
   },
 
   computed: {},

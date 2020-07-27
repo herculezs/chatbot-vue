@@ -1,21 +1,25 @@
 <template>
   <div class="personality-type">
-    <h1 class="h5">
-      Which personality type do you think you are
-    </h1>
-    <PersonalityCarousel :slides="slides" />
-    <button class="button button_w-100 button_theme-default button_size-m">
-      Choose
-    </button>
+    <Content>
+      <h1 class="h5">
+        Which personality type do you think you are
+      </h1>
+      <PersonalityCarousel :slides="slides" />
+      <button class="button button_w-100 button_theme-default button_size-m">
+        Choose
+      </button>
+    </Content>
   </div>
 </template>
 
 <script>
 import PersonalityCarousel from '@components/PersonalityCarousel/PersonalityCarousel.vue';
+import Content from '@components/Content/Content.vue';
 
 export default {
   components: {
     PersonalityCarousel,
+    Content,
   },
   data: () => ({
     slides: [

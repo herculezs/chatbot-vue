@@ -1,41 +1,45 @@
 <template>
   <div class="questionsDrag">
-    <div class="text questionsDrag__title">
-      Please drag the answers in order of most likely to least…
-    </div>
-    <div class="questions-list">
-      <draggable v-model="dataFromServer" v-bind="dragOptions" draggable=".item">
-        <transition-group type="transition" :name="!drag ? 'flip-list' : null">
-          <div class="questions-item item" v-for="item in dataFromServer" :key="item.id">
-            <div
-              class="questions-item__content"
-            >
-              {{ item.content }}
-              <img
-                class="questions-item__icon-drag"
-                src="../assets/icon-arrow-up-down.svg"
-                alt="drag">
+    <Content>
+      <div class="text questionsDrag__title">
+        Please drag the answers in order of most likely to least…
+      </div>
+      <div class="questions-list">
+        <draggable v-model="dataFromServer" v-bind="dragOptions" draggable=".item">
+          <transition-group type="transition" :name="!drag ? 'flip-list' : null">
+            <div class="questions-item item" v-for="item in dataFromServer" :key="item.id">
+              <div
+                class="questions-item__content"
+              >
+                {{ item.content }}
+                <img
+                  class="questions-item__icon-drag"
+                  src="../assets/icon-arrow-up-down.svg"
+                  alt="drag">
+              </div>
             </div>
-          </div>
-        </transition-group>
-      </draggable>
-    </div>
-    <button
-      class="button button_w-100 button_theme-default button_size-m"
-      @click.prevent="nextStep"
-    >
-      Next
-    </button>
+          </transition-group>
+        </draggable>
+      </div>
+      <button
+        class="button button_w-100 button_theme-default button_size-m"
+        @click.prevent="nextStep"
+      >
+        Next
+      </button>
+    </Content>
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable';
+import Content from '@components/Content/Content.vue';
 
 export default {
   name: 'QuestionsDrag',
   components: {
     draggable,
+    Content,
   },
   data: () => ({
     dataFromServer: [

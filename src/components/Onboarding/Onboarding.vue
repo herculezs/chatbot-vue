@@ -80,11 +80,13 @@
         >
           <vue-tel-input
             class="form__input-tel"
+            :class="getClassByLengthCountryCode"
             v-model="formData.phone"
             defaultCountry="GB"
             placeholder="65 243 236"
             enabledCountryCode
             validCharactersOnly
+            @country-changed="countryChanged"
           >
             <template slot="arrow-icon">
               <span class="form__input-tel-arrow-icon">
@@ -148,6 +150,7 @@ export default {
       phone: null,
       name: '',
     },
+    lengthCountryCode: 2,
     carousel: {
       settings: {
         // perPage: 1,
@@ -171,12 +174,20 @@ export default {
     },
     currentPage: 0,
   }),
+  computed: {
+    getClassByLengthCountryCode() {
+      return `code-length-${this.lengthCountryCode}`;
+    },
+  },
   mounted() {
     this.$nextTick(() => {
       this.playVideo(this.currentPage);
     });
   },
   methods: {
+    countryChanged(data) {
+      this.lengthCountryCode = data.dialCode.length;
+    },
     start() {
       this.$v.$touch();
       if (!this.$v.$invalid) console.log('some api');
@@ -256,6 +267,18 @@ export default {
   }
   .slide-details__button{
     margin-top: auto;
+  }
+
+  .form__input-tel.code-length-3{
+     .vti__input{
+       padding-left: 62px;
+     }
+  }
+
+  .form__input-tel.code-length-4{
+     .vti__input{
+       padding-left: 67px;
+     }
   }
 
 </style>

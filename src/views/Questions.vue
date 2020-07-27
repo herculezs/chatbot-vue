@@ -1,54 +1,60 @@
 <template>
   <div class="questions">
-    <div class="progress-bar mb-4">
-      <div class="progress-bar__value">
-        <div class="progress-bar__current-value" :style="{'width': getPercentByStep}"></div>
-      </div>
-      <div class="progress-bar__info">
-        {{ currentStep }} / {{ allStepCount }}
-      </div>
-    </div>
-    <div class="h5 mb-3">
-      Question {{ currentStep }}
-    </div>
-    <div class="text questions__text">
-      {{ getDataByStep.question }}
-    </div>
-    <div class="h5 mb-4">
-      Select one of answers
-    </div>
-    <div class="questions-list">
-      <div class="questions-item"
-           v-for="item in getDataByStep.answers"
-           :key="item.id"
-           :class="{'active' : item.id === selectedQuestion}"
-      >
-        <div
-          class="questions-item__content"
-          @click.prevent="selectedQuestions(item)"
-        >
-          {{ item.content }}
-          <img v-if="item.id === selectedQuestion"
-               class="questions-item__icon-checked"
-               src="../assets/checkbox_fill.svg"
-               alt="checkbox">
+    <Content>
+      <div class="progress-bar mb-4">
+        <div class="progress-bar__value">
+          <div class="progress-bar__current-value" :style="{'width': getPercentByStep}"></div>
+        </div>
+        <div class="progress-bar__info">
+          {{ currentStep }} / {{ allStepCount }}
         </div>
       </div>
-    </div>
-    <button
-      class="button button_w-100 button_theme-default button_size-m"
-      v-if="selectedQuestion"
-      @click.prevent="nextStep"
-    >
-      Next
-    </button>
+      <div class="h5 mb-3">
+        Question {{ currentStep }}
+      </div>
+      <div class="text questions__text">
+        {{ getDataByStep.question }}
+      </div>
+      <div class="h5 mb-4">
+        Select one of answers
+      </div>
+      <div class="questions-list">
+        <div class="questions-item"
+             v-for="item in getDataByStep.answers"
+             :key="item.id"
+             :class="{'active' : item.id === selectedQuestion}"
+        >
+          <div
+            class="questions-item__content"
+            @click.prevent="selectedQuestions(item)"
+          >
+            {{ item.content }}
+            <img v-if="item.id === selectedQuestion"
+                 class="questions-item__icon-checked"
+                 src="../assets/checkbox_fill.svg"
+                 alt="checkbox">
+          </div>
+        </div>
+      </div>
+      <button
+        class="button button_w-100 button_theme-default button_size-m"
+        v-if="selectedQuestion"
+        @click.prevent="nextStep"
+      >
+        Next
+      </button>
+    </Content>
   </div>
 </template>
 
 <script>
+import Content from '@components/Content/Content.vue';
 
 export default {
   name: 'Questions',
+  components: {
+    Content,
+  },
   data: () => ({
     dataFromServer: [
       {
