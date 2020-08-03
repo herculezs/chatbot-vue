@@ -97,6 +97,14 @@
         </div>
       </div>
 
+      <div class="diagram mb-5">
+        <ECharts
+          :options="radar"
+          ref="radar"
+          autoresize
+        />
+      </div>
+
       <button
         v-b-modal.modal-multi-1
         class="button button_w-100 button_theme-default button_size-m">
@@ -107,6 +115,7 @@
 </template>
 
 <script>
+import 'echarts/lib/chart/radar';
 import 'echarts/lib/chart/pie';
 import 'echarts/lib/chart/map';
 import 'echarts/lib/component/legend';
@@ -141,6 +150,71 @@ export default {
           + 'always ready to explore and experience something new.\n'
           + '            Flexible and charming artists.',
       },
+    },
+    radar: {
+      tooltip: {},
+      radar: {
+        name: {
+          textStyle: {
+            color: '#838585',
+            fontSize: '12px',
+          },
+        },
+        indicator: [
+          { text: 'Characteristic' },
+          { text: 'Characteristic' },
+          { text: 'Characteristic' },
+          { text: 'Characteristic' },
+          { text: 'Characteristic' },
+          { text: 'Characteristic' },
+          { text: 'Characteristic' },
+          { text: 'Characteristic' },
+          { text: 'Characteristic' },
+          { text: 'Characteristic' },
+          { text: 'Characteristic' },
+          { text: 'Characteristic' },
+          { text: 'Characteristic' },
+          { text: 'Characteristic' },
+          { text: 'Characteristic' },
+          { text: 'Characteristic' },
+        ],
+        splitArea: {
+          areaStyle: {
+            color: '#a8dcf9',
+          },
+        },
+        axisLine: {
+          lineStyle: {
+            color: 'rgba(255, 255, 255, 1)',
+          },
+        },
+        splitLine: {
+          lineStyle: {
+            color: '#a8dcf9',
+          },
+        },
+      },
+      series: [{
+        type: 'radar',
+        data: [
+          {
+            value: [100, 8, 0.40, 80, 200],
+            name: '预算分配（Allocated Budget）',
+            areaStyle: {
+              color: 'rgba(255, 0, 0, 0.5)',
+            },
+          },
+          {
+            value: [60, 5, 0.30, 100, 150],
+            name: '实际开销（Actual Spending）',
+            areaStyle: {
+              color: 'rgba(48, 154, 240, 0.5)',
+            },
+          },
+        ],
+      }],
+
+
     },
     pie: {
       // legend: {
