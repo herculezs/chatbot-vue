@@ -19,8 +19,8 @@ export default {
 
   computed: {},
   methods: {
-    changePassword() {
-      console.log('some api');
+    changePassword(formData) {
+      this.$store.dispatch('auth/newPasswordRequest', formData);
     },
   },
 };

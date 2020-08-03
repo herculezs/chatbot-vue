@@ -64,7 +64,9 @@ export default {
   methods: {
     submit() {
       this.$v.$touch();
-      if (!this.$v.$invalid) console.log('some api');
+      if (!this.$v.$invalid) {
+        this.$api.auth.validateCode(this.formData);
+      }
     },
   },
 };

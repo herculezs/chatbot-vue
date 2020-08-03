@@ -3,6 +3,7 @@
     v-bind="carousel.settings"
     class="onBoarding-carousel"
     @beforeChange="changeSlide"
+    ref="slickCarousel"
   >
     <div class="onBoarding-carousel__slide">
       <video
@@ -14,15 +15,21 @@
         type="video/mp4"
       >
       </video>
-      <div>
-        <button class="button button_w-100
-        button_theme-default button_size-m onBoarding-carousel__button">
+      <div class="text-center">
+        <button
+          class="button button_w-100
+          button_theme-default button_size-m
+          onBoarding-carousel__button"
+          @click.prevent="gotToSlide(2)"
+        >
           Get starter
         </button>
-        <button class="button
-      button_w-100 button_theme-transparent-default button_size-m">
-          Sign in
-        </button>
+        <router-link to="/login">
+          <button class="button button_theme-transparent-default button_size-m">
+            Sign in
+          </button>
+        </router-link>
+
       </div>
     </div>
     <div class="onBoarding-carousel__slide">
@@ -45,7 +52,11 @@
         Step 2: Ask your contacts to answer 16 quick questions
         about you to receive a comparative report.
       </div>
-      <button class="button button_w-100 button_theme-default button_size-m">
+      <button
+        class="button button_w-100
+        button_theme-default button_size-m"
+        @click.prevent="gotToSlide(2)"
+      >
         Next
       </button>
     </div>
@@ -186,12 +197,17 @@ export default {
     });
   },
   methods: {
+    gotToSlide(numberSlide) {
+      this.$refs.slickCarousel.goTo(numberSlide);
+    },
     countryChanged(data) {
       this.lengthCountryCode = data.dialCode.length;
     },
     start() {
       this.$v.$touch();
-      if (!this.$v.$invalid) console.log('some api');
+      if (!this.$v.$invalid) {
+        this.$store.dispatch('auth/registerRequest');
+      }
     },
     playVideo(currentSlide, prevSlide) {
       const currentVideo = this.$refs[this.carousel.refBySlide[currentSlide]];

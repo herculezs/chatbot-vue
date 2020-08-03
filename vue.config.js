@@ -29,9 +29,9 @@ module.exports = {
   },
 
   // proxy API requests to Valet during development
-  devServer: {
-    proxy: process.env.VUE_APP_URL,
-  },
+  // devServer: {
+  //   proxy: process.env.VUE_APP_URL,
+  // },
 
   // output built static files to Laravel's public dir.
   // note the "build" script in package.json needs to be modified as well.

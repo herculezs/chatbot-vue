@@ -21,7 +21,7 @@
             </div>
             <div
               class="form__input-error"
-              v-if="!$v.formData.phone.numeric"
+              v-if="!$v.formData.phone.isPhone"
             >
               The field must contain only numbers
             </div>
@@ -47,7 +47,7 @@
           </template>
         </div>
         <div class="form-group form-group_link">
-          <a href="#" class="link">Forgot password?</a>
+          <router-link to="/reset-password" class="link">Forgot password?</router-link>
         </div>
         <div class="form-group form-group_submit">
           <button
@@ -66,7 +66,9 @@
 import { validationMixin } from 'vuelidate';
 import Content from '@components/Content/Content.vue';
 
-const { required, numeric } = require('vuelidate/lib/validators');
+const { required } = require('vuelidate/lib/validators');
+
+const isPhone = value => /^([+\d].*)?\d$/.test(value);
 
 export default {
   components: {
@@ -77,7 +79,7 @@ export default {
     formData: {
       phone: {
         required,
-        numeric,
+        isPhone,
       },
       password: {
         required,
@@ -94,7 +96,9 @@ export default {
   methods: {
     login() {
       this.$v.$touch();
-      if (!this.$v.$invalid) console.log('some api');
+      if (!this.$v.$invalid) {
+        this.$store.dispatch('auth/loginRequest', this.formData);
+      }
     },
   },
 };
