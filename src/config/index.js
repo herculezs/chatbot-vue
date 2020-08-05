@@ -5,11 +5,7 @@ const defaultConfig = {
     defaultRequest: {
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
-        'Content-Type': 'application/json',
-        Accept: '*/*',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With',
+        Accept: 'application/json',
       },
     },
   },
