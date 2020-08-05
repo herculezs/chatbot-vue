@@ -2,28 +2,18 @@ import api from '@api';
 
 const getters = {
   getProfile: state => state.profile,
+  getRegister: state => state.register,
 };
-
 
 const actions = {
   registerRequest({ commit }, data) {
-    api.auth.register(data).then((res) => {
-      commit('setProfile', res.data);
+    return api.auth.register(data).then((res) => {
+      commit('setRegister', res);
     });
   },
   loginRequest({ commit }, data) {
-    api.auth.login(data).then((res) => {
-      commit('setProfile', res.data);
-    });
-  },
-  newPasswordRequest({ commit }, data) {
-    api.auth.newPassword(data).then((res) => {
-      commit('setPassword', res.data);
-    });
-  },
-  resetPasswordRequest({ commit }, data) {
-    api.auth.resetPassword(data).then((res) => {
-      commit('setPassword', res.data);
+    return api.auth.login(data).then((res) => {
+      commit('setProfile', res);
     });
   },
 };
@@ -32,13 +22,14 @@ const mutations = {
   setProfile(state, data) {
     state.profile = data;
   },
-  setPassword(state, data) {
-    state.profile.password = data;
+  setRegister(state, data) {
+    state.register = data;
   },
 };
 
 const state = {
   profile: {},
+  register: {},
 };
 
 export default {

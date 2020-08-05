@@ -97,7 +97,9 @@ export default {
     login() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        this.$store.dispatch('auth/loginRequest', this.formData);
+        this.$store.dispatch('auth/loginRequest', this.formData).then(() => {
+          this.$router.push('questions');
+        });
       }
     },
   },

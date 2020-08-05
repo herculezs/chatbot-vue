@@ -65,7 +65,9 @@ export default {
     submit() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        this.$api.auth.validateCode(this.formData);
+        this.$api.auth.validateCode(this.formData).then(() => {
+          this.$router.push('create-new-password');
+        });
       }
     },
   },

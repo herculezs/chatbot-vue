@@ -20,7 +20,9 @@ export default {
   computed: {},
   methods: {
     changePassword(formData) {
-      this.$store.dispatch('auth/newPasswordRequest', formData);
+      this.$api.auth.newPassword(formData).then(() => {
+        this.$router.push('login');
+      });
     },
   },
 };

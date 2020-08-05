@@ -161,8 +161,8 @@ export default {
     formData: {
       phone: null,
       name: '',
+      diaCode: '',
     },
-    lengthCountryCode: 2,
     carousel: {
       settings: {
         // perPage: 1,
@@ -188,7 +188,7 @@ export default {
   }),
   computed: {
     getClassByLengthCountryCode() {
-      return `code-length-${this.lengthCountryCode}`;
+      return `code-length-${this.formData.diaCode.length}`;
     },
   },
   mounted() {
@@ -201,12 +201,24 @@ export default {
       this.$refs.slickCarousel.goTo(numberSlide);
     },
     countryChanged(data) {
-      this.lengthCountryCode = data.dialCode.length;
+      this.formData.diaCode = data.dialCode;
+    },
+    prepareDataForRequest() {
+      const phone = `+${this.formData.diaCode}${this.formData.phone}`
+        .replace(/\s/g, '');
+
+      return {
+        name: this.formData.name,
+        phone,
+      };
     },
     start() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        this.$store.dispatch('auth/registerRequest');
+        const data = this.prepareDataForRequest();
+        this.$store.dispatch('auth/registerRequest', data).then(() => {
+          this.$router.push('enter-security-code');
+        });
       }
     },
     playVideo(currentSlide, prevSlide) {

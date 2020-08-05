@@ -1,12 +1,11 @@
 import nprogress from '@utils//nprogress';
-import config from '@config';
+// import config from '@config';
 import store from '@store';
 
 const axios = require('axios').default;
 
 const http = axios.create({
   baseURL: process.env.VUE_APP_URL,
-  headers: config.http.defaultRequest.headers,
 });
 /**
  * Add a request and response interceptor
