@@ -26,6 +26,7 @@
       <input
         class="form__input"
         placeholder="Confirm password"
+        type="password"
         v-model="formData.confirm_password"
       />
       <template v-if="$v.formData.confirm_password.$error">
@@ -77,7 +78,7 @@ export default {
   methods: {
     changePassword() {
       this.$v.$touch();
-      if (!this.$v.$invalid) this.$emit('submit');
+      if (!this.$v.$invalid) this.$emit('submit', this.formData);
     },
   },
 };

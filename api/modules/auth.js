@@ -2,31 +2,28 @@ import http from '@utils/http';
 
 export default {
   register(formData) {
-    console.log('formData', formData);
-
     return new Promise((resolve, reject) => {
+      // const test = {
+      //   _id: '5f2ac71cc013f74540cb96dd',
+      //   created: 1596639004698,
+      //   updated: 1596639004698,
+      //   phone: '+380673779236',
+      //   name: 'oles',
+      //   phoneVerified: false,
+      //   passwordCreated: false,
+      //   enabled: true,
+      //   accountNonExpired: true,
+      //   authorities: null,
+      //   username: 'oles',
+      //   accountNonLocked: true,
+      //   credentialsNonExpired: true,
+      // };
+      //
+      // return resolve(test);
+
       http.post('user-auth/register', formData).then(
         ({ data }) => {
-          console.log(data);
-
-          const test = {
-            _id: '5f2ac71cc013f74540cb96dd',
-            created: 1596639004698,
-            updated: 1596639004698,
-            phone: '+380673779236',
-            name: 'oles',
-            phoneVerified: false,
-            passwordCreated: false,
-            enabled: true,
-            accountNonExpired: true,
-            authorities: null,
-            username: 'oles',
-            accountNonLocked: true,
-            credentialsNonExpired: true,
-          };
-
-
-          resolve(test);
+          resolve(data);
         },
       ).catch((error) => {
         reject(error);
@@ -44,9 +41,9 @@ export default {
       });
     });
   },
-  validateCode(formData) {
+  validateCode(formData, id) {
     return new Promise((resolve, reject) => {
-      http.post('user-auth', formData).then(
+      http.post(`user-auth/${id}/validate-code`, formData).then(
         ({ data }) => {
           resolve(data);
         },
@@ -66,9 +63,9 @@ export default {
       });
     });
   },
-  newPassword(formData) {
+  newPassword(formData, id) {
     return new Promise((resolve, reject) => {
-      http.post(`/user-auth/${formData}/new-password`).then(
+      http.post(`/user-auth/${id}/new-password`, formData).then(
         ({ data }) => {
           resolve(data);
         },

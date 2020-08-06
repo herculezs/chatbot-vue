@@ -39,6 +39,7 @@
 
 <script>
 import { validationMixin } from 'vuelidate';
+import { mapGetters } from 'vuex';
 import Content from '@components/Content/Content.vue';
 
 const { required } = require('vuelidate/lib/validators');
@@ -60,12 +61,17 @@ export default {
       code: null,
     },
   }),
-  computed: {},
+  computed: {
+    ...mapGetters({
+      getRegister: 'auth/getRegister',
+    }),
+  },
   methods: {
     submit() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        this.$api.auth.validateCode(this.formData).then(() => {
+        // eslint-disable-next-line no-underscore-dangle
+        this.$api.auth.validateCode(this.formData, this.getRegister._id).then(() => {
           this.$router.push('create-new-password');
         });
       }

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Store from '../store';
 
 Vue.use(Router);
 
@@ -41,6 +42,16 @@ export default new Router({
       path: '/create-new-password',
       name: 'create-new-password',
       component: () => import('@views/CreateNewPassword.vue'),
+      beforeEnter: (to, from, next) => {
+        // eslint-disable-next-line no-underscore-dangle
+        const isRouter = Store.getters['auth/getRegister']._id;
+
+        if (!isRouter) {
+          next('/');
+        }
+
+        next();
+      },
     },
     {
       path: '/reset-password',
@@ -56,6 +67,16 @@ export default new Router({
       path: '/enter-security-code',
       name: 'enter-security-code',
       component: () => import('@views/EnterSecurityCode.vue'),
+      beforeEnter: (to, from, next) => {
+        // eslint-disable-next-line no-underscore-dangle
+        const isRouter = Store.getters['auth/getRegister']._id;
+
+        if (!isRouter) {
+          next('/');
+        }
+
+        next();
+      },
     },
   ],
 });
