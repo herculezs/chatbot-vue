@@ -93,12 +93,13 @@
           <vue-tel-input
             class="form__input-tel"
             :class="getClassByLengthCountryCode"
-            v-model="formData.phone"
             defaultCountry="GB"
             placeholder="65 243 236"
             enabledCountryCode
             validCharactersOnly
+            @input="changeTel"
             @country-changed="countryChanged"
+            v-model="formData.phone"
           >
             <template slot="arrow-icon">
               <span class="form__input-tel-arrow-icon">
@@ -197,6 +198,9 @@ export default {
     });
   },
   methods: {
+    changeTel(test, isValid) {
+      this.formData.phone = isValid.number.input;
+    },
     gotToSlide(numberSlide) {
       this.$refs.slickCarousel.goTo(numberSlide);
     },
