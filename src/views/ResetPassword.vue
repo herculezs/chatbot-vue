@@ -10,7 +10,6 @@
           <input
             class="form__input"
             placeholder="Phone number"
-            type="password"
             v-model="formData.phone"
           />
           <template v-if="$v.formData.phone.$error">

@@ -107,7 +107,13 @@ export default {
       return this.dataFromServer[this.currentStep - 1];
     },
   },
+  created() {
+    this.fetchQuestions();
+  },
   methods: {
+    fetchQuestions() {
+      this.$api.questionnaire.fetchQuestionnaire();
+    },
     selectedQuestions(question) {
       this.selectedQuestion = question.id;
     },
