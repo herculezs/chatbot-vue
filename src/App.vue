@@ -2,6 +2,7 @@
   <div class="main">
     <Header/>
     <router-view class="main__content" />
+    <notifications position="top center" :speed="500" />
   </div>
 </template>
 

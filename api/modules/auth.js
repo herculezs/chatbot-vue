@@ -1,4 +1,5 @@
 import http from '@utils/http';
+import Vue from 'vue';
 
 export default {
   register(formData) {
@@ -34,10 +35,20 @@ export default {
     return new Promise((resolve, reject) => {
       http.post('user-auth/login', formData).then(
         ({ data }) => {
+          Vue.notify({
+            type: 'success',
+            title: 'Test',
+            text: 'Hello user! This is a notification!',
+          });
           resolve(data);
         },
-      ).catch((error) => {
-        reject(error);
+      ).catch((err) => {
+        Vue.notify({
+          type: 'error',
+          title: 'Important message',
+          text: err.response.data.message,
+        });
+        reject(err);
       });
     });
   },
