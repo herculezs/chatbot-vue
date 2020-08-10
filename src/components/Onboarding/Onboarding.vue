@@ -88,7 +88,7 @@
         </div>
         <div
           class="form-group"
-          :class="{'form-group-error': $v.formData.name.$error}"
+          :class="{'form-group-error': $v.formData.phone.$error}"
         >
           <vue-tel-input
             class="form__input-tel"
@@ -198,7 +198,7 @@ export default {
     });
   },
   methods: {
-    changeTel(test, isValid) {
+    changeTel(e, isValid) {
       this.formData.phone = isValid.number.input;
     },
     gotToSlide(numberSlide) {
