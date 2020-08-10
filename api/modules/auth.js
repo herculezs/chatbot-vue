@@ -24,9 +24,19 @@ export default {
 
       http.post('user-auth/register', formData).then(
         ({ data }) => {
+          Vue.notify({
+            type: 'success',
+            title: 'Success',
+            text: 'The registration was successfully',
+          });
           resolve(data);
         },
       ).catch((error) => {
+        Vue.notify({
+          type: 'error',
+          title: error.response.data.error,
+          text: error.response.data.message,
+        });
         reject(error);
       });
     });
@@ -37,18 +47,18 @@ export default {
         ({ data }) => {
           Vue.notify({
             type: 'success',
-            title: 'Test',
-            text: 'Hello user! This is a notification!',
+            title: 'Success',
+            text: 'Hello user',
           });
           resolve(data);
         },
-      ).catch((err) => {
+      ).catch((error) => {
         Vue.notify({
           type: 'error',
-          title: 'Important message',
-          text: err.response.data.message,
+          title: error.response.data.error,
+          text: error.response.data.message,
         });
-        reject(err);
+        reject(error);
       });
     });
   },
@@ -56,9 +66,19 @@ export default {
     return new Promise((resolve, reject) => {
       http.post(`user-auth/${id}/validate-code`, formData).then(
         ({ data }) => {
+          Vue.notify({
+            type: 'success',
+            title: 'Success',
+            text: 'The validation code was successfully',
+          });
           resolve(data);
         },
       ).catch((error) => {
+        Vue.notify({
+          type: 'error',
+          title: error.response.data.error,
+          text: error.response.data.message,
+        });
         reject(error);
       });
     });
@@ -67,9 +87,19 @@ export default {
     return new Promise((resolve, reject) => {
       http.post('user-auth/reset-password', formData).then(
         ({ data }) => {
+          Vue.notify({
+            type: 'success',
+            title: 'Success',
+            text: 'The reset password was successfully',
+          });
           resolve(data);
         },
       ).catch((error) => {
+        Vue.notify({
+          type: 'error',
+          title: error.response.data.error,
+          text: error.response.data.message,
+        });
         reject(error);
       });
     });
@@ -78,9 +108,19 @@ export default {
     return new Promise((resolve, reject) => {
       http.post(`/user-auth/${id}/new-password`, formData).then(
         ({ data }) => {
+          Vue.notify({
+            type: 'success',
+            title: 'Success',
+            text: 'The new password was successfully',
+          });
           resolve(data);
         },
       ).catch((error) => {
+        Vue.notify({
+          type: 'error',
+          title: error.response.data.error,
+          text: error.response.data.message,
+        });
         reject(error);
       });
     });

@@ -137,7 +137,7 @@ export default {
   .progress-bar__value{
     width: 100%;
     height: 12px;
-    background-color: $mnColor3;
+    background-color: $progressBarAllFieldBg;
     border-radius: 6px;
   }
   .progress-bar__current-value{

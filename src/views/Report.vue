@@ -8,6 +8,8 @@
         To keep respones private (and honest), I will wait until I have recieved at
         least 4 responses, I will send you their answers and update you as I receive more.
       </div>
+
+
       <div class="diagram__title-with-respondents mb-3">
         <h3 class="h5 m-0">Report</h3>
         <div class="report__respondents">
@@ -27,6 +29,14 @@
           </svg>
           Respondents:  {{ respondentsCount }}
         </div>
+      </div>
+
+      <div class="diagram mb-5">
+        <ECharts
+          :options="radar"
+          ref="radar"
+          autoresize
+        />
       </div>
 
       <div class="h5 mb-4">
@@ -71,39 +81,31 @@
         <Share />
       </b-modal>
 
-      <div class="diagram mb-5">
-        <ECharts
-          :options="pie"
-          ref="pie"
-          autoresize
-        />
-        <div class="diagram__legend">
-          <div
-            class="diagram__legend-list"
-            :style="{'width': this.getWidthLegend}"
-          >
-            <div
-              class="diagram__legend-item"
-              v-for="(item, index) in pie.series[0].data"
-              :key="index">
-              <i
-                class="diagram__legend-icon"
-                :style="{'background-color': item.itemStyle.color}"
-              >
-              </i>
-              <span class="diagram__legend-title">{{ item.name }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="diagram mb-5">
-        <ECharts
-          :options="radar"
-          ref="radar"
-          autoresize
-        />
-      </div>
+<!--      <div class="diagram mb-5">-->
+<!--        <ECharts-->
+<!--          :options="pie"-->
+<!--          ref="pie"-->
+<!--          autoresize-->
+<!--        />-->
+<!--        <div class="diagram__legend">-->
+<!--          <div-->
+<!--            class="diagram__legend-list"-->
+<!--            :style="{'width': this.getWidthLegend}"-->
+<!--          >-->
+<!--            <div-->
+<!--              class="diagram__legend-item"-->
+<!--              v-for="(item, index) in pie.series[0].data"-->
+<!--              :key="index">-->
+<!--              <i-->
+<!--                class="diagram__legend-icon"-->
+<!--                :style="{'background-color': item.itemStyle.color}"-->
+<!--              >-->
+<!--              </i>-->
+<!--              <span class="diagram__legend-title">{{ item.name }}</span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
 
       <button
         v-b-modal.modal-multi-1
@@ -180,17 +182,17 @@ export default {
         ],
         splitArea: {
           areaStyle: {
-            color: '#a8dcf9',
+            color: '#ceb9e2',
           },
         },
         axisLine: {
           lineStyle: {
-            color: 'rgba(255, 255, 255, 1)',
+            color: '#a8dcf9',
           },
         },
         splitLine: {
           lineStyle: {
-            color: '#a8dcf9',
+            color: '#ceb9e2',
           },
         },
       },

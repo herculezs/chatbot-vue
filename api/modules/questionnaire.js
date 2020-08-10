@@ -1,4 +1,5 @@
 import http from '@utils/http';
+import Vue from 'vue';
 
 export default {
   fetchQuestionnaire() {
@@ -9,6 +10,11 @@ export default {
         },
       ).catch((error) => {
         reject(error);
+        Vue.notify({
+          type: 'error',
+          title: error.response.data.error,
+          text: error.response.data.message,
+        });
       });
     });
   },

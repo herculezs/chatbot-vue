@@ -298,9 +298,9 @@ export default {
     }
   }
 
-  .onBoarding{
+  /*.onBoarding{
     background-color: $bgColor1;
-  }
+  }*/
   .onBoarding__video{
    /* width: 100%;
     margin: -40px auto 30px;*/

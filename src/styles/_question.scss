@@ -27,7 +27,8 @@
 .questions-item__icon-checked{
   position: absolute;
   right: 24px;
-  top: 28px;
+  top: 50%;
+  margin-top: -12px;
 }
 .questions-list__title{
   margin-bottom: 24px;
