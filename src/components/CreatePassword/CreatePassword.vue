@@ -19,25 +19,7 @@
         </div>
       </template>
     </div>
-    <div
-      class="form-group"
-      :class="{'form-group-error': $v.formData.confirm_password.$error}"
-    >
-      <input
-        class="form__input"
-        placeholder="Confirm password"
-        type="password"
-        v-model="formData.confirm_password"
-      />
-      <template v-if="$v.formData.confirm_password.$error">
-        <div
-          class="form__input-error"
-          v-if="!$v.formData.confirm_password.required"
-        >
-          Field is required
-        </div>
-      </template>
-    </div>
+
     <div
       class="form-group"
       :class="{'form-group-error': $v.formData.code.$error}"
@@ -82,9 +64,6 @@ export default {
       password: {
         required,
       },
-      confirm_password: {
-        required,
-      },
       code: {
         required,
       },
@@ -93,7 +72,6 @@ export default {
   data: () => ({
     formData: {
       password: null,
-      confirm_password: null,
       code: null,
     },
   }),
