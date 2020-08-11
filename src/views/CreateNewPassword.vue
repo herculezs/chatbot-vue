@@ -25,7 +25,10 @@ export default {
   methods: {
     changePassword(formData) {
       // eslint-disable-next-line no-underscore-dangle
-      this.$api.auth.newPassword(formData, this.getProfile.id);
+      this.$store.dispatch('auth/newPassword', { formData, userId: this.getProfile.id })
+        .then(() => {
+          this.$router.push('questions');
+        });
     },
   },
 };

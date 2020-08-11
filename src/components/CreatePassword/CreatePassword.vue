@@ -79,7 +79,9 @@ export default {
   methods: {
     changePassword() {
       this.$v.$touch();
-      if (!this.$v.$invalid) this.$emit('submit', this.formData);
+      if (!this.$v.$invalid) {
+        this.$emit('submit', this.formData);
+      }
     },
   },
 };

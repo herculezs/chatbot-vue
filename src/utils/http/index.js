@@ -10,13 +10,18 @@ const http = axios.create({
 /**
  * Add a request and response interceptor
  */
+// eslint-disable-next-line consistent-return
 const beforeRequestSuccess = (configurate) => {
-  // eslint-disable-next-line
-  configurate.headers.Authorization = `Bearer ${store.getters['auth/getProfile'].token}`;
+  const { token } = store.getters['auth/getProfile'];
 
-  // store.dispatch('global/setAppLoading', true);
+  if (token) {
+    // eslint-disable-next-line
+    configurate.headers.Authorization = `Bearer ${token}`;
+  }
 
   return configurate;
+
+  // store.dispatch('global/setAppLoading', true);
 };
 
 // const beforeRequestError = (error) => {

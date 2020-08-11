@@ -15,6 +15,11 @@ const actions = {
       commit('setProfile', res);
     });
   },
+  newPassword({ commit }, data) {
+    return api.auth.newPassword(data.formData, data.userId).then((res) => {
+      commit('setProfile', res);
+    });
+  },
   logout({ commit }) {
     commit('setProfile', {});
   },
