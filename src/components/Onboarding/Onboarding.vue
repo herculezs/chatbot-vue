@@ -48,7 +48,7 @@
       <div class="text onBoarding__tex text-center mb-3">
         Step 1: Answer 16 quick questions and receive your first report.
       </div>
-      <div class="text onBoarding__tex text-center mb-5">
+      <div class="text onBoarding__tex text-center mb-3">
         Step 2: Ask your contacts to answer 16 quick questions
         about you to receive a comparative report.
       </div>

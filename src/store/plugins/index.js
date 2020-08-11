@@ -13,8 +13,7 @@ const mutations = [];
  * @type {string[]}
  */
 const paths = [
-  'auth.user',
-  'auth.permissions',
+  'auth.profile',
 ];
 
 /**

@@ -2,13 +2,12 @@ import api from '@api';
 
 const getters = {
   getProfile: state => state.profile,
-  getRegister: state => state.register,
 };
 
 const actions = {
   registerRequest({ commit }, data) {
     return api.auth.register(data).then((res) => {
-      commit('setRegister', res);
+      commit('setProfile', res);
     });
   },
   loginRequest({ commit }, data) {
@@ -16,20 +15,19 @@ const actions = {
       commit('setProfile', res);
     });
   },
+  logout({ commit }) {
+    commit('setProfile', {});
+  },
 };
 
 const mutations = {
   setProfile(state, data) {
     state.profile = data;
   },
-  setRegister(state, data) {
-    state.register = data;
-  },
 };
 
 const state = {
   profile: {},
-  register: {},
 };
 
 export default {

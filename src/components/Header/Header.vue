@@ -15,12 +15,32 @@
         </g>
       </svg>
     </router-link>
-
-    <router-link class="header__link" to="/login">
+    <router-link class="header__link" to="/login" v-if="!getProfile.token">
       Sign in
     </router-link>
+    <div class="header__link" v-else @click.prevent="logOut"> Log out</div>
   </div>
 </template>
+
+<script>
+
+import { mapGetters } from 'vuex';
+
+export default {
+  computed: {
+    ...mapGetters({
+      getProfile: 'auth/getProfile',
+    }),
+  },
+  methods: {
+    logOut() {
+      this.$store.dispatch('auth/logout');
+      this.$router.push('/');
+    },
+  },
+};
+
+</script>
 
 <style lang="scss">
   .header{

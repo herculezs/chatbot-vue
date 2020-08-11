@@ -38,6 +38,25 @@
         </div>
       </template>
     </div>
+    <div
+      class="form-group"
+      :class="{'form-group-error': $v.formData.code.$error}"
+    >
+      <input
+        class="form__input"
+        placeholder="Confirm password"
+        type="password"
+        v-model="formData.code"
+      />
+      <template v-if="$v.formData.code.$error">
+        <div
+          class="form__input-error"
+          v-if="!$v.formData.code.required"
+        >
+          Field is required
+        </div>
+      </template>
+    </div>
     <div class="form-group form-group_submit">
       <button
         class="button button_w-100 button_theme-default button_size-m"
@@ -66,12 +85,16 @@ export default {
       confirm_password: {
         required,
       },
+      code: {
+        required,
+      },
     },
   },
   data: () => ({
     formData: {
       password: null,
       confirm_password: null,
+      code: null,
     },
   }),
   computed: {},

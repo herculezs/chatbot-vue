@@ -19,15 +19,13 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getRegister: 'auth/getRegister',
+      getProfile: 'auth/getProfile',
     }),
   },
   methods: {
     changePassword(formData) {
       // eslint-disable-next-line no-underscore-dangle
-      this.$api.auth.newPassword(formData, this.getRegister._id).then(() => {
-        this.$router.push('login');
-      });
+      this.$api.auth.newPassword(formData, this.getProfile.id);
     },
   },
 };

@@ -136,7 +136,7 @@ export default {
         .replace(/\s/g, '');
 
       return {
-        name: this.formData.name,
+        password: this.formData.password,
         phone,
       };
     },

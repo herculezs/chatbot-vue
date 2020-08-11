@@ -12,24 +12,24 @@
       <div class="h5 mb-3">
         Question {{ currentStep }}
       </div>
-      <div class="text questions__text">
-        {{ getDataByStep.question }}
+      <div class="text questions__text" v-if="getDataByStep">
+        {{ getDataByStep.text }}
       </div>
       <div class="h5 mb-4">
         Select one of answers
       </div>
-      <div class="questions-list">
+      <div class="questions-list" v-if="getDataByStep">
         <div class="questions-item"
-             v-for="item in getDataByStep.answers"
-             :key="item.id"
-             :class="{'active' : item.id === selectedQuestion}"
+             v-for="(item, index) in getDataByStep.answers"
+             :key="index"
+             :class="{'active' : item === selectedQuestion}"
         >
           <div
             class="questions-item__content"
             @click.prevent="selectedQuestions(item)"
           >
-            {{ item.content }}
-            <img v-if="item.id === selectedQuestion"
+            {{ item.text }}
+            <img v-if="item === selectedQuestion"
                  class="questions-item__icon-checked"
                  src="../assets/checkbox_fill.svg"
                  alt="checkbox">
@@ -95,8 +95,9 @@ export default {
         ],
       },
     ],
+    questions: null,
     currentStep: 1,
-    allStepCount: 2,
+    allStepCount: 1,
     selectedQuestion: null,
   }),
   computed: {
@@ -104,7 +105,9 @@ export default {
       return `${this.currentStep * 100 / this.allStepCount}%`;
     },
     getDataByStep() {
-      return this.dataFromServer[this.currentStep - 1];
+      if (!this.questions) return null;
+
+      return this.questions[this.currentStep - 1];
     },
   },
   created() {
@@ -112,10 +115,17 @@ export default {
   },
   methods: {
     fetchQuestions() {
-      this.$api.questionnaire.fetchQuestionnaire();
+      this.$api.questionnaire.fetchQuestionnaire()
+        .then((data) => {
+          this.questions = data.questionList;
+          this.setLengthStep(data.questionList);
+        });
+    },
+    setLengthStep(data) {
+      this.allStepCount = data.length;
     },
     selectedQuestions(question) {
-      this.selectedQuestion = question.id;
+      this.selectedQuestion = question;
     },
     setStep(step) {
       this.currentStep = step;

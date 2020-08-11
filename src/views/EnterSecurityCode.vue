@@ -63,7 +63,7 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      getRegister: 'auth/getRegister',
+      getProfile: 'auth/getProfile',
     }),
   },
   methods: {
@@ -71,7 +71,7 @@ export default {
       this.$v.$touch();
       if (!this.$v.$invalid) {
         // eslint-disable-next-line no-underscore-dangle
-        this.$api.auth.validateCode(this.formData, this.getRegister._id).then(() => {
+        this.$api.auth.validateCode(this.formData, this.getProfile.id).then(() => {
           this.$router.push('create-new-password');
         });
       }
