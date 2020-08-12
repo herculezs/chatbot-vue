@@ -62,7 +62,9 @@ export default {
     resetPassword() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        this.$api.auth.resetPassword(this.formData);
+        this.$store.dispatch('auth/resetPasswordRequest', this.formData).then(() => {
+          this.$router.push('enter-security-code');
+        });
       }
     },
   },
