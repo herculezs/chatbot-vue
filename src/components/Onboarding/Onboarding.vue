@@ -2,19 +2,11 @@
   <VueSlickCarousel
     v-bind="carousel.settings"
     class="onBoarding-carousel"
-    @beforeChange="changeSlide"
     ref="slickCarousel"
   >
     <div class="onBoarding-carousel__slide">
-      <video
-        class="onBoarding__video onBoarding__video_step1"
-        ref="videoRef1"
-        src="../../assets/step1_animation.mp4"
-        loop
-        muted="muted"
-        type="video/mp4"
-      >
-      </video>
+      <img class="onBoarding__video onBoarding__video_step1"
+           src="../../assets/step_1.gif" alt="video">
       <div class="text-center">
         <button
           class="button button_w-100
@@ -33,15 +25,8 @@
       </div>
     </div>
     <div class="onBoarding-carousel__slide">
-        <video
-          class="onBoarding__video onBoarding__video_step2"
-          ref="videoRef2"
-          src="../../assets/step2_animation.mp4"
-          loop
-          muted="muted"
-          type="video/mp4"
-        >
-        </video>
+      <img class="onBoarding__video onBoarding__video_step2"
+           src="../../assets/step_2.gif" alt="video">
       <div class="title onBoarding__titl text-center mb-4">
         Questions!
       </div>
@@ -192,11 +177,6 @@ export default {
       return `code-length-${this.formData.diaCode.length}`;
     },
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.playVideo(this.currentPage);
-    });
-  },
   methods: {
     changeTel(e, isValid) {
       this.formData.phone = isValid.number.input;
@@ -224,17 +204,6 @@ export default {
           this.$router.push('enter-security-code');
         });
       }
-    },
-    playVideo(currentSlide, prevSlide) {
-      const currentVideo = this.$refs[this.carousel.refBySlide[currentSlide]];
-      const prevVideo = this.$refs[this.carousel.refBySlide[prevSlide]];
-
-      if (currentVideo) currentVideo.play();
-      if (prevVideo) prevVideo.pause();
-    },
-    changeSlide(prevSlide, nextSlide) {
-      this.playVideo(nextSlide, this.currentPage);
-      this.currentPage = nextSlide;
     },
   },
 };
@@ -298,9 +267,9 @@ export default {
     }
   }
 
-  /*.onBoarding{
+  .onBoarding{
     background-color: $bgColor1;
-  }*/
+  }
   .onBoarding__video{
    /* width: 100%;
     margin: -40px auto 30px;*/
