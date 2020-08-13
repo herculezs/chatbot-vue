@@ -16,7 +16,7 @@ export default {
       ).catch((error) => {
         Vue.notify({
           type: 'error',
-          title: error.response.data.error,
+          title: 'error',
           text: error.response.data.message,
         });
         reject(error);
@@ -37,7 +37,7 @@ export default {
       ).catch((error) => {
         Vue.notify({
           type: 'error',
-          title: error.response.data.error,
+          title: 'error',
           text: error.response.data.message,
         });
         reject(error);
@@ -58,7 +58,7 @@ export default {
       ).catch((error) => {
         Vue.notify({
           type: 'error',
-          title: error.response.data.error,
+          title: 'error',
           text: error.response.data.message,
         });
         reject(error);
@@ -79,7 +79,7 @@ export default {
       ).catch((error) => {
         Vue.notify({
           type: 'error',
-          title: error.response.data.error,
+          title: 'error',
           text: error.response.data.message,
         });
         reject(error);
@@ -100,7 +100,7 @@ export default {
       ).catch((error) => {
         Vue.notify({
           type: 'error',
-          title: error.response.data.error,
+          title: 'error',
           text: error.response.data.message,
         });
         reject(error);
