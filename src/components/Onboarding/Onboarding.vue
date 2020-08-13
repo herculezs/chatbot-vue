@@ -12,9 +12,9 @@
           class="button button_w-100
           button_theme-default button_size-m
           onBoarding-carousel__button"
-          @click.prevent="gotToSlide(2)"
+          @click.prevent="gotToSlide(1)"
         >
-          Get starter
+          Get started
         </button>
         <router-link to="/login">
           <button class="button button_theme-transparent-default button_size-m">
@@ -71,36 +71,13 @@
             </div>
           </template>
         </div>
-        <div
-          class="form-group"
-          :class="{'form-group-error': $v.formData.phone.$error}"
-        >
-          <vue-tel-input
-            class="form__input-tel"
-            :class="getClassByLengthCountryCode"
-            defaultCountry="GB"
-            placeholder="65 243 236"
-            enabledCountryCode
-            validCharactersOnly
-            @input="changeTel"
-            @country-changed="countryChanged"
-            v-model="formData.phone"
-          >
-            <template slot="arrow-icon">
-              <span class="form__input-tel-arrow-icon">
-                ⌄
-              </span>
-            </template>
-          </vue-tel-input>
-          <template v-if="$v.formData.phone.$error">
-            <div
-              class="form__input-error"
-              v-if="!$v.formData.phone.required"
-            >
-              Field is required
-            </div>
-          </template>
-        </div>
+        <TelInput
+          v-model="formData.phone"
+          :diaCode="formData.diaCode"
+          :validPhone="$v.formData.phone"
+          @onDiaCode="countryChanged"
+        />
+
         <div class="caption text-center">
           We need your phone number so we
           can notify you of the results. We won’t contact you otherwise.
@@ -125,12 +102,14 @@
 <script>
 import VueSlickCarousel from 'vue-slick-carousel';
 import { validationMixin } from 'vuelidate';
+import TelInput from '@components/InputTel/TelInput.vue';
 
 const { required } = require('vuelidate/lib/validators');
 
 export default {
   components: {
     VueSlickCarousel,
+    TelInput,
   },
   mixins: [validationMixin],
   validations: {
@@ -178,9 +157,6 @@ export default {
     },
   },
   methods: {
-    changeTel(e, isValid) {
-      this.formData.phone = isValid.number.input;
-    },
     gotToSlide(numberSlide) {
       this.$refs.slickCarousel.goTo(numberSlide);
     },
@@ -292,18 +268,6 @@ export default {
   /*}*/
   .slide-details__button{
     margin-top: auto;
-  }
-
-  .form__input-tel.code-length-3{
-     .vti__input{
-       padding-left: 62px;
-     }
-  }
-
-  .form__input-tel.code-length-4{
-     .vti__input{
-       padding-left: 67px;
-     }
   }
 
 </style>

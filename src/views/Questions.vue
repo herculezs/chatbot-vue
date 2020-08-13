@@ -39,6 +39,7 @@
       <button
         class="button button_w-100 button_theme-default button_size-m"
         v-if="selectedQuestion"
+        :disabled="!selectedQuestion"
         @click.prevent="nextStep"
       >
         Next
@@ -56,45 +57,6 @@ export default {
     Content,
   },
   data: () => ({
-    dataFromServer: [
-      {
-        question: 'You are out with friends and the conversation upsets one of the group. Do you:',
-        answers: [
-          {
-            id: 1,
-            content: 'Tell them to pull themselves together',
-          },
-          {
-            id: 2,
-            content: 'Find out what the issue is and buy them a drink',
-
-          },
-          {
-            id: 3,
-            content: 'Take them on the side, '
-              + 'find out what’s wrong and listen to them as long as it takes',
-          },
-        ],
-      },
-      {
-        question: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Do you:',
-        answers: [
-          {
-            id: 1,
-            content: 'Donec nec justo eget felis facilisis fermentum',
-          },
-          {
-            id: 2,
-            content: 'Donec consectetuer ligula vulputate sem tristique',
-
-          },
-          {
-            id: 3,
-            content: 'Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae',
-          },
-        ],
-      },
-    ],
     questions: null,
     currentStep: 1,
     allStepCount: 1,
@@ -132,7 +94,11 @@ export default {
     },
     nextStep() {
       const nextStep = this.currentStep + 1;
-      if (nextStep <= this.allStepCount) this.setStep(this.currentStep + 1);
+      if (!this.selectedQuestion) return;
+      if (nextStep <= this.allStepCount) {
+        this.selectedQuestion = null;
+        this.setStep(this.currentStep + 1);
+      }
     },
   },
 };
