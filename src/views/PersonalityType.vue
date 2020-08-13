@@ -5,7 +5,10 @@
         Which personality type do you think you are
       </h1>
       <PersonalityCarousel :slides="slides" />
-      <button class="button button_w-100 button_theme-default button_size-m">
+      <button
+        @click.prevent="choose"
+        class="button button_w-100 button_theme-default button_size-m"
+      >
         Choose
       </button>
     </Content>
@@ -49,6 +52,10 @@ export default {
       },
     ],
   }),
-  methods: {},
+  methods: {
+    choose() {
+      this.$router.push('report');
+    },
+  },
 };
 </script>

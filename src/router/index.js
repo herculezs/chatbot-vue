@@ -17,21 +17,61 @@ export default new Router({
       path: '/questions',
       name: 'Questions',
       component: () => import('@views/Questions.vue'),
+      // beforeEnter: (to, from, next) => {
+      //   // eslint-disable-next-line no-underscore-dangle
+      //   const userAuth = Store.getters['auth/getProfile'].token;
+      //
+      //   if (!userAuth) {
+      //     next('/');
+      //   }
+      //
+      //   next();
+      // },
     },
     {
       path: '/questionsdrag',
       name: 'QuestionsDragTest',
       component: () => import('@views/QuestionsDragTest.vue'),
+      // beforeEnter: (to, from, next) => {
+      //   // eslint-disable-next-line no-underscore-dangle
+      //   const userAuth = Store.getters['auth/getProfile'].token;
+      //
+      //   if (!userAuth) {
+      //     next('/');
+      //   }
+      //
+      //   next();
+      // },
     },
     {
       path: '/report',
       name: 'report',
       component: () => import('@views/Report.vue'),
+      // beforeEnter: (to, from, next) => {
+      //   // eslint-disable-next-line no-underscore-dangle
+      //   const userAuth = Store.getters['auth/getProfile'].token;
+      //
+      //   if (!userAuth) {
+      //     next('/');
+      //   }
+      //
+      //   next();
+      // },
     },
     {
       path: '/personality-type',
       name: 'personality-type',
       component: () => import('@views/PersonalityType.vue'),
+      // beforeEnter: (to, from, next) => {
+      //   // eslint-disable-next-line no-underscore-dangle
+      //   const userAuth = Store.getters['auth/getProfile'].token;
+      //
+      //   if (!userAuth) {
+      //     next('/');
+      //   }
+      //
+      //   next();
+      // },
     },
     {
       path: '/create-password',
@@ -42,16 +82,6 @@ export default new Router({
       path: '/create-new-password',
       name: 'create-new-password',
       component: () => import('@views/CreateNewPassword.vue'),
-      // beforeEnter: (to, from, next) => {
-      //   // eslint-disable-next-line no-underscore-dangle
-      //   const isRouter = Store.getters['auth/getProfile'].id;
-      //
-      //   if (!isRouter) {
-      //     next('/');
-      //   }
-      //
-      //   next();
-      // },
     },
     {
       path: '/reset-password',
@@ -62,21 +92,21 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: () => import('@views/Login.vue'),
+      // beforeEnter: (to, from, next) => {
+      //   // eslint-disable-next-line no-underscore-dangle
+      //   const userAuth = Store.getters['auth/getProfile'].token;
+      //
+      //   if (userAuth) {
+      //     next('/questions');
+      //   }
+      //
+      //   next();
+      // },
     },
     {
       path: '/enter-security-code',
       name: 'enter-security-code',
       component: () => import('@views/EnterSecurityCode.vue'),
-      // beforeEnter: (to, from, next) => {
-      //   // eslint-disable-next-line no-underscore-dangle
-      //   const isRouter = Store.getters['auth/getProfile'].id;
-      //
-      //   if (!isRouter) {
-      //     next('/');
-      //   }
-      //
-      //   next();
-      // },
     },
   ],
 });

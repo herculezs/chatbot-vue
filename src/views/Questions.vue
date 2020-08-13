@@ -95,9 +95,12 @@ export default {
     nextStep() {
       const nextStep = this.currentStep + 1;
       if (!this.selectedQuestion) return;
+
       if (nextStep <= this.allStepCount) {
         this.selectedQuestion = null;
         this.setStep(this.currentStep + 1);
+      } else {
+        this.$router.push('personality-type');
       }
     },
   },
