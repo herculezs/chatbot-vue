@@ -4,7 +4,7 @@
       <h1 class="h5">
         Which personality type do you think you are
       </h1>
-      <PersonalityCarousel :slides="slides" />
+      <PersonalityCarousel :slides="slides" @change="changeSlide" />
       <button
         @click.prevent="choose"
         class="button button_w-100 button_theme-default button_size-m"
@@ -33,28 +33,41 @@ export default {
         desc: 'Flexible and charming artists,\n'
           + '            always ready to explore and experience something new.',
         bgColor: 'bg-3',
+        tag: 'ISFJ',
       },
       {
         id: 2,
         src: '/img/defender.svg',
-        title: 'Defender2',
+        title: 'Adventurer',
         desc: 'Flexible and charming artists,\n'
           + '            always ready to explore and experience something new.',
         bgColor: 'bg-5',
+        tag: 'ISFP',
       },
       {
         id: 3,
         src: '/img/defender.svg',
-        title: 'Defender3',
+        title: 'Logistician',
         desc: 'Flexible and charming artists,\n'
           + '            always ready to explore and experience something new.',
         bgColor: 'bg-4',
+        tag: 'ISTJ',
       },
     ],
+    currentSlide: 1,
   }),
   methods: {
     choose() {
-      this.$router.push('report');
+      const formData = {
+        selfPersonalityType: this.slides[this.currentSlide].tag,
+      };
+
+      this.$api.personalityTypeReport.setPersonalityType(formData).then(() => {
+        this.$router.push('report');
+      });
+    },
+    changeSlide(numberSlide) {
+      this.currentSlide = numberSlide;
     },
   },
 };

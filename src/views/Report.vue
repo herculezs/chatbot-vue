@@ -74,11 +74,11 @@
           Send this link to as many people as you like.
           Remember the wisdom of crowd; the more people you send it to the wiser the result!
         </p>
-        <InputCopy class="mb-4" />
+        <InputCopy v-model="shareLink" class="mb-4" />
         <p class="text mb-5">
           or you can share on your social networks
         </p>
-        <Share />
+      <Share />
       </b-modal>
       <button
         v-b-modal.modal-multi-1
@@ -111,6 +111,7 @@ export default {
   name: 'Report',
   data: () => ({
     respondentsCount: 6,
+    shareLink: null,
     cardData: {
       debator: {
         title: 'Debator',
@@ -155,17 +156,17 @@ export default {
         ],
         splitArea: {
           areaStyle: {
-            color: '#ceb9e2',
+            color: '#d2aeed',
           },
         },
         axisLine: {
           lineStyle: {
-            color: '#a8dcf9',
+            color: '#dac9e6',
           },
         },
         splitLine: {
           lineStyle: {
-            color: '#ceb9e2',
+            color: '#d2aeed',
           },
         },
       },
@@ -173,10 +174,11 @@ export default {
         type: 'radar',
         data: [
           {
-            value: [0, 0, 0, 4, 2, 0, 0, 0, 4, 2, 0, 0, 4, 2, 4, 2],
+            value: [],
             areaStyle: {
               color: 'rgba(255, 0, 0, 0.5)',
             },
+            symbol: 'none',
           },
         ],
       }],
@@ -194,6 +196,7 @@ export default {
     fetchPersonalityTypeReport() {
       this.$api.personalityTypeReport.fetchPersonalityTypeReport().then((res) => {
         this.radar.series[0].data[0].value = Object.values(res.self);
+        this.shareLink = `${process.env.VUE_APP_URL}${res.invitationLink.substr(1)}`;
       });
     },
   },

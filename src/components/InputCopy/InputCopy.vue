@@ -1,9 +1,9 @@
 <template>
   <div class="form__input-copy">
     <input
-      class="form__input"
-      placeholder="Your name"
-      v-model="inputData"
+      class="form__input form__input-copy"
+      placeholder="Link"
+      v-model="getValue"
     />
     <button class="form__button-copy" @click.prevent="copyInputData">
       <svg width="24px" height="24px" viewBox="0 0 24 24"
@@ -34,17 +34,33 @@
 
 <script>
 export default {
-  data: () => ({
-    inputData: null,
-  }),
+  props: {
+    value: {
+      type: String,
+    },
+  },
+  computed: {
+    getValue: {
+      get() {
+        return this.value;
+      },
+      set(newValue) {
+        this.$emit('input', newValue);
+      },
+    },
+  },
   methods: {
     copyInputData() {
-      navigator.clipboard.writeText(this.inputData);
+      navigator.clipboard.writeText(this.value);
     },
   },
 };
 </script>
 
-<style>
-
+<style lang="scss">
+  .form__input-copy{
+    .form__input{
+      padding-right: 83px;
+    }
+  }
 </style>
