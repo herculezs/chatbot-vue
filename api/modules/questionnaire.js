@@ -1,20 +1,28 @@
 import http from '@utils/http';
-import Vue from 'vue';
+import notifyError from '@helpers';
 
 export default {
   fetchQuestionnaire() {
     return new Promise((resolve, reject) => {
-      http.get('questionnaire').then(
+      http.get('questionnaire/PERSONALITY_TEST').then(
         ({ data }) => {
           resolve(data);
         },
       ).catch((error) => {
+        notifyError(error);
         reject(error);
-        Vue.notify({
-          type: 'error',
-          title: error.response.data.error,
-          text: error.response.data.message,
-        });
+      });
+    });
+  },
+  saveAnswer(formData) {
+    return new Promise((resolve, reject) => {
+      http.post('questionnaire/PERSONALITY_TEST', formData).then(
+        ({ data }) => {
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
       });
     });
   },

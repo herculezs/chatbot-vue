@@ -18,18 +18,19 @@
       <div class="h5 mb-4">
         Select one of answers
       </div>
+      <!-- TODO REMOVE INDEX WHEN {BE} ADDED ID TO ANSWER -->
       <div class="questions-list" v-if="getDataByStep">
         <div class="questions-item"
              v-for="(item, index) in getDataByStep.answers"
              :key="index"
-             :class="{'active' : item === selectedQuestion}"
+             :class="{'active' : 1+index === selectedAnswer}"
         >
           <div
             class="questions-item__content"
-            @click.prevent="selectedQuestions(item)"
+            @click.prevent="selectedAnswers(index+1)"
           >
             {{ item.text }}
-            <img v-if="item === selectedQuestion"
+            <img v-if="1+index === selectedAnswer"
                  class="questions-item__icon-checked"
                  src="../assets/checkbox_fill.svg"
                  alt="checkbox">
@@ -38,8 +39,8 @@
       </div>
       <button
         class="button button_w-100 button_theme-default button_size-m"
-        v-if="selectedQuestion"
-        :disabled="!selectedQuestion"
+        v-if="selectedAnswer"
+        :disabled="!selectedAnswer"
         @click.prevent="nextStep"
       >
         Next
@@ -60,7 +61,8 @@ export default {
     questions: null,
     currentStep: 1,
     allStepCount: 1,
-    selectedQuestion: null,
+    selectedAnswer: null,
+    formData: {},
   }),
   computed: {
     getPercentByStep() {
@@ -86,21 +88,31 @@ export default {
     setLengthStep(data) {
       this.allStepCount = data.length;
     },
-    selectedQuestions(question) {
-      this.selectedQuestion = question;
+    selectedAnswers(question) {
+      this.selectedAnswer = question;
     },
     setStep(step) {
       this.currentStep = step;
     },
+    setAnswer(questionId) {
+      this.formData[this.getDataByStep.qid] = questionId;
+    },
     nextStep() {
       const nextStep = this.currentStep + 1;
-      if (!this.selectedQuestion) return;
+
+      if (!this.selectedAnswer) return;
 
       if (nextStep <= this.allStepCount) {
-        this.selectedQuestion = null;
+        this.setAnswer(this.selectedAnswer);
+        this.selectedAnswer = null;
         this.setStep(this.currentStep + 1);
       } else {
-        this.$router.push('personality-type');
+        this.setAnswer(this.selectedAnswer);
+        this.selectedAnswer = null;
+
+        this.$api.questionnaire.saveAnswer(this.formData).then(() => {
+          this.$router.push('personality-type');
+        });
       }
     },
   },

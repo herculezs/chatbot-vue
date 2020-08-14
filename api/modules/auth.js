@@ -1,5 +1,6 @@
 import http from '@utils/http';
 import Vue from 'vue';
+import notifyError from '@helpers';
 
 export default {
   register(formData) {
@@ -14,11 +15,7 @@ export default {
           resolve(data);
         },
       ).catch((error) => {
-        Vue.notify({
-          type: 'error',
-          title: 'error',
-          text: error.response.data.message,
-        });
+        notifyError(error);
         reject(error);
       });
     });
@@ -35,11 +32,7 @@ export default {
           resolve(data);
         },
       ).catch((error) => {
-        Vue.notify({
-          type: 'error',
-          title: 'error',
-          text: error.response.data.message,
-        });
+        notifyError(error);
         reject(error);
       });
     });
@@ -56,11 +49,7 @@ export default {
           resolve(data);
         },
       ).catch((error) => {
-        Vue.notify({
-          type: 'error',
-          title: 'error',
-          text: error.response.data.message,
-        });
+        notifyError(error);
         reject(error);
       });
     });
@@ -77,11 +66,7 @@ export default {
           resolve(data);
         },
       ).catch((error) => {
-        Vue.notify({
-          type: 'error',
-          title: 'error',
-          text: error.response.data.message,
-        });
+        notifyError(error);
         reject(error);
       });
     });
@@ -98,11 +83,7 @@ export default {
           resolve(data);
         },
       ).catch((error) => {
-        Vue.notify({
-          type: 'error',
-          title: 'error',
-          text: error.response.data.message,
-        });
+        notifyError(error);
         reject(error);
       });
     });

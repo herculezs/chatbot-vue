@@ -80,33 +80,6 @@
         </p>
         <Share />
       </b-modal>
-
-<!--      <div class="diagram mb-5">-->
-<!--        <ECharts-->
-<!--          :options="pie"-->
-<!--          ref="pie"-->
-<!--          autoresize-->
-<!--        />-->
-<!--        <div class="diagram__legend">-->
-<!--          <div-->
-<!--            class="diagram__legend-list"-->
-<!--            :style="{'width': this.getWidthLegend}"-->
-<!--          >-->
-<!--            <div-->
-<!--              class="diagram__legend-item"-->
-<!--              v-for="(item, index) in pie.series[0].data"-->
-<!--              :key="index">-->
-<!--              <i-->
-<!--                class="diagram__legend-icon"-->
-<!--                :style="{'background-color': item.itemStyle.color}"-->
-<!--              >-->
-<!--              </i>-->
-<!--              <span class="diagram__legend-title">{{ item.name }}</span>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-
       <button
         v-b-modal.modal-multi-1
         class="button button_w-100 button_theme-default button_size-m">
@@ -163,22 +136,22 @@ export default {
           },
         },
         indicator: [
-          { text: 'Characteristic' },
-          { text: 'Characteristic' },
-          { text: 'Characteristic' },
-          { text: 'Characteristic' },
-          { text: 'Characteristic' },
-          { text: 'Characteristic' },
-          { text: 'Characteristic' },
-          { text: 'Characteristic' },
-          { text: 'Characteristic' },
-          { text: 'Characteristic' },
-          { text: 'Characteristic' },
-          { text: 'Characteristic' },
-          { text: 'Characteristic' },
-          { text: 'Characteristic' },
-          { text: 'Characteristic' },
-          { text: 'Characteristic' },
+          { text: 'Empathy', max: 4 },
+          { text: 'Self-sufficience', max: 4 },
+          { text: 'Stability', max: 4 },
+          { text: 'Dominance', max: 4 },
+          { text: 'Spontaneity', max: 4 },
+          { text: 'Conformity', max: 4 },
+          { text: 'Audacity', max: 4 },
+          { text: 'Sensitivity', max: 4 },
+          { text: 'Trust', max: 4 },
+          { text: 'Originality', max: 4 },
+          { text: 'Warmth', max: 4 },
+          { text: 'Confidence', max: 4 },
+          { text: 'Logic', max: 4 },
+          { text: 'Privacy', max: 4 },
+          { text: 'Perfectionism', max: 4 },
+          { text: 'Patience', max: 4 },
         ],
         splitArea: {
           areaStyle: {
@@ -200,81 +173,13 @@ export default {
         type: 'radar',
         data: [
           {
-            value: [100, 8, 0.40, 80, 200],
-            name: '预算分配（Allocated Budget）',
+            value: [0, 0, 0, 4, 2, 0, 0, 0, 4, 2, 0, 0, 4, 2, 4, 2],
             areaStyle: {
               color: 'rgba(255, 0, 0, 0.5)',
             },
           },
-          {
-            value: [60, 5, 0.30, 100, 150],
-            name: '实际开销（Actual Spending）',
-            areaStyle: {
-              color: 'rgba(48, 154, 240, 0.5)',
-            },
-          },
         ],
       }],
-
-
-    },
-    pie: {
-      // legend: {
-      //   type: 'plain',
-      //   bottom: 10,
-      //   icon: 'circle',
-      //   itemWidth: 10,
-      //   itemHeight: 10,
-      //   itemGap: 12,
-      //   left: 0,
-      // },
-      series: [
-        {
-          type: 'pie',
-          radius: '70%',
-          center: ['50%', '50%'],
-          selectedMode: 'single',
-          data: [
-            {
-              value: 335,
-              name: 'Stability',
-              itemStyle: {
-                color: '#009AF0',
-              },
-            },
-            {
-              value: 310,
-              name: 'Privacy',
-              itemStyle: {
-                color: '#16F8DA',
-              },
-            },
-            {
-              value: 274,
-              name: 'Logic',
-              itemStyle: {
-                color: '#506977',
-              },
-            },
-            {
-              value: 150,
-              name: 'Patience',
-              itemStyle: {
-                color: '#5F23FD',
-              },
-            },
-            {
-              value: 500,
-              name: 'Yellow',
-              itemStyle: {
-                color: '#F5D30A',
-              },
-            },
-          ].sort((a, b) => a.value - b.value),
-          roseType: 'radius',
-          label: false,
-        },
-      ],
     },
   }),
   computed: {
@@ -282,7 +187,16 @@ export default {
       return `${25 * this.pie.series[0].data.length}%`;
     },
   },
-  methods: {},
+  created() {
+    this.fetchPersonalityTypeReport();
+  },
+  methods: {
+    fetchPersonalityTypeReport() {
+      this.$api.personalityTypeReport.fetchPersonalityTypeReport().then((res) => {
+        this.radar.series[0].data[0].value = Object.values(res.self);
+      });
+    },
+  },
 };
 </script>
 
