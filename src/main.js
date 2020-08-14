@@ -9,6 +9,7 @@ import events from '@utils/events';
 import VueCarousel from 'vue-carousel';
 import VueTelInput from 'vue-tel-input';
 import { BootstrapVue } from 'bootstrap-vue';
+import VueSocialSharing from 'vue-social-sharing';
 
 import App from './App.vue';
 
@@ -25,6 +26,7 @@ Vue.use(Notifications);
 Vue.use(VueCarousel);
 Vue.use(VueTelInput);
 Vue.use(BootstrapVue);
+Vue.use(VueSocialSharing);
 
 window.app = new Vue({
   router,

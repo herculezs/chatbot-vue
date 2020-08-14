@@ -9,7 +9,6 @@
         least 4 responses, I will send you their answers and update you as I receive more.
       </div>
 
-
       <div class="diagram__title-with-respondents mb-3">
         <h3 class="h5 m-0">Report</h3>
         <div class="report__respondents">
@@ -75,10 +74,7 @@
           Remember the wisdom of crowd; the more people you send it to the wiser the result!
         </p>
         <InputCopy v-model="shareLink" class="mb-4" />
-        <p class="text mb-5">
-          or you can share on your social networks
-        </p>
-      <Share />
+      <!--<Share :url="shareLink" />-->
       </b-modal>
       <button
         v-b-modal.modal-multi-1
@@ -97,7 +93,6 @@ import 'echarts/lib/component/legend';
 import ECharts from 'vue-echarts';
 import Card from '@components/Card/Card.vue';
 import InputCopy from '@components/InputCopy/InputCopy.vue';
-import Share from '@components/Share/Share.vue';
 import Content from '@components/Content/Content.vue';
 
 export default {
@@ -105,7 +100,6 @@ export default {
     ECharts,
     Card,
     InputCopy,
-    Share,
     Content,
   },
   name: 'Report',

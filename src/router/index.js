@@ -8,6 +8,7 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    { path: '*', redirect: { name: 'Main' } },
     {
       path: '/',
       name: 'Main',
@@ -28,21 +29,21 @@ export default new Router({
       //   next();
       // },
     },
-    {
-      path: '/questionsdrag',
-      name: 'QuestionsDragTest',
-      component: () => import('@views/QuestionsDragTest.vue'),
-      // beforeEnter: (to, from, next) => {
-      //   // eslint-disable-next-line no-underscore-dangle
-      //   const userAuth = Store.getters['auth/getProfile'].token;
-      //
-      //   if (!userAuth) {
-      //     next('/');
-      //   }
-      //
-      //   next();
-      // },
-    },
+    // {
+    //   path: '/questionsdrag',
+    //   name: 'QuestionsDragTest',
+    //   component: () => import('@views/QuestionsDragTest.vue'),
+    //   // beforeEnter: (to, from, next) => {
+    //   //   // eslint-disable-next-line no-underscore-dangle
+    //   //   const userAuth = Store.getters['auth/getProfile'].token;
+    //   //
+    //   //   if (!userAuth) {
+    //   //     next('/');
+    //   //   }
+    //   //
+    //   //   next();
+    //   // },
+    // },
     {
       path: '/report',
       name: 'report',
