@@ -75,15 +75,31 @@ export default {
     },
   },
   created() {
-    this.fetchQuestions();
+    this.fetchData();
   },
   methods: {
+    fetchData() {
+      if (this.$route.params.id) {
+        return this.fetchInvitationQuestionnaire(this.$route.params.id);
+      }
+
+      return this.fetchQuestions();
+    },
     fetchQuestions() {
       this.$api.questionnaire.fetchQuestionnaire()
         .then((data) => {
-          this.questions = data.questionList;
-          this.setLengthStep(data.questionList);
+          this.setResponseData(data);
         });
+    },
+    fetchInvitationQuestionnaire(id) {
+      this.$api.questionnaire.fetchInvitationQuestionnaire(id)
+        .then((data) => {
+          this.setResponseData(data);
+        });
+    },
+    setResponseData(data) {
+      this.questions = data.questionList;
+      this.setLengthStep(data.questionList);
     },
     setLengthStep(data) {
       this.allStepCount = data.length;
@@ -97,22 +113,31 @@ export default {
     setAnswer(questionId) {
       this.formData[this.getDataByStep.qid] = questionId;
     },
+    saveAnswer() {
+      if (this.$route.params.id) {
+        return this.$api.questionnaire.saveInvitationAnswer(this.formData, this.$route.params.id)
+          .then(() => {
+            this.$router.push({ name: 'personality-type' });
+          });
+      }
+
+      return this.$api.questionnaire.saveAnswer(this.formData)
+        .then(() => {
+          this.$router.push({ name: 'personality-type' });
+        });
+    },
     nextStep() {
       const nextStep = this.currentStep + 1;
 
       if (!this.selectedAnswer) return;
 
+      this.setAnswer(this.selectedAnswer);
+      this.selectedAnswer = null;
+
       if (nextStep <= this.allStepCount) {
-        this.setAnswer(this.selectedAnswer);
-        this.selectedAnswer = null;
         this.setStep(this.currentStep + 1);
       } else {
-        this.setAnswer(this.selectedAnswer);
-        this.selectedAnswer = null;
-
-        this.$api.questionnaire.saveAnswer(this.formData).then(() => {
-          this.$router.push('personality-type');
-        });
+        this.saveAnswer();
       }
     },
   },

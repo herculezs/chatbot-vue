@@ -10,7 +10,7 @@
     </div>
     <img
       :src="img"
-      alt="defender"
+      :alt="title"
       class="card__title-img"
       :class="{'animation-hide-show': animations.cardShow,
      'animation-show-hide': animations.cardHide}"
@@ -19,14 +19,14 @@
 
     <b-collapse v-model="show.card">
       <div class="card-content-caption">
+        <img
+          :src="img"
+          :alt="title"
+          class="card-content-caption__img"
+        >
         <div class="h5 card-content-caption__title">
           {{ title }}
         </div>
-        <img
-          src="../../../public/img/defender.svg"
-          alt="defender"
-          class="card-content-caption__img"
-        >
       </div>
       <div class="card-info">
         <div class="card-info__text ">
@@ -178,13 +178,11 @@ export default {
     margin-bottom: 24px;
   }
   .card-content-caption__title{
-    position: absolute;
-    bottom: 0;
     width: 100%;
     text-align: center;
   }
   .card-content-caption__img{
-    width: 50%;
+    width: 70%;
     display: block;
     margin: 0 auto;
   }
