@@ -27,7 +27,7 @@ export default {
       // eslint-disable-next-line no-underscore-dangle
       this.$store.dispatch('auth/newPassword', { formData, userId: this.getProfile.id })
         .then(() => {
-          this.$router.push('questions');
+          this.$router.push('questionnaire');
         });
     },
   },

@@ -21,7 +21,7 @@ export default new Router({
         const userAuth = Store.getters['auth/getProfile'].token;
 
         if (userAuth) {
-          next('/questions');
+          next('/questionnaire');
           return;
         }
 
@@ -29,32 +29,32 @@ export default new Router({
       },
     },
     {
-      path: '/questions',
-      name: 'Questions',
+      path: '/questionnaire',
+      name: 'questionnaire',
       component: () => import('@views/Questions.vue'),
       props: { default: true },
       children: [
         {
-          path: 'invitation/:id',
+          path: 'invitation/PERSONALITY_TEST/u2/:id',
           component: () => import('@views/Questions.vue'),
         },
       ],
-      beforeEnter: (to, from, next) => {
-        // eslint-disable-next-line no-underscore-dangle
-        const userAuth = Store.getters['auth/getProfile'].token;
-        const personalityType = Store.getters['auth/getProfile'].selfPersonalityType;
-
-        if (!userAuth) {
-          next('/');
-          return;
-        }
-        if (personalityType) {
-          next('/report');
-          return;
-        }
-
-        next();
-      },
+      // beforeEnter: (to, from, next) => {
+      //   // eslint-disable-next-line no-underscore-dangle
+      //   const userAuth = Store.getters['auth/getProfile'].token;
+      //   const personalityType = Store.getters['auth/getProfile'].selfPersonalityType;
+      //
+      //   if (!userAuth) {
+      //     next('/');
+      //     return;
+      //   }
+      //   if (personalityType) {
+      //     next('/report');
+      //     return;
+      //   }
+      //
+      //   next();
+      // },
     },
     // {
     //   path: '/questionsdrag',
@@ -110,7 +110,7 @@ export default new Router({
         const userAuth = Store.getters['auth/getProfile'].token;
 
         if (userAuth) {
-          next('/questions');
+          next('/questionnaire');
           return;
         }
 
@@ -126,7 +126,7 @@ export default new Router({
         const userAuth = Store.getters['auth/getProfile'].token;
 
         if (userAuth) {
-          next('/questions');
+          next('/questionnaire');
           return;
         }
 
@@ -142,7 +142,7 @@ export default new Router({
         const userAuth = Store.getters['auth/getProfile'].token;
 
         if (userAuth) {
-          next('/questions');
+          next('/questionnaire');
           return;
         }
 
@@ -158,7 +158,7 @@ export default new Router({
         const userAuth = Store.getters['auth/getProfile'].token;
 
         if (userAuth) {
-          next('/questions');
+          next('/questionnaire');
         }
 
         next();

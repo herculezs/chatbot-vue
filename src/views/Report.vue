@@ -348,7 +348,7 @@ export default {
       this.$api.personalityTypeReport.fetchPersonalityTypeReport().then((res) => {
         this.radar.series[0].data[0].value = Object.values(res.self);
         this.tag = res.selfResult;
-        this.shareLink = `${window.location.host}/questions/invitation${res.invitationLink}`;
+        this.shareLink = `${window.location.host}${res.invitationLink}`;
       });
     },
   },
