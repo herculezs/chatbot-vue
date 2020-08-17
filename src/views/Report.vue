@@ -33,6 +33,7 @@
         You guessed you are
       </div>
       <Card
+        v-if="getCard"
         :title="getCard.title"
         :showText="getCard.showText"
         :hideText="getCard.hideText"
@@ -43,6 +44,7 @@
         Based on your answers
       </div>
       <Card
+        v-if="getCard"
         :title="getCard.title"
         :showText="getCard.showText"
         :hideText="getCard.hideText"
@@ -346,7 +348,7 @@ export default {
       this.$api.personalityTypeReport.fetchPersonalityTypeReport().then((res) => {
         this.radar.series[0].data[0].value = Object.values(res.self);
         this.tag = res.selfResult;
-        this.shareLink = `${process.env.VUE_APP_URL}${res.invitationLink.substr(1)}`;
+        this.shareLink = `${window.location.host}/questions/invitation${res.invitationLink}`;
       });
     },
   },
