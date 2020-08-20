@@ -32,11 +32,11 @@
         You guessed you are
       </div>
       <Card
-        v-if="getCard"
-        :title="getCard.title"
-        :showText="getCard.showText"
-        :hideText="getCard.hideText"
-        :img="getCard.src"
+        v-if="getGuessedCard"
+        :title="getGuessedCard.title"
+        :showText="getGuessedCard.showText"
+        :hideText="getGuessedCard.hideText"
+        :img="getGuessedCard.src"
       />
 
       <div class="h5 mb-4">
@@ -52,7 +52,7 @@
       />
 
       <div class="diagram mb-5">
-        <Radar :data="radarData" />
+        <Radar :data="radarData" :user="radarUser" />
       </div>
 
 
@@ -110,6 +110,7 @@ export default {
   name: 'Report',
   data: () => ({
     radarData: [],
+    radarUser: [],
     respondentsCount: 6,
     shareLink: null,
     tag: null,
@@ -123,6 +124,11 @@ export default {
 
       return constants.cards[this.tag];
     },
+    getGuessedCard() {
+      if (!this.tag) return null;
+
+      return constants.cards[this.getProfile.selfPersonalityType];
+    },
   },
   created() {
     this.fetchPersonalityTypeReport();
@@ -131,6 +137,7 @@ export default {
     fetchPersonalityTypeReport() {
       this.$api.personalityTypeReport.fetchPersonalityTypeReport().then((res) => {
         this.radarData = Object.values(res.self);
+        this.radarUser = Object.values(res.othersAverage);
         this.tag = res.selfResult;
         this.shareLink = `${window.location.host}${res.invitationLink}`;
       });
