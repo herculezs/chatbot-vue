@@ -149,6 +149,7 @@ export default {
 
       this.$api.personalityTypeReport.setPersonalityType(formData).then(() => {
         this.$router.push('report');
+        this.$store.dispatch('auth/setSelfPersonalityType', formData.selfPersonalityType);
       });
     },
     changeSlide(numberSlide) {

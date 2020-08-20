@@ -25,6 +25,9 @@ const actions = {
       commit('setProfile', res);
     });
   },
+  setSelfPersonalityType({ commit }, data) {
+    commit('setSelfPersonalityType', data);
+  },
   logout({ commit }) {
     commit('setProfile', {});
   },
@@ -33,6 +36,9 @@ const actions = {
 const mutations = {
   setProfile(state, data) {
     state.profile = data;
+  },
+  setSelfPersonalityType(state, data) {
+    state.profile.selfPersonalityType = data;
   },
 };
 
