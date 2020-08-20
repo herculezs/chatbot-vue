@@ -97,10 +97,10 @@ export default new Router({
       component: () => import('@views/InvintationReport.vue'),
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
-        const userAuth = Store.getters['auth/getProfile'].token;
+        // const userAuth = Store.getters['auth/getProfile'].token;
         const invitation = Store.getters['invitation/getPersonalityTest'].result;
 
-        if (!userAuth || !invitation) {
+        if (!invitation) {
           next('/');
         }
 
