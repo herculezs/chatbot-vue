@@ -41,8 +41,8 @@ export default {
   saveInvitationAnswer(formData, id) {
     return new Promise((resolve, reject) => {
       http.post(`/questionnaire/invitation/PERSONALITY_TEST/u2/${id}`, formData).then(
-        ({ data }) => {
-          resolve(data);
+        (res) => {
+          resolve(res.data);
         },
       ).catch((error) => {
         notifyError(error);

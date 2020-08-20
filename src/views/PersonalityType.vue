@@ -25,7 +25,6 @@ export default {
     Content,
   },
   data: () => ({
-
     slides: [
       {
         src: '/img/entertainer.svg',

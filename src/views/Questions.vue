@@ -73,13 +73,17 @@ export default {
 
       return this.questions[this.currentStep - 1];
     },
+    isPersonalityTest() {
+      return this.$route.meta.invitationType === 'PERSONALITY_TEST';
+    },
+
   },
   created() {
     this.fetchData();
   },
   methods: {
     fetchData() {
-      if (this.$route.params.id) {
+      if (this.isPersonalityTest) {
         return this.fetchInvitationQuestionnaire(this.$route.params.id);
       }
 
@@ -114,11 +118,14 @@ export default {
       this.formData[this.getDataByStep.qid] = questionId;
     },
     saveAnswer() {
-      if (this.$route.params.id) {
-        return this.$api.questionnaire.saveInvitationAnswer(this.formData, this.$route.params.id)
-          .then(() => {
-            this.$router.push({ name: 'personality-type' });
-          });
+      if (this.isPersonalityTest) {
+        return this.$store.dispatch('invitation/setPersonalityTest',
+          {
+            formData: this.formData,
+            id: this.$route.params.id,
+          }).then(() => {
+          this.$router.push({ name: 'invintation-report' });
+        });
       }
 
       return this.$api.questionnaire.saveAnswer(this.formData)

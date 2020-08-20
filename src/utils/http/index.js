@@ -1,5 +1,5 @@
-// import config from '@config';
 import store from '@store';
+import router from '@router';
 
 const axios = require('axios').default;
 
@@ -20,25 +20,18 @@ const beforeRequestSuccess = (configurate) => {
   }
 
   return configurate;
-
-  // store.dispatch('global/setAppLoading', true);
 };
 
-// const beforeRequestError = (error) => {
-//   return Promise.reject(error);
-// };
+const onError = (error) => {
+  if (error.response.status === 401) {
+    store.dispatch('auth/logout');
+    router.push('/login');
+  }
 
-// const onSuccess = (response) => {
-//   // store.dispatch('global/setAppLoading', false);
-//   return response;
-// };
-//
-// const onError = (error) => {
-//   // store.dispatch('global/setAppLoading', false);
-//   return Promise.reject(error);
-// };
+  return Promise.reject(error);
+};
 
 http.interceptors.request.use(beforeRequestSuccess);
-// http.interceptors.response.use(onSuccess, onError);
+http.interceptors.response.use(null, onError);
 
 export default http;

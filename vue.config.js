@@ -8,13 +8,11 @@ module.exports = {
     config.resolve.alias.set('@', resolve('src'));
     config.resolve.alias.set('@api', resolve('api'));
     config.resolve.alias.set('@views', resolve('src/views'));
-    config.resolve.alias.set('@forms', resolve('src/components/Forms'));
     config.resolve.alias.set('@store', resolve('src/store'));
     config.resolve.alias.set('@router', resolve('src/router'));
     config.resolve.alias.set('@components', resolve('src/components'));
     config.resolve.alias.set('@utils', resolve('src/utils'));
     config.resolve.alias.set('@helpers', resolve('src/helpers'));
-    config.resolve.alias.set('@vendor', resolve('node_modules'));
     config.resolve.alias.set('@config', resolve('src/config'));
     config.resolve.alias.set('@constants', resolve('src/constants'));
     config.resolve.alias.set('@mixins', resolve('src/mixins'));

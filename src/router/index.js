@@ -32,10 +32,10 @@ export default new Router({
       path: '/questionnaire',
       name: 'questionnaire',
       component: () => import('@views/Questions.vue'),
-      props: { default: true },
       children: [
         {
           path: 'invitation/PERSONALITY_TEST/u2/:id',
+          meta: { invitationType: 'PERSONALITY_TEST' },
           component: () => import('@views/Questions.vue'),
         },
       ],
@@ -80,6 +80,22 @@ export default new Router({
         const userAuth = Store.getters['auth/getProfile'].token;
 
         if (!userAuth) {
+          next('/');
+        }
+
+        next();
+      },
+    },
+    {
+      path: '/invintation-report',
+      name: 'invintation-report',
+      component: () => import('@views/InvintationReport.vue'),
+      beforeEnter: (to, from, next) => {
+        // eslint-disable-next-line no-underscore-dangle
+        const userAuth = Store.getters['auth/getProfile'].token;
+        const invitation = Store.getters['invitation/getPersonalityTest'].result;
+
+        if (!userAuth || !invitation) {
           next('/');
         }
 
