@@ -44,6 +44,11 @@ export default new Router({
         const userAuth = Store.getters['auth/getProfile'].token;
         const personalityType = Store.getters['auth/getProfile'].selfPersonalityType;
 
+        if (to.params.id) {
+          next();
+          return;
+        }
+
         if (!userAuth) {
           next('/');
           return;
