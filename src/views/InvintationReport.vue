@@ -15,7 +15,7 @@
         :title="getCard.title"
         :showText="getCard.showText"
         :hideText="getCard.hideText"
-        :tag="getPersonalityTest.result"
+        :tag="getCard.tag"
         :img="getCard.src"
         :defaultOpen="true"
       />

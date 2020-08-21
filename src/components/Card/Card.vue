@@ -28,7 +28,7 @@
           {{ title }}
         </div>
         <div class="h5 card-content-caption__sub-title">
-          Search for {{ tag }}
+          Search online for "{{ tag }}"
         </div>
       </div>
       <div class="card-info">
@@ -188,7 +188,8 @@ export default {
     text-align: center;
   }
   .card-content-caption__sub-title{
-    font-size: 18px;
+    font-size: 16px;
+    margin-top: -10px;
     text-align: center;
   }
   .card-content-caption__img{

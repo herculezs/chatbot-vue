@@ -2,6 +2,7 @@ export default {
   cards: {
     ESFP: {
       title: 'Entertainer',
+      tag: 'MBTI ESFP',
       src: '/img/entertainer.svg',
       showText: 'As an ESFP you’re very enthusiastic, approachable and encapsulating of everything that an extrovert is! Highly charming and engaging, and generous with your energy, you’re often the first to help someone out, providing support and practical advice. However, though you like to draw out other people and help them have a good time, you can be very private with the more serious or negative aspects of your life. ',
       hideText: 'ESFPs often struggle with traditional education techniques, such as learning by rote. If this is you then, where possible, try and find ways to get hands-on with your subject - whether that be through plays, building something, or presenting something. Try to find opportunities to make the thing you want to learn fun and active instead of just buried in books! \n'
@@ -11,6 +12,7 @@ export default {
     },
     ESTP: {
       title: 'Entrepreneur',
+      tag: 'MBTI ESTP',
       src: '/img/enterpreneur.svg',
       showText: 'ESTPs are inspiring thrill-seekers, who love to jump from urgency to urgency solving problems and spending life at the eye of the storm.\n'
         + 'Full of passion and energy, they are natural leaders, bringing people on a common path, and using their unique skill for noticing small, personal details to adapt their personality to engage everyone.\n'
@@ -22,6 +24,7 @@ export default {
     },
     ISTJ: {
       title: 'Logistician',
+      tag: 'MBTI ISTJ',
       src: '/img/logistican.svg',
       showText: 'ISTJs are dedicated organisers, who happily expend their time and energy completing tasks with accuracy and patience. They value truth very highly, and often report their own failings, even if it reflects badly on themselves.\n'
         + 'ISTJs are neat and orderly, and often use these skills to uphold important traditions and standards. Their practical logic often sees them relaying facts to people and expecting them to grasp what they are saying.',
@@ -32,6 +35,7 @@ export default {
     },
     ISTP: {
       title: 'Virtuoso',
+      tag: 'MBTI ISTP',
       src: '/img/virtuoso.svg',
       showText: 'ISTPs are tolerant makers, unable to stay focussed on formal studies they often find themselves tinkering with the mechanics of something - hoping to understand the process. This spills over into their life more widely, observing how things work and looking for practical solutions to the problem at hand.\n'
         + 'Though their privacy and  preoccupation with mechanics can make them appear simple, ISTPs are actually extremely friendly and enigmatic.',
@@ -42,6 +46,7 @@ export default {
     },
     ESTJ: {
       title: 'Executive',
+      tag: 'MBTI ESTJ',
       src: '/img/executive.svg',
       showText: 'ESTJs are dedicated executives, often leading organisations and people. They have an utter rejection of laziness and cheating, and often choose to set an exemplary working example themselves.\n'
         + 'Highly rational and conscientious, their highly methodical nature helps to give others clear advice and direction, even in times of uncertainty.\n'
@@ -54,6 +59,7 @@ export default {
     },
     ESFJ: {
       title: 'Consul',
+      tag: 'MBTI ESFJ',
       src: '/img/consul.svg',
       showText: 'ESFJs are altruistic service-people. With decisive values and a willingness to offer help to others, they enjoy any role that allows them to participate in a meaningful way. These characteristics often mean you can find ESFJs taking part in community and social projects, but they prefer plans and organised events to anything spontaneous.\n'
         + 'Highly attuned to their emotional environment and attentive to the feelings of others, they are often the ones at a party finding time to laugh and chat with everyone.',
@@ -63,6 +69,7 @@ export default {
     },
     INTJ: {
       title: 'Architect',
+      tag: 'MBTI INTJ',
       src: '/img/architect.svg',
       showText: 'INTJs are analytic problem-solvers, confident in mastering their chosen subjects and enjoy sharing their knowledge with others. They are always on the lookout for new tactics and strategies to improve their lives at either work or home. Though their creativity and inner personality is often largely shielded from the outside World. ',
       hideText: 'Often INTJs internalise a lot of their thoughts, leaping from A to B to Z and leaving others behind. Other people may struggle to keep up with such quick speed. When explaining stuff to other people don’t be afraid to take them on the journey with you. The ideas don’t have to be fully formed as they come out of your mouth, people can act as a sounding board for that.\n'
@@ -72,6 +79,7 @@ export default {
     },
     INTP: {
       title: 'Logician',
+      tag: 'MBTI INTP',
       src: '/img/logician.svg',
       showText: 'INTPs are theoretical unifiers, who love to spot patterns and solutions to issues. Though actually relaxed and friendly, they can be seen as detached due to their constantly whirring minds trying to find the meaning of life and the things they see. \n'
         + 'INTPs love to come up with unique ideas to solutions, particularly if they don’t follow the direction of the crowd!',
@@ -81,6 +89,7 @@ export default {
     },
     ENFP: {
       title: 'Campaigner',
+      tag: 'MBTI ENFP',
       src: '/img/campaigner.svg',
       showText: 'ENFPs are compassionate creators, who particularly enjoy the social and emotional connections they make with others. They can be a passionate, driven idealist one moment, and when the time to relax comes an energetic dancer the next.\n'
         + 'Their curious minds allow them to read between the lines and come up with independent solutions, but that energy can wane if it has to be spent on the admin of the implementation.',
@@ -90,6 +99,7 @@ export default {
     },
     ENTJ: {
       title: 'Commander',
+      tag: 'MBTI ENTJ',
       src: '/img/commander.svg',
       showText: 'ENTJs are motivated leaders. These individuals love the thrill of a challenge and use their drive and logical thought to achieve whatever they put their minds to.\n'
         + 'This drive and charisma projects authority and leadership and this, in turn, draws people into helping with the cause. \n'
@@ -100,6 +110,7 @@ export default {
     },
     ENTP: {
       title: 'Debater',
+      tag: 'MBTI ENTP',
       src: '/img/debater.svg',
       showText: 'ENTPs are intellectual pioneers, constantly sparing with the ideas of themselves and others to find new solutions to problems. Playing devil’s advocate helps them to break down problems from all aspects, and allows them to comprehend the people and systems around them.\n'
         + 'However, like ENFPs, though the solutions may come easily to ENTPs, the implementation may struggle due to its routine nature.',
@@ -109,6 +120,7 @@ export default {
     },
     ENFJ: {
       title: 'Protagonist',
+      tag: 'MBTI ENFJ',
       src: '/img/protagonist.svg',
       showText: 'ENFJs are caring organisers, who radiate authenticity, concern and altruism. Naturally confident, they are often happiest when encouraging others to expand their horizons and seek new knowledge.\n'
         + '\n'
@@ -120,6 +132,7 @@ export default {
     },
     ISFJ: {
       title: 'Defender',
+      tag: 'MBTI ISFJ',
       src: '/img/defender.svg',
       showText: 'ISFJs are compassionate carers, endowed with well-developed people skills and a desire to do good. They often find themselves as protectors of and providers for others, and are sensationally modest about their accomplishments.\n'
         + 'As an ISFJ you probably procrastinate, but still always achieve the job with a meticulous level of detail. Though you don’t outwardly seek validation on a public stage, when you are recognised you feel a level of warmth and satisfaction that is unrivalled among personality types.',
@@ -129,6 +142,7 @@ export default {
     },
     ISFP: {
       title: 'Adventurer',
+      tag: 'MBTI ISFP',
       src: '/img/adventurer.svg',
       showText: 'ISFPs are loyal creatives, who live in the present and express themselves through actions rather than words. They value harmony highly and will endeavour to support those that they care about, though it broadly has to stick to their own overarching principles. \n'
         + 'This adherence to their own principles can lead them to be selfish at times, but if channelled for good they can act with a surprising vigour and clarity for charity. This vigour can be seen by others, but an ISFP will occasionally have to step out of the spotlight to recharge.',
@@ -138,6 +152,7 @@ export default {
     },
     INFJ: {
       title: 'Advocate',
+      tag: 'MBTI INFJ',
       src: '/img/advocate.svg',
       showText: 'INFJs are a rare breed indeed. A formidable coupling of creativity and resolve that allows them to dream of an ideal future and make concrete steps to achieve it.\n'
         + 'Dedicated and with a strong sense of integrity, their talent for warm, sensitive language and a human touch often leads INFJs into careers where they find great reward in helping people.',
@@ -148,6 +163,7 @@ export default {
     },
     INFP: {
       title: 'Mediator',
+      tag: 'MBTI INFP',
       src: '/img/mediator.svg',
       showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
       hideText: '\n'

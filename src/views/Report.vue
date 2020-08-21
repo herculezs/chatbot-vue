@@ -36,7 +36,7 @@
         :title="getGuessedCard.title"
         :showText="getGuessedCard.showText"
         :hideText="getGuessedCard.hideText"
-        :tag="getProfile.selfPersonalityType"
+        :tag="getGuessedCard.tag"
         :img="getGuessedCard.src"
       />
 
@@ -49,7 +49,7 @@
         :showText="getCard.showText"
         :hideText="getCard.hideText"
         :img="getCard.src"
-        :tag="tag"
+        :tag="getCard.tag"
         :defaultOpen="true"
       />
 
