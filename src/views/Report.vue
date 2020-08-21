@@ -36,6 +36,7 @@
         :title="getGuessedCard.title"
         :showText="getGuessedCard.showText"
         :hideText="getGuessedCard.hideText"
+        :tag="getProfile.selfPersonalityType"
         :img="getGuessedCard.src"
       />
 
@@ -48,6 +49,7 @@
         :showText="getCard.showText"
         :hideText="getCard.hideText"
         :img="getCard.src"
+        :tag="tag"
         :defaultOpen="true"
       />
 
@@ -137,7 +139,11 @@ export default {
     fetchPersonalityTypeReport() {
       this.$api.personalityTypeReport.fetchPersonalityTypeReport().then((res) => {
         this.radarData = Object.values(res.self);
-        this.radarUser = Object.values(res.othersAverage);
+
+        if (res.othersAmount > 3) {
+          this.radarUser = Object.values(res.othersAverage);
+        }
+
         this.tag = res.selfResult;
         this.shareLink = `${window.location.host}${res.invitationLink}`;
       });

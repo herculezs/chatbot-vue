@@ -4,8 +4,9 @@
       class="form__input form__input-copy"
       placeholder="Link"
       v-model="getValue"
+      type="text"
     />
-    <button class="form__button-copy" @click.prevent="copyInputData">
+    <button class="form__button-copy" type="button" @click="copyInputData">
       <svg width="24px" height="24px" viewBox="0 0 24 24"
            version="1.1"
            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -33,6 +34,8 @@
 </template>
 
 <script>
+import copy from 'copy-to-clipboard';
+
 export default {
   props: {
     value: {
@@ -51,7 +54,17 @@ export default {
   },
   methods: {
     copyInputData() {
-      navigator.clipboard.writeText(this.value);
+      copy(this.value);
+    },
+    doCopy() {
+      copy('Text');
+      // this.$copyText(this.value).then((e) => {
+      //   alert('Copied');
+      //   console.log(e);
+      // }, (e) => {
+      //   alert('Can not copy');
+      //   console.log(e);
+      // });
     },
   },
 };

@@ -27,6 +27,9 @@
         <div class="h5 card-content-caption__title">
           {{ title }}
         </div>
+        <div class="h5 card-content-caption__sub-title">
+          Search for {{ tag }}
+        </div>
       </div>
       <div class="card-info">
         <div class="card-info__text ">
@@ -68,6 +71,9 @@ export default {
     defaultOpen: {
       type: Boolean,
       value: false,
+    },
+    tag: {
+      type: String,
     },
   },
   data: () => ({
@@ -179,6 +185,10 @@ export default {
   }
   .card-content-caption__title{
     width: 100%;
+    text-align: center;
+  }
+  .card-content-caption__sub-title{
+    font-size: 18px;
     text-align: center;
   }
   .card-content-caption__img{
