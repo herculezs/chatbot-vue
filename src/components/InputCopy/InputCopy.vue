@@ -55,16 +55,10 @@ export default {
   methods: {
     copyInputData() {
       copy(this.value);
-    },
-    doCopy() {
-      copy('Text');
-      // this.$copyText(this.value).then((e) => {
-      //   alert('Copied');
-      //   console.log(e);
-      // }, (e) => {
-      //   alert('Can not copy');
-      //   console.log(e);
-      // });
+      this.$notify({
+        type: 'success',
+        title: 'Link copied',
+      });
     },
   },
 };
