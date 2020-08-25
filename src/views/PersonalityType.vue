@@ -2,7 +2,7 @@
   <div class="personality-type">
     <Content>
       <h1 class="h5">
-        Which personality type do you think you are
+        Which type best represents how you appear at work?
       </h1>
       <PersonalityCarousel :slides="slides" @change="changeSlide" />
       <button
@@ -139,7 +139,7 @@ export default {
         tag: 'INFP',
       },
     ],
-    currentSlide: 1,
+    currentSlide: 0,
   }),
   methods: {
     choose() {
@@ -147,10 +147,10 @@ export default {
         selfPersonalityType: this.slides[this.currentSlide].tag,
       };
 
-      this.$api.personalityTypeReport.setPersonalityType(formData).then(() => {
-        this.$router.push('report');
-        this.$store.dispatch('auth/setSelfPersonalityType', formData.selfPersonalityType);
-      });
+      this.$store.dispatch('auth/setSelfPersonalityTypeRequest', formData)
+        .then(() => {
+          this.$router.push('report');
+        });
     },
     changeSlide(numberSlide) {
       this.currentSlide = numberSlide;

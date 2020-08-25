@@ -54,7 +54,7 @@
       />
 
       <div class="diagram mb-5">
-        <Radar :data="radarData" :user="radarUser" />
+        <Radar :data="radarData" />
       </div>
 
 
@@ -111,8 +111,33 @@ export default {
   },
   name: 'Report',
   data: () => ({
-    radarData: [],
-    radarUser: [],
+    radarData: [
+      {
+        value: [],
+        areaStyle: {
+          color: 'rgba(120, 17, 200, 0.5)',
+        },
+        itemStyle: {
+          color: 'rgba(120, 17, 200, 0.8)',
+        },
+        symbol: 'none',
+        name: 'user',
+      },
+      {
+        value: [],
+        type: 'radar',
+        areaStyle: {
+          color: 'rgba(255, 0, 0, 0.5)',
+        },
+        itemStyle: {
+          color: 'rgba(255, 0, 0, 0.8)',
+        },
+        symbol: 'none',
+        name: 'average',
+      },
+    ],
+    // radarData: [],
+    // radarUser: [],
     respondentsCount: 6,
     shareLink: null,
     tag: null,
@@ -138,10 +163,12 @@ export default {
   methods: {
     fetchPersonalityTypeReport() {
       this.$api.personalityTypeReport.fetchPersonalityTypeReport().then((res) => {
-        this.radarData = Object.values(res.self);
+        const user = this.radarData.find(item => item.name === 'user');
+        user.value = Object.values(res.self);
 
         if (res.othersAmount > 3) {
-          this.radarUser = Object.values(res.othersAverage);
+          const average = this.radarData.find(item => item.name === 'average');
+          average.value = Object.values(res.othersAverage);
         }
 
         this.tag = res.selfResult;

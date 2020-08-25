@@ -20,9 +20,6 @@ export default {
     data: {
       type: Array,
     },
-    user: {
-      type: Array,
-    },
   },
   computed: {
     getRadarData() {
@@ -71,22 +68,7 @@ export default {
         },
         series: [{
           type: 'radar',
-          data: [
-            {
-              value: this.data,
-              areaStyle: {
-                color: 'rgba(255, 0, 0, 0.8)',
-              },
-              symbol: 'none',
-            },
-            {
-              value: this.user,
-              areaStyle: {
-                color: 'rgba(120, 17, 200, 0.8)',
-              },
-              symbol: 'none',
-            },
-          ],
+          data: this.data,
         }],
       };
     },

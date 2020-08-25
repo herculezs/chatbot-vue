@@ -25,8 +25,11 @@ const actions = {
       commit('setProfile', res);
     });
   },
-  setSelfPersonalityType({ commit }, data) {
-    commit('setSelfPersonalityType', data);
+  setSelfPersonalityTypeRequest({ commit }, formData) {
+    return api.personalityTypeReport.setPersonalityType(formData).then(() => {
+      commit('setSelfPersonalityType', formData.selfPersonalityType);
+    });
+    // commit('setSelfPersonalityType', data);
   },
   logout({ commit }) {
     commit('setProfile', {});

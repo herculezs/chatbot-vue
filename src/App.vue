@@ -16,6 +16,9 @@ export default {
     Header,
     Notification,
   },
+  created() {
+    document.title = 'innerworks';
+  },
 };
 </script>
 
