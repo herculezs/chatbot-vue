@@ -50,9 +50,37 @@ html, body{
   padding: 12.5vh 24px 30px;
 }
 
-//.report{
-//  background-color: $bgColor2;
-//}
+.footer-menu{
+  position: absolute;
+  left: 0;
+  bottom: 10px;
+  width: 100%;
+  padding: 0 24px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.footer-menu__list{
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+.footer-menu__item{
+  font-family: $defaultFont;
+  font-size: 14px;
+  color: $txtColor2;
+  padding: 0 10px;
+  border-right: 1px solid $txtColor2;
+  &:first-child{
+    padding-left: 0;
+  }
+  &:last-child{
+    padding-right: 0;
+    border-right-color: transparent;
+  }
+}
 
 .bg-1{
   background-color: $bgColor1;

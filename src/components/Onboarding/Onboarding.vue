@@ -216,7 +216,7 @@ export default {
 
   .onBoarding-carousel{
     margin: 0 -24px;
-    height: calc(100vh - 19vh); //150px
+    height: calc(100vh - 21vh); //150px
     min-height: 450px;
     .slick-list,
     .slick-track,
@@ -232,6 +232,9 @@ export default {
     }
     .slick-slide{
       padding: 0 24px 24px;
+    }
+    .slick-dots{
+      bottom: -15px;
     }
     .slick-dots li button:before{
       font-size: 12px;
@@ -250,16 +253,15 @@ export default {
    /* width: 100%;
     margin: -40px auto 30px;*/
     margin: 0 auto 3.75vh;
-    padding-top: 10%;
     display: block;
   }
   .onBoarding__video_step1{
-    height: 50vh;
+    height: 45vh;
   }
   .onBoarding__video_step2{
-    height: 36vh;
+    height: 30vh;
     @media (max-height: $xsMaxHeight) {
-      height: 28vh;
+      height: 25vh;
     }
   }
   /*.slide-details{*/
