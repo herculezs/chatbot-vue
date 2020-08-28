@@ -1,102 +1,113 @@
 <template>
-  <VueSlickCarousel
-    v-bind="carousel.settings"
-    class="onBoarding-carousel"
-    ref="slickCarousel"
-  >
-    <div class="onBoarding-carousel__slide">
-      <img class="onBoarding__video onBoarding__video_step1"
-           src="../../assets/step_1.gif" alt="video">
-      <div class="text-center">
-        <button
-          class="button button_w-100
+  <div class="onBoarding-carousel">
+    <VueSlickCarousel
+      v-bind="carousel.settings"
+      ref="slickCarousel"
+    >
+      <div class="onBoarding-carousel__slide">
+        <img class="onBoarding__video onBoarding__video_step1"
+             src="../../assets/step_1.gif" alt="video">
+        <div class="text-center">
+          <button
+            class="button button_w-100
           button_theme-default button_size-m
           onBoarding-carousel__button"
-          @click.prevent="gotToSlide(1)"
-        >
-          Get started
-        </button>
-        <router-link to="/login">
-          <button class="button button_theme-transparent-default button_size-m">
-            Sign in
+            @click.prevent="gotToSlide(1)"
+          >
+            Get started
           </button>
-        </router-link>
+          <router-link to="/login">
+            <button class="button button_theme-transparent-default button_size-m">
+              Sign in
+            </button>
+          </router-link>
 
+        </div>
       </div>
-    </div>
-    <div class="onBoarding-carousel__slide">
-      <img class="onBoarding__video onBoarding__video_step2"
-           src="../../assets/step_2.gif" alt="video">
-      <div class="title onBoarding__titl text-center mb-4">
-        Questions!
-      </div>
-      <div class="text onBoarding__tex text-center mb-3">
-        Step 1: Answer 16 quick questions and receive your first report.
-      </div>
-      <div class="text onBoarding__tex text-center mb-3">
-        Step 2: Ask your contacts to answer 16 quick questions
-        about you to receive a comparative report.
-      </div>
-      <button
-        class="button button_w-100
+      <div class="onBoarding-carousel__slide">
+        <img class="onBoarding__video onBoarding__video_step2"
+             src="../../assets/step_2.gif" alt="video">
+        <div class="title onBoarding__titl text-center mb-4">
+          Questions!
+        </div>
+        <div class="text onBoarding__tex text-center mb-3">
+          Step 1: Answer 16 quick questions and receive your first report.
+        </div>
+        <div class="text onBoarding__tex text-center mb-3">
+          Step 2: Ask your contacts to answer 16 quick questions
+          about you to receive a comparative report.
+        </div>
+        <button
+          class="button button_w-100
         button_theme-default button_size-m"
-        @click.prevent="gotToSlide(2)"
-      >
-        Next
-      </button>
-    </div>
-    <div class="onBoarding-carousel__slide">
-      <div class="title onBoarding__title">
-        Details
-      </div>
-      <div class="sub-title text-center onBoarding__sub-title">
-        What shall I call you?
-      </div>
-      <form class="form">
-        <div
-          class="form-group"
-          :class="{'form-group-error': $v.formData.name.$error}"
+          @click.prevent="gotToSlide(2)"
         >
-          <input
-            class="form__input"
-            placeholder="Your name"
-            v-model="formData.name"
-          />
-          <template v-if="$v.formData.name.$error">
-            <div
-              class="form__input-error"
-              v-if="!$v.formData.name.required"
-            >
-              Field is required
-            </div>
-          </template>
-        </div>
-        <TelInput
-          v-model="formData.phone"
-          :diaCode="formData.diaCode"
-          :validPhone="$v.formData.phone"
-          @onDiaCode="countryChanged"
-        />
-
-        <div class="caption text-center">
-          We need your phone number so we
-          can notify you of the results. We won’t contact you otherwise.
-        </div>
-      </form>
-
-      <button
-        class="button button_w-100 button_theme-default
-        button_size-m slide-details__button"
-        @click.prevent="start"
-      >
-        Start
-      </button>
-      <div class="caption onBoarding-carousel-button__caption text-center">
-        By using our service, you consent to our Privacy
-        Policy and agree to its terms which can be found on our website - 3-60.me
+          Next
+        </button>
       </div>
+      <div class="onBoarding-carousel__slide">
+        <div class="title onBoarding__title">
+          Details
+        </div>
+        <div class="sub-title text-center onBoarding__sub-title">
+          What shall I call you?
+        </div>
+        <form class="form">
+          <div
+            class="form-group"
+            :class="{'form-group-error': $v.formData.name.$error}"
+          >
+            <input
+              class="form__input"
+              placeholder="Your name"
+              v-model="formData.name"
+            />
+            <template v-if="$v.formData.name.$error">
+              <div
+                class="form__input-error"
+                v-if="!$v.formData.name.required"
+              >
+                Field is required
+              </div>
+            </template>
+          </div>
+          <TelInput
+            v-model="formData.phone"
+            :diaCode="formData.diaCode"
+            :validPhone="$v.formData.phone"
+            @onDiaCode="countryChanged"
+          />
+
+          <div class="caption text-center">
+            We need your phone number so we
+            can notify you of the results. We won’t contact you otherwise.
+          </div>
+        </form>
+
+        <button
+          class="button button_w-100 button_theme-default
+        button_size-m slide-details__button"
+          @click.prevent="start"
+        >
+          Start
+        </button>
+        <div class="caption onBoarding-carousel-button__caption text-center">
+          By using our service, you consent to our Privacy
+          Policy and agree to its terms which can be found on our website - 3-60.me
+        </div>
+      </div>
+    </VueSlickCarousel>
+    <div class="footer-menu">
+      <ul class="footer-menu__list">
+        <li class="footer-menu__item">
+          Terms & Conditions
+        </li>
+        <li class="footer-menu__item">
+          Privacy Policy
+        </li>
+      </ul>
     </div>
-  </VueSlickCarousel>
+  </div>
 </template>
 
 <script>
@@ -215,9 +226,11 @@ export default {
   }
 
   .onBoarding-carousel{
+    display: flex;
+    flex-direction: column;
     margin: 0 -24px;
-    height: calc(100vh - 21vh); //150px
-    min-height: 450px;
+    height: calc(100vh - 17vh); //150px
+    min-height: 530px;
     .slick-list,
     .slick-track,
     .slick-slide,
@@ -234,7 +247,8 @@ export default {
       padding: 0 24px 24px;
     }
     .slick-dots{
-      bottom: -15px;
+      /*bottom: -15px;*/
+      position: static;
     }
     .slick-dots li button:before{
       font-size: 12px;
