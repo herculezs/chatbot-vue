@@ -9,6 +9,10 @@
     font-size: 26px;
     line-height: 30px;
   }
+  @media (max-height: $xxsMaxHeight) {
+    font-size: 24px;
+    line-height: 28px;
+  }
 }
 
 .sub-title{
@@ -34,6 +38,10 @@
   @media (max-height: $xsMaxHeight) {
     font-size: 16px;
     line-height: 20px;
+  }
+  @media (max-height: $xsMaxHeight) {
+    font-size: 14px;
+    line-height: 18px;
   }
 
 }

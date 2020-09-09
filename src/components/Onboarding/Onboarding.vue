@@ -231,6 +231,9 @@ export default {
   /*}*/
   .onBoarding-carousel__button{
     margin-bottom: 4vh;
+    @media (max-height: $xxsMaxHeight) {
+      margin-bottom: 2vh;
+    }
   }
 
   .onBoarding-carousel{
@@ -238,7 +241,7 @@ export default {
     flex-direction: column;
     margin: 0 -24px;
     height: calc(100vh - 12.5vh); //150px 17
-    min-height: 490px;
+    /*min-height: 490px;*/
     /*.slick-list,*/
     /*.slick-track,*/
     /*.slick-slide,*/

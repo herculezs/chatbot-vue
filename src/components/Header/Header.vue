@@ -37,7 +37,7 @@ export default {
 <style lang="scss">
   .header{
     /*padding: 24px;*/
-    padding: 3vh;
+    padding: 3vh 24px;
     position: absolute;
     top: 0;
     left: 0;
@@ -45,12 +45,18 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media (max-height: $xxsMaxHeight) {
+      padding-top: 2vh;
+      padding-bottom: 2vh;
+    }
   }
   .header__logo{
     width: 7vh;
     height: 7vh;
-    min-width: 40px;
-    min-height: 40px;
+    @media (max-height: $xxsMaxHeight) {
+      width: 5vh;
+      height: 5vh;
+    }
   }
   .header__link{
     font-weight: bold;
@@ -62,6 +68,9 @@ export default {
     &:hover, &:focus{
       color: inherit;
       text-decoration: none;
+    }
+    @media (max-height: $xxsMaxHeight) {
+      font-size: 14px;
     }
   }
 </style>

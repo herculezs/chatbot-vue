@@ -1,5 +1,8 @@
 .form{
   margin-bottom: 24px;
+  @media (max-height: $xxsMaxHeight) {
+    margin-bottom: 15px;
+  }
 }
 .form__input-tel{
   font-family: $defaultFont;
@@ -18,6 +21,11 @@
     @media (max-height: $xsMaxHeight) {
       padding-top: 15px;
       padding-bottom: 15px;
+    }
+    @media (max-height: $xxsMaxHeight) {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: 15px;
     }
     &::-webkit-input-placeholder {
       color: $formInputColor;
@@ -94,6 +102,11 @@
     padding-top: 15px;
     padding-bottom: 15px;
   }
+  @media (max-height: $xxsMaxHeight) {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 15px;
+  }
   &:focus{
     outline: none;
     border-color: #66afe9;
@@ -131,6 +144,9 @@
   margin-bottom: 24px;
   &:last-child{
     margin-bottom: 0;
+  }
+  @media (max-height: $xxsMaxHeight) {
+    margin-bottom: 15px;
   }
 }
 .form-group_link{

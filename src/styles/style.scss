@@ -48,6 +48,9 @@ html, body{
   min-height: 100%;
   //padding: 100px 24px 30px;
   padding: 12.5vh 24px 30px;
+  @media (max-height: $xxsMaxHeight) {
+    padding-top: 11vh;
+  }
 }
 
 .footer-menu{
@@ -74,6 +77,9 @@ html, body{
   color: $txtColor2;
   padding: 0 10px;
   border-right: 1px solid $txtColor2;
+  @media (max-height: $xxsMaxHeight) {
+    font-size: 12px;
+  }
   &:first-child{
     padding-left: 0;
   }

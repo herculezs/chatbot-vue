@@ -34,6 +34,10 @@
   @media (max-height: $xsMaxHeight) {
     padding: 15px 20px;
   }
+  @media (max-height: $xxsMaxHeight) {
+    padding: 10px 20px;
+    font-size: 15px;
+  }
 
 }
 
