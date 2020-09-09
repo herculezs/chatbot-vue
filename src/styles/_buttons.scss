@@ -19,10 +19,10 @@
   background-color: $btnColor1;
   box-shadow: 0 8px 24px 0 rgba(0,52,80,0.32);
   &:hover{
-    background-color: #DA4A4A;
+    background-color: lighten($btnColor1, 10%);
   }
   &:active{
-    background-color: #B64242;
+    background-color: darken($btnColor1, 10%);
   }
 }
 

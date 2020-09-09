@@ -2,6 +2,7 @@
   <div class="onBoarding-carousel">
     <VueSlickCarousel
       v-bind="carousel.settings"
+      adaptiveHeight
       ref="slickCarousel"
     >
       <div class="onBoarding-carousel__slide">
@@ -14,7 +15,7 @@
           onBoarding-carousel__button"
             @click.prevent="gotToSlide(1)"
           >
-            Get started
+            Find out how
           </button>
           <router-link to="/login">
             <button class="button button_theme-transparent-default button_size-m">
@@ -42,7 +43,7 @@
         button_theme-default button_size-m"
           @click.prevent="gotToSlide(2)"
         >
-          Next
+          Register
         </button>
       </div>
       <div class="onBoarding-carousel__slide">
@@ -97,13 +98,19 @@
         </div>
       </div>
     </VueSlickCarousel>
+    <TermsConditionsModal />
+    <PolicyModal />
     <div class="footer-menu">
       <ul class="footer-menu__list">
         <li class="footer-menu__item">
-          Terms & Conditions
+          <span v-b-modal.modal-terms>
+            Terms & Conditions
+          </span>
         </li>
         <li class="footer-menu__item">
-          Privacy Policy
+          <span v-b-modal.modal-policy>
+             Privacy Policy
+          </span>
         </li>
       </ul>
     </div>
@@ -114,6 +121,8 @@
 import VueSlickCarousel from 'vue-slick-carousel';
 import { validationMixin } from 'vuelidate';
 import TelInput from '@components/InputTel/TelInput.vue';
+import PolicyModal from '@components/Modals/PolicyModal.vue';
+import TermsConditionsModal from '@components/Modals/TermsConditionsModal.vue';
 
 const { required } = require('vuelidate/lib/validators');
 
@@ -121,6 +130,8 @@ export default {
   components: {
     VueSlickCarousel,
     TelInput,
+    PolicyModal,
+    TermsConditionsModal,
   },
   mixins: [validationMixin],
   validations: {
@@ -252,7 +263,7 @@ export default {
     }
     .slick-dots li button:before{
       font-size: 12px;
-      color: #fff;
+      color: $mnColor3;
       opacity: 1;
     }
     .slick-dots li.slick-active button:before{
@@ -261,7 +272,7 @@ export default {
   }
 
   .onBoarding{
-    background-color: $bgColor1;
+    background-color: #fefcff;
   }
   .onBoarding__video{
    /* width: 100%;
