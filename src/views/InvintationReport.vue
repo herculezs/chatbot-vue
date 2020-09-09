@@ -24,7 +24,7 @@
         class="button button_w-100 button_theme-default button_size-m"
         @click="redirectToQuestions"
       >
-        Start Your Quiz
+        Find Out How Others See You
       </button>
     </Content>
   </div>
