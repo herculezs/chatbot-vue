@@ -275,7 +275,7 @@ export default {
   }
 
   .onBoarding{
-    background-color: #fefcff;
+    background-color: #fdf9fe;
     padding-bottom: 0;
     height: 100%;
     .content{
