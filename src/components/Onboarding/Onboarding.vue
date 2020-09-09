@@ -289,10 +289,10 @@ export default {
     display: block;
   }
   .onBoarding__video_step1{
-    height: 45vh;
+    height: 43vh;
   }
   .onBoarding__video_step2{
-    height: 30vh;
+    height: 28vh;
     @media (max-height: $xsMaxHeight) {
       height: 24vh;
     }
