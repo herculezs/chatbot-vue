@@ -2,7 +2,7 @@
   <div class="personality-type">
     <Content>
       <h1 class="h5">
-        Which type best represents how you appear at work?
+        Which personality type do you think best represents how you see yourself ?
       </h1>
       <PersonalityCarousel :slides="slides" @change="changeSlide" />
       <button
