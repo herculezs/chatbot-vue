@@ -240,7 +240,7 @@ export default {
     display: flex;
     flex-direction: column;
     margin: 0 -24px;
-    height: calc(100vh - 12.5vh); //150px 17
+    height: 100%; //150px 17 calc(100vh - 12.5vh)
     /*min-height: 490px;*/
     /*.slick-list,*/
     /*.slick-track,*/
@@ -277,6 +277,10 @@ export default {
   .onBoarding{
     background-color: #fefcff;
     padding-bottom: 0;
+    height: 100%;
+    .content{
+      height: 100%;
+    }
   }
   .onBoarding__video{
    /* width: 100%;
