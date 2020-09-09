@@ -27,7 +27,7 @@
         >
           <div
             class="questions-item__content"
-            @click.prevent="selectedAnswers(index+1)"
+            @click.prevent="nextStep(index+1)"
           >
             {{ item.text }}
             <img v-if="1+index === selectedAnswer"
@@ -37,14 +37,6 @@
           </div>
         </div>
       </div>
-      <button
-        class="button button_w-100 button_theme-default button_size-m"
-        v-if="selectedAnswer"
-        :disabled="!selectedAnswer"
-        @click.prevent="nextStep"
-      >
-        Next
-      </button>
     </Content>
   </div>
 </template>
@@ -133,7 +125,9 @@ export default {
           this.$router.push({ name: 'personality-type' });
         });
     },
-    nextStep() {
+    nextStep(answer) {
+      this.selectedAnswers(answer);
+
       const nextStep = this.currentStep + 1;
 
       if (!this.selectedAnswer) return;
