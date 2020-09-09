@@ -50,9 +50,6 @@
         <div class="title onBoarding__title">
           Details
         </div>
-        <div class="sub-title text-center onBoarding__sub-title">
-          What shall I call you?
-        </div>
         <form class="form">
           <div
             class="form-group"
@@ -90,7 +87,7 @@
         button_size-m slide-details__button"
           @click.prevent="start"
         >
-          Start
+          Send Code
         </button>
         <div class="caption onBoarding-carousel-button__caption text-center">
           By using our service, you consent to our Privacy
