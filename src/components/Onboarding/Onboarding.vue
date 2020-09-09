@@ -29,14 +29,14 @@
         <img class="onBoarding__video onBoarding__video_step2"
              src="../../assets/step_2.gif" alt="video">
         <div class="title onBoarding__titl text-center mb-4">
-          Questions!
+          How it works
         </div>
         <div class="text onBoarding__tex text-center mb-3">
-          Step 1: Answer 16 quick questions and receive your first report.
+          Step 1: You answer 16 quick questions about yourself and receive your first report
         </div>
         <div class="text onBoarding__tex text-center mb-3">
-          Step 2: Ask your contacts to answer 16 quick questions
-          about you to receive a comparative report.
+          Step 2: Ask your contacts to answer 16 quick
+          questions about you to receive your comparative report.
         </div>
         <button
           class="button button_w-100
