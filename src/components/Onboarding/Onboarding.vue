@@ -237,15 +237,15 @@ export default {
     display: flex;
     flex-direction: column;
     margin: 0 -24px;
-    height: calc(100vh - 17vh); //150px
-    min-height: 530px;
-    .slick-list,
-    .slick-track,
-    .slick-slide,
-    .slick-slide > div,
-    .onBoarding-carousel__slide {
-      height: 100% !important;
-    }
+    height: calc(100vh - 12.5vh); //150px 17
+    min-height: 490px;
+    /*.slick-list,*/
+    /*.slick-track,*/
+    /*.slick-slide,*/
+    /*.slick-slide > div,*/
+    /*.onBoarding-carousel__slide {*/
+    /*  height: 100% !important;*/
+    /*}*/
     .onBoarding-carousel__slide{
       display: flex !important;
       flex-direction: column;
@@ -253,6 +253,9 @@ export default {
     }
     .slick-slide{
       padding: 0 24px 24px;
+      @media (max-height: $xsMaxHeight) {
+        padding-bottom: 20px;
+      }
     }
     .slick-dots{
       /*bottom: -15px;*/
@@ -270,6 +273,7 @@ export default {
 
   .onBoarding{
     background-color: #fefcff;
+    padding-bottom: 0;
   }
   .onBoarding__video{
    /* width: 100%;
@@ -283,7 +287,7 @@ export default {
   .onBoarding__video_step2{
     height: 30vh;
     @media (max-height: $xsMaxHeight) {
-      height: 25vh;
+      height: 24vh;
     }
   }
   /*.slide-details{*/
