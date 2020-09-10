@@ -1,3 +1,11 @@
+.modal-sticky-bottom{
+  overflow: hidden !important;
+  .modal-dialog{
+    top: auto;
+    bottom: 0;
+  }
+}
+
 .modal-dialog{
   position: absolute;
   //bottom: 0;

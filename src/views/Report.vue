@@ -57,9 +57,9 @@
         <Radar :data="radarData" />
       </div>
 
-
       <b-modal
         id="modal-multi-1"
+        modal-class="modal-sticky-bottom"
         hide-footer
       >
         <template v-slot:modal-title>
