@@ -1,40 +1,63 @@
 <template>
   <div class="questions">
     <Content>
-      <div class="progress-bar mb-4">
-        <div class="progress-bar__value">
-          <div class="progress-bar__current-value" :style="{'width': getPercentByStep}"></div>
-        </div>
-        <div class="progress-bar__info">
-          {{ currentStep }} / {{ allStepCount }}
-        </div>
-      </div>
-      <div class="h5 mb-3">
-        Question {{ currentStep }}
-      </div>
-      <div class="text questions__text" v-if="getDataByStep">
-        {{ getDataByStep.text }}
-      </div>
-      <div class="h5 mb-4">
-        Select one of answers
-      </div>
-      <!-- TODO REMOVE INDEX WHEN {BE} ADDED ID TO ANSWER -->
-      <div class="questions-list" v-if="getDataByStep">
-        <div class="questions-item"
-             v-for="(item, index) in getDataByStep.answers"
-             :key="index"
-             :class="{'active' : 1+index === selectedAnswer}"
-        >
-          <div
-            class="questions-item__content"
-            @click.prevent="nextStep(index+1)"
-          >
-            {{ item.text }}
-            <img v-if="1+index === selectedAnswer"
-                 class="questions-item__icon-checked"
-                 src="../assets/checkbox_fill.svg"
-                 alt="checkbox">
+      <template v-if="show.questions">
+        <div class="progress-bar mb-4">
+          <div class="progress-bar__value">
+            <div class="progress-bar__current-value" :style="{'width': getPercentByStep}"></div>
           </div>
+          <div class="progress-bar__info">
+            {{ currentStep }} / {{ allStepCount }}
+          </div>
+        </div>
+        <div class="h5 mb-3">
+          Question {{ currentStep }}
+        </div>
+        <div class="text questions__text" v-if="getDataByStep">
+          {{ getDataByStep.text }}
+        </div>
+        <div class="h5 mb-4">
+          Select one of answers
+        </div>
+        <!-- TODO REMOVE INDEX WHEN {BE} ADDED ID TO ANSWER -->
+        <div class="questions-list" v-if="getDataByStep">
+          <div class="questions-item"
+               v-for="(item, index) in getDataByStep.answers"
+               :key="index"
+               :class="{'active' : 1+index === selectedAnswer}"
+          >
+            <div
+              class="questions-item__content"
+              @click.prevent="nextStep(index+1)"
+            >
+              {{ item.text }}
+              <img v-if="1+index === selectedAnswer"
+                   class="questions-item__icon-checked"
+                   src="../assets/checkbox_fill.svg"
+                   alt="checkbox">
+            </div>
+          </div>
+        </div>
+      </template>
+      <div class="questions-attentions" v-if="show.attentions">
+        <div class="text">
+          One last thing before we share the results - we need to verify you are human!
+        </div>
+        <div class="text">
+          <span @click="this.setRedirectAuth" >
+            <router-link :to="{
+            name: 'main',
+            params:  { slide: 3 }
+          }">
+            Register
+          </router-link>
+          </span>
+            or
+          <span @click="this.setRedirectAuth">
+            <router-link to="/login" >
+            Login
+          </router-link>
+          </span>
         </div>
       </div>
     </Content>
@@ -43,6 +66,7 @@
 
 <script>
 import Content from '@components/Content/Content.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Questions',
@@ -55,8 +79,16 @@ export default {
     allStepCount: 1,
     selectedAnswer: null,
     formData: {},
+    show: {
+      questions: true,
+      attentions: false,
+    },
+    redirectLink: 'invintation-report',
   }),
   computed: {
+    ...mapGetters({
+      getProfile: 'auth/getProfile',
+    }),
     getPercentByStep() {
       return `${this.currentStep * 100 / this.allStepCount}%`;
     },
@@ -67,6 +99,9 @@ export default {
     },
     isPersonalityTest() {
       return this.$route.meta.invitationType === 'PERSONALITY_TEST';
+    },
+    isAuth() {
+      return this.getProfile.token;
     },
 
   },
@@ -109,15 +144,29 @@ export default {
     setAnswer(questionId) {
       this.formData[this.getDataByStep.qid] = questionId;
     },
+    saveAnswerByPersonalityTest() {
+      return this.$store.dispatch('invitation/setPersonalityTest',
+        {
+          formData: this.formData,
+          id: this.$route.params.id,
+        }).then(() => {
+        if (this.isAuth) {
+          return this.$router.push({ name: this.redirectLink });
+        }
+
+        return this.toggleShowContent();
+      });
+    },
+    setRedirectAuth() {
+      this.$store.dispatch('auth/setRedirectAuth', this.redirectLink);
+    },
+    toggleShowContent() {
+      this.show.questions = !this.show.questions;
+      this.show.attentions = !this.show.attentions;
+    },
     saveAnswer() {
       if (this.isPersonalityTest) {
-        return this.$store.dispatch('invitation/setPersonalityTest',
-          {
-            formData: this.formData,
-            id: this.$route.params.id,
-          }).then(() => {
-          this.$router.push({ name: 'invintation-report' });
-        });
+        return this.saveAnswerByPersonalityTest();
       }
 
       return this.$api.questionnaire.saveAnswer(this.formData)
@@ -170,5 +219,20 @@ export default {
     line-height: 16px;
     width: 60px;
     margin-left: 15px;
+  }
+  .questions-attentions{
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    padding: 0 24px;
+    transform: translate(-50%, -50%);
+    .text{
+      margin-bottom: 10px;
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
   }
 </style>

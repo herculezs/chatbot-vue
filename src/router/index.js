@@ -10,11 +10,11 @@ export default new Router({
   routes: [
     {
       path: '*',
-      redirect: { name: 'Main' },
+      redirect: { name: 'main' },
     },
     {
       path: '/',
-      name: 'Main',
+      name: 'main',
       component: () => import('@views/Main.vue'),
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle

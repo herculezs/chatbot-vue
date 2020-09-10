@@ -49,6 +49,7 @@
 import { validationMixin } from 'vuelidate';
 import Content from '@components/Content/Content.vue';
 import TelInput from '@components/InputTel/TelInput.vue';
+import { mapGetters } from 'vuex';
 
 const { required } = require('vuelidate/lib/validators');
 
@@ -76,6 +77,9 @@ export default {
     diaCode: '',
   }),
   computed: {
+    ...mapGetters({
+      getRedirectAuth: 'auth/getRedirectAuth',
+    }),
     getClassByLengthCountryCode() {
       return `code-length-${this.diaCode.length}`;
     },
@@ -98,7 +102,7 @@ export default {
       if (!this.$v.$invalid) {
         const data = this.prepareDataForRequest();
         this.$store.dispatch('auth/loginRequest', data).then(() => {
-          this.$router.push('questionnaire');
+          this.$router.push(this.getRedirectAuth);
         });
       }
     },

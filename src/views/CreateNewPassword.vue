@@ -20,6 +20,7 @@ export default {
   computed: {
     ...mapGetters({
       getProfile: 'auth/getProfile',
+      getRedirectAuth: 'auth/getRedirectAuth',
     }),
   },
   methods: {
@@ -27,7 +28,7 @@ export default {
       // eslint-disable-next-line no-underscore-dangle
       this.$store.dispatch('auth/newPassword', { formData, userId: this.getProfile.id })
         .then(() => {
-          this.$router.push('questionnaire');
+          this.$router.push(this.getRedirectAuth);
         });
     },
   },

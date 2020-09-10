@@ -2,6 +2,7 @@ import api from '@api';
 
 const getters = {
   getProfile: state => state.profile,
+  getRedirectAuth: state => state.redirectAuth,
 };
 
 const actions = {
@@ -29,10 +30,13 @@ const actions = {
     return api.personalityTypeReport.setPersonalityType(formData).then(() => {
       commit('setSelfPersonalityType', formData.selfPersonalityType);
     });
-    // commit('setSelfPersonalityType', data);
   },
   logout({ commit }) {
     commit('setProfile', {});
+    commit('setRedirectAuth', 'questionnaire');
+  },
+  setRedirectAuth({ commit }, path) {
+    commit('setRedirectAuth', path);
   },
 };
 
@@ -43,10 +47,14 @@ const mutations = {
   setSelfPersonalityType(state, data) {
     state.profile.selfPersonalityType = data;
   },
+  setRedirectAuth(state, path) {
+    state.redirectAuth = path;
+  },
 };
 
 const state = {
   profile: {},
+  redirectAuth: 'questionnaire',
 };
 
 export default {

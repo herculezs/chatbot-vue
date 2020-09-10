@@ -175,7 +175,17 @@ export default {
       return `code-length-${this.formData.diaCode.length}`;
     },
   },
+  mounted() {
+    this.initialSlider();
+  },
   methods: {
+    initialSlider() {
+      const { slide } = this.$route.params;
+
+      if (slide) {
+        this.gotToSlide(slide);
+      }
+    },
     gotToSlide(numberSlide) {
       this.$refs.slickCarousel.goTo(numberSlide);
     },
