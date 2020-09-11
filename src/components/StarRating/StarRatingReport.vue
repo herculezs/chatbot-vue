@@ -9,7 +9,7 @@
     active-color="#7811C9"
     inactive-color="#fff"
     :border-width="6"
-    :star-size="30"
+    :star-size="40"
   />
 </template>
 

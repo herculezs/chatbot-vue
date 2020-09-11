@@ -59,8 +59,8 @@ export default {
   data: () => ({
     formData: {
       message: '',
-      rating1: 2,
-      rating2: 1,
+      rating1: 0,
+      rating2: 0,
     },
   }),
   methods: {
