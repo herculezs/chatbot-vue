@@ -66,7 +66,7 @@ export default {
     cursor: pointer;
     font-size: 16px;
     &:hover, &:focus{
-      color: inherit;
+      color: $lnkColor2;
       text-decoration: none;
     }
     @media (max-height: $xxsMaxHeight) {

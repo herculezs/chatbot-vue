@@ -1,6 +1,6 @@
 <template>
   <b-modal
-    modal-class="modal-sticky-bottom text-center"
+    modal-class="text-center"
     v-model="getModalShow"
     hide-footer
   >

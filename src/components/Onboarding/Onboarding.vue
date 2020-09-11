@@ -259,6 +259,7 @@ export default {
     }
     .slick-slide{
       padding: 0 24px 24px;
+      outline: none !important;
       @media (max-height: $xsMaxHeight) {
         padding-bottom: 20px;
       }
