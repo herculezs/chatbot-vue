@@ -16,7 +16,7 @@
     </div>
 </template>
 <script type="text/javascript">
-import star from './star.vue';
+import star from './Star.vue';
 
 export default {
   components: {

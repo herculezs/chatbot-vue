@@ -17,12 +17,6 @@
           >
             Find out how
           </button>
-          <router-link to="/login">
-            <button class="button button_theme-transparent-default button_size-m">
-              Sign in
-            </button>
-          </router-link>
-
         </div>
       </div>
       <div class="onBoarding-carousel__slide">
@@ -43,7 +37,7 @@
         button_theme-default button_size-m"
           @click.prevent="gotToSlide(2)"
         >
-          Register
+          Start
         </button>
       </div>
       <div class="onBoarding-carousel__slide">
@@ -90,8 +84,7 @@
           Send Code
         </button>
         <div class="caption onBoarding-carousel-button__caption text-center">
-          By using our service, you consent to our Privacy
-          Policy and agree to its terms which can be found on our website - 3-60.me
+          By using our service, you consent to our Privacy Policy and Terms and Conditions below
         </div>
       </div>
     </VueSlickCarousel>
@@ -299,7 +292,7 @@ export default {
     display: block;
   }
   .onBoarding__video_step1{
-    height: 40vh;
+    height: 45vh;
   }
   .onBoarding__video_step2{
     height: 26vh;

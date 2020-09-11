@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import StarRating from './star-rating.vue';
+import StarRating from './StarRating.vue';
 
 export default {
   components: {

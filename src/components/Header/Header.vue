@@ -62,7 +62,7 @@ export default {
     font-weight: bold;
     text-transform: uppercase;
     font-family: $titleFont;
-    color: $txtColor1;
+    color: $lnkColor2;
     cursor: pointer;
     font-size: 16px;
     &:hover, &:focus{

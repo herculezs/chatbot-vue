@@ -17,7 +17,7 @@
           {{ getDataByStep.text }}
         </div>
         <div class="h5 mb-4">
-          Select one of answers
+          Select answer
         </div>
         <!-- TODO REMOVE INDEX WHEN {BE} ADDED ID TO ANSWER -->
         <div class="questions-list" v-if="getDataByStep">
