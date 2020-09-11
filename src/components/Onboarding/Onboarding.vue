@@ -2,7 +2,6 @@
   <div class="onBoarding-carousel">
     <VueSlickCarousel
       v-bind="carousel.settings"
-      adaptiveHeight
       ref="slickCarousel"
     >
       <div class="onBoarding-carousel__slide">
@@ -44,6 +43,10 @@
         <div class="title onBoarding__title">
           Details
         </div>
+        <div class="caption text-center mb-3">
+          We need your phone number so we
+          can notify you of the results. We won’t contact you otherwise.
+        </div>
         <form class="form">
           <div
             class="form-group"
@@ -69,11 +72,6 @@
             :validPhone="$v.formData.phone"
             @onDiaCode="countryChanged"
           />
-
-          <div class="caption text-center">
-            We need your phone number so we
-            can notify you of the results. We won’t contact you otherwise.
-          </div>
         </form>
 
         <button
@@ -209,7 +207,7 @@ export default {
 
 <style lang="scss">
   .onBoarding__title{
-    margin-bottom: 3vh;
+    margin-bottom: 1vh;
     font-size: 3.5vh;
     line-height: 5vh;
     text-align: center;
@@ -245,13 +243,13 @@ export default {
     margin: 0 -24px;
     height: 100%; //150px 17 calc(100vh - 12.5vh)
     /*min-height: 490px;*/
-    /*.slick-list,*/
-    /*.slick-track,*/
-    /*.slick-slide,*/
-    /*.slick-slide > div,*/
-    /*.onBoarding-carousel__slide {*/
-    /*  height: 100% !important;*/
-    /*}*/
+    .slick-list,
+    .slick-track,
+    .slick-slide,
+    .slick-slide > div,
+    .onBoarding-carousel__slide {
+      height: 100% !important;
+    }
     .onBoarding-carousel__slide{
       display: flex !important;
       flex-direction: column;
