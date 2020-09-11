@@ -84,36 +84,7 @@
         <InputCopy v-model="shareLink" class="mb-4" />
       <!--<Share :url="shareLink" />-->
       </b-modal>
-      <b-modal
-        modal-class="modal-sticky-bottom text-center"
-        v-model="modalShow"
-        hide-footer
-      >
-        <h3 class="h5 mb-2">
-          Did you find the app gave
-          you new insight into your personality?
-        </h3>
-        <StarRating class="mb-3" />
-        <h3 class="h5 mb-3">
-          How would rate the app overall?
-        </h3>
-        <StarRating class="mb-3" />
-        <h3 class="h5 mb-3">
-          Thanks you!  Let us know what
-          we can do to be even better or if you would like us to contact you?
-        </h3>
-
-          <textarea
-            class="form__input mb-3"
-            placeholder="Your messsage"
-            v-model="messsage"
-          />
-        <button
-          class="button button_w-100 button_theme-default button_size-m"
-        >
-          Send
-        </button>
-      </b-modal>
+      <FeedbackModal v-model="showReportModal" />
       <button
         v-b-modal.modal-multi-1
         class="button button_w-100 button_theme-default button_size-m">
@@ -128,7 +99,7 @@ import Card from '@components/Card/Card.vue';
 import InputCopy from '@components/InputCopy/InputCopy.vue';
 import Content from '@components/Content/Content.vue';
 import Radar from '@components/Radar/Radar.vue';
-import StarRating from '@components/StarRating/StarRating.vue';
+import FeedbackModal from '@components/Modals/FeedbackModal.vue';
 import constants from '@constants';
 
 import { mapGetters } from 'vuex';
@@ -139,11 +110,10 @@ export default {
     InputCopy,
     Content,
     Radar,
-    StarRating,
+    FeedbackModal,
   },
   name: 'Report',
   data: () => ({
-    modalShow: true,
     radarData: [
       {
         value: [],
@@ -169,12 +139,10 @@ export default {
         name: 'average',
       },
     ],
-    // radarData: [],
-    // radarUser: [],
     respondentsCount: 6,
     shareLink: null,
     tag: null,
-    messsage: '',
+    showReportModal: false,
   }),
   computed: {
     ...mapGetters({
@@ -203,11 +171,15 @@ export default {
         if (res.othersAmount > 3) {
           const average = this.radarData.find(item => item.name === 'average');
           average.value = Object.values(res.othersAverage);
+          this.setShowReportModal(true);
         }
 
         this.tag = res.selfResult;
         this.shareLink = `${window.location.host}${res.invitationLink}`;
       });
+    },
+    setShowReportModal(value) {
+      this.showReportModal = value;
     },
   },
 };
