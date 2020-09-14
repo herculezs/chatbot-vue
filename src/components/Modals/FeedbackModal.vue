@@ -5,22 +5,20 @@
     hide-footer
   >
     <h3 class="h5 mb-3">
-      Did you find the app gave
-      you new insight into your personality?
+      {{ formData.question1.question }}
     </h3>
-    <StarRatingReport v-model="formData.rating1" class="mb-5" />
+    <StarRatingReport v-model="formData.question1.value" class="mb-5" />
     <h3 class="h5 mb-3">
-      How would rate the app overall?
+      {{ formData.question2.question }}
     </h3>
-    <StarRatingReport v-model="formData.rating2" class="mb-5" />
+    <StarRatingReport v-model="formData.question2.value" class="mb-5" />
     <h3 class="h5 mb-3">
-      Thanks you!  Let us know what
-      we can do to be even better or if you would like us to contact you?
+      {{ formData.question3.question }}
     </h3>
     <textarea
       class="form__input mb-3"
-      placeholder="Your messsage"
-      v-model="formData.message"
+      placeholder="Your message"
+      v-model="formData.question3.value"
     />
     <button
       class="button button_w-100 button_theme-default button_size-m"
@@ -33,6 +31,8 @@
 
 <script>
 import StarRatingReport from '@components/StarRating/StarRatingReport.vue';
+import notifyError from '@helpers';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -44,7 +44,30 @@ export default {
       default: false,
     },
   },
+  data: () => ({
+    formData: {
+      question1: {
+        type: 'rating',
+        question: 'Did you find the app gave you new insight into your personality?',
+        value: 0,
+      },
+      question2: {
+        type: 'rating',
+        question: 'Thanks you!  Let us know what we can do to be even better\n'
+          + 'or if you would like us to contact you?',
+        value: 0,
+      },
+      question3: {
+        type: 'textarea',
+        question: 'What can we do to improve?',
+        value: '',
+      },
+    },
+  }),
   computed: {
+    ...mapGetters({
+      getProfile: 'auth/getProfile',
+    }),
     getModalShow: {
       // eslint-disable-next-line
       get: function () {
@@ -56,16 +79,78 @@ export default {
       },
     },
   },
-  data: () => ({
-    formData: {
-      message: '',
-      rating1: 0,
-      rating2: 0,
+  watch: {
+    'formData.question2.value': {
+      handler() {
+        this.formData.question3.question = this.getQuestionsByRating();
+      },
     },
-  }),
+  },
   methods: {
+    getQuestionsByRating() {
+      const rating = this.formData.question2.value;
+      let result = '';
+
+      switch (true) {
+        case (rating <= 3):
+          result = 'What can we do to improve?';
+          break;
+        case (rating >= 3.5 && rating <= 4):
+          result = 'What was the reason for your score?';
+          break;
+        case (rating > 4):
+          result = 'Thank you!  Let us know what we can '
+            + 'do to be even better or if you would like us to contact you?';
+          break;
+        default:
+          result = 'What can we do to improve?';
+          break;
+      }
+
+      return result;
+    },
+    objIsEmpty(data) {
+      let isEmpty = true;
+
+      // eslint-disable-next-line array-callback-return,consistent-return
+      Object.values(data).some((item) => {
+        if (item.value) {
+          isEmpty = false;
+          return true;
+        }
+      });
+
+      return isEmpty;
+    },
+    prepareDatForRequest() {
+      return {
+        feedbackId: 'PERSONALITY_TEST_FEEDBACK',
+        U1: this.getProfile.name,
+        items: Object.values(this.formData).map((item, index) => ({
+          id: index + 1,
+          question: item.question,
+          answer: item.value,
+        })),
+      };
+    },
     sendFeedBack() {
-      console.log(this.formData);
+      const isEmptyForm = this.objIsEmpty(this.formData);
+
+      if (isEmptyForm) {
+        const error = {
+          response: {
+            data: {
+              message: 'Rating is empty',
+            },
+          },
+        };
+
+        notifyError(error);
+      }
+
+      const data = this.prepareDatForRequest();
+      this.$api.feedback.setFeedBack(data);
+      this.getModalShow = false;
     },
   },
 };
