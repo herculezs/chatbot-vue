@@ -39,27 +39,27 @@ export default new Router({
           component: () => import('@views/Questions.vue'),
         },
       ],
-      beforeEnter: (to, from, next) => {
-        // eslint-disable-next-line no-underscore-dangle
-        const userAuth = Store.getters['auth/getProfile'].token;
-        const personalityType = Store.getters['auth/getProfile'].selfPersonalityType;
-
-        if (to.params.id) {
-          next();
-          return;
-        }
-
-        if (!userAuth) {
-          next('/');
-          return;
-        }
-        if (personalityType && !to.params.id) {
-          next('/report');
-          return;
-        }
-
-        next();
-      },
+      // beforeEnter: (to, from, next) => {
+      //   // eslint-disable-next-line no-underscore-dangle
+      //   const userAuth = Store.getters['auth/getProfile'].token;
+      //   const personalityType = Store.getters['auth/getProfile'].selfPersonalityType;
+      //
+      //   if (to.params.id) {
+      //     next();
+      //     return;
+      //   }
+      //
+      //   if (!userAuth) {
+      //     next('/');
+      //     return;
+      //   }
+      //   if (personalityType && !to.params.id) {
+      //     next('/report');
+      //     return;
+      //   }
+      //
+      //   next();
+      // },
     },
     // {
     //   path: '/questionsdrag',

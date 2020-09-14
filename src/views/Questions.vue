@@ -28,7 +28,7 @@
           >
             <div
               class="questions-item__content"
-              @click.prevent="nextStep(index+1)"
+              @click.prevent="selectAndNextStep(index+1)"
             >
               {{ item.text }}
               <img v-if="1+index === selectedAnswer"
@@ -66,6 +66,7 @@
 
 <script>
 import Content from '@components/Content/Content.vue';
+import { debounce } from 'lodash';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -174,9 +175,8 @@ export default {
           this.$router.push({ name: 'personality-type' });
         });
     },
-    nextStep(answer) {
-      this.selectedAnswers(answer);
-
+    // eslint-disable-next-line func-names
+    nextStep: debounce(function () {
       const nextStep = this.currentStep + 1;
 
       if (!this.selectedAnswer) return;
@@ -189,6 +189,10 @@ export default {
       } else {
         this.saveAnswer();
       }
+    }, 700),
+    selectAndNextStep(answer) {
+      this.selectedAnswers(answer);
+      this.nextStep();
     },
   },
 };

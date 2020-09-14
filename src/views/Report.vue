@@ -88,7 +88,7 @@
       <button
         v-b-modal.modal-multi-1
         class="button button_w-100 button_theme-default button_size-m">
-        Crowdsource now
+        Ask Colleagues
       </button>
     </Content>
   </div>
