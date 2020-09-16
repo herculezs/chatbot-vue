@@ -31,7 +31,6 @@
 
 <script>
 import StarRatingReport from '@components/StarRating/StarRatingReport.vue';
-import notifyError from '@helpers';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -137,15 +136,8 @@ export default {
       const isEmptyForm = this.objIsEmpty(this.formData);
 
       if (isEmptyForm) {
-        const error = {
-          response: {
-            data: {
-              message: 'Rating is empty',
-            },
-          },
-        };
-
-        notifyError(error);
+        this._showErrorNotify('Rating is empty');
+        return;
       }
 
       const data = this.prepareDatForRequest();

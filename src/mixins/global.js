@@ -1,24 +1,15 @@
 export default {
   data: () => ({
   }),
-  // computed: {
-  //   isAppLoading: {
-  //     get() {
-  //       return this.$store.getters['global/getAppLoading'];
-  //     },
-  //   },
-  // },
   methods: {
     _showErrorNotify(text) {
       this.$notify({
-        group: 'global',
         type: 'error',
         text,
       });
     },
     _showSuccessNotify(text) {
       this.$notify({
-        group: 'global',
         type: 'success',
         text,
       });
