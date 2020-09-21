@@ -5,7 +5,6 @@ export default {
     _showErrorNotify(text) {
       this.$notify({
         type: 'error',
-        title: 'error',
         text,
       });
     },

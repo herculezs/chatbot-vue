@@ -81,7 +81,6 @@ export default {
       if (this.getProfile.selfPersonalityType) {
         this.$notify({
           type: 'error',
-          title: 'error',
           text: 'User has already completed the personality test',
         });
         return;
