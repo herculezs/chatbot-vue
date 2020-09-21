@@ -24,7 +24,7 @@ const actions = {
   },
   resetPasswordRequest({ commit }, data) {
     return api.auth.resetPassword(data).then((res) => {
-      commit('setProfile', res);
+      commit('setId', { id: res });
     });
   },
   newPassword({ commit }, data) {
@@ -54,6 +54,12 @@ const actions = {
 const mutations = {
   setProfile(state, data) {
     state.profile = data;
+  },
+  setId(state, data) {
+    state.profile = {
+      ...state.profile,
+      id: data.id,
+    };
   },
   setSecurityCode(state, data) {
     state.securityCode = data;

@@ -1,8 +1,27 @@
 <template>
-  <ECharts
-    :options="getRadarData"
-    autoresize
-  />
+  <div>
+    <ECharts
+      :options="getRadarData"
+      autoresize
+    />
+    <div class="radar-legend">
+      <div class="radar-legend-list">
+        <div
+          class="radar-legend-item"
+          v-for="(item, index) in getDataForLegends"
+          :key="index"
+        >
+          <div
+            class="radar-legend-item-indicator"
+            :style="{'background-color': item.areaStyle.color,
+             'border-color': item.areaStyle.color}"
+          >
+          </div>
+          <div class="radar-legend-item-text">{{ item.name }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -22,6 +41,9 @@ export default {
     },
   },
   computed: {
+    getDataForLegends() {
+      return this.data.filter(item => item.value.length);
+    },
     getRadarData() {
       return {
         tooltip: {},
@@ -75,3 +97,33 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+  .radar-legend{
+    display: flex;
+    justify-content: center;
+  }
+  .radar-legend-list{
+    display: flex;
+  }
+  .radar-legend-item{
+    display: flex;
+    padding: 0 25px;
+    align-items: center;
+    width: 50%;
+  }
+  .radar-legend-item-indicator{
+    min-width: 22px;
+    height: 22px;
+    background-color: gray;
+    border-color: darkgray;
+    border-width: 4px;
+    border-style: solid;
+    margin-right: 5px;
+  }
+  .radar-legend-item-text{
+    font-family: $defaultFont;
+    color: $txtColor2;
+    font-size: 16px;
+  }
+</style>

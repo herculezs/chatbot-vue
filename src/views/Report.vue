@@ -124,7 +124,7 @@ export default {
           color: 'rgba(120, 17, 200, 0.8)',
         },
         symbol: 'none',
-        name: 'user',
+        name: 'Me',
       },
       {
         value: [],
@@ -136,7 +136,7 @@ export default {
           color: 'rgba(255, 0, 0, 0.8)',
         },
         symbol: 'none',
-        name: 'average',
+        name: 'Others',
       },
     ],
     respondentsCount: null,
@@ -170,10 +170,10 @@ export default {
       this.$api.personalityTypeReport.fetchPersonalityTypeReport().then((res) => {
         this.respondentsCount = res.othersAmount;
 
-        this.setRadar(res.self, 'user');
+        this.setRadar(res.self, 'Me');
 
         if (this.isOthersAmount) {
-          this.setRadar(res.othersAverage, 'average');
+          this.setRadar(res.othersAverage, 'Others');
         }
 
         this.showFeedBackModalByParams(res.othersAmount);
@@ -262,10 +262,10 @@ export default {
   }
   .diagram__legend-list{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
   }
   .diagram__legend-item{
-    margin-right: 10px;
+    margin-right: 50px;
   }
   .diagram__legend-title{
     font-size: 12px;

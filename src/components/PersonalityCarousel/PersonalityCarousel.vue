@@ -109,7 +109,7 @@ export default {
     background-color: transparent;
     border: none;
     color: $txtColor2;
-    font-size: 18px;
+    font-size: 32px;
     line-height: 8px;
     &:hover, &:focus{
       outline: none;
