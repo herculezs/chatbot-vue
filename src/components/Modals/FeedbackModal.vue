@@ -141,7 +141,7 @@ export default {
       }
 
       const data = this.prepareDatForRequest();
-      this.$api.feedback.setFeedBack(data);
+      this.$store.dispatch('auth/setCompletedFeedbackRequest', data);
       this.getModalShow = false;
     },
   },

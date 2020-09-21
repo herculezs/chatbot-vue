@@ -189,6 +189,17 @@ export default new Router({
       path: '/enter-security-code',
       name: 'enter-security-code',
       component: () => import('@views/EnterSecurityCode.vue'),
+      beforeEnter: (to, from, next) => {
+        // eslint-disable-next-line no-underscore-dangle
+        const userAuth = Store.getters['auth/getProfile'].token;
+
+        if (userAuth) {
+          next('/questionnaire');
+          return;
+        }
+
+        next();
+      },
     },
   ],
 });

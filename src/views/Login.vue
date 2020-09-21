@@ -102,7 +102,7 @@ export default {
       if (!this.$v.$invalid) {
         const data = this.prepareDataForRequest();
         this.$store.dispatch('auth/loginRequest', data).then(() => {
-          this.$router.push(this.getRedirectAuth);
+          this.$router.replace(this.getRedirectAuth);
         });
       }
     },

@@ -20,15 +20,22 @@ export default {
   computed: {
     ...mapGetters({
       getProfile: 'auth/getProfile',
+      getSecurityCode: 'auth/getSecurityCode',
       getRedirectAuth: 'auth/getRedirectAuth',
     }),
   },
   methods: {
     changePassword(formData) {
+      const dataForRequest = {
+        password: formData.password,
+        code: this.getSecurityCode,
+      };
+
       // eslint-disable-next-line no-underscore-dangle
-      this.$store.dispatch('auth/newPassword', { formData, userId: this.getProfile.id })
+      this.$store.dispatch('auth/newPassword',
+        { formData: dataForRequest, userId: this.getProfile.id })
         .then(() => {
-          this.$router.push(this.getRedirectAuth);
+          this.$router.replace(this.getRedirectAuth);
         });
     },
   },

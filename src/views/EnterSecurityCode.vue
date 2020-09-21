@@ -71,9 +71,13 @@ export default {
       this.$v.$touch();
       if (!this.$v.$invalid) {
         // eslint-disable-next-line no-underscore-dangle
-        this.$api.auth.validateCode(this.formData, this.getProfile.id).then(() => {
-          this.$router.push('create-new-password');
-        });
+        this.$store.dispatch('auth/setSecurityCode', this.formData)
+          .then(() => {
+            this.$router.push('create-new-password');
+          });
+        // this.$api.auth.validateCode(this.formData, this.getProfile.id).then(() => {
+        //   this.$router.push('create-new-password');
+        // });
       }
     },
   },

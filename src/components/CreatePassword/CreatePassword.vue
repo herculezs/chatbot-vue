@@ -17,25 +17,31 @@
         >
           Field is required
         </div>
+        <div
+          class="form__input-error"
+          v-if="!$v.formData.password.minLength"
+        >
+          Password must have at least {{ $v.formData.password.$params.minLength.min }} letters
+        </div>
       </template>
     </div>
 
     <div
       class="form-group"
-      :class="{'form-group-error': $v.formData.code.$error}"
+      :class="{'form-group-error': $v.formData.repeatPassword.$error}"
     >
       <input
         class="form__input"
         placeholder="Confirm password"
         type="password"
-        v-model="formData.code"
+        v-model="formData.repeatPassword"
       />
-      <template v-if="$v.formData.code.$error">
+      <template v-if="$v.formData.repeatPassword.$error">
         <div
           class="form__input-error"
-          v-if="!$v.formData.code.required"
+          v-if="!$v.formData.repeatPassword.sameAsPassword"
         >
-          Field is required
+          Passwords must be identical
         </div>
       </template>
     </div>
@@ -53,7 +59,7 @@
 <script>
 import { validationMixin } from 'vuelidate';
 
-const { required } = require('vuelidate/lib/validators');
+const { required, sameAs, minLength } = require('vuelidate/lib/validators');
 
 export default {
   components: {},
@@ -63,16 +69,17 @@ export default {
     formData: {
       password: {
         required,
+        minLength: minLength(4),
       },
-      code: {
-        required,
+      repeatPassword: {
+        sameAsPassword: sameAs('password'),
       },
     },
   },
   data: () => ({
     formData: {
       password: null,
-      code: null,
+      repeatPassword: null,
     },
   }),
   computed: {},

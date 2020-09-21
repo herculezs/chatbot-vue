@@ -8,25 +8,6 @@
         To keep respones private (and honest), I will wait until I have recieved at
         least 4 responses, I will send you their answers and update you as I receive more.
       </div>-->
-      <!--<div class="diagram__title-with-respondents mb-3">
-        <div class="report__respondents">
-          <svg class="report__respondents-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.42 15.93">
-            <circle
-              fill="none"
-              stroke="#999"
-              stroke-miterlimit="10"
-              cx="6.21"
-              cy="4"
-              r="3.91"/>
-            <path
-              fill="none" stroke="#999" stroke-miterlimit="10"
-              d="M2.29,16a5.71,5.71,0,0,1,11.34-.92,5.62,5.62,0,0,1,.08.92"
-              transform="translate(-1.79 -0.07)"
-            />
-          </svg>
-          Respondents:  {{ respondentsCount }}
-        </div>
-      </div>-->
 
       <div class="h5 mb-4">
         You guessed you are
@@ -54,6 +35,25 @@
       />
 
       <div class="diagram mb-5">
+        <div class="diagram__title-with-respondents mb-3" v-if="isOthersAmount">
+          <div class="report__respondents">
+            <svg class="report__respondents-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.42 15.93">
+              <circle
+                fill="none"
+                stroke="#999"
+                stroke-miterlimit="10"
+                cx="6.21"
+                cy="4"
+                r="3.91"/>
+              <path
+                fill="none" stroke="#999" stroke-miterlimit="10"
+                d="M2.29,16a5.71,5.71,0,0,1,11.34-.92,5.62,5.62,0,0,1,.08.92"
+                transform="translate(-1.79 -0.07)"
+              />
+            </svg>
+            Respondents:  {{ respondentsCount }}
+          </div>
+        </div>
         <Radar :data="radarData" />
       </div>
 
@@ -139,7 +139,7 @@ export default {
         name: 'average',
       },
     ],
-    respondentsCount: 6,
+    respondentsCount: null,
     shareLink: null,
     tag: null,
     showReportModal: false,
@@ -148,6 +148,9 @@ export default {
     ...mapGetters({
       getProfile: 'auth/getProfile',
     }),
+    isOthersAmount() {
+      return this.respondentsCount > 3;
+    },
     getCard() {
       if (!this.tag) return null;
 
@@ -165,18 +168,31 @@ export default {
   methods: {
     fetchPersonalityTypeReport() {
       this.$api.personalityTypeReport.fetchPersonalityTypeReport().then((res) => {
-        const user = this.radarData.find(item => item.name === 'user');
-        user.value = Object.values(res.self);
+        this.respondentsCount = res.othersAmount;
 
-        if (res.othersAmount > 3) {
-          const average = this.radarData.find(item => item.name === 'average');
-          average.value = Object.values(res.othersAverage);
-          this.setShowReportModal(true);
+        this.setRadar(res.self, 'user');
+
+        if (this.isOthersAmount) {
+          this.setRadar(res.othersAverage, 'average');
         }
+
+        this.showFeedBackModalByParams(res.othersAmount);
 
         this.tag = res.selfResult;
         this.shareLink = `${window.location.host}${res.invitationLink}`;
       });
+    },
+    setRadar(data, name) {
+      const average = this.radarData.find(item => item.name === name);
+      average.value = Object.values(data);
+    },
+    showFeedBackModalByParams() {
+      const { isOthersAmount } = this;
+      const isCompletedFeedBack = this.getProfile.completedFeedbacks.length;
+
+      if (!isCompletedFeedBack && isOthersAmount) {
+        this.setShowReportModal(true);
+      }
     },
     setShowReportModal(value) {
       this.showReportModal = value;
@@ -215,6 +231,7 @@ export default {
     line-height: 17px;
     display: flex;
     align-items: center;
+    margin-left: auto;
   }
   .report__respondents-icon{
     width: 14px;

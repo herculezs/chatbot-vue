@@ -3,9 +3,15 @@ import api from '@api';
 const getters = {
   getProfile: state => state.profile,
   getRedirectAuth: state => state.redirectAuth,
+  getSecurityCode: state => state.securityCode,
 };
 
 const actions = {
+  setSecurityCode({ commit, state }, data) {
+    return api.auth.validateCode(data, state.profile.id).then(() => {
+      commit('setSecurityCode', data.code);
+    });
+  },
   registerRequest({ commit }, data) {
     return api.auth.register(data).then((res) => {
       commit('setProfile', res);
@@ -31,6 +37,11 @@ const actions = {
       commit('setSelfPersonalityType', formData.selfPersonalityType);
     });
   },
+  setCompletedFeedbackRequest({ commit }, formData) {
+    return api.feedback.setFeedBack(formData).then(() => {
+      commit('setCompletedFeedback', 'PERSONALITY_TEST_FEEDBACK');
+    });
+  },
   logout({ commit }) {
     commit('setProfile', {});
     commit('setRedirectAuth', 'questionnaire');
@@ -44,8 +55,17 @@ const mutations = {
   setProfile(state, data) {
     state.profile = data;
   },
+  setSecurityCode(state, data) {
+    state.securityCode = data;
+  },
   setSelfPersonalityType(state, data) {
     state.profile.selfPersonalityType = data;
+  },
+  setCompletedFeedback(state, data) {
+    state.profile.completedFeedbacks = [
+      ...state.profile.completedFeedbacks,
+      data,
+    ];
   },
   setRedirectAuth(state, path) {
     state.redirectAuth = path;
@@ -54,6 +74,7 @@ const mutations = {
 
 const state = {
   profile: {},
+  securityCode: null,
   redirectAuth: 'questionnaire',
 };
 
