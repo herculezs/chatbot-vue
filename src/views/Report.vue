@@ -10,45 +10,49 @@
       <h1 class="h4 text-center mb-1">Well done {{ getProfile.name }}!</h1>
       <h2 class="text mb-5 text-center">Here’s your first report</h2>
 
-      <div class="h5 mb-4">
-        You guessed you are
-      </div>
-      <Card
-        v-if="getGuessedCard"
-        :title="getGuessedCard.title"
-        :showText="getGuessedCard.showText"
-        :hideText="getGuessedCard.hideText"
-        :tag="getGuessedCard.tag"
-        :img="getGuessedCard.src"
-      />
+      <template v-if="getGuessedCard">
+        <div class="h5 mb-4">
+          You guessed you are
+        </div>
+        <Card
+          :title="getGuessedCard.title"
+          :showText="getGuessedCard.showText"
+          :hideText="getGuessedCard.hideText"
+          :tag="getGuessedCard.tag"
+          :img="getGuessedCard.src"
+        />
+      </template>
 
-      <div class="h5 mb-4">
-        Based on your answers
-      </div>
-      <Card
-        v-if="getCard"
-        :title="getCard.title"
-        :showText="getCard.showText"
-        :hideText="getCard.hideText"
-        :img="getCard.src"
-        :tag="getCard.tag"
-      />
+      <template v-if="getCard">
+        <div class="h5 mb-4">
+          Based on your answers
+        </div>
+        <Card
+          :title="getCard.title"
+          :showText="getCard.showText"
+          :hideText="getCard.hideText"
+          :img="getCard.src"
+          :tag="getCard.tag"
+        />
+      </template>
 
-      <div class="h5 mb-4">
-        Based on answers from your contacts
-      </div>
-      <Card
-        v-if="getCardOthersAverage"
-        :title="getCardOthersAverage.title"
-        :showText="getCardOthersAverage.showText"
-        :hideText="getCardOthersAverage.hideText"
-        :img="getCardOthersAverage.src"
-        :tag="getCardOthersAverage.tag"
-        :defaultOpen="true"
-      />
+      <template v-if="isOthersAmount">
+        <div class="h5 mb-4">
+          Based on answers from your contacts
+        </div>
+        <Card
+          :title="getCardOthersAverage.title"
+          :showText="getCardOthersAverage.showText"
+          :hideText="getCardOthersAverage.hideText"
+          :img="getCardOthersAverage.src"
+          :tag="getCardOthersAverage.tag"
+          :defaultOpen="true"
+        />
+      </template>
+
 
       <div class="diagram mb-5">
-        <div class="diagram__title-with-respondents mb-3" v-if="isOthersAmount">
+        <div class="diagram__title-with-respondents mb-3" v-if="respondentsCount">
           <div class="report__respondents">
             <svg class="report__respondents-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.42 15.93">
               <circle
