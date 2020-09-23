@@ -7,6 +7,20 @@
       v-if="!show.card"
     >
       {{ title }}
+      <div class="card__title-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 256 256"
+          style="enable-background:new 0 0 256 256;" xml:space="preserve"
+        >
+          <g>
+            <g>
+              <polygon points="79.093,0 48.907,30.187 146.72,
+              128 48.907,225.813 79.093,256 207.093,128"/>
+            </g>
+          </g>
+        </svg>
+      </div>
     </div>
     <img
       :src="img"
@@ -136,6 +150,8 @@ export default {
     transition: opacity .3s;
     margin: 0;
     opacity: 1;
+    display: flex;
+    align-items: center;
   }
   .card-info__text{
     text-align: center;
@@ -196,6 +212,17 @@ export default {
     width: 70%;
     display: block;
     margin: 0 auto;
+  }
+  .card__title-icon{
+    width: 24px;
+    padding: 6px;
+    height: 24px;
+    position: relative;
+    top: 1px;
+    margin-left: 5px;
+    svg{
+      display: block;
+    }
   }
 
 </style>

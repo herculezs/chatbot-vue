@@ -1,13 +1,14 @@
 <template>
   <div class="report">
     <Content>
+      <div class="report-notifications" v-if="!isOthersAmount">
+        To keep responses anonymous and honest,
+        I will wait until I have received at least 4 responses before
+        I send your first results and will update you as I receive more
+      </div>
+
       <h1 class="h4 text-center mb-1">Well done {{ getProfile.name }}!</h1>
       <h2 class="text mb-5 text-center">Here’s your first report</h2>
-
-      <!--<div class="report-notifications">
-        To keep respones private (and honest), I will wait until I have recieved at
-        least 4 responses, I will send you their answers and update you as I receive more.
-      </div>-->
 
       <div class="h5 mb-4">
         You guessed you are
@@ -31,6 +32,18 @@
         :hideText="getCard.hideText"
         :img="getCard.src"
         :tag="getCard.tag"
+      />
+
+      <div class="h5 mb-4">
+        Based on answers from your contacts
+      </div>
+      <Card
+        v-if="getCardOthersAverage"
+        :title="getCardOthersAverage.title"
+        :showText="getCardOthersAverage.showText"
+        :hideText="getCardOthersAverage.hideText"
+        :img="getCardOthersAverage.src"
+        :tag="getCardOthersAverage.tag"
         :defaultOpen="true"
       />
 
@@ -142,6 +155,7 @@ export default {
     respondentsCount: null,
     shareLink: null,
     tag: null,
+    tagOthersAverage: null,
     showReportModal: false,
   }),
   computed: {
@@ -155,6 +169,11 @@ export default {
       if (!this.tag) return null;
 
       return constants.cards[this.tag];
+    },
+    getCardOthersAverage() {
+      if (!this.tagOthersAverage) return null;
+
+      return constants.cards[this.tagOthersAverage];
     },
     getGuessedCard() {
       if (!this.tag) return null;
@@ -179,6 +198,7 @@ export default {
         this.showFeedBackModalByParams(res.othersAmount);
 
         this.tag = res.selfResult;
+        this.tagOthersAverage = res.othersAverageResult;
         this.shareLink = `${window.location.host}${res.invitationLink}`;
       });
     },
