@@ -1,0 +1,130 @@
+// Bootstrap
+//@import '~bootstrap/scss/bootstrap';
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/images";
+@import "~bootstrap/scss/code";
+@import "~bootstrap/scss/transitions";
+@import "~bootstrap/scss/dropdown";
+@import "~bootstrap/scss/modal";
+
+@import '~vue-slick-carousel/dist/vue-slick-carousel.css';
+@import '~vue-slick-carousel/dist/vue-slick-carousel-theme.css';
+
+@import "text";
+@import "buttons";
+@import "form";
+@import "question";
+@import "modal";
+@import "indents";
+
+html, body{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.main{
+  width: 100%;
+  height: 100%;
+}
+
+.main__content{
+  width: 100%;
+  //min-height: 100%;
+  //padding: 100px 24px 30px;
+  padding: 12.5vh 24px 30px;
+  @media (max-height: $xxsMaxHeight) {
+    padding-top: 11vh;
+  }
+}
+
+.footer-menu{
+  //position: relative;
+  //left: 0;
+  //bottom: -20px;
+  //bottom: 10px;
+  width: 100%;
+  //padding: 0 24px;
+  padding: 10px 0;
+  margin-top: auto;
+  text-align: center;
+}
+.footer-menu__list{
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+.footer-menu__item{
+  font-family: $defaultFont;
+  font-size: 14px;
+  color: $txtColor2;
+  padding: 0 10px;
+  border-right: 1px solid $txtColor2;
+  @media (max-height: $xxsMaxHeight) {
+    font-size: 12px;
+  }
+  &:first-child{
+    padding-left: 0;
+  }
+  &:last-child{
+    padding-right: 0;
+    border-right-color: transparent;
+  }
+}
+
+.bg-1{
+  background-color: $bgColor1;
+}
+.bg-2{
+  background-color: $bgColor2;
+}
+.bg-3{
+  background-color: $bgColor3;
+}
+.bg-4{
+  background-color: $bgColor4;
+}
+.bg-5{
+  background-color: $bgColor5;
+}
+.bg-6{
+  background-color: #EBEBFF;
+}
+.bg-7{
+  background-color: #E5EDBF;
+}
+.bg-8{
+  background-color: #EEFBF4;
+}
+.bg-9{
+  background-color: #D6E7FF;
+}
+
+//.reset-password,
+//.create-password,
+//.enter-security-code{
+//  @extend .bg-1
+//}
+
+
+.content{
+  max-width: 480px;
+  margin: 0 auto;
+}
