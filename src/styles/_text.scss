@@ -1,0 +1,117 @@
+.title{
+  color: $txtColor1;
+  font-family: $titleFont;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 44px;
+  @media (max-height: $xsMaxHeight) {
+    font-size: 26px;
+    line-height: 30px;
+  }
+  @media (max-height: $xxsMaxHeight) {
+    font-size: 24px;
+    line-height: 28px;
+  }
+}
+
+.sub-title{
+  color: $txtColor1;
+  font-family: $titleFont;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+
+.text_br-indent{
+  margin-bottom: 16px;
+}
+
+.text{
+  color: $txtColor2;
+  font-family: $defaultFont;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: 24px;
+  margin: 0;
+  @media (max-height: $xsMaxHeight) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  @media (max-height: $xsMaxHeight) {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+}
+
+.caption{
+  color: $txtColor2;
+  font-family: $defaultFont;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+
+.h1{
+  color: $txtColor1;
+  font-family: $titleFont;
+  font-size: 68px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 88px;
+}
+.h2{
+  color: $txtColor1;
+  font-family: $titleFont;
+  font-size: 48px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 64px;
+}
+.h3{
+  color: $txtColor1;
+  font-family: $titleFont;
+  font-size: 38px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 56px;
+}
+.h4{
+  color: $txtColor1;
+  font-family: $titleFont;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 40px;
+}
+.h5{
+  color: $txtColor1;
+  font-family: $titleFont;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 32px;
+}
+.personality_text{
+  color: $txtColor1;
+  font-family: $titleFont;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+.link{
+  color: $lnkColo1;
+  font-family: $defaultFont;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: 24px;
+  text-decoration: none;
+  &:hover, &:focus{
+    color: $lnkColo1;
+    text-decoration: none;
+
+  }
+}

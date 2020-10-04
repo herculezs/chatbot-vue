@@ -1,0 +1,176 @@
+.form{
+  margin-bottom: 24px;
+  @media (max-height: $xxsMaxHeight) {
+    margin-bottom: 15px;
+  }
+}
+.form__input-tel{
+  font-family: $defaultFont;
+  &.vue-tel-input{
+    background-color: #fff;
+    border-radius: $formInputBorderRadius;
+    border-color: $formInputBorderColor;
+  }
+  .vti__input{
+    font-size: 16px;
+    padding: 19px 10px 19px 52px;
+    font-family: $defaultFont;
+    border-radius: $formInputBorderRadius;
+    color: $formInputColor;
+    font-weight: bold;
+    @media (max-height: $xsMaxHeight) {
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+    @media (max-height: $xxsMaxHeight) {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: 15px;
+    }
+    &::-webkit-input-placeholder {
+      color: $formInputColor;
+      font-weight: normal;
+    }
+    &::-moz-placeholder {
+      color: $formInputColor;
+      font-weight: normal;
+    }
+    &:-ms-input-placeholder {
+      color: $formInputColor;
+      font-weight: normal;
+    }
+    &:-moz-placeholder {
+      color: $formInputColor;
+      font-weight: normal;
+    }
+  }
+  .vti__selection .vti__country-code{
+    color: $formInputColor;
+    font-size: 16px;
+    font-family: $defaultFont;
+    position: absolute;
+    left: 114px;
+    font-weight: bold;
+  }
+  .vti__dropdown.open{
+    outline: none;
+  }
+  .vti__dropdown{
+    min-width: 100px;
+    border-right: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+  }
+  .vti__selection{
+    justify-content: center;
+  }
+  .form__input-tel-arrow-icon{
+    position: relative;
+    right: -10px;
+    top: -1px;
+    font-size: 16px;
+    color: $formInputColor;
+  }
+  .vti__flag.gb{
+    transform: scale(1.6);
+    box-shadow: none;
+  }
+  .vti__dropdown-list{
+    width: 300px;
+    border-color: $formInputBorderColor;
+  }
+  .vti__dropdown-item{
+    color: $txtColor2;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+  .vti__dropdown-item strong{
+    font-weight: normal;
+  }
+  .vti__dropdown-item span{
+    font-weight: bold;
+  }
+}
+
+.form__input{
+  padding: 19px 10px 19px 24px;
+  width: 100%;
+  border-radius: $formInputBorderRadius;
+  border: 1px solid $formInputBorderColor;
+  font-size: 16px;
+  color: $formInputColor;
+  @media (max-height: $xsMaxHeight) {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  @media (max-height: $xxsMaxHeight) {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 15px;
+  }
+  &:focus{
+    outline: none;
+    border-color: #66afe9;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+  }
+  &::-webkit-input-placeholder {
+    color: $formInputColor;
+  }
+  &::-moz-placeholder {
+    color: $formInputColor;
+  }
+  &:-ms-input-placeholder {
+    color: $formInputColor;
+  }
+  &:-moz-placeholder {
+    color: $formInputColor;
+  }
+}
+
+.form-group-error{
+  .form__input,
+  .form__input-tel{
+    border-color: $formInputBorderDangerColor;
+  }
+}
+
+.form__input-error{
+  padding-top: 10px;
+  font-size: 14px;
+  padding-left: 10px;
+  color: $txtColorDanger;
+}
+
+.form-group{
+  margin-bottom: 24px;
+  &:last-child{
+    margin-bottom: 0;
+  }
+  @media (max-height: $xxsMaxHeight) {
+    margin-bottom: 15px;
+  }
+}
+.form-group_link{
+  margin-top: -8px;
+}
+.form-group_submit{
+  margin-top: 32px;
+}
+
+.form__input-copy{
+  position: relative;
+}
+.form__button-copy{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 64px;
+  height: 100%;
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  border-left: 1px solid $formInputBorderColor;
+  outline: none;
+  &:hover,&:focus{
+    outline: none;
+  }
+}
