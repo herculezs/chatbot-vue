@@ -34,8 +34,8 @@ export default new Router({
       component: () => import('@views/Questions.vue'),
       children: [
         {
-          path: 'invitation/PERSONALITY_TEST/u2/:id',
-          meta: { invitationType: 'PERSONALITY_TEST' },
+          path: 'invitation/PERSONALITY_MBIT/u2/:id',
+          meta: { invitationType: 'PERSONALITY_MBIT' },
           component: () => import('@views/Questions.vue'),
         },
       ],

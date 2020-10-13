@@ -39,7 +39,7 @@ const actions = {
   },
   setCompletedFeedbackRequest({ commit }, formData) {
     return api.feedback.setFeedBack(formData).then(() => {
-      commit('setCompletedFeedback', 'PERSONALITY_TEST_FEEDBACK');
+      commit('setCompletedFeedback', 'PERSONALITY_MBIT_FEEDBACK');
     });
   },
   logout({ commit }) {

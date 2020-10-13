@@ -123,7 +123,7 @@ export default {
     },
     prepareDatForRequest() {
       return {
-        feedbackId: 'PERSONALITY_TEST_FEEDBACK',
+        feedbackId: 'PERSONALITY_MBIT_FEEDBACK',
         U1: this.getProfile.name,
         items: Object.values(this.formData).map((item, index) => ({
           id: index + 1,

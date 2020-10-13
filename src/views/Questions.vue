@@ -99,7 +99,7 @@ export default {
       return this.questions[this.currentStep - 1];
     },
     isPersonalityTest() {
-      return this.$route.meta.invitationType === 'PERSONALITY_TEST';
+      return this.$route.meta.invitationType === 'PERSONALITY_MBIT';
     },
     isAuth() {
       return this.getProfile.token;

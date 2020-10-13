@@ -16,7 +16,6 @@ module.exports = {
     config.resolve.alias.set('@config', resolve('src/config'));
     config.resolve.alias.set('@constants', resolve('src/constants'));
     config.resolve.alias.set('@mixins', resolve('src/mixins'));
-    config.performance.maxEntrypointSize(4000000).maxAssetSize(4000000);
   },
   css: {
     loaderOptions: {

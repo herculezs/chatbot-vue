@@ -4,7 +4,7 @@ import notifyError from '@helpers';
 export default {
   fetchQuestionnaire() {
     return new Promise((resolve, reject) => {
-      http.get('questionnaire/PERSONALITY_TEST').then(
+      http.get('questionnaire/PERSONALITY_MBIT').then(
         ({ data }) => {
           resolve(data);
         },
@@ -16,7 +16,7 @@ export default {
   },
   fetchInvitationQuestionnaire(id) {
     return new Promise((resolve, reject) => {
-      http.get(`questionnaire/invitation/PERSONALITY_TEST/u2/${id}`).then(
+      http.get(`questionnaire/invitation/PERSONALITY_MBIT/u2/${id}`).then(
         ({ data }) => {
           resolve(data);
         },
@@ -28,7 +28,7 @@ export default {
   },
   saveAnswer(formData) {
     return new Promise((resolve, reject) => {
-      http.post('questionnaire/PERSONALITY_TEST', formData).then(
+      http.post('questionnaire/PERSONALITY_MBIT', formData).then(
         ({ data }) => {
           resolve(data);
         },
@@ -40,7 +40,7 @@ export default {
   },
   saveInvitationAnswer(formData, id) {
     return new Promise((resolve, reject) => {
-      http.post(`/questionnaire/invitation/PERSONALITY_TEST/u2/${id}`, formData).then(
+      http.post(`/questionnaire/invitation/PERSONALITY_MBIT/u2/${id}`, formData).then(
         (res) => {
           resolve(res.data);
         },
