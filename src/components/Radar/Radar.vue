@@ -1,7 +1,7 @@
 <template>
   <div>
     <ECharts
-      :options="getRadarData"
+      :options="getChartData"
       autoresize
     />
     <div class="radar-legend">
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import 'echarts/lib/chart/radar';
+import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/pie';
 import 'echarts/lib/chart/map';
 import 'echarts/lib/component/legend';
@@ -44,54 +44,116 @@ export default {
     getDataForLegends() {
       return this.data.filter(item => item.value.length);
     },
-    getRadarData() {
+    series() {
+      let ser;
+      if ((this.data[1]).value.length > 0) {
+        ser = [{
+          type: 'bar',
+          name: (this.data[0]).name,
+          data: this.data[0].value,
+          color: ['#009dce'],
+          barWidth: 30,
+          barGap: 0,
+        }, {
+          type: 'bar',
+          name: (this.data[1]).name,
+          data: this.data[1].value,
+          color: ['#ffc000'],
+          barWidth: 30,
+        }];
+      } else {
+        ser = [{
+          type: 'bar',
+          name: (this.data[0]).name,
+          data: this.data[0].value,
+          color: ['#009dce'],
+          barWidth: 30,
+          barGap: 0,
+        }];
+      }
+      return ser;
+    },
+    getChartData() {
       return {
-        tooltip: {},
-        radar: {
-          name: {
-            textStyle: {
-              color: '#838585',
-              fontSize: '12px',
+        toolbox: {
+          feature: {
+            magicType: {
+              type: ['stack', 'tiled'],
             },
-          },
-          indicator: [
-            { text: 'Empathy', max: 5 },
-            { text: 'Self-sufficience', max: 5 },
-            { text: 'Stability', max: 5 },
-            { text: 'Dominance', max: 5 },
-            { text: 'Spontaneity', max: 5 },
-            { text: 'Conformity', max: 5 },
-            { text: 'Audacity', max: 5 },
-            { text: 'Sensitivity', max: 5 },
-            { text: 'Trust', max: 5 },
-            { text: 'Originality', max: 5 },
-            { text: 'Warmth', max: 5 },
-            { text: 'Confidence', max: 5 },
-            { text: 'Logic', max: 5 },
-            { text: 'Privacy', max: 5 },
-            { text: 'Perfectionism', max: 5 },
-            { text: 'Patience', max: 5 },
-          ],
-          splitArea: {
-            areaStyle: {
-              color: '#d2aeed',
-            },
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#dac9e6',
-            },
-          },
-          splitLine: {
-            lineStyle: {
-              color: '#d2aeed',
+            dataView: {},
+            saveAsImage: {
+              pixelRatio: 2,
             },
           },
         },
-        series: [{
-          type: 'radar',
-          data: this.data,
-        }],
+        grid: {
+          left: '1%',
+          right: '1%',
+          bottom: '3%',
+          containLabel: true,
+        },
+        tooltip: {},
+        xAxis: {
+          data: ['Open', 'Conscientious', 'Extraversion', 'Agreeable', 'Neuro'],
+          position: 'top',
+          nameRotate: 20,
+          splitLine: {
+            show: true,
+            lineStyle: {
+              type: 'dashed',
+            },
+          },
+          axisLabel: {
+            rotate: 90,
+            showMaxLabel: true,
+            fontSize: 15,
+          },
+          axisLine: {
+            length: 4,
+            lineStyle: {
+              width: 2,
+            },
+          },
+          axisTick: {
+            lineStyle: {
+              width: 2,
+            },
+          },
+        },
+        yAxis: {
+          maxInterval: 5,
+          minInterval: 5,
+          nameLocation: 'end',
+          position: 'right',
+          splitLine: {
+            show: true,
+            lineStyle: {
+              type: 'dashed',
+              color: ['#000'],
+              width: 2,
+            },
+          },
+          axisLabel: {
+            showMaxLabel: true,
+            fontWeight: 'bold',
+            formatter: (value) => {
+              let temp;
+              if (value === 0) {
+                temp = ' ';
+              } else if (value === 5) {
+                temp = 'max';
+              } else if (value === -5) {
+                temp = 'min';
+              }
+              return temp;
+            },
+          },
+          axisLine: {
+            show: false,
+          },
+        },
+        series: this.series,
+        animationEasing: 'elasticOut',
       };
     },
   },

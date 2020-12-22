@@ -134,25 +134,18 @@ export default {
     radarData: [
       {
         value: [],
+        type: 'bar',
         areaStyle: {
-          color: 'rgba(120, 17, 200, 0.5)',
+          color: 'rgba(0, 157, 206)',
         },
-        itemStyle: {
-          color: 'rgba(120, 17, 200, 0.8)',
-        },
-        symbol: 'none',
         name: 'Me',
       },
       {
         value: [],
-        type: 'radar',
+        type: 'bar',
         areaStyle: {
-          color: 'rgba(255, 0, 0, 0.5)',
+          color: 'rgba(255, 192, 0)',
         },
-        itemStyle: {
-          color: 'rgba(255, 0, 0, 0.8)',
-        },
-        symbol: 'none',
         name: 'Others',
       },
     ],

@@ -4,7 +4,7 @@
       <h1 class="h4 mb-1">Report</h1>
 
       <div class="diagram mb-5">
-        <Radar :data="getRadarData" />
+        <Radar :data="getChartBarData" />
       </div>
 
       <div class="h5 mb-4">
@@ -57,17 +57,13 @@ export default {
 
       return constants.cards[this.getPersonalityTest.result];
     },
-    getRadarData() {
+    getChartBarData() {
       return [
         {
           value: Object.values(this.getPersonalityTest.answers),
           areaStyle: {
-            color: 'rgba(255, 0, 0, 0.5)',
+            color: 'rgba(0, 157, 206)',
           },
-          itemStyle: {
-            color: 'rgba(255, 0, 0, 0.8)',
-          },
-          symbol: 'none',
           name: 'user',
         },
       ];
