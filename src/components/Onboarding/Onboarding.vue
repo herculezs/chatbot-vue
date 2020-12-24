@@ -25,10 +25,11 @@
           How it works
         </div>
         <div class="text onBoarding__tex text-center mb-3">
-          Step 1: You answer 16 quick questions about yourself and receive your first report
+          Step 1: You will be answered 12 quick questions about
+          yourself and receive your first report.
         </div>
         <div class="text onBoarding__tex text-center mb-3">
-          Step 2: Ask your contacts to answer 16 quick
+          Step 2: Ask your contacts to answer 12 quick
           questions about you to receive your comparative report.
         </div>
         <button
@@ -44,8 +45,13 @@
           Details
         </div>
         <div class="caption text-center mb-3">
-          We need your phone number so we
-          can notify you of the results. We won’t contact you otherwise.
+          We need your details so we can notify you of your results.
+          We won’t contact you otherwise
+          <br/>
+          Typography
+          Any answers you give about others will be <b>totally anonymous</b>
+          to everyone in the company
+          Typography
         </div>
         <form class="form">
           <div

@@ -5,8 +5,8 @@
     @rating-selected="selectedRating"
     :increment="0.5"
     :rating="getRating"
-    border-color="#7811C9"
-    active-color="#7811C9"
+    :border-color="starBorderColor"
+    :active-color="starActiveColor"
     inactive-color="#fff"
     :border-width="6"
     :star-size="40"
@@ -15,6 +15,8 @@
 
 <script>
 import StarRating from './StarRating.vue';
+import variablesWellment from '../../styles/variables-wellment.scss';
+import variables from '../../styles/variables.scss';
 
 export default {
   components: {
@@ -34,6 +36,25 @@ export default {
       // eslint-disable-next-line
       set: function (newValue) {
         this.$emit('input', newValue);
+      },
+    },
+    starActiveColor: {
+      // eslint-disable-next-line
+      get: () => {
+        if (process.env.VUE_APP_BUILD === 'wellment') {
+          return variablesWellment.starActiveColor;
+        }
+
+        return variables.starActiveColor;
+      },
+    },
+    starBorderColor: {
+      get: () => {
+        if (process.env.VUE_APP_BUILD === 'wellment') {
+          return variablesWellment.starBorderColor;
+        }
+
+        return variables.starActiveColor;
       },
     },
   },

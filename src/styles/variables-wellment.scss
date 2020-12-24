@@ -66,3 +66,12 @@ $progressBarAllFieldBg: #E9DCF3;
 //Responsive
 $xsMaxHeight: 668px;
 $xxsMaxHeight: 580px;
+
+//star color
+$starActiveColor: #3A9CCD;
+$starBorderColor: #3A9CCD;
+
+:export{
+  starActiveColor: $starActiveColor;
+  starBorderColor: $starBorderColor;
+}
