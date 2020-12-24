@@ -97,9 +97,9 @@
             <template v-if="$v.formData.youEmail.$error">
               <div
                 class="form__input-error"
-                v-if="!$v.formData.youEmail.required"
+                v-if="$v.formData.youEmail.email"
               >
-                Check email
+                Check correct email
               </div>
             </template>
           </div>
@@ -151,9 +151,8 @@
             <template v-if="$v.formData.managerEmail.$error">
               <div
                 class="form__input-error"
-                v-if="!$v.formData.managerEmail.email"
-              >
-                Check email
+                v-if="$v.formData.managerEmail.email">
+                Check correct email
               </div>
             </template>
           </div>
