@@ -1,9 +1,23 @@
 const path = require('path');
+const webpack = require('webpack');
 
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
 module.exports = {
+  configureWebpack: (config) => {
+    const customPlugins = [];
+    if (process.env.VUE_APP_BUILD !== undefined) {
+      customPlugins.push(new webpack.NormalModuleReplacementPlugin(
+        /src\/assets\/logo\.png/,
+        '../profiles/' + process.env.VUE_APP_BUILD + '/logo.png',
+      ));
+    }
+    config.plugins = [
+      ...customPlugins,
+      ...config.plugins,
+    ];
+  },
   chainWebpack: (config) => {
     config.resolve.alias.set('@', resolve('src'));
     config.resolve.alias.set('@api', resolve('api'));
@@ -21,7 +35,7 @@ module.exports = {
     loaderOptions: {
       scss: {
         prependData:
-            '@import "@/styles/variables.scss";',
+            `@import "@/styles/variables${process.env.VUE_APP_BUILD ? '-' + process.env.VUE_APP_BUILD : ''}.scss";`,
       },
     },
   },

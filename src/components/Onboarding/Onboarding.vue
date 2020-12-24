@@ -21,7 +21,7 @@
       <div class="onBoarding-carousel__slide">
         <img class="onBoarding__video onBoarding__video_step2"
              src="../../assets/step_2.gif" alt="video">
-        <div class="title onBoarding__titl text-center mb-4">
+        <div class="title onBoarding__title text-center mb-4">
           How it works
         </div>
         <div class="text onBoarding__tex text-center mb-3">
@@ -50,17 +50,127 @@
         <form class="form">
           <div
             class="form-group"
-            :class="{'form-group-error': $v.formData.name.$error}"
+            :class="{'form-group-error': $v.formData.firstName.$error}"
           >
             <input
               class="form__input"
-              placeholder="Your name"
-              v-model="formData.name"
+              placeholder="First name"
+              v-model="formData.firstName"
             />
-            <template v-if="$v.formData.name.$error">
+            <template v-if="$v.formData.firstName.$error">
               <div
                 class="form__input-error"
-                v-if="!$v.formData.name.required"
+                v-if="!$v.formData.firstName.required"
+              >
+                Field is required
+              </div>
+            </template>
+          </div>
+          <div
+            class="form-group"
+            :class="{'form-group-error': $v.formData.surname.$error}"
+          >
+            <input
+              class="form__input"
+              placeholder="Surname"
+              v-model="formData.surname"
+            />
+            <template v-if="$v.formData.surname.$error">
+              <div
+                class="form__input-error"
+                v-if="!$v.formData.surname.required"
+              >
+                Field is required
+              </div>
+
+            </template>
+          </div>
+          <div
+            class="form-group"
+            :class="{'form-group-error': $v.formData.youEmail.$error}"
+          >
+            <input
+              class="form__input"
+              placeholder="You Corporate Email"
+              v-model="formData.youEmail"
+            />
+            <template v-if="$v.formData.youEmail.$error">
+              <div
+                class="form__input-error"
+                v-if="!$v.formData.youEmail.required"
+              >
+                Check email
+              </div>
+            </template>
+          </div>
+          <div
+            class="form-group"
+            :class="{'form-group-error': $v.formData.department.$error}"
+          >
+            <input
+              class="form__input"
+              placeholder="Department"
+              v-model="formData.department"
+            />
+            <template v-if="$v.formData.department.$error">
+              <div
+                class="form__input-error"
+                v-if="!$v.formData.department.required"
+              >
+                Field is required
+              </div>
+            </template>
+          </div>
+          <div
+            class="form-group"
+            :class="{'form-group-error': $v.formData.role.$error}"
+          >
+            <input
+              class="form__input"
+              placeholder="Role"
+              v-model="formData.role"
+            />
+            <template v-if="$v.formData.role.$error">
+              <div
+                class="form__input-error"
+                v-if="!$v.formData.role.required"
+              >
+                Field is required
+              </div>
+            </template>
+          </div>
+          <div
+            class="form-group"
+            :class="{'form-group-error': $v.formData.managerEmail.$error}"
+          >
+            <input
+              class="form__input"
+              placeholder="Direct Line Manager Email"
+              v-model="formData.managerEmail"
+            />
+            <template v-if="$v.formData.managerEmail.$error">
+              <div
+                class="form__input-error"
+                v-if="!$v.formData.managerEmail.email"
+              >
+                Check email
+              </div>
+            </template>
+          </div>
+          <div
+            class="form-group"
+            :class="{'form-group-error': $v.formData.dateOfBirth.$error}"
+          >
+            <input
+              class="form__input"
+              placeholder="Date of Birth"
+              type="date"
+              v-model="formData.dateOfBirth"
+            />
+            <template v-if="$v.formData.dateOfBirth.$error">
+              <div
+                class="form__input-error"
+                v-if="!$v.formData.dateOfBirth.required"
               >
                 Field is required
               </div>
@@ -112,7 +222,7 @@ import TelInput from '@components/InputTel/TelInput.vue';
 import PolicyModal from '@components/Modals/PolicyModal.vue';
 import TermsConditionsModal from '@components/Modals/TermsConditionsModal.vue';
 
-const { required } = require('vuelidate/lib/validators');
+const { required, email } = require('vuelidate/lib/validators');
 
 export default {
   components: {
@@ -124,7 +234,27 @@ export default {
   mixins: [validationMixin],
   validations: {
     formData: {
-      name: {
+      firstName: {
+        required,
+      },
+      youEmail: {
+        required,
+        email,
+      },
+      surname: {
+        required,
+      },
+      department: {
+        required,
+      },
+      role: {
+        required,
+      },
+      managerEmail: {
+        required,
+        email,
+      },
+      dateOfBirth: {
         required,
       },
       phone: {
@@ -135,7 +265,13 @@ export default {
   data: () => ({
     formData: {
       phone: null,
-      name: '',
+      firstName: '',
+      surname: '',
+      youEmail: '',
+      department: '',
+      role: '',
+      managerEmail: '',
+      dateOfBirth: null,
       diaCode: '',
     },
     carousel: {
@@ -188,7 +324,13 @@ export default {
         .replace(/\s/g, '');
 
       return {
-        name: this.formData.name,
+        name: this.formData.firstName,
+        surname: this.formData.surname,
+        youEmail: this.formData.youEmail,
+        department: this.formData.department,
+        role: this.formData.role,
+        managerEmail: this.formData.managerEmail,
+        dateOfBirth: this.formData.dateOfBirth,
         phone,
       };
     },

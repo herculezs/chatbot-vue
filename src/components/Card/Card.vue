@@ -10,7 +10,7 @@
       <div class="card__title-icon">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 256 256"
+          version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 256 256" class="arrow_icon"
           style="enable-background:new 0 0 256 256;" xml:space="preserve"
         >
           <g>
@@ -152,6 +152,7 @@ export default {
     opacity: 1;
     display: flex;
     align-items: center;
+    color: $txtColor5;
   }
   .card-info__text{
     text-align: center;
@@ -165,10 +166,10 @@ export default {
     padding-bottom: 0;
   }
   .card_hide{
-    background: #D6E7FF;
+    background: $bgCardColor1;
     transition: background 0.3s;
     &:hover, &:focus{
-      background: #EEFBF4;
+      background: $bgCardHoverColor1;
     }
   }
 
@@ -224,5 +225,7 @@ export default {
       display: block;
     }
   }
-
+  .arrow_icon{
+    fill: $txtColor5;
+  }
 </style>

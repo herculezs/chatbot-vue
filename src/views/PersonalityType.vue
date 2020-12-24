@@ -18,6 +18,22 @@
 <script>
 import PersonalityCarousel from '@components/PersonalityCarousel/PersonalityCarousel.vue';
 import Content from '@components/Content/Content.vue';
+import entertainer from '../assets/entertainer.svg';
+import enterpreneur from '../assets/enterpreneur.svg';
+import logistican from '../assets/logistican.svg';
+import virtuoso from '../assets/virtuoso.svg';
+import executive from '../assets/executive.svg';
+import consul from '../assets/consul.svg';
+import architect from '../assets/architect.svg';
+import logician from '../assets/logician.svg';
+import campaigner from '../assets/campaigner.svg';
+import commander from '../assets/commander.svg';
+import debater from '../assets/debater.svg';
+import protagonist from '../assets/protagonist.svg';
+import defender from '../assets/defender.svg';
+import adventurer from '../assets/adventurer.svg';
+import advocate from '../assets/advocate.svg';
+import mediator from '../assets/mediator.svg';
 
 export default {
   components: {
@@ -27,112 +43,112 @@ export default {
   data: () => ({
     slides: [
       {
-        src: '/img/entertainer.svg',
+        src: entertainer,
         title: 'Entertainer',
         desc: 'Spontaneous, energetic and enthusiastic people - life is never boring around them.',
         bgColor: 'bg-6',
         tag: 'ESFP',
       },
       {
-        src: '/img/enterpreneur.svg',
+        src: enterpreneur,
         title: 'Entrepreneur',
         desc: 'Smart, energetic and very perceptive people, who truly enjoy living on the edge.',
         bgColor: 'bg-7',
         tag: 'ESTP',
       },
       {
-        src: '/img/logistican.svg',
+        src: logistican,
         title: 'Logistician',
         desc: 'Practical and fact-minded individuals, whose reliability cannot be doubted.',
         bgColor: 'bg-3',
         tag: 'ISTJ',
       },
       {
-        src: '/img/virtuoso.svg',
+        src: virtuoso,
         title: 'Virtuoso',
         desc: 'Bold and practical experimenters, masters of all kinds of tools.',
         bgColor: 'bg-8',
         tag: 'ISTP',
       },
       {
-        src: '/img/executive.svg',
+        src: executive,
         title: 'Executive',
         desc: 'Excellent administrators unsurpassed at managing things - or people.',
         bgColor: 'bg-3',
         tag: 'ESTJ',
       },
       {
-        src: '/img/consul.svg',
+        src: consul,
         title: 'Consul',
         desc: 'Extraordinary caring, social and popular people, always eager to help.',
         bgColor: 'bg-7',
         tag: 'ESFJ',
       },
       {
-        src: '/img/architect.svg',
+        src: architect,
         title: 'Architect',
         desc: 'Imaginative and strategic thinker, with a plan for everything.',
         bgColor: 'bg-6',
         tag: 'INTJ',
       },
       {
-        src: '/img/logician.svg',
+        src: logician,
         title: 'Logician',
         desc: 'Innovative inventors with an unquenchable thirst for knowledge.',
         bgColor: 'bg-8',
         tag: 'INTP',
       },
       {
-        src: '/img/campaigner.svg',
+        src: campaigner,
         title: 'Campaigner',
         desc: 'Enthusiastic, creative and sociable free spirits, who can always find a reason to smile.',
         bgColor: 'bg-6',
         tag: 'ENFP',
       },
       {
-        src: '/img/commander.svg',
+        src: commander,
         title: 'Commander',
         desc: 'Bold, imaginative and strong-willed leaders, always finding a way - or making one.',
         bgColor: 'bg-6',
         tag: 'ENTJ',
       },
       {
-        src: '/img/debater.svg',
+        src: debater,
         title: 'Debater',
         desc: 'Smart and curious thinkers whi cannot resist and intellectual challenge.',
         bgColor: 'bg-8',
         tag: 'ENTP',
       },
       {
-        src: '/img/protagonist.svg',
+        src: protagonist,
         title: 'Protagonist',
         desc: 'Charismatic and inspiring leaders, able to mesmerize thier listeners.',
         bgColor: 'bg-6',
         tag: 'ENFJ',
       },
       {
-        src: '/img/defender.svg',
+        src: defender,
         title: 'Defender',
         desc: 'Very dedicated and warm protectors, always ready to defend their loved ones.',
         bgColor: 'bg-9',
         tag: 'ISFJ',
       },
       {
-        src: '/img/adventurer.svg',
+        src: adventurer,
         title: 'Adventurer',
         desc: 'Flexible and charming artists, always ready to explore and experience something new.',
         bgColor: 'bg-7',
         tag: 'ISFP',
       },
       {
-        src: '/img/advocate.svg',
+        src: advocate,
         title: 'Advocate',
         desc: 'Quiet and mystical, yet very inspiring and tireless idealists.',
         bgColor: 'bg-8',
         tag: 'INFJ',
       },
       {
-        src: '/img/mediator.svg',
+        src: mediator,
         title: 'Mediator',
         desc: 'Poetic, kind and altruistic people, always eager to help a good cause.',
         bgColor: 'bg-7',
