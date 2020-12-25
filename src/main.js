@@ -12,6 +12,7 @@ import { BootstrapVue } from 'bootstrap-vue';
 import VueSocialSharing from 'vue-social-sharing';
 import Vue2TouchEvents from 'vue2-touch-events';
 
+
 import App from './App.vue';
 
 // eslint-disable-next-line
@@ -29,6 +30,7 @@ Vue.use(VueTelInput);
 Vue.use(BootstrapVue);
 Vue.use(VueSocialSharing);
 Vue.use(Vue2TouchEvents);
+
 
 window.app = new Vue({
   router,

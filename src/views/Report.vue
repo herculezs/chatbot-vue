@@ -72,6 +72,8 @@
           </div>
         </div>
         <Radar :data="radarData" />
+
+        <ChartCompare :data="chartOptionsBar"></ChartCompare>
       </div>
 
       <b-modal
@@ -118,6 +120,8 @@ import Content from '@components/Content/Content.vue';
 import Radar from '@components/Radar/Radar.vue';
 import FeedbackModal from '@components/Modals/FeedbackModal.vue';
 import constants from '@constants';
+import ChartCompare from '@components/Charts/ChartCompare.vue';
+
 
 import { mapGetters } from 'vuex';
 
@@ -128,6 +132,7 @@ export default {
     Content,
     Radar,
     FeedbackModal,
+    ChartCompare,
   },
   name: 'Report',
   data: () => ({
@@ -154,6 +159,20 @@ export default {
     tag: null,
     tagOthersAverage: null,
     showReportModal: false,
+    chartOptionsBar: [
+      {
+        value: [],
+        data: [10.0, 15.04, 'You think - Commercing'],
+      },
+      {
+        value: [],
+        data: [-8.0, -6.95, 'Your Colleagues say'],
+      },
+      {
+        value: [],
+        data: [6.0, 6.95, 'Your Are - Positivistic'],
+      },
+    ],
   }),
   computed: {
     ...mapGetters({
@@ -198,6 +217,9 @@ export default {
         this.tagOthersAverage = res.othersAverageResult;
         this.shareLink = `${window.location.host}${res.invitationLink}`;
       });
+    },
+    ChartCompare(data) {
+      return data;
     },
     setRadar(data, name) {
       const average = this.radarData.find(item => item.name === name);

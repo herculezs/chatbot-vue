@@ -5,6 +5,7 @@
         Which personality type do you think best represents how you see yourself?
       </h1>
       <PersonalityCarousel :slides="slides" @change="changeSlide" />
+      <ChartChooseYourPersonality :data="chartOptionsBar"></ChartChooseYourPersonality>
       <button
         @click.prevent="choose"
         class="button button_w-100 button_theme-default button_size-m"
@@ -18,6 +19,7 @@
 <script>
 import PersonalityCarousel from '@components/PersonalityCarousel/PersonalityCarousel.vue';
 import Content from '@components/Content/Content.vue';
+import ChartChooseYourPersonality from '@components/Charts/ChartChooseYourPersonality.vue';
 import entertainer from '../assets/entertainer.svg';
 import enterpreneur from '../assets/enterpreneur.svg';
 import logistican from '../assets/logistican.svg';
@@ -35,8 +37,10 @@ import adventurer from '../assets/adventurer.svg';
 import advocate from '../assets/advocate.svg';
 import mediator from '../assets/mediator.svg';
 
+
 export default {
   components: {
+    ChartChooseYourPersonality,
     PersonalityCarousel,
     Content,
   },
@@ -156,6 +160,24 @@ export default {
       },
     ],
     currentSlide: 0,
+    chartOptionsBar: [
+      {
+        value: [],
+        data: [
+          [10.0, 8.04, 'Imperturable'],
+          [8.0, 6.95, 'Positivistic'],
+          [13.0, 9.58, 'Progmatic'],
+          [9.0, 8.81, 'Commercing'],
+          [-6.0, -7.24, 'Shizoid'],
+          [-4.0, -4.26, 'Paranoid'],
+          [5.0, -5.68, 'Antisocial'],
+          [7.0, -4.82, 'Narcissistic'],
+          [-2.0, 6.95, 'Responsible'],
+          [-13.0, 2.58, 'Inert'],
+          [-9.0, 8.81, 'Determined'],
+        ],
+      },
+    ],
   }),
   methods: {
     choose() {
