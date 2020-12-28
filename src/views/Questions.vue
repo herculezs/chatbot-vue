@@ -10,14 +10,8 @@
             {{ currentStep }} / {{ allStepCount }}
           </div>
         </div>
-        <div class="h5 mb-3">
-          Question {{ currentStep }}
-        </div>
         <div class="text questions__text" v-if="getDataByStep">
           {{ getDataByStep.text }}
-        </div>
-        <div class="h5 mb-4">
-          Select answer
         </div>
         <!-- TODO REMOVE INDEX WHEN {BE} ADDED ID TO ANSWER -->
         <div class="questions-list" v-if="getDataByStep">

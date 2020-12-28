@@ -60,11 +60,12 @@ export default {
     getChartBarData() {
       return [
         {
-          value: Object.values(this.getPersonalityTest.answers),
+          value: this.getPersonalityTest.result.split(/(?=[-+])/),
           areaStyle: {
-            color: 'rgba(0, 157, 206)',
+            color: '#ffc000',
+            colorHover: 'rgba(255,192,0,0.83)',
           },
-          name: 'user',
+          name: 'You',
         },
       ];
     },

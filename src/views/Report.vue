@@ -137,6 +137,7 @@ export default {
         type: 'bar',
         areaStyle: {
           color: 'rgba(0, 157, 206)',
+          colorHover: 'rgba(0,157,206,0.58)',
         },
         name: 'Me',
       },
@@ -145,6 +146,7 @@ export default {
         type: 'bar',
         areaStyle: {
           color: 'rgba(255, 192, 0)',
+          colorHover: 'rgba(255,192,0,0.83)',
         },
         name: 'Others',
       },
@@ -169,8 +171,7 @@ export default {
     },
     getCardOthersAverage() {
       if (!this.tagOthersAverage) return null;
-
-      return constants.cards[this.tagOthersAverage];
+      return constants.cards.ISTP;
     },
     getGuessedCard() {
       if (!this.tag) return null;
@@ -186,10 +187,10 @@ export default {
       this.$api.personalityTypeReport.fetchPersonalityTypeReport().then((res) => {
         this.respondentsCount = res.othersAmount;
 
-        this.setRadar(res.self, 'Me');
+        this.setRadar(res.selfResult.split(/(?=[-+])/), 'Me');
 
         if (this.isOthersAmount) {
-          this.setRadar(res.othersAverage, 'Others');
+          this.setRadar(res.othersAverageResult.split(/(?=[-+])/), 'Others');
         }
 
         this.showFeedBackModalByParams(res.othersAmount);

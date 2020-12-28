@@ -46,29 +46,44 @@ export default {
     },
     series() {
       let ser;
-      if ((this.data[1]).value.length > 0) {
+      if (this.data[1] !== undefined && (this.data[1]).value.length > 0) {
         ser = [{
           type: 'bar',
           name: (this.data[0]).name,
           data: this.data[0].value,
-          color: ['#009dce'],
+          color: this.data[0].areaStyle.color,
           barWidth: 30,
           barGap: 0,
+          emphasis: {
+            itemStyle: {
+              color: this.data[0].areaStyle.colorHover,
+            },
+          },
         }, {
           type: 'bar',
           name: (this.data[1]).name,
           data: this.data[1].value,
-          color: ['#ffc000'],
+          color: this.data[1].areaStyle.color,
           barWidth: 30,
+          emphasis: {
+            itemStyle: {
+              color: this.data[1].areaStyle.colorHover,
+            },
+          },
         }];
       } else {
         ser = [{
           type: 'bar',
           name: (this.data[0]).name,
           data: this.data[0].value,
-          color: ['#009dce'],
+          color: this.data[0].areaStyle.color,
           barWidth: 30,
           barGap: 0,
+          emphasis: {
+            itemStyle: {
+              color: this.data[0].areaStyle.colorHover,
+            },
+          },
         }];
       }
       return ser;
@@ -121,8 +136,8 @@ export default {
           },
         },
         yAxis: {
-          maxInterval: 5,
-          minInterval: 5,
+          maxInterval: 2,
+          minInterval: 2,
           nameLocation: 'end',
           position: 'right',
           splitLine: {
@@ -140,9 +155,9 @@ export default {
               let temp;
               if (value === 0) {
                 temp = ' ';
-              } else if (value === 5) {
+              } else if (value === 2) {
                 temp = 'max';
-              } else if (value === -5) {
+              } else if (value === -2) {
                 temp = 'min';
               }
               return temp;
