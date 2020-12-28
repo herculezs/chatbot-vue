@@ -17,7 +17,7 @@
     </h3>
     <textarea
       class="form__input mb-3"
-      placeholder="Your message"
+      placeholder="What would you like to tell us?"
       v-model="formData.question3.value"
     />
     <button
@@ -47,18 +47,18 @@ export default {
     formData: {
       question1: {
         type: 'rating',
-        question: 'Did you find the app gave you new insight into your personality?',
+        question: 'How would rate the INSIGHT into your personality the app gave you?',
         value: 0,
       },
       question2: {
         type: 'rating',
-        question: 'Thanks you!  Let us know what we can do to be even better\n'
-          + 'or if you would like us to contact you?',
+        question: 'How would you rate the ENJOYABILITY of the app?',
         value: 0,
       },
       question3: {
         type: 'textarea',
-        question: 'What can we do to improve?',
+        question: 'Thanks you!  Let us know what we can do to be even better\n'
+          + 'or if you would like us to contact you?',
         value: '',
       },
     },
