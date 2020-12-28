@@ -36,19 +36,6 @@
         />
       </template>
 
-      <template v-if="isOthersAmount">
-        <div class="h5 mb-4">
-          Based on answers from your contacts
-        </div>
-        <Card
-          :title="getCardOthersAverage.title"
-          :showText="getCardOthersAverage.showText"
-          :hideText="getCardOthersAverage.hideText"
-          :img="getCardOthersAverage.src"
-          :tag="getCardOthersAverage.tag"
-          :defaultOpen="true"
-        />
-      </template>
 
 
       <div class="diagram mb-5">
@@ -148,7 +135,7 @@ export default {
           color: 'rgba(255, 192, 0)',
           colorHover: 'rgba(255,192,0,0.83)',
         },
-        name: 'Others',
+        name: 'Colleagues',
       },
     ],
     respondentsCount: null,
@@ -169,10 +156,6 @@ export default {
 
       return constants.cards[this.tag];
     },
-    getCardOthersAverage() {
-      if (!this.tagOthersAverage) return null;
-      return constants.cards.ISTP;
-    },
     getGuessedCard() {
       if (!this.tag) return null;
 
@@ -190,7 +173,7 @@ export default {
         this.setRadar(res.selfResult.split(/(?=[-+])/), 'Me');
 
         if (this.isOthersAmount) {
-          this.setRadar(res.othersAverageResult.split(/(?=[-+])/), 'Others');
+          this.setRadar(res.othersAverageResult.split(/(?=[-+])/), 'Colleagues');
         }
 
         this.showFeedBackModalByParams(res.othersAmount);
