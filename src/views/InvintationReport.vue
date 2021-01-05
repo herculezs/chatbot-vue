@@ -2,7 +2,7 @@
   <div class="report">
     <Content>
       <h1 class="h4 mb-1">Report</h1>
-      <div class="h5 mb-4" v-if="getPersonalityTest.othersAmount > 3">
+      <div class="h5 mb-4" v-if="getPersonalityTest.othersAmount >= 3">
         Based on your {{ getPersonalityTest.othersAmount }}
         respondents, {{ getPersonalityTest.name }} ...
       </div>
@@ -57,24 +57,37 @@ export default {
       return constants.cards[this.getPersonalityTest.result];
     },
     getChartBarData() {
-      return [
-        {
-          value: this.getPersonalityTest.result.split(/(?=[-+])/),
-          areaStyle: {
-            color: '#ffc000',
-            colorHover: 'rgba(255,192,0,0.83)',
+      if (this.getPersonalityTest.othersAmount >= 3) {
+        return [
+          {
+            value: this.getPersonalityTest.result.split(/(?=[-+])/),
+            areaStyle: {
+              color: '#ffc000',
+              colorHover: 'rgba(255,192,0,0.83)',
+            },
+            name: 'You',
           },
-          name: 'You',
-        },
-        {
-          value: this.getPersonalityTest.othersAverageResult.split(/(?=[-+])/),
-          areaStyle: {
-            color: '#e46c0a',
-            colorHover: 'rgba(228,108,10,0.82)',
+          {
+            value: this.getPersonalityTest.othersAverageResult.split(/(?=[-+])/),
+            areaStyle: {
+              color: '#e46c0a',
+              colorHover: 'rgba(228,108,10,0.82)',
+            },
+            name: 'Average',
           },
-          name: 'Average',
-        },
-      ];
+        ];
+      } else { // eslint-disable-line
+        return [
+          {
+            value: this.getPersonalityTest.result.split(/(?=[-+])/),
+            areaStyle: {
+              color: '#ffc000',
+              colorHover: 'rgba(255,192,0,0.83)',
+            },
+            name: 'You',
+          },
+        ];
+      }
     },
   },
   created() {

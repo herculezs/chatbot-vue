@@ -104,7 +104,21 @@ export default {
     this.fetchData();
   },
   methods: {
+    completedColleaguesTest() {
+      this.$gtag.event('Click test', {
+        [window.location.pathname.split('/').pop()]: 'Complete test', // eslint-disable-line
+        'value': 1,                        // eslint-disable-line
+      });
+    },
+    startColleaguesTest() {
+      this.$gtag.event('Click test', {
+        [window.location.pathname.split('/').pop()]: 'Start test', // eslint-disable-line
+        'value': 1,                        // eslint-disable-line
+      });
+    },
     fetchData() {
+      this.startColleaguesTest();
+
       if (this.isPersonalityTest) {
         return this.fetchInvitationQuestionnaire(this.$route.params.id);
       }
@@ -160,6 +174,7 @@ export default {
       this.show.attentions = !this.show.attentions;
     },
     saveAnswer() {
+      this.completedColleaguesTest();
       if (this.isPersonalityTest) {
         return this.saveAnswerByPersonalityTest();
       }

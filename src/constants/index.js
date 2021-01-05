@@ -18,7 +18,7 @@ import mediator from '../assets/mediator.svg';
 export default {
   cards: {
     ESFP: {
-      title: 'Entertainer',
+      title: 'Autonomous',
       tag: 'MBTI ESFP',
       src: entertainer,
       showText: 'As an ESFP you’re very enthusiastic, approachable and encapsulating of everything that an extrovert is! Highly charming and engaging, and generous with your energy, you’re often the first to help someone out, providing support and practical advice. However, though you like to draw out other people and help them have a good time, you can be very private with the more serious or negative aspects of your life. ',

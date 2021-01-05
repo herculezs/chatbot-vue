@@ -12,7 +12,12 @@ import { BootstrapVue } from 'bootstrap-vue';
 import VueSocialSharing from 'vue-social-sharing';
 import Vue2TouchEvents from 'vue2-touch-events';
 
+import VueGtag from 'vue-gtag';
 import App from './App.vue';
+
+Vue.use(VueGtag, {
+  config: { id: 'G-V6M3158S9S' },
+}, router);
 
 // eslint-disable-next-line
 require('moment/locale/lv');

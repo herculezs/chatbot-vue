@@ -4,7 +4,7 @@
       <h1 class="h5">
         Which personality type do you think best represents how you see yourself?
       </h1>
-      <PersonalityCarousel :slides="slides" @change="changeSlide" />
+<!--      <PersonalityCarousel :slides="slides" @change="changeSlide" />-->
       <button
         @click.prevent="choose"
         class="button button_w-100 button_theme-default button_size-m"
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import PersonalityCarousel from '@components/PersonalityCarousel/PersonalityCarousel.vue';
+// import PersonalityCarousel from '@components/PersonalityCarousel/PersonalityCarousel.vue';
 import Content from '@components/Content/Content.vue';
 import entertainer from '../assets/entertainer.svg';
 import enterpreneur from '../assets/enterpreneur.svg';
@@ -35,9 +35,9 @@ import adventurer from '../assets/adventurer.svg';
 import advocate from '../assets/advocate.svg';
 import mediator from '../assets/mediator.svg';
 
+// PersonalityCarousel,
 export default {
   components: {
-    PersonalityCarousel,
     Content,
   },
   data: () => ({
@@ -160,7 +160,7 @@ export default {
   methods: {
     choose() {
       const formData = {
-        selfPersonalityType: this.slides[this.currentSlide].tag,
+        selfPersonalityType: 'ESFP',
       };
 
       this.$store.dispatch('auth/setSelfPersonalityTypeRequest', formData)
