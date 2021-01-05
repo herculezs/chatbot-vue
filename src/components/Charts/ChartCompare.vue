@@ -26,15 +26,13 @@ export default {
     getChartData() {
       return {
         xAxis: {
-          min: '-20',
-          max: '20',
+          max: '10',
           splitLine: {
             show: false,
           },
         },
         yAxis: {
-          min: '-20',
-          max: '20',
+          max: '10',
           splitLine: {
             show: false,
           },

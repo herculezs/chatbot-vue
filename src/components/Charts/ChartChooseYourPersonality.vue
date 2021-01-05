@@ -32,15 +32,13 @@ export default {
           containLabel: true,
         },
         xAxis: {
-          min: '-15',
-          max: '15',
+          max: '10',
           splitLine: {
             show: false,
           },
         },
         yAxis: {
-          min: '-15',
-          max: '15',
+          max: '10',
           splitLine: {
             show: false,
           },

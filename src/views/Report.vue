@@ -23,32 +23,32 @@
         />
       </template>
 
-      <template v-if="getCard">
-        <div class="h5 mb-4">
-          Based on your answers
-        </div>
-        <Card
-          :title="getCard.title"
-          :showText="getCard.showText"
-          :hideText="getCard.hideText"
-          :img="getCard.src"
-          :tag="getCard.tag"
-        />
-      </template>
+<!--      <template v-if="getCard">-->
+<!--        <div class="h5 mb-4">-->
+<!--          Based on your answers-->
+<!--        </div>-->
+<!--        <Card-->
+<!--          :title="getCard.title"-->
+<!--          :showText="getCard.showText"-->
+<!--          :hideText="getCard.hideText"-->
+<!--          :img="getCard.src"-->
+<!--          :tag="getCard.tag"-->
+<!--        />-->
+<!--      </template>-->
 
-      <template v-if="isOthersAmount">
-        <div class="h5 mb-4">
-          Based on answers from your contacts
-        </div>
-        <Card
-          :title="getCardOthersAverage.title"
-          :showText="getCardOthersAverage.showText"
-          :hideText="getCardOthersAverage.hideText"
-          :img="getCardOthersAverage.src"
-          :tag="getCardOthersAverage.tag"
-          :defaultOpen="true"
-        />
-      </template>
+<!--      <template v-if="isOthersAmount">-->
+<!--        <div class="h5 mb-4">-->
+<!--          Based on answers from your contacts-->
+<!--        </div>-->
+<!--        <Card-->
+<!--          :title="getCardOthersAverage.title"-->
+<!--          :showText="getCardOthersAverage.showText"-->
+<!--          :hideText="getCardOthersAverage.hideText"-->
+<!--          :img="getCardOthersAverage.src"-->
+<!--          :tag="getCardOthersAverage.tag"-->
+<!--          :defaultOpen="true"-->
+<!--        />-->
+<!--      </template>-->
 
 
       <div class="diagram mb-5">
@@ -71,9 +71,10 @@
             Respondents:  {{ respondentsCount }}
           </div>
         </div>
-        <Radar :data="radarData" />
 
         <ChartCompare :data="chartOptionsBar"></ChartCompare>
+        <Radar :data="radarData" />
+
       </div>
 
       <b-modal
@@ -159,42 +160,46 @@ export default {
     tag: null,
     tagOthersAverage: null,
     showReportModal: false,
-    chartOptionsBar: [
-      {
-        value: [],
-        data: [10.0, 15.04, 'You think - Commercing'],
-      },
-      {
-        value: [],
-        data: [-8.0, -6.95, 'Your Colleagues say'],
-      },
-      {
-        value: [],
-        data: [6.0, 6.95, 'Your Are - Positivistic'],
-      },
-    ],
   }),
   computed: {
     ...mapGetters({
       getProfile: 'auth/getProfile',
     }),
     isOthersAmount() {
+      console.log(this.respondentsCount, 'is otherAomount');
       return this.respondentsCount > 3;
     },
     getCard() {
       if (!this.tag) return null;
-
+      console.log(constants.cards[this.tag], 'getcard');
       return constants.cards[this.tag];
     },
     getCardOthersAverage() {
       if (!this.tagOthersAverage) return null;
-
+      console.log(constants.cards[this.tagOthersAverage], 'getotheraverage');
       return constants.cards[this.tagOthersAverage];
     },
     getGuessedCard() {
       if (!this.tag) return null;
-
+      console.log(constants.cards[this.getProfile.selfPersonalityType].title, 'getguessedcard');
       return constants.cards[this.getProfile.selfPersonalityType];
+    },
+    chartOptionsBar() {
+      console.log(this.getGuessedCard.title, 'dddddddddddd');
+      return [
+        {
+          value: [],
+          data: [8, 7.9, `You guessed you are - \n ${this.getGuessedCard.title}`],
+        },
+        {
+          value: [],
+          data: [7, 5, `Your Colleagues say - \n  ${this.getCardOthersAverage.title} `],
+        },
+        {
+          value: [],
+          data: [6.0, 4, `You are - ${this.getCard.title}`],
+        },
+      ];
     },
   },
   created() {
@@ -217,9 +222,6 @@ export default {
         this.tagOthersAverage = res.othersAverageResult;
         this.shareLink = `${window.location.host}${res.invitationLink}`;
       });
-    },
-    ChartCompare(data) {
-      return data;
     },
     setRadar(data, name) {
       const average = this.radarData.find(item => item.name === name);
