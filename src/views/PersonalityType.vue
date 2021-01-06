@@ -5,6 +5,7 @@
         Which personality type do you think best represents how you see yourself?
       </h1>
 <!--      <PersonalityCarousel :slides="slides" @change="changeSlide" />-->
+      <ChartChooseYourPersonality :data="chartOptionsBar"></ChartChooseYourPersonality>
       <button
         @click.prevent="choose"
         class="button button_w-100 button_theme-default button_size-m"
@@ -18,6 +19,7 @@
 <script>
 // import PersonalityCarousel from '@components/PersonalityCarousel/PersonalityCarousel.vue';
 import Content from '@components/Content/Content.vue';
+import ChartChooseYourPersonality from '@components/Charts/ChartChooseYourPersonality.vue';
 import entertainer from '../assets/entertainer.svg';
 import enterpreneur from '../assets/enterpreneur.svg';
 import logistican from '../assets/logistican.svg';
@@ -38,6 +40,7 @@ import mediator from '../assets/mediator.svg';
 // PersonalityCarousel,
 export default {
   components: {
+    ChartChooseYourPersonality,
     Content,
   },
   data: () => ({
@@ -156,12 +159,53 @@ export default {
       },
     ],
     currentSlide: 0,
+    chartOptionsBar: [
+      {
+        value: [],
+        data: [
+          [3, 0, 'Insensitive'],
+          [3, 2, 'Aloof'],
+          [3, 4, 'Apathetic'],
+          [3.1, 6.1, 'Discreet'],
+          [2.9, 5.9, 'Compassionate'],
+          [4, 1, 'Suspicious'],
+          [4, 0, 'Anxious'],
+          [3.9, 3.9, 'Perfectionist'],
+          [4, 7, 'Determined'],
+          [5, -1, 'Procrastinator'],
+          [5, 3, 'Isolated'],
+          [5, 5, 'Humble'],
+          [5, 6, 'Responsible'],
+          [6, -2, 'Active'],
+          [6, 2, 'Unsatisfied'],
+          [6, 4, 'Productive'],
+          [6, 8, 'Calm'],
+          [7, 0, 'Unemotional'],
+          [7, 1, 'Self-centred'],
+          [7, 7, 'Positive'],
+          [8, -1, 'Impulsive'],
+          [8.1, 2.1, 'Autonomous'],
+          [7.9, 1.9, 'Patient'],
+          [8, 3, 'Optimistic'],
+          [8, 5, 'Trusting'],
+          [8, 6, 'Practical'],
+          [9.1, 0.1, 'Lively'],
+          [8.9, 0, 'Harsh'],
+          [9, 2, 'Uninhibited'],
+          [9, 3, 'Engaged'],
+          [9, 4, 'Sociable'],
+          [9, 5, 'Outgoing'],
+          [0, 0, 'NEUTRAL'],
+        ],
+      },
+    ],
   }),
   methods: {
     choose() {
       const formData = {
         selfPersonalityType: 'ESFP',
       };
+      console.log(formData);
 
       this.$store.dispatch('auth/setSelfPersonalityTypeRequest', formData)
         .then(() => {
