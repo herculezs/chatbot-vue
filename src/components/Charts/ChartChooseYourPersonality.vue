@@ -3,6 +3,7 @@
     <ECharts
       :options="getChartData"
       autoresize
+      @click="choose"
     />
   </div>
 </template>
@@ -44,12 +45,12 @@ export default {
           },
         },
         series: [{
+          id: 'point',
           symbolSize: 8,
           symbol: 'diamond',
           color: ['#009dce'],
           itemStyle: {
             normal: {
-              color: 'black',
               borderWidth: 0,
               label: {
                 show: true,
@@ -65,6 +66,19 @@ export default {
           type: 'scatter',
         }],
       };
+    },
+  },
+  methods: {
+    choose() {
+      const zr = this.getChartData;
+      console.log(zr);
+      zr.series = [{
+        id: 'point',
+        symbolSize: 20,
+        symbol: 'diamond',
+        color: ['green'],
+        type: 'scatter',
+      }];
     },
   },
 };
