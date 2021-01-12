@@ -161,44 +161,53 @@ export default {
     tag: null,
     tagOthersAverage: null,
     showReportModal: false,
+    SelfCoordinate: null,
+    OtherCoordinate: null,
   }),
   computed: {
     ...mapGetters({
       getProfile: 'auth/getProfile',
     }),
     isOthersAmount() {
-      console.log(this.respondentsCount, 'is otherAomount');
       return this.respondentsCount > 3;
     },
     getCard() {
       if (!this.tag) return null;
-      console.log(constants.cards[this.tag], 'getcard');
       return constants.cards[this.tag];
     },
     getCardOthersAverage() {
       if (!this.tagOthersAverage) return null;
-      console.log(constants.cards[this.tagOthersAverage], 'getotheraverage');
       return constants.cards[this.tagOthersAverage];
     },
     getGuessedCard() {
       if (!this.tag) return null;
-      console.log(constants.cards[this.getProfile.selfPersonalityType].title, 'getguessedcard');
       return constants.cards[this.getProfile.selfPersonalityType];
     },
     chartOptionsBar() {
-      console.log(this.getGuessedCard.title, 'dddddddddddd');
+      if (this.OtherCoordinate) {
+        return [
+          {
+            value: [],
+            data: [`${this.getGuessedCard.coordinate[0]}`, `${this.getGuessedCard.coordinate[1]}`, `You guessed you are - \n ${this.getGuessedCard.title}`],
+          },
+          {
+            value: [],
+            data: [`${this.SelfCoordinate[0]}`, `${this.SelfCoordinate[1]}`, 'You are'],
+          },
+          {
+            value: [],
+            data: [`${this.OtherCoordinate[0]}`, `${this.OtherCoordinate[1]}`, 'Your Colleagues say'],
+          },
+        ];
+      }
       return [
         {
           value: [],
-          data: [8, 7.9, `You guessed you are - \n ${this.getGuessedCard.title}`],
+          data: [8, 2, `You guessed you are - \n ${this.getGuessedCard.title}`],
         },
         {
           value: [],
-          data: [7, 5, `Your Colleagues say - \n  ${this.getCardOthersAverage.title} `],
-        },
-        {
-          value: [],
-          data: [6.0, 4, `You are - ${this.getCard.title}`],
+          data: [`${this.SelfCoordinate[0]}`, `${this.SelfCoordinate[1]}`, 'You are'],
         },
       ];
     },
@@ -215,18 +224,30 @@ export default {
 
         if (this.isOthersAmount) {
           this.setRadar(res.othersAverageResult.split(/(?=[-+])/), 'Colleagues');
+          this.OtherCoordinate = this.Coordinates(res.othersAverageResult);
         }
 
+        // this.CoordinatesForGuessed(this.getProfile.selfPersonalityType);
         this.showFeedBackModalByParams(res.othersAmount);
+
 
         this.tag = res.selfResult;
         this.tagOthersAverage = res.othersAverageResult;
+        this.SelfCoordinate = this.Coordinates(res.selfResult);
         this.shareLink = `${window.location.host}${res.invitationLink}`;
       });
     },
     setRadar(data, name) {
       const average = this.radarData.find(item => item.name === name);
       average.value = Object.values(data);
+    },
+    Coordinates(Res) {
+      const arr = Res.split(/(?=[-+])/);
+      // eslint-disable-next-line no-eval
+      const x = eval(arr[0] + arr[2]);
+      // eslint-disable-next-line no-eval
+      const y = eval(arr[1] + arr[3] + arr[4]);
+      return [x, y];
     },
     showFeedBackModalByParams() {
       const { isOthersAmount } = this;

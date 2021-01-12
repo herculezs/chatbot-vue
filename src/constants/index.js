@@ -17,8 +17,9 @@ import mediator from '../assets/mediator.svg';
 
 export default {
   cards: {
-    ESFP: {
-      title: 'Autonomous',
+    trusting: {
+      title: 'Trusting',
+      coordinate: [8, 2],
       tag: 'MBTI ESFP',
       src: entertainer,
       showText: 'As an ESFP you’re very enthusiastic, approachable and encapsulating of everything that an extrovert is! Highly charming and engaging, and generous with your energy, you’re often the first to help someone out, providing support and practical advice. However, though you like to draw out other people and help them have a good time, you can be very private with the more serious or negative aspects of your life. ',
@@ -27,8 +28,9 @@ export default {
         + 'This struggle with education goes hand-in-hand with ESFPs dislike for long-term planning, t\n'
         + 'ending to be spontaneous and living in the moment. This can hamper the progress of ESFPs looking to make future progress. ESFPs should look to formulate broad plans into sets of daily goals that they try to tick off each day. Start off with only a couple at first, and then add more as your tolerance builds.',
     },
-    ESTP: {
-      title: 'Entrepreneur',
+    sociable: {
+      title: 'Sociable',
+      coordinate: [3, 1],
       tag: 'MBTI ESTP',
       src: enterpreneur,
       showText: 'ESTPs are inspiring thrill-seekers, who love to jump from urgency to urgency solving problems and spending life at the eye of the storm.\n'
@@ -39,8 +41,8 @@ export default {
         + '\n'
         + 'Further, the constant battle with problem solving often means that ESTPs neglect “the person in the mirror”. As an ESTP you should try and carve a small portion out of your day or week to address personal issues and aspects. Particularly think about those points around dealing with others’ emotions, and how best to respond and protect them.',
     },
-    ISTJ: {
-      title: 'Logistician',
+    '+0+1+2+1-1': {
+      title: 'Pragmatic',
       tag: 'MBTI ISTJ',
       src: logistican,
       showText: 'ISTJs are dedicated organisers, who happily expend their time and energy completing tasks with accuracy and patience. They value truth very highly, and often report their own failings, even if it reflects badly on themselves.\n'
@@ -50,8 +52,8 @@ export default {
         + '\n'
         + 'For ISTJs honesty is an incredibly important aspect of life, and can come at the expense of relationships and emotional arguments. Next time someone propositions you with an idea, think about why they may be asking, and why they are seeking the answer they want. Honesty may not initially be the best policy, it may be more logical to gently guide them to a conclusion and keep the relationship and their emotions intact.',
     },
-    ISTP: {
-      title: 'Virtuoso',
+    '+0+1-1+2+0': {
+      title: 'Responsible',
       tag: 'MBTI ISTP',
       src: virtuoso,
       showText: 'ISTPs are tolerant makers, unable to stay focussed on formal studies they often find themselves tinkering with the mechanics of something - hoping to understand the process. This spills over into their life more widely, observing how things work and looking for practical solutions to the problem at hand.\n'
@@ -61,8 +63,8 @@ export default {
         + '\n'
         + 'Another benefit of daily scheduling allows you, as an ISTP, to achieve more of the projects you love. If you are careful with your time management, then you will be able to be more productive and avoid some of the procrastination that may creep into your day.',
     },
-    ESTJ: {
-      title: 'Executive',
+    '-1+1-1+1-2': {
+      title: 'Determined',
       tag: 'MBTI ESTJ',
       src: executive,
       showText: 'ESTJs are dedicated executives, often leading organisations and people. They have an utter rejection of laziness and cheating, and often choose to set an exemplary working example themselves.\n'
@@ -74,8 +76,8 @@ export default {
         + '   \n'
         + 'This strategy also allows others to express opinions and solutions different to your own. Instead of opposing these suggestions just on account of their novelty, allow them to run with the idea, and help shape it into a viable solution. Allowing others to generate ideas may help your own creativity and novelty.',
     },
-    ESFJ: {
-      title: 'Consul',
+    '-1+1-2+1-1': {
+      title: 'Inconspicious',
       tag: 'MBTI ESFJ',
       src: consul,
       showText: 'ESFJs are altruistic service-people. With decisive values and a willingness to offer help to others, they enjoy any role that allows them to participate in a meaningful way. These characteristics often mean you can find ESFJs taking part in community and social projects, but they prefer plans and organised events to anything spontaneous.\n'
@@ -84,8 +86,8 @@ export default {
         + '\n'
         + 'Coupled with this constant need for validation, is the idea that ESFJs have to please everyone - an impossible task at the best of times. Remember that there will always be someone who disagrees with you, and far from this being a personal attack is just them expressing their own opinion as well. Just step back and accept it, it’s not a reflection on your character.',
     },
-    INTJ: {
-      title: 'Architect',
+    '+0+0-1+2+0': {
+      title: 'Humble',
       tag: 'MBTI INTJ',
       src: architect,
       showText: 'INTJs are analytic problem-solvers, confident in mastering their chosen subjects and enjoy sharing their knowledge with others. They are always on the lookout for new tactics and strategies to improve their lives at either work or home. Though their creativity and inner personality is often largely shielded from the outside World. ',
@@ -94,8 +96,8 @@ export default {
         + '\n'
         + 'Further, when people voice plans that contradict your own, this isn’t personal – but bear in mind that any reply may feel personal to them. Remember, for others, emotional considerations and history are hugely influential – and considering the feelings of others isn’t illogical, but more logical when it helps reach a conclusion!',
     },
-    INTP: {
-      title: 'Logician',
+    '+1-1+2+0-1': {
+      title: 'Engage',
       tag: 'MBTI INTP',
       src: logician,
       showText: 'INTPs are theoretical unifiers, who love to spot patterns and solutions to issues. Though actually relaxed and friendly, they can be seen as detached due to their constantly whirring minds trying to find the meaning of life and the things they see. \n'
@@ -104,8 +106,8 @@ export default {
         + '\n'
         + 'INTPs remain so open to new information that can delay their output indefinitely with constant revisions. Next time you find yourself doing this, ask yourself whether you could get away with pushing the work out as-is. If it’s truly important you can come back and iterate on it, but in the mean time it may be helpful to others to see your 80% completed plan to know what you’re thinking about.',
     },
-    ENFP: {
-      title: 'Campaigner',
+    '+1+0+1-2-1': {
+      title: 'Autonomous',
       tag: 'MBTI ENFP',
       src: campaigner,
       showText: 'ENFPs are compassionate creators, who particularly enjoy the social and emotional connections they make with others. They can be a passionate, driven idealist one moment, and when the time to relax comes an energetic dancer the next.\n'
@@ -114,8 +116,8 @@ export default {
         + '\n'
         + 'Traditionally, ENFPs have a fairly low tolerance for administrative matters. This can be a big disconnect with the nature of day-to-day life. Try and build up this tolerance bit-by-bit by taking up more admin matters at home, and then let that slowly progress into work. Though it may initially be boring, the routine and process will gradually get easier.',
     },
-    ENTJ: {
-      title: 'Commander',
+    '+1-2+1+0-1': {
+      title: 'Tolerant',
       tag: 'MBTI ENTJ',
       src: commander,
       showText: 'ENTJs are motivated leaders. These individuals love the thrill of a challenge and use their drive and logical thought to achieve whatever they put their minds to.\n'
@@ -125,8 +127,8 @@ export default {
         + '\n'
         + 'Their quick wit and logical thinking often leads ENTJs to complete sentences, interrupt and make rapid (though perhaps not correct) assumptions. In social situations and work, take the time to completely hear out other people’s points without interruption. Importantly take it on board and allow them to run with the idea – it may reveal something about them or the situation that you hadn’t conceived!',
     },
-    ENTP: {
-      title: 'Debater',
+    '+0+1+1+1-2': {
+      title: 'Postitivistic',
       tag: 'MBTI ENTP',
       src: debater,
       showText: 'ENTPs are intellectual pioneers, constantly sparing with the ideas of themselves and others to find new solutions to problems. Playing devil’s advocate helps them to break down problems from all aspects, and allows them to comprehend the people and systems around them.\n'
@@ -135,8 +137,8 @@ export default {
         + '\n'
         + 'Also, remember that a big part of working well in life, or as a team, is often getting people to be comfortable and agree. Be careful where you pick your debates, as more sensitive personality types may not be ready for the onslaught of ideas – creating tension and  perhaps burning bridges. Maybe you’d be able to voice your concerns in a more gentle or private setting?',
     },
-    ENFJ: {
-      title: 'Protagonist',
+    '+1+1+2+1+0': {
+      title: 'Commercing',
       tag: 'MBTI ENFJ',
       src: protagonist,
       showText: 'ENFJs are caring organisers, who radiate authenticity, concern and altruism. Naturally confident, they are often happiest when encouraging others to expand their horizons and seek new knowledge.\n'
@@ -147,8 +149,8 @@ export default {
         + '\n'
         + 'Often ENFJs spend a lot of time reflecting on their actions and those of others. In points of difficult decision this can often leave ENFJs stuck for choice. Remember in these moments that often making no decision is worse than no decision at all. It is likely that you’re overthinking what will happen and this fear is holding you back. More often than not, these fears never materialise.',
     },
-    ISFJ: {
-      title: 'Defender',
+    '+0-1+2+0-1': {
+      title: 'Optimistic',
       tag: 'MBTI ISFJ',
       src: defender,
       showText: 'ISFJs are compassionate carers, endowed with well-developed people skills and a desire to do good. They often find themselves as protectors of and providers for others, and are sensationally modest about their accomplishments.\n'
@@ -157,8 +159,8 @@ export default {
         + '\n'
         + 'As you get more comfortable with being able to say no to people with sincere reasons, start to express your emotions and desires more to those closest to you. This will often relieve a lot of stress and frustration that has built up about matters. This is taking care of someone that you’ve probably neglected for a long time: yourself.',
     },
-    ISFP: {
-      title: 'Adventurer',
+    '+0+2+0+1-2': {
+      title: 'Imperturable',
       tag: 'MBTI ISFP',
       src: adventurer,
       showText: 'ISFPs are loyal creatives, who live in the present and express themselves through actions rather than words. They value harmony highly and will endeavour to support those that they care about, though it broadly has to stick to their own overarching principles. \n'
@@ -167,8 +169,8 @@ export default {
         + '\n'
         + 'In work and personal life, applying some of these plans and involving people close to you can help you build more stable financial and personal relationships. If people can see where your plan leads you, then they can help you on that journey.',
     },
-    INFJ: {
-      title: 'Advocate',
+    '+1+1-1-2-2': {
+      title: 'Self-rising',
       tag: 'MBTI INFJ',
       src: advocate,
       showText: 'INFJs are a rare breed indeed. A formidable coupling of creativity and resolve that allows them to dream of an ideal future and make concrete steps to achieve it.\n'
@@ -178,8 +180,255 @@ export default {
         + 'Though it may be difficult for INFJs, criticism is not always personal. When coming under fire, just take a moment to dissociate the criticism from your personality – try and understand where the criticism is coming from. \n'
         + 'Further, being open to friends about how you feel about criticism and other aspects of your life will help you feel supported and less likely to be emotionally drained. ',
     },
-    INFP: {
-      title: 'Mediator',
+    '-2+1-1+0+0': {
+      title: 'Inert',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '-1+1-2+2+0': {
+      title: 'Merciful',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '+0-1-1-1+2': {
+      title: 'Negativistic',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '-1-1-2-1+1': {
+      title: 'Autistiform',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '+0+1-2+0+1': {
+      title: 'Depressive',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '+0-2+0-1+2': {
+      title: 'Hyperkinetic',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '-1-1+1+2+2': {
+      title: 'Self-defeating',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '+2-1+1+0+0': {
+      title: 'Hypomanic',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '+1-1+2-2+0': {
+      title: 'Sadistic',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '-1+1-1-2+1': {
+      title: 'Paranoid',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '-1+0-2-1+0': {
+      title: 'Schizoid',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '+0-1-2-1+1': {
+      title: 'Schizotypal',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '+0-1+1-2+0': {
+      title: 'Antisocial',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '+1-1+1-1+2': {
+      title: 'Borderline',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '+1-1+2-1+1': {
+      title: 'Histrionic',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '+0+0+1-2+0': {
+      title: 'Narcissistic',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '+1+1-2+0+1': {
+      title: 'Avoidant',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '-1+0-1+2+1': {
+      title: 'Dependent',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '-1+2-1+0+1': {
+      title: 'Obsessive-compulsive',
+      tag: 'MBTI INFP',
+      src: mediator,
+      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
+      hideText: '\n'
+        + '\n'
+        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
+        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
+        + '\n'
+        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
+        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+    },
+    '+0+0+0+0+0': {
+      title: 'Neutral',
       tag: 'MBTI INFP',
       src: mediator,
       showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',

@@ -23,6 +23,117 @@ export default {
     },
   },
   computed: {
+    series() {
+      let ser;
+      if (this.data[2] !== undefined) {
+        ser = [{
+          type: 'scatter',
+          symbolSize: 10,
+          symbol: 'diamond',
+          itemStyle: {
+            normal: {
+              color: '#CE2900',
+              borderWidth: 0,
+              label: {
+                show: true,
+                position: 'right',
+                formatter(data) {
+                  const v = data.value;
+                  return v[2];
+                },
+              },
+            },
+          },
+          color: ['#CE2900'],
+          data: [(this.data[0]).data],
+        }, {
+          type: 'scatter',
+          symbolSize: 10,
+          symbol: 'diamond',
+          itemStyle: {
+            normal: {
+              color: '#009dce',
+              borderWidth: 0,
+              label: {
+                show: true,
+                position: 'right',
+                formatter(data) {
+                  const v = data.value;
+                  return v[2];
+                },
+              },
+            },
+          },
+          color: ['#009dce'],
+          data: [(this.data[1]).data],
+        }, {
+          type: 'scatter',
+          symbolSize: 10,
+          symbol: 'diamond',
+          itemStyle: {
+            normal: {
+              color: '#ffc000',
+              borderWidth: 0,
+              label: {
+                show: true,
+                position: 'right',
+                formatter(data) {
+                  const v = data.value;
+                  return v[2];
+                },
+              },
+            },
+          },
+          color: ['#ffc000'],
+          data: [(this.data[2]).data],
+        },
+        ];
+      } else {
+        ser = [{
+          type: 'scatter',
+          symbolSize: 10,
+          symbol: 'diamond',
+          itemStyle: {
+            normal: {
+              color: '#CE2900',
+              borderWidth: 0,
+              label: {
+                show: true,
+                position: 'right',
+                formatter(data) {
+                  const v = data.value;
+                  return v[2];
+                },
+              },
+            },
+          },
+          color: ['#CE2900'],
+          data: [(this.data[0]).data],
+        }, {
+          type: 'scatter',
+          symbolSize: 10,
+          symbol: 'diamond',
+          itemStyle: {
+            normal: {
+              color: '#009dce',
+              borderWidth: 0,
+              label: {
+                show: true,
+                position: 'right',
+                formatter(data) {
+                  const v = data.value;
+                  return v[2];
+                },
+              },
+            },
+          },
+          color: ['#009dce'],
+          data: [(this.data[1]).data],
+        },
+        ];
+      }
+      return ser;
+    },
     getChartData() {
       return {
         xAxis: {
@@ -37,67 +148,7 @@ export default {
             show: false,
           },
         },
-        series: [{
-          type: 'scatter',
-          symbolSize: 10,
-          symbol: 'diamond',
-          itemStyle: {
-            normal: {
-              color: 'rgba(0, 157, 206)',
-              borderWidth: 0,
-              label: {
-                show: true,
-                position: 'right',
-                formatter(data) {
-                  const v = data.value;
-                  return v[2];
-                },
-              },
-            },
-          },
-          color: ['#009dce'],
-          data: [(this.data[0]).data],
-        }, {
-          type: 'scatter',
-          symbolSize: 10,
-          symbol: 'diamond',
-          itemStyle: {
-            normal: {
-              color: 'rgba(255, 192, 0)',
-              borderWidth: 0,
-              label: {
-                show: true,
-                position: 'right',
-                formatter(data) {
-                  const v = data.value;
-                  return v[2];
-                },
-              },
-            },
-          },
-          color: ['#ffc000'],
-          data: [(this.data[1]).data],
-        }, {
-          type: 'scatter',
-          symbolSize: 10,
-          symbol: 'diamond',
-          itemStyle: {
-            normal: {
-              color: 'rgb(17,255,0)',
-              borderWidth: 0,
-              label: {
-                show: true,
-                position: 'right',
-                formatter(data) {
-                  const v = data.value;
-                  return v[2];
-                },
-              },
-            },
-          },
-          color: ['#ffc000'],
-          data: [(this.data[2]).data],
-        }],
+        series: this.series,
       };
     },
   },

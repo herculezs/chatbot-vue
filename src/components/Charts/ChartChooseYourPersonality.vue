@@ -18,6 +18,12 @@ export default {
   components: {
     ECharts,
   },
+  data() {
+    return {
+      yourChoose: '',
+      color: '',
+    };
+  },
   props: {
     data: {
       type: Array,
@@ -48,7 +54,7 @@ export default {
           id: 'point',
           symbolSize: 8,
           symbol: 'diamond',
-          color: ['#009dce'],
+          color: '#009dce',
           itemStyle: {
             normal: {
               borderWidth: 0,
@@ -69,16 +75,14 @@ export default {
     },
   },
   methods: {
-    choose() {
-      const zr = this.getChartData;
-      console.log(zr);
-      zr.series = [{
-        id: 'point',
-        symbolSize: 20,
-        symbol: 'diamond',
-        color: ['green'],
-        type: 'scatter',
-      }];
+    choose(data) {
+      // eslint-disable-next-line no-undef,eqeqeq,no-param-reassign
+      console.log(this.getChartData.series[0].color);
+      // eslint-disable-next-line no-param-reassign
+      this.getChartData.series.color = 'green';
+      this.$emit('choose', {
+        yourChoose: (data.value[2]).toLowerCase(),
+      });
     },
   },
 };
