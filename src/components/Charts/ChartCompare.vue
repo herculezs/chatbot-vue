@@ -1,8 +1,8 @@
 <template>
   <div>
     <ECharts
-      :options="getChartData"
-      autoresize
+      :options="{...getChartData, series}"
+      autoresize="true"
     />
     </div>
 </template>
@@ -22,13 +22,32 @@ export default {
       type: Array,
     },
   },
+  data: () => ({
+    getChartData: {
+      xAxis: {
+        max: '10',
+        splitLine: {
+          show: false,
+        },
+      },
+      yAxis: {
+        max: '10',
+        splitLine: {
+          show: false,
+        },
+      },
+    },
+  }),
   computed: {
     series() {
-      let ser;
+      if (!this.data.length) {
+        return [];
+      }
+
       if (this.data[2] !== undefined) {
-        ser = [{
+        return [{
           type: 'scatter',
-          symbolSize: 10,
+          symbolSize: 12,
           symbol: 'diamond',
           itemStyle: {
             normal: {
@@ -36,7 +55,7 @@ export default {
               borderWidth: 0,
               label: {
                 show: true,
-                position: 'right',
+                position: 'bottom',
                 formatter(data) {
                   const v = data.value;
                   return v[2];
@@ -48,15 +67,15 @@ export default {
           data: [(this.data[0]).data],
         }, {
           type: 'scatter',
-          symbolSize: 10,
+          symbolSize: 12,
           symbol: 'diamond',
           itemStyle: {
             normal: {
-              color: '#009dce',
+              color: '#0077a2',
               borderWidth: 0,
               label: {
                 show: true,
-                position: 'right',
+                position: 'bottom',
                 formatter(data) {
                   const v = data.value;
                   return v[2];
@@ -64,19 +83,19 @@ export default {
               },
             },
           },
-          color: ['#009dce'],
+          color: ['#0077a2'],
           data: [(this.data[1]).data],
         }, {
           type: 'scatter',
-          symbolSize: 10,
+          symbolSize: 12,
           symbol: 'diamond',
           itemStyle: {
             normal: {
-              color: '#ffc000',
+              color: '#dda100',
               borderWidth: 0,
               label: {
                 show: true,
-                position: 'right',
+                position: 'bottom',
                 formatter(data) {
                   const v = data.value;
                   return v[2];
@@ -84,42 +103,19 @@ export default {
               },
             },
           },
-          color: ['#ffc000'],
+          color: ['#0011dd'],
           data: [(this.data[2]).data],
-        },
-        ];
-      } else {
-        ser = [{
-          type: 'scatter',
-          symbolSize: 10,
-          symbol: 'diamond',
-          itemStyle: {
-            normal: {
-              color: '#CE2900',
-              borderWidth: 0,
-              label: {
-                show: true,
-                position: 'right',
-                formatter(data) {
-                  const v = data.value;
-                  return v[2];
-                },
-              },
-            },
-          },
-          color: ['#CE2900'],
-          data: [(this.data[0]).data],
         }, {
           type: 'scatter',
-          symbolSize: 10,
+          symbolSize: 12,
           symbol: 'diamond',
           itemStyle: {
             normal: {
-              color: '#009dce',
+              color: '#0011dd',
               borderWidth: 0,
               label: {
                 show: true,
-                position: 'right',
+                position: 'bottom',
                 formatter(data) {
                   const v = data.value;
                   return v[2];
@@ -127,29 +123,93 @@ export default {
               },
             },
           },
-          color: ['#009dce'],
-          data: [(this.data[1]).data],
+          color: ['#0011dd'],
+          data: [(this.data[3]).data],
+        }, {
+          type: 'scatter',
+          symbolSize: 12,
+          symbol: 'diamond',
+          itemStyle: {
+            normal: {
+              color: '#0011dd',
+              borderWidth: 0,
+              label: {
+                show: true,
+                position: 'bottom',
+                formatter(data) {
+                  const v = data.value;
+                  return v[2];
+                },
+              },
+            },
+          },
+          color: ['#dda100'],
+          data: [(this.data[4]).data],
+        }, {
+          type: 'scatter',
+          symbolSize: 12,
+          symbol: 'diamond',
+          itemStyle: {
+            normal: {
+              color: '#0011dd',
+              borderWidth: 0,
+              label: {
+                show: true,
+                position: 'bottom',
+                formatter(data) {
+                  const v = data.value;
+                  return v[2];
+                },
+              },
+            },
+          },
+          color: ['#0011dd'],
+          data: [(this.data[5]).data],
         },
         ];
       }
-      return ser;
-    },
-    getChartData() {
-      return {
-        xAxis: {
-          max: '10',
-          splitLine: {
-            show: false,
+      return [{
+        type: 'scatter',
+        symbolSize: 10,
+        symbol: 'diamond',
+        itemStyle: {
+          normal: {
+            color: '#CE2900',
+            borderWidth: 0,
+            label: {
+              show: true,
+              position: 'bottom',
+              formatter(data) {
+                const v = data.value;
+                return v[2];
+              },
+            },
           },
         },
-        yAxis: {
-          max: '10',
-          splitLine: {
-            show: false,
+        color: ['#CE2900'],
+        data: [(this.data[0]).data],
+      }, {
+        type: 'scatter',
+        symbolSize: 10,
+        symbol: 'diamond',
+        itemStyle: {
+          normal: {
+            color: '#0077a2',
+            borderWidth: 0,
+            label: {
+              show: true,
+              position: 'bottom',
+              formatter(data) {
+                const v = data.value;
+                return v[2];
+              },
+            },
           },
         },
-        series: this.series,
-      };
+        color: ['#0077a2'],
+        data: [(this.data[1]).data],
+      },
+      ];
     },
   },
 };

@@ -21,24 +21,8 @@
 // import PersonalityCarousel from '@components/PersonalityCarousel/PersonalityCarousel.vue';
 import Content from '@components/Content/Content.vue';
 import ChartChooseYourPersonality from '@components/Charts/ChartChooseYourPersonality.vue';
-// import entertainer from '../assets/entertainer.svg';
-// import enterpreneur from '../assets/enterpreneur.svg';
-// import logistican from '../assets/logistican.svg';
-// import virtuoso from '../assets/virtuoso.svg';
-// import executive from '../assets/executive.svg';
-// import consul from '../assets/consul.svg';
-// import architect from '../assets/architect.svg';
-// import logician from '../assets/logician.svg';
-// import campaigner from '../assets/campaigner.svg';
-// import commander from '../assets/commander.svg';
-// import debater from '../assets/debater.svg';
-// import protagonist from '../assets/protagonist.svg';
-// import defender from '../assets/defender.svg';
-// import adventurer from '../assets/adventurer.svg';
-// import advocate from '../assets/advocate.svg';
-// import mediator from '../assets/mediator.svg';
 
-// PersonalityCarousel,
+
 export default {
   components: {
     ChartChooseYourPersonality,

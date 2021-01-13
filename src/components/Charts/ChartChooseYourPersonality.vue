@@ -79,14 +79,6 @@ export default {
   },
   methods: {
     choose(dataObject) {
-      // eslint-disable-next-line no-undef,eqeqeq,no-param-reassign
-      console.log(this.getChartData.series[0].color);
-      // eslint-disable-next-line no-undef,eqeqeq,no-param-reassign
-      console.log('this.getChartData1', this.getChartData);
-      console.log('this.data[0].data', this.data[0].data);
-
-      console.log('dataObject', dataObject);
-
       const b = this.data[0].data.map((d) => {
         if (dataObject.name === d.name) {
           return {
@@ -107,10 +99,6 @@ export default {
 
       this.getChartData.series[0].data = b;
 
-      // eslint-disable-next-line no-param-reassign
-      this.getChartData.series[0].color = '#ce7c2c';
-      // eslint-disable-next-line no-param-reassign
-      console.log('this.getChartData2', dataObject.value);
       this.$forceUpdate();
       this.$emit('choose', {
         yourChoose: (dataObject.name),

@@ -4,7 +4,7 @@ export default {
       title: 'Insensitive',
       tag: 'MBTI ESFP',
       showText: 'The data from your answers suggest you match our <b><span class="character-color">Insensitive Personality Profile</span></b>.  Generally, you seem to keep yourself to yourself, preferring your own company, which can appear nonchalant or uncaring to others.  You may find it hard to communicate and interact with other people, sometimes finding hard to see how they are thinking or feeling.  Unfamiliar situations or social events may cause you anxierty or be upsetting and you may even perfer calm and restful environments to noisy or loud.  You probably enjoy familiarity in tasks you do to constant changing tasks or roles.  This can make you seem challeging to others but you have a sensistive side too.',
-      coordinates: [3, 0],
+      value: [3, 0],
     },
     Aloof: {
       title: 'Aloof',
@@ -127,7 +127,7 @@ export default {
       value: [7, 0],
     },
     'Self-centred': {
-      title: 'Self-Self-centred',
+      title: 'Self-centred',
       tag: 'MBTI INFP',
       showText: 'The <b><span class="character-color">Self-centred Personality Profile</span></b> is another difficult type to associate with.  Self-centred types have a grandiose sense of self-importance and a preoccupation with fantasies of unlimited success, power, brilliance, beauty, or ideal love.  They can believe that they are in someway special and can only be understood by, or associate with, special people or institutions and have a need for excessive admiration from others.  They can also have a sense of entitlement to special treatment.  A lack of empathy with, and envy of others, together with arrogant or haughty attitudes from Self-centred types means that they have the ability to exploit others as they down-play others value relative to their own.',
       value: [7, 1],

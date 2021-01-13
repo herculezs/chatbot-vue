@@ -43,7 +43,7 @@
           </div>
         </div>
 
-        <ChartCompare :data="chartOptionsBar"></ChartCompare>
+        <ChartCompare :data="refreshData()"></ChartCompare>
         <Radar :data="radarData" />
       </div>
 
@@ -134,6 +134,8 @@ export default {
     showReportModal: false,
     SelfCoordinate: null,
     OtherCoordinate: null,
+    data: [],
+    nearPoints: [],
   }),
   computed: {
     ...mapGetters({
@@ -143,28 +145,33 @@ export default {
       return this.respondentsCount > 3;
     },
     getGuessedCard() {
-      console.log('constants.cards[this.getProfile.selfPersonalityType]', constants.cards[this.getProfile.selfPersonalityType]);
-
       return constants.cards[this.getProfile.selfPersonalityType];
     },
+
+  },
+  created() {
+    this.fetchPersonalityTypeReport();
+  },
+  methods: {
     chartOptionsBar() {
       if (this.OtherCoordinate) {
-        return [
+        this.data.push(
           {
             value: [],
-            data: [this.getGuessedCard.value[0], this.getGuessedCard.value[1], 'You guessed you are - \n '],
+            data: [this.getGuessedCard.value[0], this.getGuessedCard.value[1], `You guessed you are - \n ${this.getGuessedCard.title}`],
           },
           {
             value: [],
-            data: [`${this.SelfCoordinate[0]}`, `${this.SelfCoordinate[1]}`, 'You are'],
+            data: [this.SelfCoordinate[0], this.SelfCoordinate[1], 'You are'],
           },
           {
             value: [],
-            data: [`${this.OtherCoordinate[0]}`, `${this.OtherCoordinate[1]}`, 'Your Colleagues say'],
+            data: [this.OtherCoordinate[0], this.OtherCoordinate[1], 'Your Colleagues say'],
           },
-        ];
+          ...this.nearPoints,
+        );
       }
-      return [
+      this.data.push(
         {
           value: [],
           data: [this.getGuessedCard.value[0], this.getGuessedCard.value[1], `You guessed you are - \n ${this.getGuessedCard.title}`],
@@ -173,13 +180,11 @@ export default {
           value: [],
           data: [this.SelfCoordinate[0], this.SelfCoordinate[1], 'You are'],
         },
-      ];
+      );
     },
-  },
-  created() {
-    this.fetchPersonalityTypeReport();
-  },
-  methods: {
+    refreshData() {
+      return this.data;
+    },
     fetchPersonalityTypeReport() {
       this.$api.personalityTypeReport.fetchPersonalityTypeReport().then((res) => {
         this.respondentsCount = res.othersAmount;
@@ -189,16 +194,46 @@ export default {
         if (this.isOthersAmount) {
           this.setRadar(res.othersAverageResult.split(/(?=[-+])/), 'Colleagues');
           this.OtherCoordinate = this.Coordinates(res.othersAverageResult);
+          console.log('OtherCoordinate', this.OtherCoordinate);
+          console.log('constants.cards', constants.cards);
+
+          const rs = [];
+          Object.values(constants.cards).forEach((key) => {
+            const distance = Math.sqrt(((key.value[0] - this.OtherCoordinate[0]) ** 2)
+              + ((key.value[1] - this.OtherCoordinate[1]) ** 2));
+            rs.push({
+              distance,
+              title: key.title,
+              value: key.value,
+            });
+          });
+
+          function sortByDistance(arr) {// eslint-disable-line
+            arr.sort((a, b) => a.distance > b.distance ? 1 : -1);// eslint-disable-line
+          }                                     // eslint-disable-line
+
+          sortByDistance(rs);
+
+          rs.slice(0, 3).forEach((x) => {
+            this.nearPoints.push({
+              value: [],
+              data: [x.value[0], x.value[1], x.title],
+            });
+          });
+
+          console.log('this.data', this.data);
+          console.log('this.nearPoints', this.nearPoints);
         }
 
         // this.CoordinatesForGuessed(this.getProfile.selfPersonalityType);
         this.showFeedBackModalByParams(res.othersAmount);
 
-
         this.tag = res.selfResult;
         this.tagOthersAverage = res.othersAverageResult;
         this.SelfCoordinate = this.Coordinates(res.selfResult);
         this.shareLink = `${window.location.host}${res.invitationLink}`;
+        this.chartOptionsBar();
+        console.log('this.data', this.data);
       });
     },
     setRadar(data, name) {
@@ -211,8 +246,7 @@ export default {
       const x = eval(arr[0] + arr[2]);
       // eslint-disable-next-line no-eval
       const y = eval(arr[3] - arr[4] + arr[1]);
-      console.log('arr', arr);
-      console.log('[x, y]', [x, y]);
+
       return [x, y];
     },
     showFeedBackModalByParams() {
