@@ -16,7 +16,7 @@ import VueGtag from 'vue-gtag';
 import App from './App.vue';
 
 Vue.use(VueGtag, {
-  config: { id: 'G-V6M3158S9S' },
+  config: { id: 'UA-180628402-1' },
 }, router);
 
 // eslint-disable-next-line

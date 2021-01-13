@@ -1,444 +1,214 @@
-import entertainer from '../assets/entertainer.svg';
-import enterpreneur from '../assets/enterpreneur.svg';
-import logistican from '../assets/logistican.svg';
-import virtuoso from '../assets/virtuoso.svg';
-import executive from '../assets/executive.svg';
-import consul from '../assets/consul.svg';
-import architect from '../assets/architect.svg';
-import logician from '../assets/logician.svg';
-import campaigner from '../assets/campaigner.svg';
-import commander from '../assets/commander.svg';
-import debater from '../assets/debater.svg';
-import protagonist from '../assets/protagonist.svg';
-import defender from '../assets/defender.svg';
-import adventurer from '../assets/adventurer.svg';
-import advocate from '../assets/advocate.svg';
-import mediator from '../assets/mediator.svg';
-
 export default {
   cards: {
-    trusting: {
-      title: 'Trusting',
-      coordinate: [8, 2],
+    Insensitive: {
+      title: 'Insensitive',
       tag: 'MBTI ESFP',
-      src: entertainer,
-      showText: 'As an ESFP you’re very enthusiastic, approachable and encapsulating of everything that an extrovert is! Highly charming and engaging, and generous with your energy, you’re often the first to help someone out, providing support and practical advice. However, though you like to draw out other people and help them have a good time, you can be very private with the more serious or negative aspects of your life. ',
-      hideText: 'ESFPs often struggle with traditional education techniques, such as learning by rote. If this is you then, where possible, try and find ways to get hands-on with your subject - whether that be through plays, building something, or presenting something. Try to find opportunities to make the thing you want to learn fun and active instead of just buried in books! \n'
-        + '\n'
-        + 'This struggle with education goes hand-in-hand with ESFPs dislike for long-term planning, t\n'
-        + 'ending to be spontaneous and living in the moment. This can hamper the progress of ESFPs looking to make future progress. ESFPs should look to formulate broad plans into sets of daily goals that they try to tick off each day. Start off with only a couple at first, and then add more as your tolerance builds.',
+      showText: 'The data from your answers suggest you match our <b><span class="character-color">Insensitive Personality Profile</span></b>.  Generally, you seem to keep yourself to yourself, preferring your own company, which can appear nonchalant or uncaring to others.  You may find it hard to communicate and interact with other people, sometimes finding hard to see how they are thinking or feeling.  Unfamiliar situations or social events may cause you anxierty or be upsetting and you may even perfer calm and restful environments to noisy or loud.  You probably enjoy familiarity in tasks you do to constant changing tasks or roles.  This can make you seem challeging to others but you have a sensistive side too.',
+      coordinates: [3, 0],
     },
-    sociable: {
-      title: 'Sociable',
-      coordinate: [3, 1],
+    Aloof: {
+      title: 'Aloof',
       tag: 'MBTI ESTP',
-      src: enterpreneur,
-      showText: 'ESTPs are inspiring thrill-seekers, who love to jump from urgency to urgency solving problems and spending life at the eye of the storm.\n'
-        + 'Full of passion and energy, they are natural leaders, bringing people on a common path, and using their unique skill for noticing small, personal details to adapt their personality to engage everyone.\n'
-        + 'Though ESTPs often use this skill to keep people lively and on their toes, they have to be careful in not taking it too far and exposing something that someone wanted to be kept quiet.',
-      hideText: 'Though ESTPs enjoy jumping from fire to fire, solving the problem. This often isn’t coherent for long term plans to come together. In cases where ESTPs find themselves battling multiple fires, they should try and take a step back. Ask yourself: does this have to be solved immediately?\n'
-        + 'If the answer is no, it may be possible to let the fire burn a bit longer as you focus on making headway into a longer term goal.\n'
-        + '\n'
-        + 'Further, the constant battle with problem solving often means that ESTPs neglect “the person in the mirror”. As an ESTP you should try and carve a small portion out of your day or week to address personal issues and aspects. Particularly think about those points around dealing with others’ emotions, and how best to respond and protect them.',
+      showText: 'Although to others you may seems engaging and interactive, privately, you tend not to be interested in having many social relationships, preferring a more sheltered, private lifestyle.  We classify this type of personality as the <b><span class="character-color">Aloof Personality Profile</span></b>.  It can seem as if you are observing the world from outside rather than participating in it and your beliefs may differ from the mainstream.   You may even feel a lack of direction in life and perhaps you have a vivid imagination and imagine fantasy worlds.  It may be that you feel like you are "acting" rather than being yourself and, sometimes, you can be eloquent and others inarticulate.  It could also be that your outward appearance may even contradict what you are really feeling.  Some may say you are uncaring or apathetic but, inside, you have many creative and original moments as well as deeply, or even passionately, enjoing certain areas of interest to you.',
+      value: [3, 2],
     },
-    '+0+1+2+1-1': {
-      title: 'Pragmatic',
+    Apathetic: {
+      title: 'Apathetic',
       tag: 'MBTI ISTJ',
-      src: logistican,
-      showText: 'ISTJs are dedicated organisers, who happily expend their time and energy completing tasks with accuracy and patience. They value truth very highly, and often report their own failings, even if it reflects badly on themselves.\n'
-        + 'ISTJs are neat and orderly, and often use these skills to uphold important traditions and standards. Their practical logic often sees them relaying facts to people and expecting them to grasp what they are saying.',
-      hideText: 'As with ISFJs, ISTJs may find their dependence and reliability allowing others in their life to shift their workload onto them, knowing that they’re take up the chore. Often this can accumulate and build stress and tension until a tipping point is reached and they collapse under the weight of work.\n'
-        + 'In these cases, ISTJs need to get better at saying “no” to tasks and people. As long as this is followed by a sincere reason that the task cannot be achieved, then the person unloading the task will be hard pressed not to take it back.\n'
-        + '\n'
-        + 'For ISTJs honesty is an incredibly important aspect of life, and can come at the expense of relationships and emotional arguments. Next time someone propositions you with an idea, think about why they may be asking, and why they are seeking the answer they want. Honesty may not initially be the best policy, it may be more logical to gently guide them to a conclusion and keep the relationship and their emotions intact.',
+      showText: 'As an <b><span class="character-color">Apathetic Personality Type</span></b>, you appear to be a reserved or quiet person, perhaps withdrawn or uninvolved.  It can also appear to be a lack of energy or enthusiam for things.  You may find yourself having diificulty being stirred into action, preferring to let things pass by and just observe.  People may call you "indifferent" but you could just prefer the familiar or status quo.  To others, you may also appear uncaring but you may just be undecided, hestitant or uncertain and want to be more certain before becoming more involved.',
+      value: [3, 4.15],
     },
-    '+0+1-1+2+0': {
-      title: 'Responsible',
+    Discreet: {
+      title: 'Discreet',
       tag: 'MBTI ISTP',
-      src: virtuoso,
-      showText: 'ISTPs are tolerant makers, unable to stay focussed on formal studies they often find themselves tinkering with the mechanics of something - hoping to understand the process. This spills over into their life more widely, observing how things work and looking for practical solutions to the problem at hand.\n'
-        + 'Though their privacy and  preoccupation with mechanics can make them appear simple, ISTPs are actually extremely friendly and enigmatic.',
-      hideText: 'ISTPs may struggle with task completion where, having understood something, they move onto the next project without completely implementing the final one, searching for novelty. \n'
-        + 'This plays into the broader ISTP trait of a struggle to commitment. Instead of thinking about the weeks or months it may take to implement something, simply tackle the day-to-day aspect of the task. You get to live in the present, whilst also achieving something long-term. This doesn’t only have to apply to work, but can apply to other aspects such as relationship.\n'
-        + '\n'
-        + 'Another benefit of daily scheduling allows you, as an ISTP, to achieve more of the projects you love. If you are careful with your time management, then you will be able to be more productive and avoid some of the procrastination that may creep into your day.',
+      showText: 'You might have heard people use the concept of the “wallflower”—a popular flowering plant that tends to grow in the cracks and gaps of stone walls—as a way to describe others. People who are “wallflowers” might quite literally stand against the walls at parties or social gatherings rather than socialize with others. Our data indicate that you fit the <b><span class="character-color">Discreet Personality Profile</span></b> Wallflower personality profile. In short, you are introverted, humble, and unassuming, but you don’t shy away from getting into the detials of getting things done - you’re a hard worker.  People fitting the <b><span class="character-color">Discreet</span></b> Wallflower personality profile show lower levels of extraversion in several areas. Unsurprisingly, they aren’t as likely to find the company of others as stimulating or rewarding as doing activities on their own. They lead slower-paced lives. Wallflowers don’t require high levels of stimulation to be happy. They are less impulsive than their peers, less likely to try new activities and experience different things. Wallflowers tend to be more sensitive to what others think of them. When it comes to difficult or unpleasant tasks, you exercise higher levels of self-discipline and willpower to persist until they are completed. You think before you act, you are good at carefully analyzing situations from multiple angles before taking action.',
+      value: [3.15, 6.15],
     },
-    '-1+1-1+1-2': {
-      title: 'Determined',
+    Compassionate: {
+      title: 'Compassionate',
       tag: 'MBTI ESTJ',
-      src: executive,
-      showText: 'ESTJs are dedicated executives, often leading organisations and people. They have an utter rejection of laziness and cheating, and often choose to set an exemplary working example themselves.\n'
-        + 'Highly rational and conscientious, their highly methodical nature helps to give others clear advice and direction, even in times of uncertainty.\n'
-        + 'As an ESTJ, this adhesion to strong work ethic may see you struggle to cut loose and relax outside of a work environment.',
-      hideText: 'As relentless planners and executors, ESTJs have a reputation of bulldozing through others’ sensitivities in order to achieve a goal.\n'
-        + 'When a situation next arises in which you feel yourself about to put someone down for their emotional response, try and understand why that response has been elicited. Though you may find it an inconvenience, is it impossible to find an alternate solution that doesn’t tread on the toes of this person?\n'
-        + '\n'
-        + '   \n'
-        + 'This strategy also allows others to express opinions and solutions different to your own. Instead of opposing these suggestions just on account of their novelty, allow them to run with the idea, and help shape it into a viable solution. Allowing others to generate ideas may help your own creativity and novelty.',
+      showText: 'Having a <b><span class="character-color">Compassionate Personality Profile</span></b> means you are very agreeable, adapting to others because you focus on them.  This may be in contrast to your view on the external world where you are less likely to concentrate your attention.  Some may even think you are introverted if they saw you as you see yourself.  You are somewhat focussed on results and like to get things done but are aware how others are feeling while you are doing that, trying to fit with others and meet your goals at the same time; in short, you are responsive to others\' needs.  In terms of focus, you are neither focussed on the future or past but on the present both a work and personally which suggests you live in the moment.',
+      value: [2.85, 5.85],
     },
-    '-1+1-2+1-1': {
-      title: 'Inconspicious',
+    Eccentric: {
+      title: 'Eccentric',
       tag: 'MBTI ESFJ',
-      src: consul,
-      showText: 'ESFJs are altruistic service-people. With decisive values and a willingness to offer help to others, they enjoy any role that allows them to participate in a meaningful way. These characteristics often mean you can find ESFJs taking part in community and social projects, but they prefer plans and organised events to anything spontaneous.\n'
-        + 'Highly attuned to their emotional environment and attentive to the feelings of others, they are often the ones at a party finding time to laugh and chat with everyone.',
-      hideText: 'ESFJs are highly dependent on the praises of, and interactions with, others. In order to overcome this barrier for constant validation and reassurance, ESFJs should practice a solo hobby. This will allow them to get comfortable with their own thoughts, feeling and silence. It also has the secondary benefit of allowing them to reflect on their interactions with others - perhaps allowing them to separate others emotions from their own, which is a known source of emotional drain for this personality type.\n'
-        + '\n'
-        + 'Coupled with this constant need for validation, is the idea that ESFJs have to please everyone - an impossible task at the best of times. Remember that there will always be someone who disagrees with you, and far from this being a personal attack is just them expressing their own opinion as well. Just step back and accept it, it’s not a reflection on your character.',
+      showText: 'You appear to be an <b><span class="character-color">EccentricPersonality Profile</span></b>.  We think it means that that you are easily worried by events.  Your well-being is dependent on your surroundings and events and you can fell uneasy or troubled by what is going on around you. Feeling slightly stressed or tense is normal for you and many things trouble you.  This can lead to agitation and low -level frustration with the world or specific people.  Specifically, you tend to emotionally react to circumstances rather than assessing their significance first.  Because of your character, you tend to be inward-looking, worry about how you are feeling and may appear to be uncaring or indifferent to thers.  This combination of traits can also make you appear to be introverted or even disagreeable.',
+      value: [4, 0],
     },
-    '+0+0-1+2+0': {
-      title: 'Humble',
+    Suspicious: {
+      title: 'Suspicious',
       tag: 'MBTI INTJ',
-      src: architect,
-      showText: 'INTJs are analytic problem-solvers, confident in mastering their chosen subjects and enjoy sharing their knowledge with others. They are always on the lookout for new tactics and strategies to improve their lives at either work or home. Though their creativity and inner personality is often largely shielded from the outside World. ',
-      hideText: 'Often INTJs internalise a lot of their thoughts, leaping from A to B to Z and leaving others behind. Other people may struggle to keep up with such quick speed. When explaining stuff to other people don’t be afraid to take them on the journey with you. The ideas don’t have to be fully formed as they come out of your mouth, people can act as a sounding board for that.\n'
-        + 'Using this process will also help you see the floors in your own arguments and plans!\n'
-        + '\n'
-        + 'Further, when people voice plans that contradict your own, this isn’t personal – but bear in mind that any reply may feel personal to them. Remember, for others, emotional considerations and history are hugely influential – and considering the feelings of others isn’t illogical, but more logical when it helps reach a conclusion!',
+      showText: 'Our analysis suggest you are a <b><span class="character-color">Suspicious Personality Profile</span></b>.  Delusion, dread, anxiety, feel oppressed, persecution complex, misconceived reality, fantasy, dream, illusion.  Sometimes you feel the world is against you or that  can\'t please anyone or genuinely oppressed.  Your view of the world may not align with the majority and that disconnection may you feel anxious and stressed, perhaps even fill you with dread.  Many world and personal events may seem to have many clandetine explanations or secretive plots and all these things may combine to make you feel your ideas or views are better than others.  You may also view the otherwise innocent or friendly actions as hostile and so bear grudges for a long time.',
+      value: [4, 1],
     },
-    '+1-1+2+0-1': {
-      title: 'Engage',
+    'Self-critical': {
+      title: 'Self-critical',
       tag: 'MBTI INTP',
-      src: logician,
-      showText: 'INTPs are theoretical unifiers, who love to spot patterns and solutions to issues. Though actually relaxed and friendly, they can be seen as detached due to their constantly whirring minds trying to find the meaning of life and the things they see. \n'
-        + 'INTPs love to come up with unique ideas to solutions, particularly if they don’t follow the direction of the crowd!',
-      hideText: 'Occasionally INTPs allow the logic and detail of the situation to blind them to the emotional considerations and impact on others. Coupled with this, there is a risk of being caught in their own logical fallacies. To combat both of these, consider bringing others into your life decision making processes. Having someone else as a sound-board will help your ideas develop, and further bringing parties in to your decisions allows you to begin to appreciate their emotional consideration – take notice of it!\n'
-        + '\n'
-        + 'INTPs remain so open to new information that can delay their output indefinitely with constant revisions. Next time you find yourself doing this, ask yourself whether you could get away with pushing the work out as-is. If it’s truly important you can come back and iterate on it, but in the mean time it may be helpful to others to see your 80% completed plan to know what you’re thinking about.',
+      showText: 'As the name suggests, <b><span class="character-color">Self-critical Personalities Profile</span></b> are hard on themselves.  They things they do as worthless and themselves as insignificant without justification and when the reality may well be different.  These traits can make them feel a combination of gloomy, miserable, unhappy or troubled when the reality is actually likely to be different.  The pessimism can lead to a negative cycle of judgmental thoughts that can manifest as cynicism and make otherwise positive situations look and feel bleak.  However, the negative thoughts general stem from not accepting the reality of a situation and, once things more in perspective, things can seem brighter.',
+      value: [4, 3.15],
     },
-    '+1+0+1-2-1': {
-      title: 'Autonomous',
+    Anxious: {
+      title: 'Anxious',
       tag: 'MBTI ENFP',
-      src: campaigner,
-      showText: 'ENFPs are compassionate creators, who particularly enjoy the social and emotional connections they make with others. They can be a passionate, driven idealist one moment, and when the time to relax comes an energetic dancer the next.\n'
-        + 'Their curious minds allow them to read between the lines and come up with independent solutions, but that energy can wane if it has to be spent on the admin of the implementation.',
-      hideText: 'ENFPs can be prone to overthinking in many aspects of life, which can lead to stress or lack of sleep. With some plans, not all the details have to precisely fit – if 90% of the whole is there, then it’s probably a reasonably good plan. Equally, don’t overthink what people say or do – often it’s not personal, and if you take it to heart and react badly then that has potential to damage the relationship.\n'
-        + '\n'
-        + 'Traditionally, ENFPs have a fairly low tolerance for administrative matters. This can be a big disconnect with the nature of day-to-day life. Try and build up this tolerance bit-by-bit by taking up more admin matters at home, and then let that slowly progress into work. Though it may initially be boring, the routine and process will gradually get easier.',
+      showText: 'We think <b><span class="character-color">Anxious Personality Types</span></b> rely on others when it comes to making decisions.  They are very agreeable in that they adapt to the company they are in but aren\'t confident in expressing their thoughts.  They may feel pressure in decision-making situations which makes them defer to others.   This can lead to over-reliance on others and a sense of isolation and loneliness when alone.  The lack of confidence means that Anxious Types can also be pessimistic and reaction to changing circumstances rather than assessing the situation in a more calm way.  By delegating a lot of decision making and responsibility to others, together with being introvert, can make Anxious Personality Types appear passive.',
+      value: [4.15, 4.15],
     },
-    '+1-2+1+0-1': {
-      title: 'Tolerant',
+    Perfectionist: {
+      title: 'Perfectionist',
       tag: 'MBTI ENTJ',
-      src: commander,
-      showText: 'ENTJs are motivated leaders. These individuals love the thrill of a challenge and use their drive and logical thought to achieve whatever they put their minds to.\n'
-        + 'This drive and charisma projects authority and leadership and this, in turn, draws people into helping with the cause. \n'
-        + 'Though this high level of rationality makes for an excellent strategic thinker, it can make others think the ENTJ type is dominant and unforgiving. As an ENTJ you may have to be careful about what your goals need from others in order to be reached.',
-      hideText: 'Often finding themselves in positions of leadership, ENTJs have to be careful about how they treat their team. Remember that the goal may not be the final one, a good team is irreplaceable, and to burn them out on a single mission may be unwise. Take into account the team’s feelings, build those relationships, and it will mean the team is able to complete multiple goals over-and-over again.\n'
-        + '\n'
-        + 'Their quick wit and logical thinking often leads ENTJs to complete sentences, interrupt and make rapid (though perhaps not correct) assumptions. In social situations and work, take the time to completely hear out other people’s points without interruption. Importantly take it on board and allow them to run with the idea – it may reveal something about them or the situation that you hadn’t conceived!',
+      showText: 'This type is another that is self-explanatory; The <b><span class="character-color">Perfectionist Persoanlity Type</span></b> want everything to be just right!   They are very conscientious and extrememly focussed on getting the "right" result.  This means that they can be slightly reactive to situations, especially when things aren\'t as they expected. This excessive focus can be unecceasrily time-consuming and somewhat stressful, especially when the Anxious person doesn\'t get the outcome they expect.  They also have a tendency to prefer how things were (when they were perfect) so new, uncertain and likely imperfect future events.  Perfectionist are willing to negotiate to achieve as "perfect" outsome as possible.',
+      value: [3.85, 3.85],
     },
-    '+0+1+1+1-2': {
-      title: 'Postitivistic',
+    Determined: {
+      title: 'Determined',
       tag: 'MBTI ENTP',
-      src: debater,
-      showText: 'ENTPs are intellectual pioneers, constantly sparing with the ideas of themselves and others to find new solutions to problems. Playing devil’s advocate helps them to break down problems from all aspects, and allows them to comprehend the people and systems around them.\n'
-        + 'However, like ENFPs, though the solutions may come easily to ENTPs, the implementation may struggle due to its routine nature.',
-      hideText: 'ENTPs brilliance in debate can also be their weakness. In defending and attacking every position, they may have uncovered weaknesses, but they have not created consensus. Next time you’re involved in a debate between multiple people, see whether you can use your debating skill to elicit a solution that is both probable and agreeable. Perhaps don’t worry so much about edge cases, and instead focus on reaching a resolution. If the solution doesn’t initially work, then it may be possible to come back and update it.\n'
-        + '\n'
-        + 'Also, remember that a big part of working well in life, or as a team, is often getting people to be comfortable and agree. Be careful where you pick your debates, as more sensitive personality types may not be ready for the onslaught of ideas – creating tension and  perhaps burning bridges. Maybe you’d be able to voice your concerns in a more gentle or private setting?',
+      showText: 'Your levels of personality traits most closely match our <b><span class="character-color">Determined Personality Profile</span></b>. You are determined, logical, grounded—your mind seems to be built for making decisions. When intrusive thoughts or worries enter your mind, you don’t spend too much time on them. On the flipside, you may have less access to and awareness of your own feelings. You find familiarity in logic and routines, more so than the average person. Because of this preference for logic and routine, you might find yourself much less prone than others to worry. You’re great at handling stress. You’re known for being level-headed, not only through stressful times of crisis, but also through the ups and downs experienced by your friends, family, and colleagues. In these situations, you lead with certainty and stability where others may act in panic and confusion. For you, strong cravings and urges have less of an effect on you than others; you are willing to sacrifice short-term satisfaction for long-term goals.',
+      value: [4, 7],
     },
-    '+1+1+2+1+0': {
-      title: 'Commercing',
+    Procrastinator: {
+      title: 'Procrastinator',
       tag: 'MBTI ENFJ',
-      src: protagonist,
-      showText: 'ENFJs are caring organisers, who radiate authenticity, concern and altruism. Naturally confident, they are often happiest when encouraging others to expand their horizons and seek new knowledge.\n'
-        + '\n'
-        + 'They are able to use their intuition to connect multiple peoples’ goals and motivations into a single common cause. ENFJs have to watch out for over-utilising their drive with others though, occasionally pushing other types further than they originally wanted to go. ',
-      hideText: 'ENFJs excel at building emotional relationships with the people around them and bringing harmony to a group. However, this often comes at a cost of their own tasks in life. Though future-focussed, try maintaining a list of things to do each present day, in order to keep personal productivity (outside of others emotions) strong.\n'
-        + 'Part of this can be breaking large future projects into small manageable daily goals – this will also prevent you getting overwhelmed.\n'
-        + '\n'
-        + 'Often ENFJs spend a lot of time reflecting on their actions and those of others. In points of difficult decision this can often leave ENFJs stuck for choice. Remember in these moments that often making no decision is worse than no decision at all. It is likely that you’re overthinking what will happen and this fear is holding you back. More often than not, these fears never materialise.',
+      showText: 'You are a <b><span class="character-color">Procrastinator Personality Type</span></b>.  You see yourself as a moderator, committing to neither on side or another and also nonchalant, not caring about the outcome in a particular situtation.  On the other side, you can be challenging and reactive but, generally speaking, <b><span class="character-color">Procrastinator Personailty Types</span></b> appear neutral in situations and that\'s what make they type they are.  Procrastinators are reactive to situations but their reactions tend to come from an inner monologue that says "no" to things, which appears to others like they can\'t make a decision when asked.  The indecisiveness in Procrastinators mean they tend to moderate conflicts to subconsciously keep things unchanged and often appear as unconcerned with events.  Another way of Procrastinating is simply not to participate and hope the decision goes away which can appear to others as being a reserved person.',
+      value: [5, -1],
     },
-    '+0-1+2+0-1': {
-      title: 'Optimistic',
+    Isolated: {
+      title: 'Isolated',
       tag: 'MBTI ISFJ',
-      src: defender,
-      showText: 'ISFJs are compassionate carers, endowed with well-developed people skills and a desire to do good. They often find themselves as protectors of and providers for others, and are sensationally modest about their accomplishments.\n'
-        + 'As an ISFJ you probably procrastinate, but still always achieve the job with a meticulous level of detail. Though you don’t outwardly seek validation on a public stage, when you are recognised you feel a level of warmth and satisfaction that is unrivalled among personality types.',
-      hideText: 'As an ISFJ you may find yourself taking on more work than you are capable in order to avoid conflict. This build up of work can lead to worry and spill from professional to personal life and back again. Next time you are unable to take on work, give a firm no, but apologise with a sincere reason. Opening up about your situation like this will provide people with a greater understanding of what you’re going through, and it is hard for them to override a genuine reason for an inability to do work.\n'
-        + '\n'
-        + 'As you get more comfortable with being able to say no to people with sincere reasons, start to express your emotions and desires more to those closest to you. This will often relieve a lot of stress and frustration that has built up about matters. This is taking care of someone that you’ve probably neglected for a long time: yourself.',
+      showText: 'You are an <b><span class="character-color">Isolated Persoanlity Type</span></b> and you see yourself as inquisitive and interested but you can be introverted. Additionally, you can be a negotiator in social situations but you do with sensitivity as tht is a trait.  Isolated Personalites can feel social anxiety which sadly leads to feelings of inhibition, inadequacy and inferiority.  Isolated Types can also be sensitivity to the negative comments of others and and so make them avoid social interaction. They often avoid social relationships with others unless they are certain they will be accepted because they often consider themselves to be socially inept or personally unappealing.  In these situations, they fear being ridiculed, humiliated, rejected, or disliked.',
+      value: [5, 2.85],
     },
-    '+0+2+0+1-2': {
-      title: 'Imperturable',
+    Humble: {
+      title: 'Humble',
       tag: 'MBTI ISFP',
-      src: adventurer,
-      showText: 'ISFPs are loyal creatives, who live in the present and express themselves through actions rather than words. They value harmony highly and will endeavour to support those that they care about, though it broadly has to stick to their own overarching principles. \n'
-        + 'This adherence to their own principles can lead them to be selfish at times, but if channelled for good they can act with a surprising vigour and clarity for charity. This vigour can be seen by others, but an ISFP will occasionally have to step out of the spotlight to recharge.',
-      hideText: 'ISFPs are famously spontaneous and live in the moment. Where possible you should open yourself up to those who provide visions of the future, and allow yourself to consider some broader questions about your direction in life. The creation of some guiding principles surrounding where you want to be in 5 to 10 years time will not limit your spontaneity, and can allow you to plan some shorter term goals to get you to where you want to be. \n'
-        + '\n'
-        + 'In work and personal life, applying some of these plans and involving people close to you can help you build more stable financial and personal relationships. If people can see where your plan leads you, then they can help you on that journey.',
+      showText: 'Have you ever been called humble, forgiving—even a saint? Because our data seems to indicate that you’re pretty close to one being a <b><span class="character-color">Humble Personality Profile</span></b>! You are exceptionally agreeable in all areas of your personality. You’re known for giving others the benefit of the doubt more often than the average person—you tend to assume that most people are fair, honest, and have good intentions. You are more likely than others to take people as they are, to trust that they have good intentions—to forgive and forget. You are more altruistic than most other people, you likely care deeply about improving the lives of others. You’re a prime example of humility and modesty. In meetings, you might even downplay your accomplishments. You give off a feeling of warmth when speaking with others. People closely matching the Humble Personality Profile are deeply in touch with their feelings, though this may lead to excessive self-consciousness. ',
+      value: [5, 5],
     },
-    '+1+1-1-2-2': {
-      title: 'Self-rising',
+    Responsible: {
+      title: 'Responsible',
       tag: 'MBTI INFJ',
-      src: advocate,
-      showText: 'INFJs are a rare breed indeed. A formidable coupling of creativity and resolve that allows them to dream of an ideal future and make concrete steps to achieve it.\n'
-        + 'Dedicated and with a strong sense of integrity, their talent for warm, sensitive language and a human touch often leads INFJs into careers where they find great reward in helping people.',
-      hideText: 'As shown by the alternate name for INFJs: Counsellors, you likely possess an innate ability to calm down a situation, and return to tranquillity. In life however, not all disagreements can be swept away so easily. In tense and hostile situations try and use your skills to keep lines of communication open between all parties – allowing the problem to come to an understanding conclusion.\n'
-        + '\n'
-        + 'Though it may be difficult for INFJs, criticism is not always personal. When coming under fire, just take a moment to dissociate the criticism from your personality – try and understand where the criticism is coming from. \n'
-        + 'Further, being open to friends about how you feel about criticism and other aspects of your life will help you feel supported and less likely to be emotionally drained. ',
+      showText: 'People with the <b><span class="character-color">Responsible Personality Profile</span></b> are dutiful, self-disciplined, and deliberate. In other words, you have a stronger sense of duty and obligation than most. When it comes to difficult or unpleasant tasks, you exercise higher levels of self-discipline and willpower to persist until they are completed. While you can be quite the introvert at times, your inward-looking personality is quite a strength. You think before you act, you are good at carefully analyzing situations from multiple angles before taking action. At the same time, you come off as a genuinely nice person. There’s a good chance that you’re unassuming and humble. You are more likely than others to take people as they are, to trust that they have good intentions—to forgive and forget. You are likely to show honesty more than most: you believe in telling the truth when dealing with others and are therefore candid and genuine. Indeed, you find helping others to be truly rewarding.',
+      value: [5, 6],
     },
-    '-2+1-1+0+0': {
-      title: 'Inert',
+    Active: {
+      title: 'Active',
       tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+      showText: 'The <b><span class="character-color">Active Personality Profile</span></b> sees themselves a moderator but you can be ambivelent and apathetic.  On the other hand, you can be challenging with a reactive side.    Active Personality types can be inattentive and restless which can be disruptive the balance in social situations as can their impulsivity.  As will all personality types, there are varying degrees within each type but, at extreme levels, these behaviours can cause strain on relationships, both at home and work.  It may seem to others as if you are forgetful, not listening or even disorganised.  Some in this type may find it hard to start tasks, making them appear lazy or ambivalent, and then not finish them, giving the appearance of impulsively starting tasks.  The reluctance to start tasks due to a lack of focus can also appear to be challenging to those setting the task.',
+      value: [6, -2],
     },
-    '-1+1-2+2+0': {
-      title: 'Merciful',
+    Unsatisfied: {
+      title: 'Unsatisfied',
       tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+      showText: '<b><span class="character-color">Unsatisified Personality Types</span></b> see themselves mainly as a preserver of status quo and nonchalant.  Unsatisfied personality types have patterns of behavior that sabotages their goals. They may often avoid or undermine pleasurable experiences, be drawn to situations or relationships in which they will suffer.  Frustratingly, they may prevent others from helping them.  They unconsciously choose people and situations that lead to disappointment, failure, or mistreatment even when better options are clearly available.  Following positive personal events, Unsatisfied Personality types can respond with depression, guilt, or a behavior that reduces the pleasure of the achievement.  They can provoke responses from others and then feel hurt, defeated, or humiliated.  Unsatisified Personality Types  can reject opportunities for pleasure or reluctantly enjoy activities.  Failing to accomplish tasks crucial to their personal objectives, despite having demonstrated ability to do so, or being unterested in/rejecting people who consistently treat them well are behaviours Unsatisfied personalities recognise as it excessive self-sacrifice that is unsolicited by the intended recipients of the sacrifice.',
+      value: [6, 2],
     },
-    '+0-1-1-1+2': {
-      title: 'Negativistic',
-      tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
-    },
-    '-1-1-2-1+1': {
-      title: 'Autistiform',
-      tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
-    },
-    '+0+1-2+0+1': {
-      title: 'Depressive',
-      tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
-    },
-    '+0-2+0-1+2': {
-      title: 'Hyperkinetic',
-      tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
-    },
-    '-1-1+1+2+2': {
-      title: 'Self-defeating',
-      tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
-    },
-    '+2-1+1+0+0': {
-      title: 'Hypomanic',
-      tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
-    },
-    '+1-1+2-2+0': {
-      title: 'Sadistic',
-      tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
-    },
-    '-1+1-1-2+1': {
-      title: 'Paranoid',
-      tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
-    },
-    '-1+0-2-1+0': {
-      title: 'Schizoid',
-      tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
-    },
-    '+0-1-2-1+1': {
-      title: 'Schizotypal',
-      tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
-    },
-    '+0-1+1-2+0': {
-      title: 'Antisocial',
-      tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
-    },
-    '+1-1+1-1+2': {
-      title: 'Borderline',
-      tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
-    },
-    '+1-1+2-1+1': {
-      title: 'Histrionic',
-      tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
-    },
-    '+0+0+1-2+0': {
-      title: 'Narcissistic',
-      tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
-    },
-    '+1+1-2+0+1': {
-      title: 'Avoidant',
-      tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
-    },
-    '-1+0-1+2+1': {
-      title: 'Dependent',
-      tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
-    },
-    '-1+2-1+0+1': {
-      title: 'Obsessive-compulsive',
-      tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
-    },
-    '+0+0+0+0+0': {
+    Neutral: {
       title: 'Neutral',
       tag: 'MBTI INFP',
-      src: mediator,
-      showText: 'INFPs are the moral idealists, always led by the purity of their intent. As a visionary, their individuality, creative flair and insight leads them to pursue a brighter future. Incredibly gifted with communication, they often reveal their inner self through beautifully crafted stories and metaphors.',
-      hideText: '\n'
-        + '\n'
-        + 'As an INFP do you often feel crushed by the weight of the World and its problems?\n'
-        + 'As an INFP, you’re likely trying to help lots of people, and getting drained as a result. Don’t forget to take care of yourself – perhaps whittle down a few of the tasks you’re doing to help. Build back up little-by-little, you need to be able to care for yourself to care for others.\n'
-        + '\n'
-        + 'As an incredibly passionate listener and mediator, you should not fear seeking leadership positions just because you’re not an extravert. These skills are incredibly important for such a position, and can help build large, effective co-operations.\n'
-        + 'Further, a leadership position will allow you to develop attention to detail, that INFPs commonly ignore!',
+      showText: 'You won\'t be surprised to learn that the <b><span class="character-color">Neutral Personality Profile</span></b> scores in the personality categories as the name sugegsts - average.  This doesn\'t mean you are average.  You are a negotiator when dealing with others and perfectly balance your conscientiousness between highyl foccussed and nonchanlant.  You are responsive to your emotions, neither being over reactive or resilient while your focus on the world exterior to you is ambivalent - dead-centre between extraverted and intraverted.  Lastly, you 6live int he moment - you do not focus on the past or the future overly.',
+      value: [6, 3],
+    },
+    Productive: {
+      title: 'Productive',
+      tag: 'MBTI INFP',
+      showText: 'As a <b><span class="character-color">Productive Personality Type</span></b>, you see yourself as inquisitive and interested. Additionally, you can be adversarial but with a resilient side.  As a Productive Personality, you are resilient to setbacks, perserving to get things done inspite of setbacks. To acheive your goals, you can be determined even it is means ruffling a few feathers of those around you and you appear not too bothered about upsetting them either!  The task is everything and there isn\'t much room for feelings.  By being task-orientated, you can withdraw into your own world and appear reserved but it\'s just your focus dominating the task.  Productive Personality Type focus on the new and innovation rather the current or past state of affairs.',
+      value: [6, 4],
+    },
+    Calm: {
+      title: 'Calm',
+      tag: 'MBTI INFP',
+      showText: 'The way you answered suggests that you have <b><span class="character-color">Calm Personality Profile</span></b>; a moderator and focussed. Additionally, you are flexible which allows you stay calm in different situations.  Calm personalities are, as you might expect, unruffled by life\'s chaos.  They remain serene and swan-like throughout it all.  Being adaptable to change and others\' behaviours, the Calm personality accomodates change well.  Some of that may be due to the focus that Calm Personalities have, which is high compare to average.  Being a centred type of personality, neither being overtly extraverted or introverted, adds to the charateristics of being Calm.  You score highly on resilience which means that you can deal with setbacks easily without losing your placid, calm persona.',
+      value: [6, 8],
+    },
+    Unemotional: {
+      title: 'Unemotional',
+      tag: 'MBTI INFP',
+      showText: 'People with Unemotional Personality Profiles, such as you, see themselves as moderators and nonchalant in social situations. Being an Unemotional personality type can be difficult.  it means you have the tendency to be impulsive that could, at times, be seem as irresponsible.  Extreme variants of the Unemotional personality type are often combative, manipulative or calculating.  They show little empathy and are unemotional, hence the name type.  This means that realtionships can be difficult for Unemotional type; social norms do not come naturally to them and neither does remorse for their actions.  They tend to be extroverted and live in the moment, neither looking forward or backwards at consequences and appear uncaring, so much so that they can challenge almost everything giving the appearance of doing so for the sake of challenging.  ',
+      value: [7, 0],
+    },
+    'Self-centred': {
+      title: 'Self-Self-centred',
+      tag: 'MBTI INFP',
+      showText: 'The <b><span class="character-color">Self-centred Personality Profile</span></b> is another difficult type to associate with.  Self-centred types have a grandiose sense of self-importance and a preoccupation with fantasies of unlimited success, power, brilliance, beauty, or ideal love.  They can believe that they are in someway special and can only be understood by, or associate with, special people or institutions and have a need for excessive admiration from others.  They can also have a sense of entitlement to special treatment.  A lack of empathy with, and envy of others, together with arrogant or haughty attitudes from Self-centred types means that they have the ability to exploit others as they down-play others value relative to their own.',
+      value: [7, 1],
+    },
+    Positive: {
+      title: 'Positive',
+      tag: 'MBTI INFP',
+      showText: 'The <b><span class="character-color">Positive Personality Profile</span></b> is resislinet to life\'s setbacks.  They see the good in every situation and are uplifting people to be around as they can support an indidual or team through dark times.  They are adapatble and agreeable enough to get along with people but not so much that they accept negative attitudes without a challenge.  Positive people live in the moment, neither dwelling on the past or worrying about the future.  They care just enough about results so as to make them effective but not so much that the result is everything and so open themselves up to disappointment if not met. Positive people are also focus enough on their exterior world enough to be social but they don\'t let it dominate their lives.',
+      value: [7, 7],
+    },
+    Impulsive: {
+      title: 'Impulsive',
+      tag: 'MBTI INFP',
+      showText: 'Your answers determined that you are what we classify as a <b><span class="character-color">Impulsive Personality Profile</span></b>.  The extreme form of this type includes traits such as emotional instability, distorted patterns of thinking or what we are know as "cognitive distortions", impulsive behaviour that cross over into the type of relationships they have.   Impulsive types often feel extreme emotions such as rage, sorrow, shame, panic and longer-term feeling of emptiness and loneliness.',
+      value: [8, -1],
+    },
+    Autonomous: {
+      title: 'Autonomous',
+      tag: 'MBTI INFP',
+      showText: 'Your responses most closely match the <b><span class="character-color">Autonomous Personality Profile</span></b> and it seems you were born to lead.  People might describe you as confident, bold, and determined because you enjoy taking decisive action so much so that you may have a tendency to make decisions for those around you. Handling stress , particularly in emergency situations, and taking rejection are something you do better than the average person. People who fit the Autonomous profile don’t like sticking to set rules. They tend to be leaders in groups. While they might not be the most modest, people matching this profile are less likely to let the opinions of others get in the way of decision-making. Some may argue this makes them more objective decision-makers. In fast-paced working environments and in daily life, they are less susceptible to the effects of anxious thoughts and emotions.',
+      value: [8.15, 2.15],
+    },
+    Patient: {
+      title: 'Patient',
+      tag: 'MBTI INFP',
+      showText: 'Our data indicate that you most closely match <b><span class="character-color">Patient Personality Profile</span></b>. People might describe you as laid-back, creative, and free-spirited. The defining personality trait of the Patient type is opennes - the extent to which a person is open to experiencing new things or activities. You have quite high levels of this trait, compared to the average person.  In addition to being more eager than average to new experiences, you are more aware of your feelings and how to express them. You are relatively less prone to worry; you tend to feel more calm and self-assured than those around you. Compared to your peers you are open to, and are intrigued by, new ways of thinking and novel ideas; you like exploring your surroundings. Sometimes your openness gets in the way of self-control and organization, but this only boosts your creativity.',
+      value: [7.85, 1.85],
+    },
+    Optimistic: {
+      title: 'Optimistic',
+      tag: 'MBTI INFP',
+      showText: 'The <b><span class="character-color">Optimistic Personality Profile</span></b> or Optimist are emotionally resilient in that they respond to their emotions but do not react impulsively.  They control their feelings and so can bounce back from negative feelings.  They are not so results-orientated that it dampens the Optimist\'s spirit because by putting weight not achieving their goals can lead to disappointment.  They may not be the best person to drive a task to completion but they will think anything possible and they share that infectious spirit with others.  The Optimist does not feel the need to adapt or challenge their surroundings: the Optimist says "it\'s good as it is".',
+      value: [8, 3.85],
+    },
+    trusting: {
+      title: 'Trusting',
+      tag: 'MBTI INFP',
+      showText: 'By having a <b><span class="character-color">Trusting Personality Profile</span></b>, you might find that more people than average trust you with their problems for one simple reason: you are a highly agreeable person. You give others the benefit of the doubt more often than the average person - you tend to assume that most people are fair, honest, and have good intentions. People with your personality profile are often called tenderminded, which suggests that many of your judgements and attitudes could be determined by emotion. While some may see this as a problem, this particular tendency makes you a more compassionate decision-maker and confidant. Because you are sincere and honest in your interactions with others, it isn’t very surprising that people feel comfortable confiding in you. Not only are you warm and approachable, but you are also slow to hold grudges against others. You are a team player, predisposed to think about how your actions impact others rather than how they impact yourself. You are likely more open to what others have to say, especially from those who hold different social, political, or religious values. ',
+      value: [8, 5],
+    },
+    Practical: {
+      title: 'Practical',
+      tag: 'MBTI INFP',
+      showText: 'With a <b><span class="character-color">Practical Personality Profile</span></b>, you crave order and stability more than most. You are more level-headed and in control of your emotions than others, especially in chaotic, high-pressure situations. When negative thoughts enter your head, you don’t spend too much time on them. Similarly, you’re less likely to have unhealthy concern for how others think about you. Day-to-day, you are focused, determined to finish the task at hand. You may even find yourself so focused at times that you “do” things without much extra thought, as people with your personality profile tend to have high levels of certainty. To be clear, being a Practical type which craves order and stability, doesn’t necessarily mean that you’re a cold and unapproachable person. On the contrary, your personality profile indicates you are particularly outgoing, sociable, and talkative. You are more affectionate, gentle, and warm than the average person. You’re an order-oriented leader, but you don’t shy away from being enthusiastic and upbeat.',
+      value: [8, 6],
+    },
+    Lively: {
+      title: 'Lively',
+      tag: 'MBTI INFP',
+      showText: 'The <b><span class="character-color">Lively Personality Profile</span></b> loves being the centre of attention.  They want others to approve of them and try their best to win others over.  You will recognise Lively people at a party: they are in the "life and sole".  They can be dramatic, vivacious, enthusiastic and even flirtatious.  Sometimes, this gregariousness can be inappropriate and Lively people can exagerate these behaviours.  Lively types focus on the new and exciting, appear not to be too concerned with things, adapt to their social surrounding in an excitable manner but, as you might expect, mostly focus on what is going on around them.',
+      value: [9.15, 0.15],
+    },
+    Harsh: {
+      title: 'Harsh',
+      tag: 'MBTI INFP',
+      showText: '<b><span class="character-color">Harsh Personality Profiles</span></b> can be seem ruthless.  They can lack empathy and so don\'t understand the extreme negative effects of behavious like bullying, demeaning, manipulation or even abuse.  Not being able to empathise with others\' feeling removes a filter to socially acceptable behaviour.  Harsh people challenge most things which can seem like obnoxious behaviour.  They seem unmoved by targets or results, appearing above it all.  Harsh people are in touch with their emotionals but they neither react impulsively to them nor are they resilient to negative emotions either.  The neutrality of their own emotions means Harsh types focus a lot on their exterior worlds and, to some extent, exploring new things.',
+      value: [8.85, -0.2],
+    },
+    Uninhibited: {
+      title: 'Uninhibited',
+      tag: 'MBTI INFP',
+      showText: 'The <b><span class="character-color">Unhibited Personality Profile</span></b> usual experience a wide emotional range from persistent periods of disinhibition and euphoria that will be noticeable from their normal state by others.  Uninhibited people could experience a decerase in the need for sleep, an overall increase in energy, unusual behaviors and actions, and other more noticeable things to others such as an increase in talkativeness and confidence, together a flight of creative ideas; ideas tend to fall out of the Unhibited. They want to focus on the new and not the past but  they are generally emtionally stable.  The Unhibited tend negotiate well with others so their outpouring of ideas isn\'t usually associated with obnoxiousness.',
+      value: [9, 1.85],
+    },
+    Engaged: {
+      title: 'Engaged',
+      tag: 'MBTI INFP',
+      showText: 'Your answers indicate that your profile most closely matches the <b><span class="character-color">Engaged Personality Profile</span></b>. Much like the coach of a sports team, you’re probably known for your assertive, outgoing, and eager personality. You show elevated levels of extraversion in all areas of your personality. First, you love being around other people, attending social gatherings, perhaps being the life of the party. You can’t seem to get away from the excitement of crowds. Compared to your peers, you may find yourself easily bored without high levels of social or mental stimulation. For this reason, you enjoy the thrill of new activities and experiences. You’re more positive and cheerful than average. At work or among friends, you’re more likely to take charge, to make decisions for others. People matching the Engaged profile tend to be leaders in groups. While they might not be the most modest, they are less likely to let what others think of them get in the way of decision-making. They hold up quite well to stress, particularly in emergency situations.',
+      value: [9, 2.85],
+    },
+    Sociable: {
+      title: 'Sociable',
+      tag: 'MBTI INFP',
+      showText: 'As a people person at heart, you genuinely enjoy spending your time being with others and others love being around you.  People matching the <b><span class="character-color">Sociable Personality Profile</span></b> have a wider capacity to experience positive feelings such as happiness, optimism, enthusiasm, and joy. This emotional knack for positivity reflects a more general self-awareness of your own feelings - a key component of being an effective leader. It’s no surprise, then, that friends and colleagues are drawn to you by your warmth and high social energy. In the workplace, you enjoy leading others and acting decisively. Your calendar outside work is probably full, too: given your Sociable profile, you are more likely to live a fast-paced and busy life. You’re more open than most to filling this limited time with new experiences. Your love of the fast lane comes at a cost, though—you might find yourself growing easily bored without high levels of social or mental stimulation. Your social talent, positivity, and hunger for novelty make it clear that you’re an Entrepreneur.',
+      value: [9, 4],
+    },
+    Outgoing: {
+      title: 'Outgoing',
+      tag: 'MBTI INFP',
+      showText: 'An <b><span class="character-color">Outgoing Personality Profile</span></b> are very outgoing as well as being moderately open to new ideas, focussed and adaptable.  Outgoing types are likely to like doing deals and the whole process associated with negotiating as that fits the components of their personality well.  They like to negotiate being more adaptive than average, focussed on results but not overly so and resilient emotionally so not taking challenging behaviour too personally.',
+      value: [9, 5],
     },
   },
 };

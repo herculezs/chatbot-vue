@@ -17,39 +17,10 @@
         <Card
           :title="getGuessedCard.title"
           :showText="getGuessedCard.showText"
-          :hideText="getGuessedCard.hideText"
           :tag="getGuessedCard.tag"
           :img="getGuessedCard.src"
         />
       </template>
-
-<!--      <template v-if="getCard">-->
-<!--        <div class="h5 mb-4">-->
-<!--          Based on your answers-->
-<!--        </div>-->
-<!--        <Card-->
-<!--          :title="getCard.title"-->
-<!--          :showText="getCard.showText"-->
-<!--          :hideText="getCard.hideText"-->
-<!--          :img="getCard.src"-->
-<!--          :tag="getCard.tag"-->
-<!--        />-->
-<!--      </template>-->
-
-<!--      <template v-if="isOthersAmount">-->
-<!--        <div class="h5 mb-4">-->
-<!--          Based on answers from your contacts-->
-<!--        </div>-->
-<!--        <Card-->
-<!--          :title="getCardOthersAverage.title"-->
-<!--          :showText="getCardOthersAverage.showText"-->
-<!--          :hideText="getCardOthersAverage.hideText"-->
-<!--          :img="getCardOthersAverage.src"-->
-<!--          :tag="getCardOthersAverage.tag"-->
-<!--          :defaultOpen="true"-->
-<!--        />-->
-<!--      </template>-->
-
 
       <div class="diagram mb-5">
         <div class="diagram__title-with-respondents mb-3" v-if="respondentsCount">
@@ -171,16 +142,9 @@ export default {
     isOthersAmount() {
       return this.respondentsCount > 3;
     },
-    getCard() {
-      if (!this.tag) return null;
-      return constants.cards[this.tag];
-    },
-    getCardOthersAverage() {
-      if (!this.tagOthersAverage) return null;
-      return constants.cards[this.tagOthersAverage];
-    },
     getGuessedCard() {
-      if (!this.tag) return null;
+      console.log('constants.cards[this.getProfile.selfPersonalityType]', constants.cards[this.getProfile.selfPersonalityType]);
+
       return constants.cards[this.getProfile.selfPersonalityType];
     },
     chartOptionsBar() {
@@ -188,7 +152,7 @@ export default {
         return [
           {
             value: [],
-            data: [`${this.getGuessedCard.coordinate[0]}`, `${this.getGuessedCard.coordinate[1]}`, `You guessed you are - \n ${this.getGuessedCard.title}`],
+            data: [this.getGuessedCard.value[0], this.getGuessedCard.value[1], 'You guessed you are - \n '],
           },
           {
             value: [],
@@ -203,11 +167,11 @@ export default {
       return [
         {
           value: [],
-          data: [8, 2, `You guessed you are - \n ${this.getGuessedCard.title}`],
+          data: [this.getGuessedCard.value[0], this.getGuessedCard.value[1], `You guessed you are - \n ${this.getGuessedCard.title}`],
         },
         {
           value: [],
-          data: [`${this.SelfCoordinate[0]}`, `${this.SelfCoordinate[1]}`, 'You are'],
+          data: [this.SelfCoordinate[0], this.SelfCoordinate[1], 'You are'],
         },
       ];
     },
@@ -246,7 +210,9 @@ export default {
       // eslint-disable-next-line no-eval
       const x = eval(arr[0] + arr[2]);
       // eslint-disable-next-line no-eval
-      const y = eval(arr[1] + arr[3] + arr[4]);
+      const y = eval(arr[3] - arr[4] + arr[1]);
+      console.log('arr', arr);
+      console.log('[x, y]', [x, y]);
       return [x, y];
     },
     showFeedBackModalByParams() {

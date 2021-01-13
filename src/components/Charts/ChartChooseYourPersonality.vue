@@ -2,7 +2,7 @@
   <div>
     <ECharts
       :options="getChartData"
-      autoresize
+      autoresize="true"
       @click="choose"
     />
   </div>
@@ -22,20 +22,11 @@ export default {
     return {
       yourChoose: '',
       color: '',
-    };
-  },
-  props: {
-    data: {
-      type: Array,
-    },
-  },
-  computed: {
-    getChartData() {
-      return {
+      getChartData: {
         grid: {
-          left: '3%',
-          right: '7%',
+          left: 1,
           bottom: '3%',
+          width: '450px',
           containLabel: true,
         },
         xAxis: {
@@ -52,7 +43,7 @@ export default {
         },
         series: [{
           id: 'point',
-          symbolSize: 8,
+          symbolSize: 9,
           symbol: 'diamond',
           color: '#009dce',
           itemStyle: {
@@ -60,28 +51,69 @@ export default {
               borderWidth: 0,
               label: {
                 show: true,
-                position: 'right',
+                position: 'top',
                 formatter(data) {
-                  const v = data.value;
-                  return v[2];
+                  return data.name;
                 },
               },
+            },
+          },
+          emphasis: {
+            itemStyle: {
+              color: '#ce7c2c',
             },
           },
           data: (this.data[0]).data,
           type: 'scatter',
         }],
-      };
+      },
+    };
+  },
+  props: {
+    data: {
+      type: Array,
     },
   },
+  computed: {
+
+  },
   methods: {
-    choose(data) {
+    choose(dataObject) {
       // eslint-disable-next-line no-undef,eqeqeq,no-param-reassign
       console.log(this.getChartData.series[0].color);
+      // eslint-disable-next-line no-undef,eqeqeq,no-param-reassign
+      console.log('this.getChartData1', this.getChartData);
+      console.log('this.data[0].data', this.data[0].data);
+
+      console.log('dataObject', dataObject);
+
+      const b = this.data[0].data.map((d) => {
+        if (dataObject.name === d.name) {
+          return {
+            name: d.name,
+            value: d.value,
+            label: {
+              color: '#CE001D',
+            },
+            itemStyle: {
+              color: '#CE001D',
+            },
+          };
+        }
+        return {
+          ...d,
+        };
+      });
+
+      this.getChartData.series[0].data = b;
+
       // eslint-disable-next-line no-param-reassign
-      this.getChartData.series.color = 'green';
+      this.getChartData.series[0].color = '#ce7c2c';
+      // eslint-disable-next-line no-param-reassign
+      console.log('this.getChartData2', dataObject.value);
+      this.$forceUpdate();
       this.$emit('choose', {
-        yourChoose: (data.value[2]).toLowerCase(),
+        yourChoose: (dataObject.name),
       });
     },
   },

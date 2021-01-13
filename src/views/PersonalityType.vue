@@ -1,6 +1,6 @@
 <template>
   <div class="personality-type">
-    <Content>
+    <Content >
       <h1 class="h5">
         Which personality type do you think best represents how you see yourself?
       </h1>
@@ -45,164 +45,361 @@ export default {
     Content,
   },
   data: () => ({
-    // slides: [
-    //   {
-    //     src: entertainer,
-    //     title: 'Entertainer',
-    // eslint-disable-next-line max-len
-    //     desc: 'Spontaneous, energetic and enthusiastic people - life is never boring around them.',
-    //     bgColor: 'bg-6',
-    //     tag: 'ESFP',
-    //   },
-    //   {
-    //     src: enterpreneur,
-    //     title: 'Entrepreneur',
-    //     desc: 'Smart, energetic and very perceptive people, who truly enjoy living on the edge.',
-    //     bgColor: 'bg-7',
-    //     tag: 'ESTP',
-    //   },
-    //   {
-    //     src: logistican,
-    //     title: 'Logistician',
-    //     desc: 'Practical and fact-minded individuals, whose reliability cannot be doubted.',
-    //     bgColor: 'bg-3',
-    //     tag: 'ISTJ',
-    //   },
-    //   {
-    //     src: virtuoso,
-    //     title: 'Virtuoso',
-    //     desc: 'Bold and practical experimenters, masters of all kinds of tools.',
-    //     bgColor: 'bg-8',
-    //     tag: 'ISTP',
-    //   },
-    //   {
-    //     src: executive,
-    //     title: 'Executive',
-    //     desc: 'Excellent administrators unsurpassed at managing things - or people.',
-    //     bgColor: 'bg-3',
-    //     tag: 'ESTJ',
-    //   },
-    //   {
-    //     src: consul,
-    //     title: 'Consul',
-    //     desc: 'Extraordinary caring, social and popular people, always eager to help.',
-    //     bgColor: 'bg-7',
-    //     tag: 'ESFJ',
-    //   },
-    //   {
-    //     src: architect,
-    //     title: 'Architect',
-    //     desc: 'Imaginative and strategic thinker, with a plan for everything.',
-    //     bgColor: 'bg-6',
-    //     tag: 'INTJ',
-    //   },
-    //   {
-    //     src: logician,
-    //     title: 'Logician',
-    //     desc: 'Innovative inventors with an unquenchable thirst for knowledge.',
-    //     bgColor: 'bg-8',
-    //     tag: 'INTP',
-    //   },
-    //   {
-    //     src: campaigner,
-    //     title: 'Campaigner',
-    // eslint-disable-next-line max-len
-    //     desc: 'Enthusiastic, creative and sociable free spirits, who can always find a reason to smile.',
-    //     bgColor: 'bg-6',
-    //     tag: 'ENFP',
-    //   },
-    //   {
-    //     src: commander,
-    //     title: 'Commander',
-    // eslint-disable-next-line max-len
-    //     desc: 'Bold, imaginative and strong-willed leaders, always finding a way - or making one.',
-    //     bgColor: 'bg-6',
-    //     tag: 'ENTJ',
-    //   },
-    //   {
-    //     src: debater,
-    //     title: 'Debater',
-    //     desc: 'Smart and curious thinkers whi cannot resist and intellectual challenge.',
-    //     bgColor: 'bg-8',
-    //     tag: 'ENTP',
-    //   },
-    //   {
-    //     src: protagonist,
-    //     title: 'Protagonist',
-    //     desc: 'Charismatic and inspiring leaders, able to mesmerize thier listeners.',
-    //     bgColor: 'bg-6',
-    //     tag: 'ENFJ',
-    //   },
-    //   {
-    //     src: defender,
-    //     title: 'Defender',
-    //     desc: 'Very dedicated and warm protectors, always ready to defend their loved ones.',
-    //     bgColor: 'bg-9',
-    //     tag: 'ISFJ',
-    //   },
-    //   {
-    //     src: adventurer,
-    //     title: 'Adventurer',
-    // eslint-disable-next-line max-len
-    //     desc: 'Flexible and charming artists, always ready to explore and experience something new.',
-    //     bgColor: 'bg-7',
-    //     tag: 'ISFP',
-    //   },
-    //   {
-    //     src: advocate,
-    //     title: 'Advocate',
-    //     desc: 'Quiet and mystical, yet very inspiring and tireless idealists.',
-    //     bgColor: 'bg-8',
-    //     tag: 'INFJ',
-    //   },
-    //   {
-    //     src: mediator,
-    //     title: 'Mediator',
-    //     desc: 'Poetic, kind and altruistic people, always eager to help a good cause.',
-    //     bgColor: 'bg-7',
-    //     tag: 'INFP',
-    //   },
-    // ],
-    // currentSlide: 0,
+
     chartOptionsBar: [
       {
         value: [],
         data: [
-          [3, 0, 'Insensitive'],
-          [3, 2, 'Loner'],
-          [3, 4.15, 'Apathetic'],
-          [3.15, 6.15, 'Discreet'],
-          [2.85, 5.85, 'Compassionate'],
-          [4, 0, 'Anxious'],
-          [4, 1, 'Suspicious'],
-          [4, 3.15, 'Self-critical'],
-          [4.15, 4.15, 'Anxious'],
-          [3.85, 3.85, 'Perfectionist'],
-          [4, 7, 'Determined'],
-          [5, -1, 'Procrastinator'],
-          [5, 2.85, 'Isolated'],
-          [5, 5, 'Humble'],
-          [5, 6, 'Responsible'],
-          [6, -2, 'Active'],
-          [6, 2, 'Unsatisfied'],
-          [6, 3, 'Neutral'],
-          [6, 4, 'Productive'],
-          [6, 8, 'Calm'],
-          [7, 0, 'Unemotional'],
-          [7, 1, 'Self-centred'],
-          [7, 7, 'Positive'],
-          [8, -1, 'Impulsive'],
-          [8.15, 2.15, 'Autonomous'],
-          [7.85, 1.85, 'Patient'],
-          [8, 3.15, 'Optimistic'],
-          [8, 5, 'Trusting'],
-          [8, 6, 'Practical'],
-          [9.15, 0.15, 'Lively'],
-          [8.85, -0.2, 'Harsh'],
-          [9, 1.85, 'Uninhibited'],
-          [9, 2.85, 'Engaged'],
-          [9, 4, 'Sociable'],
-          [9, 5, 'Outgoing'],
+          {
+            name: 'Insensitive',
+            value: [3, 0],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Aloof',
+            value: [3, 2],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Apathetic',
+            value: [3, 4.15],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Discreet',
+            value: [3.15, 6.15],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Compassionate',
+            value: [2.85, 5.85],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Eccentric',
+            value: [4, 0],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Suspicious',
+            value: [4, 1],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Self-critical',
+            value: [4, 3.15],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Anxious',
+            value: [4.15, 4.15],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Perfectionist',
+            value: [3.85, 3.85],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Determined',
+            value: [4, 7],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Procrastinator',
+            value: [5, -1],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Isolated',
+            value: [5, 2.85],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Humble',
+            value: [5, 5],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Responsible',
+            value: [5, 6],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Active',
+            value: [6, -2],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Unsatisfied',
+            value: [6, 2],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Neutral',
+            value: [6, 3],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Productive',
+            value: [6, 4],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Calm',
+            value: [6, 8],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Unemotional',
+            value: [7, 0],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Self-centred',
+            value: [7, 1],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Positive',
+            value: [7, 7],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Impulsive',
+            value: [8, -1],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Autonomous',
+            value: [8.15, 2.15],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Patient',
+            value: [7.85, 1.85],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Optimistic',
+            value: [8, 3.85],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Trusting',
+            value: [8, 5],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Practical',
+            value: [8, 6],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Lively',
+            value: [9.15, 0.15],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Harsh',
+            value: [8.85, -0.2],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Uninhibited',
+            value: [9, 1.85],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Engaged',
+            value: [9, 2.85],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Sociable',
+            value: [9, 4],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
+          {
+            name: 'Outgoing',
+            value: [9, 5],
+            label: {
+              color: '#009dce',
+            },
+            itemStyle: {
+              color: '#009dce',
+            },
+          },
         ],
       },
     ],
@@ -220,6 +417,7 @@ export default {
         });
     },
     ChartOptionBarData(data) {
+      console.log('CHOOOOSEEE', data.yourChoose);
       this.chartOptionsBarData = data.yourChoose;
     },
     // changeSlide(numberSlide) {
@@ -228,3 +426,7 @@ export default {
   },
 };
 </script>
+
+
+<style lang="scss">
+</style>

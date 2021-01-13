@@ -90,6 +90,10 @@ export default {
     getDataByStep() {
       if (!this.questions) return null;
 
+      if (this.currentStep === 1) {
+        this.startColleaguesTest();
+      }
+
       return this.questions[this.currentStep - 1];
     },
     isPersonalityTest() {
@@ -107,18 +111,16 @@ export default {
     completedColleaguesTest() {
       this.$gtag.event('Click test', {
         [window.location.pathname.split('/').pop()]: 'Complete test', // eslint-disable-line
-        'value': 1,                        // eslint-disable-line
+        'value': 1,                                                             // eslint-disable-line
       });
     },
     startColleaguesTest() {
       this.$gtag.event('Click test', {
         [window.location.pathname.split('/').pop()]: 'Start test', // eslint-disable-line
-        'value': 1,                        // eslint-disable-line
+        'value': 1,                                                          // eslint-disable-line
       });
     },
     fetchData() {
-      this.startColleaguesTest();
-
       if (this.isPersonalityTest) {
         return this.fetchInvitationQuestionnaire(this.$route.params.id);
       }

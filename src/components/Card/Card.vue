@@ -7,51 +7,21 @@
       v-if="!show.card"
     >
       {{ title }}
-      <div class="card__title-icon">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 256 256" class="arrow_icon"
-          style="enable-background:new 0 0 256 256;" xml:space="preserve"
-        >
-          <g>
-            <g>
-              <polygon points="79.093,0 48.907,30.187 146.72,
-              128 48.907,225.813 79.093,256 207.093,128"/>
-            </g>
-          </g>
-        </svg>
-      </div>
     </div>
-    <img
-      :src="img"
-      :alt="title"
-      class="card__title-img"
-      :class="{'animation-hide-show': animations.cardShow,
-     'animation-show-hide': animations.cardHide}"
-      v-if="!show.card"
-    >
 
     <b-collapse v-model="show.card">
       <div class="card-content-caption">
-        <img
-          :src="img"
-          :alt="title"
-          class="card-content-caption__img"
-        >
         <div class="h5 card-content-caption__title">
           {{ title }}
         </div>
-        <div class="h5 card-content-caption__sub-title">
-          Search online for "{{ tag }}"
-        </div>
       </div>
       <div class="card-info">
-        <div class="card-info__text ">
-          {{ showText }}
+        <div v-html="showText.slice(0, 200)" v-if="!show.content" class="card-info__text">
+          {{ showText.slice(0, 200) }}...
         </div>
         <b-collapse v-model="show.content">
-          <div class="card-info__text mt-3">
-            {{ hideText }}
+          <div v-html="showText" class="card-info__text">
+          {{ showText }}
           </div>
         </b-collapse>
       </div>
@@ -74,9 +44,6 @@ export default {
       type: String,
     },
     showText: {
-      type: String,
-    },
-    hideText: {
       type: String,
     },
     img: {
@@ -227,5 +194,9 @@ export default {
   }
   .arrow_icon{
     fill: $txtColor5;
+  }
+
+  .character-color {
+    color: red;
   }
 </style>
