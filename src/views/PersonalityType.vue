@@ -4,7 +4,10 @@
       <h1 class="h5">
         Which personality type do you think best represents how you see yourself?
       </h1>
-<!--      <PersonalityCarousel :slides="slides" @change="changeSlide" />-->
+
+      <h1 class="h5">
+        Stability
+      </h1>
       <ChartChooseYourPersonality :data="chartOptionsBar" @choose="ChartOptionBarData"
       ></ChartChooseYourPersonality>
       <button

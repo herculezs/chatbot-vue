@@ -48,10 +48,8 @@
           We need your details so we can notify you of your results.
           We won’t contact you otherwise
           <br/>
-          Typography
-          Any answers you give about others will be <b>totally anonymous</b>
-          to everyone in the company
-          Typography
+          <b>Any answers you give about others will be <b>totally anonymous</b>
+            to everyone in the company</b>
         </div>
         <form class="form">
           <div

@@ -18,6 +18,9 @@ export default {
   },
   created() {
     document.title = 'innerworks';
+    if (process.env.VUE_APP_BUILD !== undefined) {
+      document.title = 'Wellment';
+    }
   },
 };
 </script>

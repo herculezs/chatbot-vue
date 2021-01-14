@@ -26,14 +26,27 @@ export default {
     getChartData: {
       xAxis: {
         max: '10',
+        offset: -58,
+        axisLabel: false,
+        nameGap: 10,
+        nameLocation: 'end',
+        nameRotate: 270,
+        name: 'Flexibility',
         splitLine: {
           show: false,
         },
       },
       yAxis: {
         max: '10',
+        axisLabel: false,
+        name: 'Stability',
+        nameLocation: 'end',
+        offset: -256,
         splitLine: {
           show: false,
+        },
+        axisLine: {
+          symbolOffset: [6, 3],
         },
       },
     },

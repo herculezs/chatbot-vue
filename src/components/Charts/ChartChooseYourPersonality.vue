@@ -26,24 +26,45 @@ export default {
         grid: {
           left: 1,
           bottom: '3%',
-          width: '450px',
+          width: '470px',
           containLabel: true,
         },
         xAxis: {
+          nameTextStyle: {
+            padding: [0, 0, -16, 200],
+            fontWeight: 'bold',
+            fontSize: 15,
+          },
+          min: 2,
+          offset: -138,
+          axisLabel: false,
           max: '10',
+          nameGap: 10,
+          nameLocation: 'end',
+          nameRotate: 270,
+          name: 'Flexibility',
           splitLine: {
             show: false,
           },
         },
         yAxis: {
+          nameTextStyle: {
+            padding: [0, 415, 0, 0],
+            fontWeight: 'bold',
+            fontSize: 15,
+          },
           max: '10',
+          axisLabel: false,
+          offset: -235,
+          name: 'Stability',
+          nameLocation: 'end',
           splitLine: {
             show: false,
           },
         },
         series: [{
           id: 'point',
-          symbolSize: 9,
+          symbolSize: 12,
           symbol: 'diamond',
           color: '#009dce',
           itemStyle: {
