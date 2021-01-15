@@ -393,7 +393,7 @@ export default {
     .slick-slide,
     .slick-slide > div,
     .onBoarding-carousel__slide {
-      height: 100% !important;
+      /*height: 100% !important;*/
     }
     .onBoarding-carousel__slide{
       display: flex !important;
@@ -426,7 +426,7 @@ export default {
     padding-bottom: 0;
     height: 100%;
     .content{
-      height: 100%;
+      min-height: 100vh;
     }
   }
   .onBoarding__video{
