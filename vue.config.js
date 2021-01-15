@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 function resolve(dir) {
   return path.join(__dirname, dir);
@@ -12,7 +13,25 @@ module.exports = {
         /src\/assets\/logo\.png/,
         '../profiles/' + process.env.VUE_APP_BUILD + '/logo.png',
       ));
+      customPlugins.push(new CopyWebpackPlugin(
+        [
+          {
+            from: 'src/profiles/'  + process.env.VUE_APP_BUILD +  '/favicon.ico',
+            to: ''
+          }
+        ])
+      );
+    } else {
+      customPlugins.push(new CopyWebpackPlugin(
+        [
+          {
+            from: 'src/assets/favicon.ico',
+            to: ''
+          }
+        ])
+      );
     }
+
     config.plugins = [
       ...customPlugins,
       ...config.plugins,

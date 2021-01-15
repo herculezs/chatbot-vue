@@ -41,7 +41,8 @@
     "vuedraggable": "^2.24.1",
     "vuelidate": "^0.7.5",
     "vuex": "^3.5.1",
-    "vuex-persistedstate": "^2.7.1"
+    "vuex-persistedstate": "^2.7.1",
+    "copy-webpack-plugin": "latest"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.6",
