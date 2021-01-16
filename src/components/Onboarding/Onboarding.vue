@@ -161,23 +161,78 @@
             </template>
           </div>
           <div
-            class="form-group"
-            :class="{'form-group-error': $v.formData.dateOfBirth.$error}"
+            class="form-group flex-default-gap"
+            :class="{'form-group-error': $v.formData.month.$error}"
           >
-            <input
-              class="form__input"
-              placeholder="Date of Birth"
-              type="date"
-              v-model="formData.dateOfBirth"
-            />
-            <template v-if="$v.formData.dateOfBirth.$error">
-              <div
-                class="form__input-error"
-                v-if="!$v.formData.dateOfBirth.required"
-              >
-                Field is required
-              </div>
-            </template>
+            <select required
+                    class="form__input"
+                    v-model="formData.month"
+            >
+              <option value="undefined" disabled selected hidden>Month</option>
+              <option :value="index" v-for="(month, index) in allMonths" :key="month">
+                {{month}}
+              </option>
+            </select>
+
+            <input class="form__input"
+                   type="number"
+                   placeholder="Day"
+                   v-model="formData.day"
+            >
+            <input class="form__input"
+                   type="number"
+                   placeholder="Year"
+                   v-model="formData.year"
+            >
+
+          </div>
+          <div class="form-group flex-default-gap error-group-section">
+
+            <div class="full-width">
+
+              <template v-if="$v.formData.month.$error">
+                <div
+                        class="form__input-error"
+                        v-if="!$v.formData.month.required">
+                  Month is required
+                </div>
+              </template>
+            </div>
+
+            <div class="full-width">
+
+              <template v-if="$v.formData.day.$error">
+                <div
+                        class="form__input-error"
+                        v-if="!$v.formData.day.required">
+                  Day is required
+                </div>
+                <div
+                        class="form__input-error"
+                        v-if="!$v.formData.day.minValue || !$v.formData.day.maxValue">
+                  Must be from 1 to 31
+                </div>
+
+              </template>
+            </div>
+
+            <div class="full-width">
+
+              <template v-if="$v.formData.year.$error">
+                <div
+                        class="form__input-error"
+                        v-if="!$v.formData.year.required">
+                  Year is required
+                </div>
+                <div
+                        class="form__input-error"
+                        v-if="!$v.formData.year.minValue || !$v.formData.year.maxValue">
+                  From 1900 to {{new Date().getFullYear()}}
+                </div>
+              </template>
+            </div>
+
+
           </div>
           <TelInput
             v-model="formData.phone"
@@ -225,7 +280,10 @@ import TelInput from '@components/InputTel/TelInput.vue';
 import PolicyModal from '@components/Modals/PolicyModal.vue';
 import TermsConditionsModal from '@components/Modals/TermsConditionsModal.vue';
 
-const { required, email } = require('vuelidate/lib/validators');
+const {
+  required, email, numeric, minValue, maxValue,
+} = require('vuelidate/lib/validators');
+
 
 export default {
   components: {
@@ -257,8 +315,20 @@ export default {
         required,
         email,
       },
-      dateOfBirth: {
+      month: {
         required,
+      },
+      day: {
+        required,
+        numeric,
+        minValue: minValue(1),
+        maxValue: maxValue(31),
+      },
+      year: {
+        required,
+        numeric,
+        minValue: minValue(1900),
+        maxValue: maxValue(new Date().getFullYear()),
       },
       phone: {
         required,
@@ -266,6 +336,8 @@ export default {
     },
   },
   data: () => ({
+    allMonths: ['January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'],
     formData: {
       phone: null,
       firstName: '',
@@ -274,7 +346,9 @@ export default {
       department: '',
       role: '',
       managerEmail: '',
-      dateOfBirth: null,
+      month: undefined,
+      day: undefined,
+      year: undefined,
       diaCode: '',
     },
     carousel: {
@@ -326,6 +400,7 @@ export default {
       const phone = `+${this.formData.diaCode}${this.formData.phone}`
         .replace(/\s/g, '');
 
+      const currentMonthNumber = this.formData.month + 1;
       return {
         name: this.formData.firstName,
         surname: this.formData.surname,
@@ -333,7 +408,7 @@ export default {
         department: this.formData.department,
         role: this.formData.role,
         managerEmail: this.formData.managerEmail,
-        dateOfBirth: this.formData.dateOfBirth,
+        dateOfBirth: [this.formData.year, currentMonthNumber < 9 ? `0${currentMonthNumber}` : currentMonthNumber, this.formData.day].join('-'),
         phone,
       };
     },
@@ -443,6 +518,21 @@ export default {
     @media (max-height: $xsMaxHeight) {
       height: 24vh;
     }
+  }
+
+  .flex-default-gap {
+    display: flex;
+    gap: $md-gap;
+  }
+
+  .flex-column {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .error-group-section {
+    margin-top: -24px;
   }
   /*.slide-details{*/
   /*  display: flex;*/
