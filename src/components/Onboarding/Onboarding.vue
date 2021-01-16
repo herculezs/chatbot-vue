@@ -165,7 +165,7 @@
             :class="{'form-group-error': $v.formData.month.$error}"
           >
             <select required
-                    class="form__input"
+                    class="form__input select-month"
                     v-model="formData.month"
             >
               <option value="undefined" disabled selected hidden>Month</option>
@@ -175,15 +175,13 @@
             </select>
 
             <input class="form__input"
-                   type="number"
                    placeholder="Day"
                    v-model="formData.day"
-            >
+            />
             <input class="form__input"
-                   type="number"
                    placeholder="Year"
                    v-model="formData.year"
-            >
+            />
 
           </div>
           <div class="form-group flex-default-gap error-group-section">
@@ -523,6 +521,11 @@ export default {
   .flex-default-gap {
     display: flex;
     gap: $md-gap;
+
+    /*firefox compatibility fix*/
+    .form__input {
+      min-width: 0
+    }
   }
 
   .flex-column {
@@ -540,6 +543,11 @@ export default {
   /*}*/
   .slide-details__button{
     margin-top: auto;
+  }
+
+  .select-month {
+    -moz-appearance: none;
+    background-color: white;
   }
 
 </style>
