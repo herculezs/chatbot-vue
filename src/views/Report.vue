@@ -154,36 +154,34 @@ export default {
   },
   methods: {
     chartOptionsBar() {
-      if (this.OtherCoordinate) {
-        this.data.push(
-          {
-            value: [],
-            data: [this.getGuessedCard.value[0], this.getGuessedCard.value[1], `You guessed you are - \n ${this.getGuessedCard.title}`],
-          },
-          {
-            value: [],
-            data: [this.SelfCoordinate[0], this.SelfCoordinate[1], 'You are'],
-          },
-          {
-            value: [],
-            data: [this.OtherCoordinate[0], this.OtherCoordinate[1], 'Your \n Colleagues \n say'],
-          },
-          ...this.nearPoints,
-        );
-      }
       this.data.push(
         {
           value: [],
+          type: 'GUESS',
           data: [this.getGuessedCard.value[0], this.getGuessedCard.value[1], `You guessed you are - \n ${this.getGuessedCard.title}`],
         },
         {
           value: [],
+          type: 'YOU_ARE',
           data: [this.SelfCoordinate[0], this.SelfCoordinate[1], 'You are'],
         },
+        ...this.nearPoints,
       );
+
+      if (this.OtherCoordinate) {
+        this.data.push({
+          value: [],
+          type: 'COLLEAGUE',
+          data: [this.OtherCoordinate[0], this.OtherCoordinate[1], 'Your \n Colleagues \n say'],
+        });
+      }
     },
     refreshData() {
       return this.data;
+    },
+    setRadar(data, name) {
+      const average = this.radarData.find(item => item.name === name);
+      average.value = Object.values(data);
     },
     fetchPersonalityTypeReport() {
       this.$api.personalityTypeReport.fetchPersonalityTypeReport().then((res) => {
@@ -194,33 +192,6 @@ export default {
         if (this.isOthersAmount) {
           this.setRadar(res.othersAverageResult.split(/(?=[-+])/), 'Colleagues');
           this.OtherCoordinate = this.Coordinates(res.othersAverageResult);
-
-          const rs = [];
-          Object.values(constants.cards).forEach((key) => {
-            const distance = Math.sqrt(((key.value[0] - this.OtherCoordinate[0]) ** 2)
-              + ((key.value[1] - this.OtherCoordinate[1]) ** 2));
-            rs.push({
-              distance,
-              title: key.title,
-              value: key.value,
-            });
-          });
-
-          function sortByDistance(arr) {// eslint-disable-line
-            arr.sort((a, b) => a.distance > b.distance ? 1 : -1);// eslint-disable-line
-          }                                     // eslint-disable-line
-
-          sortByDistance(rs);
-
-          rs.slice(0, 3).forEach((x) => {
-            this.nearPoints.push({
-              value: [],
-              data: [x.value[0], x.value[1], x.title],
-            });
-          });
-
-          console.log('this.data', this.data);
-          console.log('this.nearPoints', this.nearPoints);
         }
 
         // this.CoordinatesForGuessed(this.getProfile.selfPersonalityType);
@@ -230,12 +201,71 @@ export default {
         this.tagOthersAverage = res.othersAverageResult;
         this.SelfCoordinate = this.Coordinates(res.selfResult);
         this.shareLink = `${window.location.host}${res.invitationLink}`;
+
+        const [youAreX, youAreY] = this.SelfCoordinate;
+
+        const mostLikelyCharacters = {
+          left: {},
+          right: {},
+          bottom: {},
+          top: {},
+        };
+
+        const allDirections = [{
+          key: 'left',
+          isRightDirection: (sourceX, sourceY, x) => sourceX <= x,
+        },
+        {
+          key: 'right',
+          isRightDirection: (sourceX, sourceY, x) => sourceX > x,
+        },
+        {
+          key: 'bottom',
+          isRightDirection: (sourceX, sourceY, x, y) => sourceY <= y,
+        },
+        {
+          key: 'top',
+          isRightDirection: (sourceX, sourceY, x, y) => sourceY > y,
+        },
+        ];
+
+        allDirections.forEach((direction) => {
+          const currentCards = Object.values(constants.cards);
+          currentCards
+            .filter(({ title }) => {
+              const allValues = Object.values(mostLikelyCharacters);
+              return !allValues.filter(d => title === d.title).length;
+            })
+            .forEach(({ value, title }) => {
+              const coordinateX = value[0];
+              const coordinateY = value[1];
+              const distance = Math.sqrt(((coordinateX - youAreX) ** 2)
+                + ((coordinateY - youAreY) ** 2));
+
+              const rightDirection = direction.isRightDirection(coordinateX, coordinateY,
+                youAreX, youAreY);
+
+              const lastDistance = mostLikelyCharacters[direction.key].distance || Number.MAX_VALUE;
+
+              if (rightDirection && lastDistance > distance) {
+                mostLikelyCharacters[direction.key].distance = distance;
+                mostLikelyCharacters[direction.key].title = title;
+                mostLikelyCharacters[direction.key].value = value;
+              }
+            });
+        });
+
+        Object.values(mostLikelyCharacters).filter(v => v.value).forEach(({ title, value }) => {
+          this.nearPoints.push({
+            value: [],
+            type: 'NEAREST',
+            data: [...value, title],
+
+          });
+        });
+
         this.chartOptionsBar();
       });
-    },
-    setRadar(data, name) {
-      const average = this.radarData.find(item => item.name === name);
-      average.value = Object.values(data);
     },
     Coordinates(Res) {
       const arr = Res.split(/(?=[-+])/);

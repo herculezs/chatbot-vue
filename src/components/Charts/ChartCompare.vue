@@ -13,6 +13,7 @@ import 'echarts/lib/chart/pie';
 import 'echarts/lib/chart/map';
 import ECharts from 'vue-echarts';
 
+
 export default {
   components: {
     ECharts,
@@ -23,6 +24,29 @@ export default {
     },
   },
   data: () => ({
+
+    colorsByType: {
+      YOU_ARE: {
+        label: '#0077a2',
+        border: '#00658a',
+        color: '#00bbff',
+      },
+      GUESS: {
+        label: '#ff132e',
+        border: '#CE1602',
+        color: '#CE2900',
+      },
+      NEAREST: {
+        label: '#007ea7',
+        border: '#00658a',
+        color: '#0011dd',
+      },
+      COLLEAGUE: {
+        label: '#ffb900',
+        border: '#976e00',
+        color: '#dda100',
+      },
+    },
     getChartData: {
       grid: {
         left: 1,
@@ -73,227 +97,24 @@ export default {
         return [];
       }
 
-      console.log(JSON.stringify(this.data));
-
-      const alignedData = (this.data || []).map(({ data: arr }) => ({
+      const alignedData = (this.data || []).map(({ data: arr, type }) => ({
         data: [arr[0] - xNeutralOffset, arr[1] - yNeutralOffset, arr[2]],
+        type,
       }));
-      console.log(alignedData);
-      if (alignedData[2] !== undefined) {
-        return [{
-          type: 'scatter',
-          symbolSize: 12,
-          symbol: 'diamond',
-          itemStyle: {
-            normal: {
-              color: '#CE2900',
-              borderWidth: 0,
-              label: {
-                show: true,
-                position: 'bottom',
-                formatter(data) {
-                  const v = data.value;
-                  return v[2];
-                },
-              },
-            },
-          },
-          emphasis: {
-            label: {
-              color: '#ff132e',
-              distance: 5,
-              fontWeight: 'bold',
-              backgroundColor: 'white',
-            },
-            itemStyle: {
-              color: '#ff132e',
-              borderColor: '#ce1602',
-              borderWidth: 2,
-            },
-          },
-          color: ['#CE2900'],
-          data: [(alignedData[0]).data],
-        }, {
-          type: 'scatter',
-          symbolSize: 12,
-          symbol: 'diamond',
-          itemStyle: {
-            normal: {
-              color: '#0077a2',
-              borderWidth: 0,
-              label: {
-                show: true,
-                position: 'bottom',
-                formatter(data) {
-                  const v = data.value;
-                  return v[2];
-                },
-              },
-            },
-          },
-          emphasis: {
-            label: {
-              color: '#007ea7',
-              distance: 5,
-              fontWeight: 'bold',
-              backgroundColor: 'white',
-            },
-            itemStyle: {
-              color: '#00bbff',
-              borderColor: '#00658a',
-              borderWidth: 2,
-            },
-          },
-          color: ['#0077a2'],
-          data: [(alignedData[1]).data],
-        }, {
-          type: 'scatter',
-          symbolSize: 12,
-          symbol: 'diamond',
-          itemStyle: {
-            normal: {
-              color: '#dda100',
-              borderWidth: 0,
-              label: {
-                show: true,
-                position: 'bottom',
-                formatter(data) {
-                  const v = data.value;
-                  return v[2];
-                },
-              },
-            },
-          },
-          emphasis: {
-            label: {
-              color: '#ffb900',
-              distance: 5,
-              fontWeight: 'bold',
-              backgroundColor: 'white',
-            },
-            itemStyle: {
-              color: '#ffb900',
-              borderColor: '#976e00',
-              borderWidth: 2,
-            },
-          },
-          color: ['#0011dd'],
-          data: [(alignedData[2]).data],
-        }, {
-          type: 'scatter',
-          symbolSize: 12,
-          symbol: 'diamond',
-          itemStyle: {
-            normal: {
-              color: '#0011dd',
-              borderWidth: 0,
-              label: {
-                show: true,
-                position: 'bottom',
-                formatter(data) {
-                  const v = data.value;
-                  return v[2];
-                },
-              },
-            },
-          },
-          emphasis: {
-            label: {
-              color: '#007ea7',
-              distance: 5,
-              fontWeight: 'bold',
-              backgroundColor: 'white',
-            },
-            itemStyle: {
-              color: '#00bbff',
-              borderColor: '#00658a',
-              borderWidth: 2,
-            },
-          },
-          color: ['#0011dd'],
-          data: [(alignedData[3]).data],
-        }, {
-          type: 'scatter',
-          symbolSize: 12,
-          symbol: 'diamond',
-          itemStyle: {
-            normal: {
-              color: '#0011dd',
-              borderWidth: 0,
-              label: {
-                show: true,
-                position: 'bottom',
-                formatter(data) {
-                  const v = data.value;
-                  return v[2];
-                },
-              },
-            },
-          },
-          emphasis: {
-            label: {
-              color: '#007ea7',
-              distance: 5,
-              fontWeight: 'bold',
-              backgroundColor: 'white',
-            },
-            itemStyle: {
-              color: '#00bbff',
-              borderColor: '#00658a',
-              borderWidth: 2,
-            },
-          },
-          color: ['#dda100'],
-          data: [(alignedData[4]).data],
-        }, {
-          type: 'scatter',
-          symbolSize: 12,
-          symbol: 'diamond',
-          itemStyle: {
-            normal: {
-              color: '#0011dd',
-              borderWidth: 0,
-              label: {
-                show: true,
-                position: 'bottom',
-                formatter(data) {
-                  const v = data.value;
-                  return v[2];
-                },
-              },
-            },
-          },
-          emphasis: {
-            label: {
-              color: '#007ea7',
-              distance: 5,
-              fontWeight: 'bold',
-              backgroundColor: 'white',
-            },
-            itemStyle: {
-              color: '#00bbff',
-              borderColor: '#00658a',
-              borderWidth: 2,
-            },
-          },
-          color: ['#0011dd'],
-          data: [(alignedData[5]).data],
-        },
-        ];
-      }
-      return [{
+
+      return alignedData.map(({ data, type }) => ({
         type: 'scatter',
-        symbolSize: 10,
+        symbolSize: 12,
         symbol: 'diamond',
         itemStyle: {
           normal: {
-            color: '#CE2900',
+            color: this.colorsByType[type].color,
             borderWidth: 0,
             label: {
               show: true,
               position: 'bottom',
-              formatter(data) {
-                const v = data.value;
+              formatter(d) {
+                const v = d.value;
                 return v[2];
               },
             },
@@ -301,54 +122,20 @@ export default {
         },
         emphasis: {
           label: {
-            color: '#ff132e',
+            color: this.colorsByType[type].label,
             distance: 5,
             fontWeight: 'bold',
             backgroundColor: 'white',
           },
           itemStyle: {
-            color: '#ff132e',
-            borderColor: '#ce1602',
+            color: this.colorsByType[type].color,
+            borderColor: this.colorsByType[type].border,
             borderWidth: 2,
           },
         },
-        color: ['#CE2900'],
-        data: [(alignedData[0]).data],
-      }, {
-        type: 'scatter',
-        symbolSize: 10,
-        symbol: 'diamond',
-        itemStyle: {
-          normal: {
-            color: '#0077a2',
-            borderWidth: 0,
-            label: {
-              show: true,
-              position: 'bottom',
-              formatter(data) {
-                const v = data.value;
-                return v[2];
-              },
-            },
-          },
-        },
-        emphasis: {
-          label: {
-            color: '#007ea7',
-            distance: 5,
-            fontWeight: 'bold',
-            backgroundColor: 'white',
-          },
-          itemStyle: {
-            color: '#00bbff',
-            borderColor: '#00658a',
-            borderWidth: 2,
-          },
-        },
-        color: ['#0077a2'],
-        data: [(alignedData[1]).data],
-      },
-      ];
+        color: [this.colorsByType[type].color],
+        data: [data],
+      }));
     },
   },
 };
