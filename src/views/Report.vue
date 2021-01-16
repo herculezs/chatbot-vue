@@ -166,7 +166,7 @@ export default {
           },
           {
             value: [],
-            data: [this.OtherCoordinate[0], this.OtherCoordinate[1], 'Your Colleagues say'],
+            data: [this.OtherCoordinate[0], this.OtherCoordinate[1], 'Your \n Colleagues \n say'],
           },
           ...this.nearPoints,
         );
