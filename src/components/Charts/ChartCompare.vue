@@ -24,29 +24,44 @@ export default {
   },
   data: () => ({
     getChartData: {
+      grid: {
+        left: 1,
+        bottom: '3%',
+        width: '480px',
+      },
       xAxis: {
-        max: '10',
-        offset: -58,
+        max: 10,
+        min: -4.5,
         axisLabel: false,
-        nameGap: 10,
         nameLocation: 'end',
         nameRotate: 270,
         name: 'Flexibility',
+        nameGap: 10,
+        boundaryGap: true,
+        nameTextStyle: {
+          fontWeight: 'bold',
+          fontSize: 15,
+          padding: [0, 0, -30, 100],
+        },
+        offset: -150,
         splitLine: {
           show: false,
         },
       },
       yAxis: {
-        max: '10',
+        max: 8,
+        min: -5,
+        nameTextStyle: {
+          fontWeight: 'bold',
+          fontSize: 15,
+          padding: [0, 615, 0, 0],
+        },
         axisLabel: false,
         name: 'Stability',
         nameLocation: 'end',
-        offset: -256,
+        offset: -347,
         splitLine: {
           show: false,
-        },
-        axisLine: {
-          symbolOffset: [6, 3],
         },
       },
     },
@@ -76,6 +91,19 @@ export default {
               },
             },
           },
+          emphasis: {
+            label: {
+              color: '#ff132e',
+              distance: 5,
+              fontWeight: 'bold',
+              backgroundColor: 'white',
+            },
+            itemStyle: {
+              color: '#ff132e',
+              borderColor: '#ce1602',
+              borderWidth: 2,
+            },
+          },
           color: ['#CE2900'],
           data: [(this.data[0]).data],
         }, {
@@ -96,6 +124,19 @@ export default {
               },
             },
           },
+          emphasis: {
+            label: {
+              color: '#007ea7',
+              distance: 5,
+              fontWeight: 'bold',
+              backgroundColor: 'white',
+            },
+            itemStyle: {
+              color: '#00bbff',
+              borderColor: '#00658a',
+              borderWidth: 2,
+            },
+          },
           color: ['#0077a2'],
           data: [(this.data[1]).data],
         }, {
@@ -114,6 +155,19 @@ export default {
                   return v[2];
                 },
               },
+            },
+          },
+          emphasis: {
+            label: {
+              color: '#ffb900',
+              distance: 5,
+              fontWeight: 'bold',
+              backgroundColor: 'white',
+            },
+            itemStyle: {
+              color: '#ffb900',
+              borderColor: '#976e00',
+              borderWidth: 2,
             },
           },
           color: ['#0011dd'],
@@ -199,6 +253,19 @@ export default {
             },
           },
         },
+        emphasis: {
+          label: {
+            color: '#ff132e',
+            distance: 5,
+            fontWeight: 'bold',
+            backgroundColor: 'white',
+          },
+          itemStyle: {
+            color: '#ff132e',
+            borderColor: '#ce1602',
+            borderWidth: 2,
+          },
+        },
         color: ['#CE2900'],
         data: [(this.data[0]).data],
       }, {
@@ -217,6 +284,19 @@ export default {
                 return v[2];
               },
             },
+          },
+        },
+        emphasis: {
+          label: {
+            color: '#007ea7',
+            distance: 5,
+            fontWeight: 'bold',
+            backgroundColor: 'white',
+          },
+          itemStyle: {
+            color: '#00bbff',
+            borderColor: '#00658a',
+            borderWidth: 2,
           },
         },
         color: ['#0077a2'],

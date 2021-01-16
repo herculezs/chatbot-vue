@@ -404,7 +404,6 @@ export default {
         });
     },
     ChartOptionBarData(data) {
-      console.log('CHOOOOSEEE', data.yourChoose);
       this.chartOptionsBarData = data.yourChoose;
     },
     // changeSlide(numberSlide) {

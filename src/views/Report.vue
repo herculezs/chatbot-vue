@@ -233,7 +233,6 @@ export default {
         this.SelfCoordinate = this.Coordinates(res.selfResult);
         this.shareLink = `${window.location.host}${res.invitationLink}`;
         this.chartOptionsBar();
-        console.log('this.data', this.data);
       });
     },
     setRadar(data, name) {

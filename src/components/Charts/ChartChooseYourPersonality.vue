@@ -80,8 +80,16 @@ export default {
             },
           },
           emphasis: {
+            label: {
+              color: '#ce7c2c',
+              distance: 5,
+              fontWeight: 'bold',
+              backgroundColor: 'white',
+            },
             itemStyle: {
               color: '#ce7c2c',
+              borderColor: '#ce1602',
+              borderWidth: 2,
             },
           },
           data: (this.data[0]).data,
