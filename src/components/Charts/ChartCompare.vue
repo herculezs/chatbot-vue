@@ -31,7 +31,7 @@ export default {
       },
       xAxis: {
         max: 10,
-        min: -4.5,
+        min: -10,
         axisLabel: false,
         nameLocation: 'end',
         nameRotate: 270,
@@ -41,25 +41,23 @@ export default {
         nameTextStyle: {
           fontWeight: 'bold',
           fontSize: 15,
-          padding: [0, 0, -30, 100],
+          padding: [0, 0, -30, 150],
         },
-        offset: -150,
         splitLine: {
           show: false,
         },
       },
       yAxis: {
         max: 8,
-        min: -5,
+        min: -8,
         nameTextStyle: {
           fontWeight: 'bold',
           fontSize: 15,
-          padding: [0, 615, 0, 0],
+          padding: [0, 415, 0, 0],
         },
         axisLabel: false,
         name: 'Stability',
         nameLocation: 'end',
-        offset: -347,
         splitLine: {
           show: false,
         },
@@ -68,11 +66,20 @@ export default {
   }),
   computed: {
     series() {
+      const xNeutralOffset = 6;
+      const yNeutralOffset = 3;
+
       if (!this.data.length) {
         return [];
       }
 
-      if (this.data[2] !== undefined) {
+      console.log(JSON.stringify(this.data));
+
+      const alignedData = (this.data || []).map(({ data: arr }) => ({
+        data: [arr[0] - xNeutralOffset, arr[1] - yNeutralOffset, arr[2]],
+      }));
+      console.log(alignedData);
+      if (alignedData[2] !== undefined) {
         return [{
           type: 'scatter',
           symbolSize: 12,
@@ -105,7 +112,7 @@ export default {
             },
           },
           color: ['#CE2900'],
-          data: [(this.data[0]).data],
+          data: [(alignedData[0]).data],
         }, {
           type: 'scatter',
           symbolSize: 12,
@@ -138,7 +145,7 @@ export default {
             },
           },
           color: ['#0077a2'],
-          data: [(this.data[1]).data],
+          data: [(alignedData[1]).data],
         }, {
           type: 'scatter',
           symbolSize: 12,
@@ -171,7 +178,7 @@ export default {
             },
           },
           color: ['#0011dd'],
-          data: [(this.data[2]).data],
+          data: [(alignedData[2]).data],
         }, {
           type: 'scatter',
           symbolSize: 12,
@@ -190,8 +197,21 @@ export default {
               },
             },
           },
+          emphasis: {
+            label: {
+              color: '#007ea7',
+              distance: 5,
+              fontWeight: 'bold',
+              backgroundColor: 'white',
+            },
+            itemStyle: {
+              color: '#00bbff',
+              borderColor: '#00658a',
+              borderWidth: 2,
+            },
+          },
           color: ['#0011dd'],
-          data: [(this.data[3]).data],
+          data: [(alignedData[3]).data],
         }, {
           type: 'scatter',
           symbolSize: 12,
@@ -208,10 +228,23 @@ export default {
                   return v[2];
                 },
               },
+            },
+          },
+          emphasis: {
+            label: {
+              color: '#007ea7',
+              distance: 5,
+              fontWeight: 'bold',
+              backgroundColor: 'white',
+            },
+            itemStyle: {
+              color: '#00bbff',
+              borderColor: '#00658a',
+              borderWidth: 2,
             },
           },
           color: ['#dda100'],
-          data: [(this.data[4]).data],
+          data: [(alignedData[4]).data],
         }, {
           type: 'scatter',
           symbolSize: 12,
@@ -230,8 +263,21 @@ export default {
               },
             },
           },
+          emphasis: {
+            label: {
+              color: '#007ea7',
+              distance: 5,
+              fontWeight: 'bold',
+              backgroundColor: 'white',
+            },
+            itemStyle: {
+              color: '#00bbff',
+              borderColor: '#00658a',
+              borderWidth: 2,
+            },
+          },
           color: ['#0011dd'],
-          data: [(this.data[5]).data],
+          data: [(alignedData[5]).data],
         },
         ];
       }
@@ -267,7 +313,7 @@ export default {
           },
         },
         color: ['#CE2900'],
-        data: [(this.data[0]).data],
+        data: [(alignedData[0]).data],
       }, {
         type: 'scatter',
         symbolSize: 10,
@@ -300,7 +346,7 @@ export default {
           },
         },
         color: ['#0077a2'],
-        data: [(this.data[1]).data],
+        data: [(alignedData[1]).data],
       },
       ];
     },

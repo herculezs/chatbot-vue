@@ -194,8 +194,6 @@ export default {
         if (this.isOthersAmount) {
           this.setRadar(res.othersAverageResult.split(/(?=[-+])/), 'Colleagues');
           this.OtherCoordinate = this.Coordinates(res.othersAverageResult);
-          console.log('OtherCoordinate', this.OtherCoordinate);
-          console.log('constants.cards', constants.cards);
 
           const rs = [];
           Object.values(constants.cards).forEach((key) => {
@@ -270,16 +268,7 @@ export default {
     background-color: #fff;
     padding: 0 24px;
     position: relative;
-    /*&:after{*/
-    /*  content: '';*/
-    /*  display: block;*/
-    /*  width: 100%;*/
-    /*  height: 1px;*/
-    /*  background-color: #e9eaf0;*/
-    /*  position: absolute;*/
-    /*  left: 0;*/
-    /*  top: 245px;*/
-    /*}*/
+
     .echarts{
       width: 100%;
       height: 310px;
