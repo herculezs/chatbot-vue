@@ -46,6 +46,16 @@ export default {
         border: '#976e00',
         color: '#dda100',
       },
+      GROUP: {
+        label: '#e46c0a',
+        border: '#ff5600',
+        color: '#e46c0a',
+      },
+      YOU_THINK_ABOUT: {
+        label: '#ffb900',
+        border: '#ff0008',
+        color: '#dda100',
+      },
     },
     getChartData: {
       grid: {
