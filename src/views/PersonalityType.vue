@@ -36,6 +36,7 @@ export default {
           {
             name: 'Insensitive',
             value: [3, 0],
+            detailedCharacteristics: ['Reserved', 'Unsociable', 'Acquisitive'],
             label: {
               color: '#009dce',
             },
@@ -46,6 +47,7 @@ export default {
           {
             name: 'Aloof',
             value: [3, 2],
+            detailedCharacteristics: ['Loner', 'Distant', 'Reserved'],
             label: {
               color: '#009dce',
             },
@@ -56,6 +58,7 @@ export default {
           {
             name: 'Apathetic',
             value: [3, 4.15],
+            detailedCharacteristics: ['Passive', 'Indifferent', 'Quiet'],
             label: {
               color: '#009dce',
             },
@@ -66,6 +69,7 @@ export default {
           {
             name: 'Discreet',
             value: [3.15, 6.15],
+            detailedCharacteristics: ['Unassuming', 'Hard-working', 'Humble'],
             label: {
               color: '#009dce',
             },
@@ -76,6 +80,7 @@ export default {
           {
             name: 'Compassionate',
             value: [2.85, 5.85],
+            detailedCharacteristics: ['Sympathetic', 'Principled', 'Disciplined'],
             label: {
               color: '#009dce',
             },
@@ -86,6 +91,7 @@ export default {
           {
             name: 'Eccentric',
             value: [4, 0],
+            detailedCharacteristics: ['Detached', 'Unconventional', 'Closed'],
             label: {
               color: '#009dce',
             },
@@ -96,6 +102,7 @@ export default {
           {
             name: 'Suspicious',
             value: [4, 1],
+            detailedCharacteristics: ['Anxious', 'Skeptical', 'Disconnected'],
             label: {
               color: '#009dce',
             },
@@ -106,6 +113,7 @@ export default {
           {
             name: 'Self-critical',
             value: [4, 3.15],
+            detailedCharacteristics: ['Pessimistic', 'Judgemental', 'Cynical'],
             label: {
               color: '#009dce',
             },
@@ -116,6 +124,7 @@ export default {
           {
             name: 'Anxious',
             value: [4.15, 4.15],
+            detailedCharacteristics: ['Reliant', 'Compliant', 'Fearful'],
             label: {
               color: '#009dce',
             },
@@ -126,6 +135,7 @@ export default {
           {
             name: 'Perfectionist',
             value: [3.85, 3.85],
+            detailedCharacteristics: ['Focussed', 'Rule-following', 'Possessive'],
             label: {
               color: '#009dce',
             },
@@ -136,6 +146,7 @@ export default {
           {
             name: 'Determined',
             value: [4, 7],
+            detailedCharacteristics: ['Resolute', 'Logical', 'Grounded'],
             label: {
               color: '#009dce',
             },
@@ -146,6 +157,7 @@ export default {
           {
             name: 'Procrastinator',
             value: [5, -1],
+            detailedCharacteristics: ['Deferrer', 'Stubborn', 'Obstructive'],
             label: {
               color: '#009dce',
             },
@@ -156,6 +168,7 @@ export default {
           {
             name: 'Isolated',
             value: [5, 2.85],
+            detailedCharacteristics: ['Shy', 'Anxious', 'Sensitive'],
             label: {
               color: '#009dce',
             },
@@ -166,6 +179,7 @@ export default {
           {
             name: 'Humble',
             value: [5, 5],
+            detailedCharacteristics: ['Trusting', 'Forgiving', 'Modest'],
             label: {
               color: '#009dce',
             },
@@ -176,6 +190,7 @@ export default {
           {
             name: 'Responsible',
             value: [5, 6],
+            detailedCharacteristics: ['Diligent', 'Trustworthy', 'Self-conscious'],
             label: {
               color: '#009dce',
             },
@@ -186,6 +201,7 @@ export default {
           {
             name: 'Active',
             value: [6, -2],
+            detailedCharacteristics: ['Inattentive', 'Impulsive', 'Uncontrolled'],
             label: {
               color: '#009dce',
             },
@@ -196,6 +212,7 @@ export default {
           {
             name: 'Unsatisfied',
             value: [6, 2],
+            detailedCharacteristics: ['Disappointed', 'Selfless', 'Puritannical'],
             label: {
               color: '#009dce',
             },
@@ -206,6 +223,7 @@ export default {
           {
             name: 'Neutral',
             value: [6, 3],
+            detailedCharacteristics: ['Balanced', 'Centred', 'Even'],
             label: {
               color: '#009dce',
             },
@@ -216,6 +234,7 @@ export default {
           {
             name: 'Productive',
             value: [6, 4],
+            detailedCharacteristics: ['Creative', 'Mysterious', 'Deliberate'],
             label: {
               color: '#009dce',
             },
@@ -226,6 +245,7 @@ export default {
           {
             name: 'Calm',
             value: [6, 8],
+            detailedCharacteristics: ['Imperturbable', 'Serene', 'Composed'],
             label: {
               color: '#009dce',
             },
@@ -236,6 +256,7 @@ export default {
           {
             name: 'Unemotional',
             value: [7, 0],
+            detailedCharacteristics: ['Irritable', 'Combative', 'Calculating'],
             label: {
               color: '#009dce',
             },
@@ -246,6 +267,7 @@ export default {
           {
             name: 'Self-centred',
             value: [7, 1],
+            detailedCharacteristics: ['Self-absorbed', 'Indifference', 'Overly proud'],
             label: {
               color: '#009dce',
             },
@@ -256,6 +278,7 @@ export default {
           {
             name: 'Positive',
             value: [7, 7],
+            detailedCharacteristics: ['Resilient', 'Straightforward', 'Diligent'],
             label: {
               color: '#009dce',
             },
@@ -266,6 +289,7 @@ export default {
           {
             name: 'Impulsive',
             value: [8, -1],
+            detailedCharacteristics: ['Detached', 'Fiery', 'Frustrated'],
             label: {
               color: '#009dce',
             },
@@ -276,6 +300,7 @@ export default {
           {
             name: 'Autonomous',
             value: [8.15, 2.15],
+            detailedCharacteristics: ['Confident', 'Bold', 'Decisive'],
             label: {
               color: '#009dce',
             },
@@ -286,6 +311,7 @@ export default {
           {
             name: 'Patient',
             value: [7.85, 1.85],
+            detailedCharacteristics: ['Relaxed', 'Creative', 'Free-Spirited'],
             label: {
               color: '#009dce',
             },
@@ -296,6 +322,7 @@ export default {
           {
             name: 'Optimistic',
             value: [8, 3.85],
+            detailedCharacteristics: ['Encouraging', 'Friendly', 'Cheerful'],
             label: {
               color: '#009dce',
             },
@@ -306,6 +333,7 @@ export default {
           {
             name: 'Trusting',
             value: [8, 5],
+            detailedCharacteristics: ['Unsuspecting', 'Warm', 'Direct'],
             label: {
               color: '#009dce',
             },
@@ -316,6 +344,7 @@ export default {
           {
             name: 'Practical',
             value: [8, 6],
+            detailedCharacteristics: ['Level-Headed', 'Charismatic', 'Certain'],
             label: {
               color: '#009dce',
             },
@@ -326,6 +355,7 @@ export default {
           {
             name: 'Lively',
             value: [9.15, 0.15],
+            detailedCharacteristics: ['Enthusiastic', 'Vivacious', 'Expressive'],
             label: {
               color: '#009dce',
             },
@@ -336,6 +366,7 @@ export default {
           {
             name: 'Harsh',
             value: [8.85, -0.2],
+            detailedCharacteristics: ['Ruthless', 'Forceful', 'Calculating'],
             label: {
               color: '#009dce',
             },
@@ -346,6 +377,7 @@ export default {
           {
             name: 'Uninhibited',
             value: [9, 1.85],
+            detailedCharacteristics: ['Energetic', 'Daredevil', 'Euphoric'],
             label: {
               color: '#009dce',
             },
@@ -356,6 +388,7 @@ export default {
           {
             name: 'Engaged',
             value: [9, 2.85],
+            detailedCharacteristics: ['Outgoing', 'Assertive', 'Eager'],
             label: {
               color: '#009dce',
             },
@@ -366,6 +399,7 @@ export default {
           {
             name: 'Sociable',
             value: [9, 4],
+            detailedCharacteristics: ['Amiable', 'Adventurous', 'Bold'],
             label: {
               color: '#009dce',
             },
@@ -376,6 +410,7 @@ export default {
           {
             name: 'Outgoing',
             value: [9, 5],
+            detailedCharacteristics: ['Thougthful', 'Inquisitive', 'Cerebral'],
             label: {
               color: '#009dce',
             },
@@ -392,7 +427,6 @@ export default {
       const formData = {
         selfPersonalityType: this.chartOptionsBarData,
       };
-      console.log(formData);
 
       this.$store.dispatch('auth/setSelfPersonalityTypeRequest', formData)
         .then(() => {

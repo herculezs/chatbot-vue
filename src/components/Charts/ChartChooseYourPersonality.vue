@@ -64,7 +64,7 @@ export default {
         },
         series: [{
           id: 'point',
-          symbolSize: 12,
+          symbolSize: 15,
           symbol: 'diamond',
           color: '#009dce',
           itemStyle: {
@@ -81,6 +81,15 @@ export default {
           },
           emphasis: {
             label: {
+              formatter(param) {
+                let res = `${param.data.name}:\n`;
+
+                param.data.detailedCharacteristics.forEach((data) => {
+                  res += `${data}\n`;
+                });
+
+                return res;
+              },
               color: '#ce7c2c',
               distance: 5,
               fontWeight: 'bold',
@@ -113,6 +122,7 @@ export default {
           return {
             name: d.name,
             value: d.value,
+            detailedCharacteristics: d.detailedCharacteristics,
             label: {
               color: '#CE001D',
             },
@@ -127,6 +137,9 @@ export default {
       });
 
       this.getChartData.series[0].data = b;
+
+      console.log('dataObject', dataObject);
+      console.log('dataObject.name', dataObject.name);
 
       this.$forceUpdate();
       this.$emit('choose', {
