@@ -107,13 +107,38 @@ export default {
       return this.data;
     },
     coordinates(Res) {
-      const arr = Res.split(/(?=[-+])/);
-      // eslint-disable-next-line no-eval
-      const x = eval(arr[0] + arr[2]);
-      // eslint-disable-next-line no-eval
-      const y = eval(arr[3] - arr[4] + arr[1]);
+      const finalCategoryFormula = Res.split(/(?=[-+])/);
 
-      return [x, y];
+      const currentCards = Object.values(constants.cards);
+
+      const matchScore = [];
+
+      currentCards.forEach((x) => {
+        const openess = x.categories.OPENESS;
+        const conscientiousness = x.categories.CONSCIENTIOUSNESS;
+        const extraversion = x.categories.EXTRAVERSION;
+        const agreeableness = x.categories.AGREEABLENESS;
+        const neuroticism = x.categories.NEUROTICISM;
+
+        const score = ((finalCategoryFormula[0] - openess) ** 2)
+          + ((finalCategoryFormula[1] - conscientiousness) ** 2)
+          + ((finalCategoryFormula[2] - extraversion) ** 2)
+          + ((finalCategoryFormula[3] - agreeableness) ** 2)
+          + ((finalCategoryFormula[4] - neuroticism) ** 2);
+
+        matchScore.push({
+          matchScore: score,
+          title: x.title,
+          value: [x.value[0], x.value[1]],
+        });
+      });
+
+      matchScore.sort((a, b) => a.matchScore - b.matchScore);
+      const [x, y] = matchScore[0].value;
+
+      const character = matchScore[0].title;
+
+      return [x, y, character];
     },
     chartOptionsBar() {
       const resYouThink = this.coordinates(this.getPersonalityTest.result);
@@ -186,16 +211,18 @@ export default {
         {
           value: [],
           type: 'YOU_THINK_ABOUT',
-          data: [resYouThink[0], resYouThink[1], `You think ${this.getPersonalityTest.name} \n is here`],
+          data: [resYouThink[0], resYouThink[1], `You think ${this.getPersonalityTest.name} is here${(this.getPersonalityTest.othersAmount >= 3 && (resYouThink[0] === resColleguag[0] && resYouThink[1] === resColleguag[1])) ? '\nthe GROUP answered' : ''}`],
         },
         ...this.nearPoints,
       );
 
-      if (this.getPersonalityTest.othersAmount >= 3) {
+      if (this.getPersonalityTest.othersAmount >= 3
+        && (resYouThink[0] !== resColleguag[0]
+        && resYouThink[1] !== resColleguag[1])) {
         this.data.push({
           value: [],
           type: 'GROUP',
-          data: [resColleguag[0], resColleguag[1], 'The GROUP \n answered'],
+          data: [resColleguag[0], resColleguag[1], 'The GROUP answered'],
         });
       }
     },

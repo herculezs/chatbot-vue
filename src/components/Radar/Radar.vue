@@ -46,11 +46,13 @@ export default {
     },
     series() {
       let ser;
+      const formatResult = this.data.map(x => x.value.map(u => u - 3));
+
       if (this.data[1] !== undefined && (this.data[1]).value.length > 0) {
         ser = [{
           type: 'bar',
           name: (this.data[0]).name,
-          data: this.data[0].value,
+          data: formatResult[0],
           color: this.data[0].areaStyle.color,
           barWidth: 30,
           barGap: 0,
@@ -62,7 +64,7 @@ export default {
         }, {
           type: 'bar',
           name: (this.data[1]).name,
-          data: this.data[1].value,
+          data: formatResult[1],
           color: this.data[1].areaStyle.color,
           barWidth: 30,
           emphasis: {
@@ -75,7 +77,7 @@ export default {
         ser = [{
           type: 'bar',
           name: (this.data[0]).name,
-          data: this.data[0].value,
+          data: formatResult[0],
           color: this.data[0].areaStyle.color,
           barWidth: 30,
           barGap: 0,

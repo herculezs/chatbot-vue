@@ -406,7 +406,8 @@ export default {
         department: this.formData.department,
         role: this.formData.role,
         managerEmail: this.formData.managerEmail,
-        dateOfBirth: [this.formData.year, currentMonthNumber < 9 ? `0${currentMonthNumber}` : currentMonthNumber, this.formData.day < 9 ? `0${this.formData.day}` : this.formData.day].join('-'),
+        // eslint-disable-next-line radix
+        dateOfBirth: [this.formData.year, currentMonthNumber < 9 ? `0${currentMonthNumber}` : currentMonthNumber, this.formData.day < 9 ? `0${parseInt(this.formData.day)}` : this.formData.day].join('-'),
         phone,
       };
     },

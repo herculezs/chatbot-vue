@@ -1,5 +1,6 @@
 <template>
-  <div class="card" :class="{card_hide: !show.card}" @click.prevent="toggleShowCard">
+  <div class="card" :class="{card_hide_answers: based,
+   card_hide_contact: contacts, card_hide: guessed}" @click.prevent="toggleShowCard">
     <div
       class="h5 card__title"
       :class="{'animation-hide-show': animations.cardShow,
@@ -9,8 +10,8 @@
       {{ title }}
     </div>
 
-    <b-collapse v-model="show.card">
-      <div class="card-content-caption">
+    <b-collapse v-model="show.card" v-if="showText !== undefined">
+      <div class="card-content-caption" >
         <div class="h5 card-content-caption__title">
           {{ title }}
         </div>
@@ -56,6 +57,9 @@ export default {
     tag: {
       type: String,
     },
+    typeCard: {
+      type: String,
+    },
   },
   data: () => ({
     show: {
@@ -98,6 +102,17 @@ export default {
       setTimeout(() => callback(), this.transition);
     },
   },
+  computed: {
+    guessed() {
+      return this.typeCard === 'Guessed';
+    },
+    based() {
+      return this.typeCard === 'Based';
+    },
+    contacts() {
+      return this.typeCard === 'Contacts';
+    },
+  },
 };
 </script>
 
@@ -137,6 +152,20 @@ export default {
     transition: background 0.3s;
     &:hover, &:focus{
       background: $bgCardHoverColor1;
+    }
+  }
+  .card_hide_answers{
+    background: $bgCardColor2;
+    transition: background 0.3s;
+    &:hover, &:focus{
+      background: $bgCardHoverColor2;
+    }
+  }
+  .card_hide_contact{
+    background: $bgCardColor3;
+    transition: background 0.3s;
+    &:hover, &:focus{
+      background: $bgCardHoverColor3;
     }
   }
 

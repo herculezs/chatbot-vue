@@ -19,6 +19,33 @@
           :showText="getGuessedCard.showText"
           :tag="getGuessedCard.tag"
           :img="getGuessedCard.src"
+          :typeCard="'Guessed'"
+        />
+      </template>
+
+      <template v-if="getGuessedCard">
+        <div class="h5 mb-4">
+          Based on your answers
+        </div>
+        <Card
+          :title="youAnswerCard.title"
+          :showText="youAnswerCard.showText"
+          :tag="youAnswerCard.tag"
+          :img="youAnswerCard.src"
+          :typeCard="'Based'"
+        />
+      </template>
+
+      <template v-if="this.isOthersAmount">
+        <div class="h5 mb-4">
+          Based on answers from your contacts
+        </div>
+        <Card
+          :title="collegAnswerCard.title"
+          :showText="collegAnswerCard.showText"
+          :tag="collegAnswerCard.tag"
+          :img="collegAnswerCard.src"
+          :typeCard="'Contacts'"
         />
       </template>
 
@@ -136,6 +163,8 @@ export default {
     OtherCoordinate: null,
     data: [],
     nearPoints: [],
+    youAnswerCard: {},
+    collegAnswerCard: {},
   }),
   computed: {
     ...mapGetters({
@@ -147,32 +176,46 @@ export default {
     getGuessedCard() {
       return constants.cards[this.getProfile.selfPersonalityType];
     },
-
   },
   created() {
     this.fetchPersonalityTypeReport();
   },
   methods: {
+    setYouAnswerCard(title) {
+      this.youAnswerCard = constants.cards[title];
+    },
+    setCollegAnswerCard(title) {
+      this.collegAnswerCard = constants.cards[title];
+    },
     chartOptionsBar() {
       this.data.push(
         {
           value: [],
           type: 'GUESS',
-          data: [this.getGuessedCard.value[0], this.getGuessedCard.value[1], `You guessed you are - \n ${this.getGuessedCard.title}`],
-        },
-        {
-          value: [],
-          type: 'YOU_ARE',
-          data: [this.SelfCoordinate[0], this.SelfCoordinate[1], 'You are'],
+          data: [this.getGuessedCard.value[0], this.getGuessedCard.value[1], `You guessed - ${this.getGuessedCard.title.toUpperCase()}${(this.getGuessedCard.value[0] === this.SelfCoordinate[0] && this.SelfCoordinate[1] === this.getGuessedCard.value[1]) ? `\nyou say - ${this.youAnswerCard.title.toUpperCase()}` : ''}${(this.OtherCoordinate && (this.getGuessedCard.value[0] === this.OtherCoordinate[0] && this.OtherCoordinate[1] === this.getGuessedCard.value[1])) ? `\ncolleagues say - ${this.collegAnswerCard.title.toUpperCase()}` : ''}`],
         },
         ...this.nearPoints,
       );
 
-      if (this.OtherCoordinate) {
+      if (this.SelfCoordinate[0] !== this.getGuessedCard.value[0]
+        && this.SelfCoordinate[1] !== this.getGuessedCard.value[1]) {
+        this.data.push(
+          {
+            value: [],
+            type: 'YOU_ARE',
+            data: [this.SelfCoordinate[0], this.SelfCoordinate[1], `You are - ${this.youAnswerCard.title.toUpperCase()}${(this.OtherCoordinate && (this.SelfCoordinate[0] === this.OtherCoordinate[0] && this.OtherCoordinate[1] === this.SelfCoordinate[1])) ? `\ncolleagues say - ${this.collegAnswerCard.title.toUpperCase()}` : ''}`],
+          },
+        );
+      }
+
+      if (this.OtherCoordinate && (this.SelfCoordinate[0]
+        !== this.OtherCoordinate[0] && this.OtherCoordinate[1] !== this.SelfCoordinate[1])
+        && (this.getGuessedCard.value[0] !== this.OtherCoordinate[0]
+          && this.OtherCoordinate[1] !== this.getGuessedCard.value[1])) {
         this.data.push({
           value: [],
           type: 'COLLEAGUE',
-          data: [this.OtherCoordinate[0], this.OtherCoordinate[1], 'Your \n Colleagues \n say'],
+          data: [this.OtherCoordinate[0], this.OtherCoordinate[1], `Your \n Colleagues \n say - ${this.collegAnswerCard.title.toUpperCase()}`],
         });
       }
     },
@@ -192,6 +235,7 @@ export default {
         if (this.isOthersAmount) {
           this.setRadar(res.othersAverageResult.split(/(?=[-+])/), 'Colleagues');
           this.OtherCoordinate = this.Coordinates(res.othersAverageResult);
+          this.setCollegAnswerCard(this.OtherCoordinate[2]);
         }
 
         // this.CoordinatesForGuessed(this.getProfile.selfPersonalityType);
@@ -200,6 +244,8 @@ export default {
         this.tag = res.selfResult;
         this.tagOthersAverage = res.othersAverageResult;
         this.SelfCoordinate = this.Coordinates(res.selfResult);
+
+        this.setYouAnswerCard(this.SelfCoordinate[2]);
         this.shareLink = `${window.location.host}${res.invitationLink}`;
 
         const [youAreX, youAreY] = this.SelfCoordinate;
@@ -268,13 +314,37 @@ export default {
       });
     },
     Coordinates(Res) {
-      const arr = Res.split(/(?=[-+])/);
-      // eslint-disable-next-line no-eval
-      const x = eval(arr[0] + arr[2]);
-      // eslint-disable-next-line no-eval
-      const y = eval(arr[3] - arr[4] + arr[1]);
+      const finalCategoryFormula = Res.split(/(?=[-+])/);
 
-      return [x, y];
+      const currentCards = Object.values(constants.cards);
+
+      const matchScore = [];
+
+      currentCards.forEach((x) => {
+        const openess = x.categories.OPENESS;
+        const conscientiousness = x.categories.CONSCIENTIOUSNESS;
+        const extraversion = x.categories.EXTRAVERSION;
+        const agreeableness = x.categories.AGREEABLENESS;
+        const neuroticism = x.categories.NEUROTICISM;
+
+        const score = ((finalCategoryFormula[0] - openess) ** 2)
+          + ((finalCategoryFormula[1] - conscientiousness) ** 2)
+          + ((finalCategoryFormula[2] - extraversion) ** 2)
+          + ((finalCategoryFormula[3] - agreeableness) ** 2)
+          + ((finalCategoryFormula[4] - neuroticism) ** 2);
+
+        matchScore.push({
+          matchScore: score,
+          title: x.title,
+          value: [x.value[0], x.value[1]],
+        });
+      });
+
+      matchScore.sort((a, b) => a.matchScore - b.matchScore);
+      const [x, y] = matchScore[0].value;
+      const character = matchScore[0].title;
+
+      return [x, y, character];
     },
     showFeedBackModalByParams() {
       const { isOthersAmount } = this;
