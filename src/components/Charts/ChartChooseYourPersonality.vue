@@ -49,7 +49,7 @@ export default {
         },
         yAxis: {
           nameTextStyle: {
-            padding: [0, 415, 0, 0],
+            padding: [0, 390, 0, 0],
             fontWeight: 'bold',
             fontSize: 15,
           },

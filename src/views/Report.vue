@@ -192,7 +192,7 @@ export default {
         {
           value: [],
           type: 'GUESS',
-          data: [this.getGuessedCard.value[0], this.getGuessedCard.value[1], `You guessed - ${this.getGuessedCard.title.toUpperCase()}${(this.getGuessedCard.value[0] === this.SelfCoordinate[0] && this.SelfCoordinate[1] === this.getGuessedCard.value[1]) ? `\nyou say - ${this.youAnswerCard.title.toUpperCase()}` : ''}${(this.OtherCoordinate && (this.getGuessedCard.value[0] === this.OtherCoordinate[0] && this.OtherCoordinate[1] === this.getGuessedCard.value[1])) ? `\ncolleagues say - ${this.collegAnswerCard.title.toUpperCase()}` : ''}`],
+          data: [this.getGuessedCard.value[0], this.getGuessedCard.value[1], `You guessed - ${this.getGuessedCard.title.length < 8 ? this.getGuessedCard.title.toUpperCase() : `\n${this.getGuessedCard.title.toUpperCase()}`}${(this.getGuessedCard.value[0] === this.SelfCoordinate[0] && this.SelfCoordinate[1] === this.getGuessedCard.value[1]) ? `\nyou say - ${this.youAnswerCard.title.toUpperCase()}` : ''}${(this.OtherCoordinate && (this.getGuessedCard.value[0] === this.OtherCoordinate[0] && this.OtherCoordinate[1] === this.getGuessedCard.value[1])) ? `\ncolleagues say - ${this.collegAnswerCard.title.toUpperCase()}` : ''}`],
         },
         // ...this.nearPoints,
       );

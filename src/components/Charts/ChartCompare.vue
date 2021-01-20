@@ -62,10 +62,11 @@ export default {
         left: 1,
         bottom: '3%',
         width: '480px',
+        containLabel: true,
       },
       xAxis: {
-        max: 10,
-        min: -10,
+        max: 4.5,
+        min: -4.5,
         axisLabel: false,
         nameLocation: 'end',
         nameRotate: 270,
@@ -82,12 +83,12 @@ export default {
         },
       },
       yAxis: {
-        max: 8,
-        min: -8,
+        max: 6,
+        min: -6,
         nameTextStyle: {
           fontWeight: 'bold',
           fontSize: 15,
-          padding: [0, 415, 0, 0],
+          padding: [0, 390, 0, 0],
         },
         axisLabel: false,
         name: 'Stability',
@@ -114,7 +115,7 @@ export default {
 
       return alignedData.map(({ data, type }) => ({
         type: 'scatter',
-        symbolSize: 12,
+        symbolSize: 15,
         symbol: 'diamond',
         itemStyle: {
           normal: {
@@ -122,7 +123,7 @@ export default {
             borderWidth: 0,
             label: {
               show: true,
-              position: 'bottom',
+              position: 'top',
               formatter(d) {
                 const v = d.value;
                 return v[2];
