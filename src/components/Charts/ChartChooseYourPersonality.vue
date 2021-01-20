@@ -138,8 +138,6 @@ export default {
 
       this.getChartData.series[0].data = b;
 
-      console.log('dataObject', dataObject);
-      console.log('dataObject.name', dataObject.name);
 
       this.$forceUpdate();
       this.$emit('choose', {

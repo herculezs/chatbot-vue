@@ -213,7 +213,7 @@ export default {
           type: 'YOU_THINK_ABOUT',
           data: [resYouThink[0], resYouThink[1], `You think ${this.getPersonalityTest.name} is here${(this.getPersonalityTest.othersAmount >= 3 && (resYouThink[0] === resColleguag[0] && resYouThink[1] === resColleguag[1])) ? '\nthe GROUP answered' : ''}`],
         },
-        ...this.nearPoints,
+        // ...this.nearPoints,
       );
 
       if (this.getPersonalityTest.othersAmount >= 3

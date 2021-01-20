@@ -12,7 +12,7 @@
 
     <b-collapse v-model="show.card" v-if="showText !== undefined">
       <div class="card-content-caption" >
-        <div class="h5 card-content-caption__title">
+        <div class="h5 card-content-caption__title card-info__title">
           {{ title }}
         </div>
       </div>
@@ -27,7 +27,8 @@
         </b-collapse>
       </div>
       <button
-        class="card__button-show-more button button_w-100 button_size-m button_theme-transparent"
+        class="card__button-show-more button button_w-100 button_size-m button_theme-transparent
+         card-info__title"
         v-b-toggle.debator-more
         @click.stop="show.content = !show.content"
       >
@@ -144,6 +145,12 @@ export default {
     letter-spacing: 0;
     line-height: 24px;
   }
+
+  .card-info__title{
+    text-align: center;
+    color: $txtColor2;
+    font-family: $defaultFont;
+  }
   .card__button-show-more{
     padding-bottom: 0;
   }
@@ -153,6 +160,9 @@ export default {
     &:hover, &:focus{
       background: $bgCardHoverColor1;
     }
+    & .character-color {
+      color: blue;
+    }
   }
   .card_hide_answers{
     background: $bgCardColor2;
@@ -160,12 +170,18 @@ export default {
     &:hover, &:focus{
       background: $bgCardHoverColor2;
     }
+    & .character-color {
+      color: red;
+    }
   }
   .card_hide_contact{
     background: $bgCardColor3;
     transition: background 0.3s;
     &:hover, &:focus{
       background: $bgCardHoverColor3;
+    }
+    & .character-color {
+      color: red;
     }
   }
 
@@ -225,7 +241,5 @@ export default {
     fill: $txtColor5;
   }
 
-  .character-color {
-    color: red;
-  }
+
 </style>
