@@ -139,7 +139,7 @@ export default {
   }
   .card-info__text{
     text-align: center;
-    color: $txtColor2;
+    color: $txtColor6;
     font-family: $defaultFont;
     font-size: 16px;
     letter-spacing: 0;
@@ -148,7 +148,7 @@ export default {
 
   .card-info__title{
     text-align: center;
-    color: $txtColor2;
+    color: $txtColor6;
     font-family: $defaultFont;
   }
   .card__button-show-more{
