@@ -218,7 +218,7 @@ export default {
 
       if (this.getPersonalityTest.othersAmount >= 3
         && (resYouThink[0] !== resColleguag[0]
-        && resYouThink[1] !== resColleguag[1])) {
+        || resYouThink[1] !== resColleguag[1])) {
         this.data.push({
           value: [],
           type: 'GROUP',

@@ -197,8 +197,8 @@ export default {
         // ...this.nearPoints,
       );
 
-      if (this.SelfCoordinate[0] !== this.getGuessedCard.value[0]
-        && this.SelfCoordinate[1] !== this.getGuessedCard.value[1]) {
+      if ((this.SelfCoordinate[0] !== this.getGuessedCard.value[0]
+        || this.SelfCoordinate[1] !== this.getGuessedCard.value[1])) {
         this.data.push(
           {
             value: [],
@@ -208,10 +208,11 @@ export default {
         );
       }
 
+      // eslint-disable-next-line no-mixed-operators
       if (this.OtherCoordinate && (this.SelfCoordinate[0]
-        !== this.OtherCoordinate[0] && this.OtherCoordinate[1] !== this.SelfCoordinate[1])
+        !== this.OtherCoordinate[0] || this.OtherCoordinate[1] !== this.SelfCoordinate[1])
         && (this.getGuessedCard.value[0] !== this.OtherCoordinate[0]
-          && this.OtherCoordinate[1] !== this.getGuessedCard.value[1])) {
+          || this.OtherCoordinate[1] !== this.getGuessedCard.value[1])) {
         this.data.push({
           value: [],
           type: 'COLLEAGUE',
