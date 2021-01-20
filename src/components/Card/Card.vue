@@ -161,7 +161,7 @@ export default {
       background: $bgCardHoverColor1;
     }
     & .character-color {
-      color: blue;
+      color: rgb(255, 255, 255);
     }
   }
   .card_hide_answers{
@@ -171,7 +171,7 @@ export default {
       background: $bgCardHoverColor2;
     }
     & .character-color {
-      color: red;
+      color: rgb(255, 255, 255);
     }
   }
   .card_hide_contact{
@@ -181,7 +181,7 @@ export default {
       background: $bgCardHoverColor3;
     }
     & .character-color {
-      color: red;
+      color: rgb(255, 255, 255);
     }
   }
 
