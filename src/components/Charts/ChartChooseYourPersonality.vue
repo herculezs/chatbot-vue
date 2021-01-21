@@ -19,14 +19,18 @@ export default {
     ECharts,
   },
   data() {
+    const chartWidth = Math.min(window.innerWidth - 62, 470);
+
     return {
       yourChoose: '',
       color: '',
+      responsive: true,
+      maintainAspectRatio: false,
       getChartData: {
         grid: {
           left: 1,
           bottom: '3%',
-          width: '470px',
+          width: `${chartWidth}px`,
           containLabel: true,
         },
         xAxis: {
@@ -54,7 +58,7 @@ export default {
           },
           max: '10',
           axisLabel: false,
-          offset: -235,
+          offset: -(chartWidth / 2),
           splitLine: {
             show: false,
           },

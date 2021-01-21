@@ -1,10 +1,10 @@
 <template>
   <div class="personality-type">
-    <Content >
+    <Content>
       <h1 class="h5">
         Which personality type do you think best represents how you see yourself?
       </h1>
-      <b>Stability</b>
+      <b class="stability-label">Stability</b>
       <ChartChooseYourPersonality :data="chartOptionsBar" @choose="ChartOptionBarData"
       ></ChartChooseYourPersonality>
       <button
@@ -446,4 +446,16 @@ export default {
 
 
 <style lang="scss">
+  .stability-label {
+    position: relative;
+    top: 70px
+  }
+  .personality-type {
+    .echarts{
+      width: 100%;
+      height: 350px;
+      margin-bottom: 24px;
+    }
+  }
+
 </style>
