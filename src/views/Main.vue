@@ -15,6 +15,8 @@ export default {
     Onboarding,
     Content,
   },
+  mounted() {
+  },
   name: 'Main',
 };
 </script>

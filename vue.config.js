@@ -8,6 +8,13 @@ function resolve(dir) {
 module.exports = {
   configureWebpack: (config) => {
     const customPlugins = [];
+    customPlugins.push(new webpack.DefinePlugin({
+      // allow access to process.env from within the vue app
+      'process.env': {
+        QUESTIONNAIRE_ID: JSON.stringify(process.env.QUESTIONNAIRE_ID),
+      }
+    }));
+
     if (process.env.VUE_APP_BUILD !== undefined) {
       customPlugins.push(new webpack.NormalModuleReplacementPlugin(
         /src\/assets\/logo\.png/,

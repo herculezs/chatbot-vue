@@ -34,8 +34,8 @@ export default new Router({
       component: () => import('@views/Questions.vue'),
       children: [
         {
-          path: 'invitation/PERSONALITY_BIG5/u2/:id',
-          meta: { invitationType: 'PERSONALITY_BIG5' },
+          path: `invitation/${process.env.QUESTIONNAIRE_ID}/u2/:id`,
+          meta: { invitationType: process.env.QUESTIONNAIRE_ID },
           component: () => import('@views/Questions.vue'),
         },
       ],

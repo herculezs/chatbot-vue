@@ -4,7 +4,7 @@ import notifyError from '@helpers';
 export default {
   fetchPersonalityTypeReport() {
     return new Promise((resolve, reject) => {
-      http.get('user/personality-type-report').then(
+      http.get(`user/personality-type-report/${process.env.QUESTIONNAIRE_ID}`).then(
         ({ data }) => {
           resolve(data);
         },
