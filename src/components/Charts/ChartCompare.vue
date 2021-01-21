@@ -61,8 +61,8 @@ export default {
       grid: {
         left: 1,
         bottom: '3%',
-        width: '480px',
         containLabel: true,
+        width: '100%',
       },
       xAxis: {
         max: 4.5,
@@ -88,10 +88,8 @@ export default {
         nameTextStyle: {
           fontWeight: 'bold',
           fontSize: 15,
-          padding: [0, 390, 0, 0],
         },
         axisLabel: false,
-        name: 'Stability',
         nameLocation: 'end',
         splitLine: {
           show: false,

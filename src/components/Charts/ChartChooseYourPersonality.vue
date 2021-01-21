@@ -49,15 +49,12 @@ export default {
         },
         yAxis: {
           nameTextStyle: {
-            padding: [0, 390, 0, 0],
             fontWeight: 'bold',
             fontSize: 15,
           },
           max: '10',
           axisLabel: false,
           offset: -235,
-          name: 'Stability',
-          nameLocation: 'end',
           splitLine: {
             show: false,
           },

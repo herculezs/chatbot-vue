@@ -69,7 +69,7 @@
             Respondents:  {{ respondentsCount }}
           </div>
         </div>
-
+        <b>Stability</b>
         <ChartCompare :data="refreshData()"></ChartCompare>
         <Radar :data="radarData" />
       </div>
