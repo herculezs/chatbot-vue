@@ -2,8 +2,6 @@
   <div>
     <ECharts
       :options="getChartData"
-      autoresize="true"
-      @click="choose"
     />
   </div>
 </template>
@@ -115,36 +113,6 @@ export default {
   },
   computed: {
 
-  },
-  methods: {
-    choose(dataObject) {
-      const b = this.data[0].data.map((d) => {
-        if (dataObject.name === d.name) {
-          return {
-            name: d.name,
-            value: d.value,
-            detailedCharacteristics: d.detailedCharacteristics,
-            label: {
-              color: '#CE001D',
-            },
-            itemStyle: {
-              color: '#CE001D',
-            },
-          };
-        }
-        return {
-          ...d,
-        };
-      });
-
-      this.getChartData.series[0].data = b;
-
-
-      this.$forceUpdate();
-      this.$emit('choose', {
-        yourChoose: (dataObject.name),
-      });
-    },
   },
 };
 </script>

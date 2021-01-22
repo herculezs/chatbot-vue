@@ -2,7 +2,8 @@
   <div>
     <ECharts
       :options="{...getChartData, series}"
-      autoresize="true"
+      autoresize
+      @click="choose"
     />
     </div>
 </template>
@@ -24,17 +25,17 @@ export default {
     },
   },
   data: () => ({
-
+    selectedCharateristic: [],
     colorsByType: {
       YOU_ARE: {
-        label: '#0077a2',
-        border: '#00658a',
-        color: '#00bbff',
-      },
-      GUESS: {
         label: '#ff132e',
         border: '#CE1602',
         color: '#CE2900',
+      },
+      GUESS: {
+        label: '#0077a2',
+        border: '#00658a',
+        color: '#00bbff',
       },
       NEAREST: {
         label: '#007ea7',
@@ -107,44 +108,61 @@ export default {
       }
 
       const alignedData = (this.data || []).map(({ data: arr, type }) => ({
-        data: [arr[0] - xNeutralOffset, arr[1] - yNeutralOffset, arr[2]],
+        data: [arr[0] - xNeutralOffset, arr[1] - yNeutralOffset, arr[2], arr[3]],
         type,
       }));
 
-      return alignedData.map(({ data, type }) => ({
-        type: 'scatter',
-        symbolSize: 15,
-        symbol: 'diamond',
-        itemStyle: {
-          normal: {
-            color: this.colorsByType[type].color,
-            borderWidth: 0,
-            label: {
-              show: true,
-              position: 'top',
-              formatter(d) {
-                const v = d.value;
-                return v[2];
+      return alignedData.map(({ data, type }) => {
+        const choseColor = '#0077a2';
+        const color = data[2] === this.selectedCharateristic[2] ? choseColor
+          : this.colorsByType[type].color;
+
+        return ({
+          type: 'scatter',
+          symbolSize: 15,
+          symbol: 'diamond',
+          itemStyle: {
+            normal: {
+              color,
+              borderWidth: 0,
+              label: {
+                show: true,
+                position: 'top',
+                formatter(d) {
+                  const v = d.value;
+                  return v[2];
+                },
               },
             },
           },
-        },
-        emphasis: {
-          label: {
-            color: this.colorsByType[type].label,
-            distance: 5,
-            fontWeight: 'bold',
-            backgroundColor: 'white',
+          emphasis: {
+            label: {
+              color: data[2] === this.selectedCharateristic[2] ? choseColor
+                : this.colorsByType[type].label,
+              distance: 5,
+              fontWeight: 'bold',
+              backgroundColor: 'white',
+            },
+            itemStyle: {
+              color,
+              borderColor: this.colorsByType[type].border,
+              borderWidth: 2,
+            },
           },
-          itemStyle: {
-            color: this.colorsByType[type].color,
-            borderColor: this.colorsByType[type].border,
-            borderWidth: 2,
-          },
-        },
-        color: [this.colorsByType[type].color],
-        data: [data],
-      }));
+          color: [this.colorsByType[type].color],
+          data: [data],
+        });
+      });
+    },
+  },
+  methods: {
+    choose(dataObject) {
+      // return data only if text is available
+      if (dataObject.value[3]) {
+        this.selectedCharateristic = dataObject.value;
+        this.$forceUpdate();
+        this.$emit('charateristic-click', dataObject.value);
+      }
     },
   },
 };

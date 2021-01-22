@@ -10,20 +10,7 @@
       <h1 class="h4 text-center mb-1">Well done {{ getProfile.name }}!</h1>
       <h2 class="text mb-5 text-center">Here’s your first report</h2>
 
-      <template v-if="getGuessedCard">
-        <div class="h5 mb-4">
-          You guessed you are
-        </div>
-        <Card
-          :title="getGuessedCard.title"
-          :showText="getGuessedCard.showText"
-          :tag="getGuessedCard.tag"
-          :img="getGuessedCard.src"
-          :typeCard="'Guessed'"
-        />
-      </template>
-
-      <template v-if="getGuessedCard">
+      <template v-if="youAnswerCard">
         <div class="h5 mb-4">
           Based on your answers
         </div>
@@ -32,7 +19,7 @@
           :showText="youAnswerCard.showText"
           :tag="youAnswerCard.tag"
           :img="youAnswerCard.src"
-          :typeCard="'Based'"
+          :typeCard="'Guessed'"
         />
       </template>
 
@@ -70,7 +57,19 @@
           </div>
         </div>
         <b>Stability</b>
-        <ChartCompare :data="refreshData()"></ChartCompare>
+        <ChartCompare :data="refreshData()" @charateristic-click="setChosenCharacteristic($event)">
+        </ChartCompare>
+
+        <template v-if="selectedCharateristic">
+          <Card
+                  class="mt-5"
+                  :title="selectedCharateristic.name"
+                  :showText="selectedCharateristic.text"
+                  :typeCard="'Based'"
+                  default-open
+          />
+        </template>
+
         <Radar :data="radarData" />
       </div>
 
@@ -117,11 +116,11 @@ import InputCopy from '@components/InputCopy/InputCopy.vue';
 import Content from '@components/Content/Content.vue';
 import Radar from '@components/Radar/Radar.vue';
 import FeedbackModal from '@components/Modals/FeedbackModal.vue';
-import constants from '@constants';
 import ChartCompare from '@components/Charts/ChartCompare.vue';
 
 
 import { mapGetters } from 'vuex';
+import constants from '@constants';
 
 export default {
   components: {
@@ -164,6 +163,7 @@ export default {
     data: [],
     nearPoints: [],
     youAnswerCard: {},
+    selectedCharateristic: null,
     collegAnswerCard: {},
   }),
   computed: {
@@ -181,6 +181,13 @@ export default {
     this.fetchPersonalityTypeReport();
   },
   methods: {
+
+    setChosenCharacteristic(event) {
+      this.selectedCharateristic = {
+        name: event[2],
+        text: event[3],
+      };
+    },
     setYouAnswerCard(title) {
       this.youAnswerCard = constants.cards[title];
     },
@@ -188,17 +195,14 @@ export default {
       this.collegAnswerCard = constants.cards[title];
     },
     chartOptionsBar() {
-      this.data.push(
-        {
+      Object.values(constants.cards).forEach((value) => {
+        this.data.push({
           value: [],
           type: 'GUESS',
-          data: [this.getGuessedCard.value[0], this.getGuessedCard.value[1], `You guessed - ${this.getGuessedCard.title.length < 8 ? this.getGuessedCard.title.toUpperCase() : `\n${this.getGuessedCard.title.toUpperCase()}`}${(this.getGuessedCard.value[0] === this.SelfCoordinate[0] && this.SelfCoordinate[1] === this.getGuessedCard.value[1]) ? `\nyou say - ${this.youAnswerCard.title.toUpperCase()}` : ''}${(this.OtherCoordinate && (this.getGuessedCard.value[0] === this.OtherCoordinate[0] && this.OtherCoordinate[1] === this.getGuessedCard.value[1])) ? `\ncolleagues say - ${this.collegAnswerCard.title.toUpperCase()}` : ''}`],
-        },
-        // ...this.nearPoints,
-      );
-
-      if ((this.SelfCoordinate[0] !== this.getGuessedCard.value[0]
-        || this.SelfCoordinate[1] !== this.getGuessedCard.value[1])) {
+          data: [...value.value, value.title, value.showText],
+        });
+      });
+      if ((this.SelfCoordinate[0] || this.SelfCoordinate[1])) {
         this.data.push(
           {
             value: [],
@@ -210,9 +214,7 @@ export default {
 
       // eslint-disable-next-line no-mixed-operators
       if (this.OtherCoordinate && (this.SelfCoordinate[0]
-        !== this.OtherCoordinate[0] || this.OtherCoordinate[1] !== this.SelfCoordinate[1])
-        && (this.getGuessedCard.value[0] !== this.OtherCoordinate[0]
-          || this.OtherCoordinate[1] !== this.getGuessedCard.value[1])) {
+        !== this.OtherCoordinate[0] || this.OtherCoordinate[1] !== this.SelfCoordinate[1])) {
         this.data.push({
           value: [],
           type: 'COLLEAGUE',
@@ -239,7 +241,6 @@ export default {
           this.setCollegAnswerCard(this.OtherCoordinate[2]);
         }
 
-        // this.CoordinatesForGuessed(this.getProfile.selfPersonalityType);
         this.showFeedBackModalByParams(res.othersAmount);
 
         this.tag = res.selfResult;
