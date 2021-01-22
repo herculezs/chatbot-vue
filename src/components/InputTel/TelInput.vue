@@ -6,7 +6,7 @@
     <vue-tel-input
       class="form__input-tel"
       :class="getClassByLengthCountryCode"
-      defaultCountry="GB"
+      defaultCountry="US"
       placeholder="65 243 236"
       enabledCountryCode
       validCharactersOnly

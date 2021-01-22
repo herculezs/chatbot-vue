@@ -25,7 +25,7 @@
           How it works
         </div>
         <div class="text onBoarding__tex text-center mb-3">
-          Step 1: You will be answered 12 quick questions about
+          Step 1: You will be 12 quick questions about
           yourself and receive your first report.
         </div>
         <div class="text onBoarding__tex text-center mb-3">
@@ -149,7 +149,7 @@
           >
             <input
               class="form__input"
-              placeholder="Direct Line Manager Email"
+              placeholder="Direct Supervisor Email"
               v-model="formData.managerEmail"
             />
             <template v-if="$v.formData.managerEmail.$error">
@@ -160,78 +160,78 @@
               </div>
             </template>
           </div>
-          <div
-            class="form-group flex-default-gap"
-            :class="{'form-group-error': $v.formData.month.$error}"
-          >
-            <select required
-                    class="form__input select-month"
-                    v-model="formData.month"
-            >
-              <option value="undefined" disabled selected hidden>Month</option>
-              <option :value="index" v-for="(month, index) in allMonths" :key="month">
-                {{month}}
-              </option>
-            </select>
+<!--          <div-->
+<!--            class="form-group flex-default-gap"-->
+<!--            :class="{'form-group-error': $v.formData.month.$error}"-->
+<!--          >-->
+<!--            <select required-->
+<!--                    class="form__input select-month"-->
+<!--                    v-model="formData.month"-->
+<!--            >-->
+<!--              <option value="undefined" disabled selected hidden>Month</option>-->
+<!--              <option :value="index" v-for="(month, index) in allMonths" :key="month">-->
+<!--                {{month}}-->
+<!--              </option>-->
+<!--            </select>-->
 
-            <input class="form__input"
-                   placeholder="Day"
-                   v-model="formData.day"
-            />
-            <input class="form__input"
-                   placeholder="Year"
-                   v-model="formData.year"
-            />
+<!--            <input class="form__input"-->
+<!--                   placeholder="Day"-->
+<!--                   v-model="formData.day"-->
+<!--            />-->
+<!--            <input class="form__input"-->
+<!--                   placeholder="Year"-->
+<!--                   v-model="formData.year"-->
+<!--            />-->
 
-          </div>
-          <div class="form-group flex-default-gap error-group-section">
+<!--          </div>-->
+<!--          <div class="form-group flex-default-gap error-group-section">-->
 
-            <div class="full-width">
+<!--            <div class="full-width">-->
 
-              <template v-if="$v.formData.month.$error">
-                <div
-                        class="form__input-error"
-                        v-if="!$v.formData.month.required">
-                  Month is required
-                </div>
-              </template>
-            </div>
+<!--              <template v-if="$v.formData.month.$error">-->
+<!--                <div-->
+<!--                        class="form__input-error"-->
+<!--                        v-if="!$v.formData.month.required">-->
+<!--                  Month is required-->
+<!--                </div>-->
+<!--              </template>-->
+<!--            </div>-->
 
-            <div class="full-width">
+<!--            <div class="full-width">-->
 
-              <template v-if="$v.formData.day.$error">
-                <div
-                        class="form__input-error"
-                        v-if="!$v.formData.day.required">
-                  Day is required
-                </div>
-                <div
-                        class="form__input-error"
-                        v-if="!$v.formData.day.minValue || !$v.formData.day.maxValue">
-                  Must be from 1 to 31
-                </div>
+<!--              <template v-if="$v.formData.day.$error">-->
+<!--                <div-->
+<!--                        class="form__input-error"-->
+<!--                        v-if="!$v.formData.day.required">-->
+<!--                  Day is required-->
+<!--                </div>-->
+<!--                <div-->
+<!--                        class="form__input-error"-->
+<!--                        v-if="!$v.formData.day.minValue || !$v.formData.day.maxValue">-->
+<!--                  Must be from 1 to 31-->
+<!--                </div>-->
 
-              </template>
-            </div>
+<!--              </template>-->
+<!--            </div>-->
 
-            <div class="full-width">
+<!--            <div class="full-width">-->
 
-              <template v-if="$v.formData.year.$error">
-                <div
-                        class="form__input-error"
-                        v-if="!$v.formData.year.required">
-                  Year is required
-                </div>
-                <div
-                        class="form__input-error"
-                        v-if="!$v.formData.year.minValue || !$v.formData.year.maxValue">
-                  From 1900 to {{new Date().getFullYear()}}
-                </div>
-              </template>
-            </div>
+<!--              <template v-if="$v.formData.year.$error">-->
+<!--                <div-->
+<!--                        class="form__input-error"-->
+<!--                        v-if="!$v.formData.year.required">-->
+<!--                  Year is required-->
+<!--                </div>-->
+<!--                <div-->
+<!--                        class="form__input-error"-->
+<!--                        v-if="!$v.formData.year.minValue || !$v.formData.year.maxValue">-->
+<!--                  From 1900 to {{new Date().getFullYear()}}-->
+<!--                </div>-->
+<!--              </template>-->
+<!--            </div>-->
 
 
-          </div>
+<!--          </div>-->
           <TelInput
             v-model="formData.phone"
             :diaCode="formData.diaCode"
@@ -278,8 +278,9 @@ import TelInput from '@components/InputTel/TelInput.vue';
 import PolicyModal from '@components/Modals/PolicyModal.vue';
 import TermsConditionsModal from '@components/Modals/TermsConditionsModal.vue';
 
+// numeric, minValue, maxValue,
 const {
-  required, email, numeric, minValue, maxValue,
+  required, email,
 } = require('vuelidate/lib/validators');
 
 
@@ -313,21 +314,21 @@ export default {
         required,
         email,
       },
-      month: {
-        required,
-      },
-      day: {
-        required,
-        numeric,
-        minValue: minValue(1),
-        maxValue: maxValue(31),
-      },
-      year: {
-        required,
-        numeric,
-        minValue: minValue(1900),
-        maxValue: maxValue(new Date().getFullYear()),
-      },
+      // month: {
+      //   required,
+      // },
+      // day: {
+      //   required,
+      //   numeric,
+      //   minValue: minValue(1),
+      //   maxValue: maxValue(31),
+      // },
+      // year: {
+      //   required,
+      //   numeric,
+      //   minValue: minValue(1900),
+      //   maxValue: maxValue(new Date().getFullYear()),
+      // },
       phone: {
         required,
       },
@@ -398,7 +399,7 @@ export default {
       const phone = `+${this.formData.diaCode}${this.formData.phone}`
         .replace(/\s/g, '');
 
-      const currentMonthNumber = this.formData.month + 1;
+      // const currentMonthNumber = this.formData.month + 1;
       return {
         name: this.formData.firstName,
         surname: this.formData.surname,
@@ -406,8 +407,8 @@ export default {
         department: this.formData.department,
         role: this.formData.role,
         managerEmail: this.formData.managerEmail,
-        // eslint-disable-next-line radix
-        dateOfBirth: [this.formData.year, currentMonthNumber < 9 ? `0${currentMonthNumber}` : currentMonthNumber, this.formData.day <= 9 ? `0${parseInt(this.formData.day)}` : parseInt(this.formData.day)].join('-'),
+        // eslint-disable-next-line radix,max-len
+        // dateOfBirth: [this.formData.year, currentMonthNumber < 9 ? `0${currentMonthNumber}` : currentMonthNumber, this.formData.day <= 9 ? `0${parseInt(this.formData.day)}` : parseInt(this.formData.day)].join('-'),
         phone,
       };
     },
@@ -498,7 +499,7 @@ export default {
   .onBoarding{
     background-color: #fdf9fe;
     padding-bottom: 0;
-    height: 100%;
+    min-height: 100vh;
     .content{
       min-height: 100vh;
     }
@@ -527,6 +528,11 @@ export default {
     .form__input {
       min-width: 0
     }
+  }
+
+
+  .form__input_for_icon {
+    position: relative;
   }
 
   .flex-column {
