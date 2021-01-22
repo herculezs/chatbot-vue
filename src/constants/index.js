@@ -429,6 +429,7 @@ export default {
     Trusting: {
       title: 'Trusting',
       tag: 'MBTI INFP',
+      detailedCharacteristics: ['Unsuspecting', 'Warm', 'Direct'],
       showText: 'By having a <b><span class="character-color">Trusting Personality Profile</span></b>, you might find that more people than average trust you with their problems for one simple reason: you are a highly agreeable person. You give others the benefit of the doubt more often than the average person - you tend to assume that most people are fair, honest, and have good intentions. People with your personality profile are often called tenderminded, which suggests that many of your judgements and attitudes could be determined by emotion. While some may see this as a problem, this particular tendency makes you a more compassionate decision-maker and confidant. Because you are sincere and honest in your interactions with others, it isn’t very surprising that people feel comfortable confiding in you. Not only are you warm and approachable, but you are also slow to hold grudges against others. You are a team player, predisposed to think about how your actions impact others rather than how they impact yourself. You are likely more open to what others have to say, especially from those who hold different social, political, or religious values. ',
       value: [8, 5],
       categories:
