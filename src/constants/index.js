@@ -3,7 +3,7 @@ export default {
     Insensitive: {
       title: 'Insensitive',
       tag: 'MBTI ESFP',
-      showText: 'The data from your answers suggest you match our <b><span class="character-color">Insensitive Personality Profile</span></b>.  Generally, you seem to keep yourself to yourself, preferring your own company, which can appear nonchalant or uncaring to others.  You may find it hard to communicate and interact with other people, sometimes finding hard to see how they are thinking or feeling.  Unfamiliar situations or social events may cause you anxierty or be upsetting and you may even perfer calm and restful environments to noisy or loud.  You probably enjoy familiarity in tasks you do to constant changing tasks or roles.  This can make you seem challeging to others but you have a sensistive side too.',
+      showText: 'The data from your answers suggest you match our <b><span class="character-color">Insensitive Personality Profile</span></b>. Generally, you seem to keep yourself to yourself, preferring your own company, which can appear nonchalant or uncaring to others.  You may find it hard to communicate or interact with other people, sometimes finding it difficult to see how they are thinking or feeling.  Unfamiliar situations or social events may cause you anxiety or be upsetting and you may even perfer calm and restful environments to noisy or loud situations.  You probably enjoy familiarity in tasks you do rather than constantly changing tasks or roles.  This can make you seem challenging to others but you have a sensitive side too.',
       value: [3, 0],
       detailedCharacteristics: ['Reserved', 'Unsociable', 'Acquisitive'],
       categories:
@@ -79,7 +79,7 @@ export default {
       title: 'Eccentric',
       tag: 'MBTI ESFJ',
       detailedCharacteristics: ['Detached', 'Unconventional', 'Closed'],
-      showText: 'You appear to be an <b><span class="character-color">EccentricPersonality Profile</span></b>.  We think it means that that you are easily worried by events.  Your well-being is dependent on your surroundings and events and you can fell uneasy or troubled by what is going on around you. Feeling slightly stressed or tense is normal for you and many things trouble you.  This can lead to agitation and low -level frustration with the world or specific people.  Specifically, you tend to emotionally react to circumstances rather than assessing their significance first.  Because of your character, you tend to be inward-looking, worry about how you are feeling and may appear to be uncaring or indifferent to thers.  This combination of traits can also make you appear to be introverted or even disagreeable.',
+      showText: 'You appear to have an <b><span class="character-color">Eccentric Personality Profile</span></b>.  We think this means that you are easily worried by events.  Your well-being is dependent on your surroundings and events meaning you can feel uneasy or troubled by what is going on around you. Feeling slightly stressed or tense is normal for you and many things can worry you.  This can lead to agitation and low -level frustration with the world or individuals.  Specifically, you tend to emotionally react to circumstances rather than assessing their significance first.  Because of your character, you tend to be inward-looking, worry about how you are feeling and may appear to be uncaring or indifferent to others.  This combination of traits can also make you appear to be introverted or even disagreeable.',
       value: [4, 0],
       categories:
         {
@@ -95,7 +95,7 @@ export default {
       tag: 'MBTI INTJ',
       detailedCharacteristics: ['Anxious', 'Skeptical', 'Disconnected'],
 
-      showText: 'Our analysis suggest you are a <b><span class="character-color">Suspicious Personality Profile</span></b>.  Delusion, dread, anxiety, feel oppressed, persecution complex, misconceived reality, fantasy, dream, illusion.  Sometimes you feel the world is against you or that  can\'t please anyone or genuinely oppressed.  Your view of the world may not align with the majority and that disconnection may you feel anxious and stressed, perhaps even fill you with dread.  Many world and personal events may seem to have many clandetine explanations or secretive plots and all these things may combine to make you feel your ideas or views are better than others.  You may also view the otherwise innocent or friendly actions as hostile and so bear grudges for a long time.',
+      showText: 'Our analysis suggest you have a <b><span class="character-color">Suspicious Personality Profile</span></b>.  Sometimes you feel the world is against you, or that can\'t please anyone or you are genuinely oppressed.  Your view of the world may not align with the majority and that disconnection may make you feel anxious and stressed, perhaps even fill you with dread.  Many world and personal events may seem to have many clandetine explanations or secretive plots and all these things may combine to make you feel your ideas or views are better than others.  You may also view the otherwise innocent or friendly actions as hostile and so you can bear grudges for a long time.',
       value: [4, 1],
       categories:
         {
@@ -111,7 +111,7 @@ export default {
       tag: 'MBTI INTP',
       detailedCharacteristics: ['Pessimistic', 'Judgemental', 'Cynical'],
 
-      showText: 'As the name suggests, <b><span class="character-color">Self-critical Personalities Profile</span></b> are hard on themselves.  They things they do as worthless and themselves as insignificant without justification and when the reality may well be different.  These traits can make them feel a combination of gloomy, miserable, unhappy or troubled when the reality is actually likely to be different.  The pessimism can lead to a negative cycle of judgmental thoughts that can manifest as cynicism and make otherwise positive situations look and feel bleak.  However, the negative thoughts general stem from not accepting the reality of a situation and, once things more in perspective, things can seem brighter.',
+      showText: 'As the name suggests, <b><span class="character-color">Self-critical Personalities Profiles</span></b> are hard on themselves.  They see things they do as worthless and themselves as insignificant, without justification when the reality may well be different.  These traits can make them feel a combination of gloomy, miserable, unhappy or troubled when the reality is actually likely to be different.  The pessimism can lead to a negative cycle of judgmental thoughts that can manifest as cynicism and make otherwise positive situations look and feel bleak.  However, the negative thoughts generally stem from not accepting the reality of a situation and, once things are more in perspective, things can seem brighter.',
       value: [4, 3.15],
       categories:
         {
@@ -191,7 +191,7 @@ export default {
       tag: 'MBTI ISFJ',
       detailedCharacteristics: ['Shy', 'Anxious', 'Sensitive'],
 
-      showText: 'You are an <b><span class="character-color">Isolated Persoanlity Type</span></b> and you see yourself as inquisitive and interested but you can be introverted. Additionally, you can be a negotiator in social situations but you do with sensitivity as tht is a trait.  Isolated Personalites can feel social anxiety which sadly leads to feelings of inhibition, inadequacy and inferiority.  Isolated Types can also be sensitivity to the negative comments of others and and so make them avoid social interaction. They often avoid social relationships with others unless they are certain they will be accepted because they often consider themselves to be socially inept or personally unappealing.  In these situations, they fear being ridiculed, humiliated, rejected, or disliked.',
+      showText: '"You are an <b><span class="character-color">Isolated Personality Type</span></b> and you see yourself as inquisitive and interested but you can be introverted. Additionally, you can be a negotiator in social situations but you do it with sensitivity.  Isolated Personalites can feel social anxiety which sadly leads to feelings of inhibition, inadequacy and inferiority.  Isolated Types can also be sensitivity to the negative comments of others and so make them avoid social interaction. They often avoid social relationships with others unless they are certain they will be accepted because they often consider themselves to be socially inept or personally unappealing.  In these situations, they fear being ridiculed, humiliated, rejected, or disliked.',
       value: [5, 2.85],
       categories:
         {
@@ -239,7 +239,7 @@ export default {
       tag: 'MBTI INFP',
       detailedCharacteristics: ['Inattentive', 'Impulsive', 'Uncontrolled'],
 
-      showText: 'The <b><span class="character-color">Active Personality Profile</span></b> sees themselves a moderator but you can be ambivelent and apathetic.  On the other hand, you can be challenging with a reactive side.    Active Personality types can be inattentive and restless which can be disruptive the balance in social situations as can their impulsivity.  As will all personality types, there are varying degrees within each type but, at extreme levels, these behaviours can cause strain on relationships, both at home and work.  It may seem to others as if you are forgetful, not listening or even disorganised.  Some in this type may find it hard to start tasks, making them appear lazy or ambivalent, and then not finish them, giving the appearance of impulsively starting tasks.  The reluctance to start tasks due to a lack of focus can also appear to be challenging to those setting the task.',
+      showText: 'The <b><span class="character-color">Active Personality Profile</span></b> sees themselves a moderator but that could actually be ambivelence and apathy.  Some Active Personalities can be challenging, with a reactive side.    Active Personality types can be inattentive and restless which can disrupt the balance in social situations, as can their impulsivity.  As with all personality types, there are varying degrees within each type but, at extreme levels, these behaviours can cause strain on relationships, both at home and work.  It may seem to others as if you are forgetful, not listening or even disorganised.  Some in this type may find it hard to start tasks, making them appear lazy or ambivalent, and then not finish them, giving the appearance of impulsively starting tasks.  The reluctance to start tasks due to a lack of focus can also appear to be challenging to those setting the task.',
       value: [6, -2],
       categories:
         {
@@ -271,7 +271,7 @@ export default {
       tag: 'MBTI INFP',
       detailedCharacteristics: ['Balanced', 'Centred', 'Even'],
 
-      showText: 'You won\'t be surprised to learn that the <b><span class="character-color">Neutral Personality Profile</span></b> scores in the personality categories as the name sugegsts - average.  This doesn\'t mean you are average.  You are a negotiator when dealing with others and perfectly balance your conscientiousness between highyl foccussed and nonchanlant.  You are responsive to your emotions, neither being over reactive or resilient while your focus on the world exterior to you is ambivalent - dead-centre between extraverted and intraverted.  Lastly, you 6live int he moment - you do not focus on the past or the future overly.',
+      showText: 'You won\'t be surprised to learn that the Neutral Personality Profile scores in the personality categories as the name sugegsts - average.  This doesn\'t mean you are average.  You are a negotiator when dealing with others and perfectly balance your conscientiousness between highly focussed and nonchanlant.  You are responsive to your emotions, neither being over-reactive or resilient while your focus your exterior world to you is ambivalent: dead-centre between extraverted and intraverted.  Lastly, you live in the moment - you do not focus or overly worry about the past or the future.',
       value: [6, 3],
       categories:
         {
@@ -319,7 +319,7 @@ export default {
       tag: 'MBTI INFP',
       detailedCharacteristics: ['Irritable', 'Combative', 'Calculating'],
 
-      showText: 'People with <b><span class="character-color">Unemotional Personality Profiles</span></b>, such as you, see themselves as moderators and nonchalant in social situations. Being an Unemotional personality type can be difficult.  it means you have the tendency to be impulsive that could, at times, be seem as irresponsible.  Extreme variants of the Unemotional personality type are often combative, manipulative or calculating.  They show little empathy and are unemotional, hence the name type.  This means that realtionships can be difficult for Unemotional type; social norms do not come naturally to them and neither does remorse for their actions.  They tend to be extroverted and live in the moment, neither looking forward or backwards at consequences and appear uncaring, so much so that they can challenge almost everything giving the appearance of doing so for the sake of challenging.  ',
+      showText: 'People with <b><span class="character-color">Unemotional Personality Profiles</span></b>, such as you, see themselves as moderators and nonchalant in social situations. Being an Unemotional personality type can be difficult.  It means you have the tendency to be impulsive that could, at times, be seem as irresponsible.  Extreme variants of the Unemotional personality type are often combative, manipulative or calculating.  They show little empathy and are unemotional, hence the name type.  This means that relationships can be difficult for Unemotional types; social norms do not come naturally to them and neither does remorse for their actions.  They tend to be extroverted and live in the moment, neither looking forward or backwards at consequences and appear uncaring, so much so that they can challenge almost everything, giving the appearance of doing so for the sake of challenging.',
       value: [7, 0],
       categories:
         {
@@ -350,8 +350,7 @@ export default {
       title: 'Positive',
       tag: 'MBTI INFP',
       detailedCharacteristics: ['Resilient', 'Straightforward', 'Diligent'],
-
-      showText: 'The <b><span class="character-color">Positive Personality Profile</span></b> is resislinet to life\'s setbacks.  They see the good in every situation and are uplifting people to be around as they can support an indidual or team through dark times.  They are adapatble and agreeable enough to get along with people but not so much that they accept negative attitudes without a challenge.  Positive people live in the moment, neither dwelling on the past or worrying about the future.  They care just enough about results so as to make them effective but not so much that the result is everything and so open themselves up to disappointment if not met. Positive people are also focus enough on their exterior world enough to be social but they don\'t let it dominate their lives.',
+      showText: 'The <b><span class="character-color">Positive Personality Profile</span></b> is resilient to life\'s setbacks.  They see the good in every situation and are uplifting people to be around as they can support an indidual or team through dark times.  They are adapatble and agreeable enough to get along with people but not so much that they accept negative attitudes without a challenge.  Positive people live in the moment, neither dwelling on the past or worrying about the future.  They care just enough about results so as to make them effective but not so much that the result is everything and so open themselves up to disappointment if not met. Positive people are also focus enough on their exterior world enough to be social but they don\'t let it dominate their lives.',
       value: [7, 7],
       categories:
         {
@@ -367,7 +366,7 @@ export default {
       tag: 'MBTI INFP',
       detailedCharacteristics: ['Detached', 'Fiery', 'Frustrated'],
 
-      showText: 'Your answers determined that you are what we classify as a <b><span class="character-color">Impulsive Personality Profile</span></b>.  The extreme form of this type includes traits such as emotional instability, distorted patterns of thinking or what we are know as "cognitive distortions", impulsive behaviour that cross over into the type of relationships they have.   Impulsive types often feel extreme emotions such as rage, sorrow, shame, panic and longer-term feeling of emptiness and loneliness.',
+      showText: 'Your answers determined that you have what we classify as a <b><span class="character-color">Impulsive Personality Profile</span></b>.  The extreme form of this type includes traits such as emotional instability, distorted patterns of thinking (what we are know as "cognitive distortions"), impulsive behaviour that cross over into the type of relationships they have.   Impulsive types often feel extreme emotions such as rage, sorrow, shame, panic and longer-term feeling of emptiness and loneliness.',
       value: [8, -1],
       categories:
         {
@@ -399,7 +398,7 @@ export default {
       tag: 'MBTI INFP',
       detailedCharacteristics: ['Relaxed', 'Creative', 'Free-Spirited'],
 
-      showText: 'Our data indicate that you most closely match <b><span class="character-color">Patient Personality Profile</span></b>. People might describe you as laid-back, creative, and free-spirited. The defining personality trait of the Patient type is opennes - the extent to which a person is open to experiencing new things or activities. You have quite high levels of this trait, compared to the average person.  In addition to being more eager than average to new experiences, you are more aware of your feelings and how to express them. You are relatively less prone to worry; you tend to feel more calm and self-assured than those around you. Compared to your peers you are open to, and are intrigued by, new ways of thinking and novel ideas; you like exploring your surroundings. Sometimes your openness gets in the way of self-control and organization, but this only boosts your creativity.',
+      showText: 'Our data indicate that you most closely match the <b><span class="character-color">Patient Personality Profile</span></b>. People might describe you as laid-back, creative, and free-spirited. The defining personality trait of the Patient type is openness - the extent to which a person is open to experiencing new things or activities; you have quite high levels of this trait, compared to the average person.  In addition to being more willing than average to have new experiences, you are more aware of your feelings and how to express them. You are relatively less prone to worry; you tend to feel more calm and self-assured than those around you. Compared to your peers you are open to, and are intrigued by, new ways of thinking and novel ideas; you like exploring your surroundings. Sometimes your openness gets in the way of self-control and organization, but this only boosts your creativity.',
       value: [7.85, 1.85],
       categories:
         {
@@ -462,7 +461,7 @@ export default {
       tag: 'MBTI INFP',
       detailedCharacteristics: ['Enthusiastic', 'Vivacious', 'Expressive'],
 
-      showText: 'The <b><span class="character-color">Lively Personality Profile</span></b> loves being the centre of attention.  They want others to approve of them and try their best to win others over.  You will recognise Lively people at a party: they are in the "life and sole".  They can be dramatic, vivacious, enthusiastic and even flirtatious.  Sometimes, this gregariousness can be inappropriate and Lively people can exagerate these behaviours.  Lively types focus on the new and exciting, appear not to be too concerned with things, adapt to their social surrounding in an excitable manner but, as you might expect, mostly focus on what is going on around them.',
+      showText: 'The <b><span class="character-color">Lively Personality Profile</span></b> loves being the centre of attention.  They want others to approve of them and try their best to win others over.  You will recognise Lively people at a party: they are the "life and soul".  They can be dramatic, vivacious, enthusiastic and even flirtatious.  Sometimes, this gregariousness can be inappropriate and Lively people can exagerate these behaviours.  Lively types focus on the new and exciting, appear not to be too concerned with things in the present or past.  They adapt to their social surroundings in an excitable manner but, as you might expect, mostly focus on what is currently going on around them.',
       value: [9.15, 0.15],
       categories:
         {
@@ -478,7 +477,7 @@ export default {
       tag: 'MBTI INFP',
       detailedCharacteristics: ['Ruthless', 'Forceful', 'Calculating'],
 
-      showText: '<b><span class="character-color">Harsh Personality Profiles</span></b> can be seem ruthless.  They can lack empathy and so don\'t understand the extreme negative effects of behavious like bullying, demeaning, manipulation or even abuse.  Not being able to empathise with others\' feeling removes a filter to socially acceptable behaviour.  Harsh people challenge most things which can seem like obnoxious behaviour.  They seem unmoved by targets or results, appearing above it all.  Harsh people are in touch with their emotionals but they neither react impulsively to them nor are they resilient to negative emotions either.  The neutrality of their own emotions means Harsh types focus a lot on their exterior worlds and, to some extent, exploring new things.',
+      showText: '<b><span class="character-color">Harsh Personality Profiles</span></b> can be seem ruthless.  They can lack empathy and so don\'t understand the extreme negative effects of behavious like bullying, demeaning, manipulation or even abuse.  Not being able to empathise with others\' feelings removes a filter to socially acceptable behaviour.  Harsh people challenge most things which can seem like obnoxious behaviour.  They seem unmoved by actual targets or results, appearing to think that is all beneath them.  Harsh people are in touch with their emotions but they neither react impulsively to them nor are they resilient to negative emotions either.  The neutrality of their own emotions means Harsh types focus a lot on their exterior worlds and, to some extent, exploring new things.',
       value: [8.85, -0.2],
       categories:
         {
@@ -525,7 +524,7 @@ export default {
       title: 'Sociable',
       tag: 'MBTI INFP',
       detailedCharacteristics: ['Amiable', 'Adventurous', 'Bold'],
-      showText: 'As a people person at heart, you genuinely enjoy spending your time being with others and others love being around you.  People matching the <b><span class="character-color">Sociable Personality Profile</span></b> have a wider capacity to experience positive feelings such as happiness, optimism, enthusiasm, and joy. This emotional knack for positivity reflects a more general self-awareness of your own feelings - a key component of being an effective leader. It’s no surprise, then, that friends and colleagues are drawn to you by your warmth and high social energy. In the workplace, you enjoy leading others and acting decisively. Your calendar outside work is probably full, too: given your Sociable profile, you are more likely to live a fast-paced and busy life. You’re more open than most to filling this limited time with new experiences. Your love of the fast lane comes at a cost, though—you might find yourself growing easily bored without high levels of social or mental stimulation. Your social talent, positivity, and hunger for novelty make it clear that you’re an Entrepreneur.',
+      showText: 'As a people person at heart, you genuinely enjoy spending your time being with others and others love being around you.  People matching the <b><span class="character-color">Sociable Personality Profile</span></b> have a wider capacity to experience positive feelings such as happiness, optimism, enthusiasm and joy. This emotional knack for positivity reflects a more general self-awareness of your own feelings - a key component of being an effective leader. It’s no surprise that friends and colleagues are drawn to you by your warmth and high social energy. In the workplace, you enjoy leading others and acting decisively. Your calendar outside work is probably full, too: given your Sociable profile, you are more likely to live a fast-paced and busy life. You’re more open than most to filling this limited time with new experiences. Your love of the fast lane comes at a cost, though - you might find yourself growing easily bored without high levels of social or mental stimulation. Your social talent, positivity, and hunger for novelty make it clear that you’re an Entrepreneur.',
       value: [9, 4],
       categories:
         {
