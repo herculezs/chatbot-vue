@@ -3,6 +3,7 @@
     modal-class="text-center"
     v-model="getModalShow"
     hide-footer
+    no-close-on-backdrop
   >
     <h3 class="h5 mb-3">
       {{ formData.question1.question }}

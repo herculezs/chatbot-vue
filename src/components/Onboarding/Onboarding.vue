@@ -63,7 +63,7 @@
             />
             <InformationForm
                     icon="user-alt"
-                    size="3px"
+                    size="1x"
                     :tooltip="'Your first name'">
             </InformationForm>
             <template v-if="$v.formData.firstName.$error">
@@ -86,7 +86,7 @@
             />
             <InformationForm
                     icon="user-alt"
-                    size="3px"
+                    size="1x"
                     :tooltip="'Your last name'">
             </InformationForm>
             <template v-if="$v.formData.surname.$error">
@@ -110,7 +110,7 @@
             />
             <InformationForm
                     icon="envelope"
-                    size="3px"
+                    size="1x"
                     :tooltip="'Your work email - so we can contact you when you have results!'">
             </InformationForm>
             <template v-if="$v.formData.youEmail.$error">
@@ -134,7 +134,7 @@
             <InformationForm
               :tooltip="'Your work department'"
               icon="user-friends"
-              size="3px">
+              size="1x">
             </InformationForm>
             <template v-if="$v.formData.department.$error">
               <div
@@ -157,7 +157,7 @@
             <InformationForm
               :tooltip="'Your role at the company'"
               icon="user-tag"
-              size="3px">
+              size="1x">
             </InformationForm>
             <template v-if="$v.formData.role.$error">
               <div
@@ -179,7 +179,7 @@
             />
             <InformationForm
                     icon="envelope"
-                    size="3px"
+                    size="1x"
                     :tooltip="'Your direct supervisor\'s email - DON\'T WORRY:' +
              ' your results are confidential. We need this so we' +
               ' can aggregate the anonymous results accurately'">
@@ -285,7 +285,6 @@
               :validPhone="$v.formData.phone"
               @onDiaCode="countryChanged"
             >
-              <font-awesome-icon icon="mobile" size="5px"/>
 
             </TelInput>
         </form>

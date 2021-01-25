@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve --fix",
     "serve-wellment": "vue-cli-service serve --fix --mode wellment",
+    "wellment-local": "vue-cli-service serve --fix --mode wellment.local",
     "build": "rm -rf ./public/{js,css,img} && vue-cli-service build --no-clean",
     "build-wellment": "rm -rf ./public/{js,css,img} && vue-cli-service build --no-clean --mode wellment",
     "lint": "vue-cli-service lint",
