@@ -589,6 +589,7 @@ export default {
     svg {
       position: absolute;
       top: 35%;
+      color: $mnColor2;
       right: 8px;
     }
 
