@@ -137,6 +137,9 @@ export default {
           },
           emphasis: {
             label: {
+              formatter(param) {
+                return `${param.value[2]}${param.value[3] ? '\nClick for more details' : ''}`;
+              },
               color: data[2] === this.selectedCharateristic[2] ? choseColor
                 : this.colorsByType[type].label,
               distance: 5,
