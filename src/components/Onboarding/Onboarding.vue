@@ -56,14 +56,15 @@
             class="form-group form__input_for_icon"
             :class="{'form-group-error': $v.formData.firstName.$error}"
           >
-            <font-awesome-icon icon="user-alt" size="3px"/>
             <input
               class="form__input"
               placeholder="First name"
               v-model="formData.firstName"
             />
             <InformationForm
-              :tooltip="'Your first name'">
+                    icon="user-alt"
+                    size="3px"
+                    :tooltip="'Your first name'">
             </InformationForm>
             <template v-if="$v.formData.firstName.$error">
               <div
@@ -78,14 +79,15 @@
             class="form-group form__input_for_icon"
             :class="{'form-group-error': $v.formData.surname.$error}"
           >
-            <font-awesome-icon icon="user-alt" size="3px"/>
             <input
               class="form__input"
               placeholder="Surname"
               v-model="formData.surname"
             />
             <InformationForm
-              :tooltip="'Your last name'">
+                    icon="user-alt"
+                    size="3px"
+                    :tooltip="'Your last name'">
             </InformationForm>
             <template v-if="$v.formData.surname.$error">
               <div
@@ -101,14 +103,15 @@
             class="form-group form__input_for_icon"
             :class="{'form-group-error': $v.formData.youEmail.$error}"
           >
-            <font-awesome-icon icon="envelope" size="3px"/>
             <input
               class="form__input form__input_for_icon"
               placeholder="Your Work Email"
               v-model="formData.youEmail"
             />
             <InformationForm
-              :tooltip="'Your work email - so we can contact you when you have results!'">
+                    icon="envelope"
+                    size="3px"
+                    :tooltip="'Your work email - so we can contact you when you have results!'">
             </InformationForm>
             <template v-if="$v.formData.youEmail.$error">
               <div
@@ -123,14 +126,15 @@
             class="form-group form__input_for_icon"
             :class="{'form-group-error': $v.formData.department.$error}"
           >
-            <font-awesome-icon icon="user-friends" size="3px"/>
             <input
               class="form__input"
               placeholder="Department"
               v-model="formData.department"
             />
             <InformationForm
-              :tooltip="'Your work department'">
+              :tooltip="'Your work department'"
+              icon="user-friends"
+              size="3px">
             </InformationForm>
             <template v-if="$v.formData.department.$error">
               <div
@@ -145,14 +149,15 @@
             class="form-group form__input_for_icon"
             :class="{'form-group-error': $v.formData.role.$error}"
           >
-            <font-awesome-icon icon="user-tag" size="3px"/>
             <input
               class="form__input"
               placeholder="Role"
               v-model="formData.role"
             />
             <InformationForm
-              :tooltip="'Your role at the company'">
+              :tooltip="'Your role at the company'"
+              icon="user-tag"
+              size="3px">
             </InformationForm>
             <template v-if="$v.formData.role.$error">
               <div
@@ -167,14 +172,15 @@
             class="form-group form__input_for_icon"
             :class="{'form-group-error': $v.formData.managerEmail.$error}"
           >
-            <font-awesome-icon icon="envelope" size="3px"/>
             <input
               class="form__input"
               placeholder="Direct Supervisor Email"
               v-model="formData.managerEmail"
             />
             <InformationForm
-              :tooltip="'Your direct supervisor\'s email - DON\'T WORRY:' +
+                    icon="envelope"
+                    size="3px"
+                    :tooltip="'Your direct supervisor\'s email - DON\'T WORRY:' +
              ' your results are confidential. We need this so we' +
               ' can aggregate the anonymous results accurately'">
             </InformationForm>
@@ -272,13 +278,16 @@
 
 <!--          </div>-->
 
-            <font-awesome-icon icon="mobile" size="5px"/>
+
             <TelInput
               v-model="formData.phone"
               :diaCode="formData.diaCode"
               :validPhone="$v.formData.phone"
               @onDiaCode="countryChanged"
-            />
+            >
+              <font-awesome-icon icon="mobile" size="5px"/>
+
+            </TelInput>
         </form>
 
         <button
@@ -576,6 +585,13 @@ export default {
   .form__input_for_icon {
     position: relative;
     display: flex;
+
+    svg {
+      position: absolute;
+      top: 35%;
+      right: 8px;
+    }
+
   }
 
   .flex-column {

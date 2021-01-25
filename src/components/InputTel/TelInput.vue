@@ -20,9 +20,6 @@
               </span>
       </template>
     </vue-tel-input>
-    <InformationForm
-      :tooltip="'Your mobile phone number - so we can verify who you are'">
-    </InformationForm>
     <template v-if="validPhone.$error">
       <div
         class="form__input-error"
@@ -35,12 +32,8 @@
 </template>
 
 <script>
-import InformationForm from '@components/Onboarding/InformationForm.vue';
 
 export default {
-  comments: {
-    InformationForm,
-  },
   props: {
     value: {
       type: String,
@@ -79,7 +72,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .form__input-tel.code-length-3{
+  .form__input-tel.code-length-3 {
     .vti__input{
       padding-left: 62px;
     }
