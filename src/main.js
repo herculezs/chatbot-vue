@@ -11,6 +11,11 @@ import VueTelInput from 'vue-tel-input';
 import { BootstrapVue } from 'bootstrap-vue';
 import VueSocialSharing from 'vue-social-sharing';
 import Vue2TouchEvents from 'vue2-touch-events';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faUserSecret, faUserAlt, faEnvelope, faUserTag, faUserFriends, faMobile,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import VueGtag from 'vue-gtag';
 import App from './App.vue';
@@ -34,6 +39,15 @@ Vue.use(VueTelInput);
 Vue.use(BootstrapVue);
 Vue.use(VueSocialSharing);
 Vue.use(Vue2TouchEvents);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+
+
+library.add(faUserSecret);
+library.add(faUserAlt);
+library.add(faEnvelope);
+library.add(faUserTag); // role
+library.add(faUserFriends); // depart
+library.add(faMobile); // phone
 
 window.app = new Vue({
   router,

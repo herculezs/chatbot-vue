@@ -53,14 +53,18 @@
         </div>
         <form class="form">
           <div
-            class="form-group"
+            class="form-group form__input_for_icon"
             :class="{'form-group-error': $v.formData.firstName.$error}"
           >
+            <font-awesome-icon icon="user-alt" size="3px"/>
             <input
               class="form__input"
               placeholder="First name"
               v-model="formData.firstName"
             />
+            <InformationForm
+              :tooltip="'Your first name'">
+            </InformationForm>
             <template v-if="$v.formData.firstName.$error">
               <div
                 class="form__input-error"
@@ -71,14 +75,18 @@
             </template>
           </div>
           <div
-            class="form-group"
+            class="form-group form__input_for_icon"
             :class="{'form-group-error': $v.formData.surname.$error}"
           >
+            <font-awesome-icon icon="user-alt" size="3px"/>
             <input
               class="form__input"
               placeholder="Surname"
               v-model="formData.surname"
             />
+            <InformationForm
+              :tooltip="'Your last name'">
+            </InformationForm>
             <template v-if="$v.formData.surname.$error">
               <div
                 class="form__input-error"
@@ -90,14 +98,18 @@
             </template>
           </div>
           <div
-            class="form-group"
+            class="form-group form__input_for_icon"
             :class="{'form-group-error': $v.formData.youEmail.$error}"
           >
+            <font-awesome-icon icon="envelope" size="3px"/>
             <input
-              class="form__input"
-              placeholder="You Corporate Email"
+              class="form__input form__input_for_icon"
+              placeholder="Your Work Email"
               v-model="formData.youEmail"
             />
+            <InformationForm
+              :tooltip="'Your work email - so we can contact you when you have results!'">
+            </InformationForm>
             <template v-if="$v.formData.youEmail.$error">
               <div
                 class="form__input-error"
@@ -108,14 +120,18 @@
             </template>
           </div>
           <div
-            class="form-group"
+            class="form-group form__input_for_icon"
             :class="{'form-group-error': $v.formData.department.$error}"
           >
+            <font-awesome-icon icon="user-friends" size="3px"/>
             <input
               class="form__input"
               placeholder="Department"
               v-model="formData.department"
             />
+            <InformationForm
+              :tooltip="'Your work department'">
+            </InformationForm>
             <template v-if="$v.formData.department.$error">
               <div
                 class="form__input-error"
@@ -126,14 +142,18 @@
             </template>
           </div>
           <div
-            class="form-group"
+            class="form-group form__input_for_icon"
             :class="{'form-group-error': $v.formData.role.$error}"
           >
+            <font-awesome-icon icon="user-tag" size="3px"/>
             <input
               class="form__input"
               placeholder="Role"
               v-model="formData.role"
             />
+            <InformationForm
+              :tooltip="'Your role at the company'">
+            </InformationForm>
             <template v-if="$v.formData.role.$error">
               <div
                 class="form__input-error"
@@ -144,14 +164,20 @@
             </template>
           </div>
           <div
-            class="form-group"
+            class="form-group form__input_for_icon"
             :class="{'form-group-error': $v.formData.managerEmail.$error}"
           >
+            <font-awesome-icon icon="envelope" size="3px"/>
             <input
               class="form__input"
               placeholder="Direct Supervisor Email"
               v-model="formData.managerEmail"
             />
+            <InformationForm
+              :tooltip="'Your direct supervisor\'s email - DON\'T WORRY:' +
+             ' your results are confidential. We need this so we' +
+              ' can aggregate the anonymous results accurately'">
+            </InformationForm>
             <template v-if="$v.formData.managerEmail.$error">
               <div
                 class="form__input-error"
@@ -230,14 +256,29 @@
 <!--              </template>-->
 <!--            </div>-->
 
+<!--              <template v-if="$v.formData.year.$error">-->
+<!--                <div-->
+<!--                        class="form__input-error"-->
+<!--                        v-if="!$v.formData.year.required">-->
+<!--                  Year is required-->
+<!--                </div>-->
+<!--                <div-->
+<!--                        class="form__input-error"-->
+<!--                        v-if="!$v.formData.year.minValue || !$v.formData.year.maxValue">-->
+<!--                  From 1900 to {{new Date().getFullYear()}}-->
+<!--                </div>-->
+<!--              </template>-->
+<!--            </div>-->
 
 <!--          </div>-->
-          <TelInput
-            v-model="formData.phone"
-            :diaCode="formData.diaCode"
-            :validPhone="$v.formData.phone"
-            @onDiaCode="countryChanged"
-          />
+
+            <font-awesome-icon icon="mobile" size="5px"/>
+            <TelInput
+              v-model="formData.phone"
+              :diaCode="formData.diaCode"
+              :validPhone="$v.formData.phone"
+              @onDiaCode="countryChanged"
+            />
         </form>
 
         <button
@@ -277,6 +318,7 @@ import { validationMixin } from 'vuelidate';
 import TelInput from '@components/InputTel/TelInput.vue';
 import PolicyModal from '@components/Modals/PolicyModal.vue';
 import TermsConditionsModal from '@components/Modals/TermsConditionsModal.vue';
+import InformationForm from '@components/Onboarding/InformationForm.vue';
 
 // numeric, minValue, maxValue,
 const {
@@ -286,6 +328,7 @@ const {
 
 export default {
   components: {
+    InformationForm,
     VueSlickCarousel,
     TelInput,
     PolicyModal,
@@ -523,7 +566,6 @@ export default {
   .flex-default-gap {
     display: flex;
     gap: $md-gap;
-
     /*firefox compatibility fix*/
     .form__input {
       min-width: 0
@@ -533,6 +575,7 @@ export default {
 
   .form__input_for_icon {
     position: relative;
+    display: flex;
   }
 
   .flex-column {
