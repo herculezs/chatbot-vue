@@ -12,33 +12,35 @@ module.exports = {
       // allow access to process.env from within the vue app
       'process.env': {
         QUESTIONNAIRE_ID: JSON.stringify(process.env.QUESTIONNAIRE_ID),
-      }
+        FEEDBACK_ID: JSON.stringify(process.env.FEEDBACK_ID),
+      },
     }));
 
     if (process.env.VUE_APP_BUILD !== undefined) {
       customPlugins.push(new webpack.NormalModuleReplacementPlugin(
         /src\/assets\/logo\.png/,
-        '../profiles/' + process.env.VUE_APP_BUILD + '/logo.png',
+        `../profiles/${process.env.VUE_APP_BUILD}/logo.png`,
       ));
       customPlugins.push(new CopyWebpackPlugin(
         [
           {
-            from: 'src/profiles/'  + process.env.VUE_APP_BUILD +  '/favicon.ico',
-            to: ''
-          }
-        ])
-      );
+            from: `src/profiles/${process.env.VUE_APP_BUILD}/favicon.ico`,
+            to: '',
+          },
+        ],
+      ));
     } else {
       customPlugins.push(new CopyWebpackPlugin(
         [
           {
             from: 'src/assets/favicon.ico',
-            to: ''
-          }
-        ])
-      );
+            to: '',
+          },
+        ],
+      ));
     }
 
+    // eslint-disable-next-line no-param-reassign
     config.plugins = [
       ...customPlugins,
       ...config.plugins,
@@ -61,7 +63,7 @@ module.exports = {
     loaderOptions: {
       scss: {
         prependData:
-            `@import "@/styles/variables${process.env.VUE_APP_BUILD ? '-' + process.env.VUE_APP_BUILD : ''}.scss";`,
+            `@import "@/styles/variables${process.env.VUE_APP_BUILD ? `-${process.env.VUE_APP_BUILD}` : ''}.scss";`,
       },
     },
   },

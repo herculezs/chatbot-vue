@@ -124,7 +124,7 @@ export default {
     },
     prepareDatForRequest() {
       return {
-        feedbackId: 'PERSONALITY_MBIT_FEEDBACK',
+        feedbackId: process.env.FEEDBACK_ID,
         U1: this.getProfile.name,
         items: Object.values(this.formData).map((item, index) => ({
           id: index + 1,
