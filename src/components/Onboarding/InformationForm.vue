@@ -3,8 +3,7 @@
           :icon="icon"
           :size="size"
           class="py-3"
-
-          alt="information" v-b-tooltip="tooltip"
+          alt="information" boundary="" v-b-tooltip.hover.top="tooltip"
 
   />
 </template>

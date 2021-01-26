@@ -132,3 +132,8 @@ html, body{
 .full-width {
   width: 100%;
 }
+
+.tooltip > div {
+  max-width: 256px !important;
+}
+
