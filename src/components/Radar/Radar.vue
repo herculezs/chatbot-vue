@@ -111,7 +111,7 @@ export default {
         },
         tooltip: {},
         xAxis: {
-          data: ['Open', 'Conscientious', 'Extraversion', 'Agreeable', 'Neuro'],
+          data: ['Open', 'Conscientious', 'Extraverted', 'Agreeable', 'Neurotic'],
           position: 'top',
           nameRotate: 20,
           splitLine: {
