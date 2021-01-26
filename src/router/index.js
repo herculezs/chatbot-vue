@@ -42,7 +42,7 @@ export default new Router({
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
         const userAuth = Store.getters['auth/getProfile'].token;
-        const personalityType = Store.getters['auth/getProfile'].selfPersonalityType;
+        const { completedQuestionnaires = [] } = Store.getters['auth/getProfile'];
 
         if (to.params.id) {
           next();
@@ -53,7 +53,8 @@ export default new Router({
           next('/');
           return;
         }
-        if (personalityType && !to.params.id) {
+
+        if (completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
           next('/report');
           return;
         }
