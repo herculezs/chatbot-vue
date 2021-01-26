@@ -52,20 +52,22 @@
             to everyone in the company</b>
         </div>
         <form class="form">
-          <div
-            class="form-group form__input_for_icon"
-            :class="{'form-group-error': $v.formData.firstName.$error}"
-          >
-            <input
-              class="form__input"
-              placeholder="First name"
-              v-model="formData.firstName"
-            />
-            <InformationForm
-                    icon="user-alt"
-                    size="1x"
-                    :tooltip="'Your first name'">
-            </InformationForm>
+          <div class="form-group">
+            <div
+              class="form__input_for_icon"
+              :class="{'form-group-error': $v.formData.firstName.$error}"
+            >
+              <input
+                class="form__input"
+                placeholder="First name"
+                v-model="formData.firstName"
+              />
+              <InformationForm
+                icon="user-alt"
+                size="1x"
+                :tooltip="'Your first name'">
+              </InformationForm>
+            </div>
             <template v-if="$v.formData.firstName.$error">
               <div
                 class="form__input-error"
@@ -75,20 +77,22 @@
               </div>
             </template>
           </div>
-          <div
-            class="form-group form__input_for_icon"
-            :class="{'form-group-error': $v.formData.surname.$error}"
-          >
-            <input
-              class="form__input"
-              placeholder="Last Name"
-              v-model="formData.surname"
-            />
-            <InformationForm
-                    icon="user-alt"
-                    size="1x"
-                    :tooltip="'Your last name'">
-            </InformationForm>
+          <div class="form-group">
+            <div
+              class="form__input_for_icon"
+              :class="{'form-group-error': $v.formData.surname.$error}"
+            >
+              <input
+                class="form__input"
+                placeholder="Last Name"
+                v-model="formData.surname"
+              />
+              <InformationForm
+                icon="user-alt"
+                size="1x"
+                :tooltip="'Your last name'">
+              </InformationForm>
+            </div>
             <template v-if="$v.formData.surname.$error">
               <div
                 class="form__input-error"
@@ -96,23 +100,24 @@
               >
                 Field is required
               </div>
-
             </template>
           </div>
-          <div
-            class="form-group form__input_for_icon"
-            :class="{'form-group-error': $v.formData.youEmail.$error}"
-          >
-            <input
-              class="form__input form__input_for_icon"
-              placeholder="Work Email"
-              v-model="formData.youEmail"
-            />
-            <InformationForm
-                    icon="envelope"
-                    size="1x"
-                    :tooltip="'Your work email - so we can contact you when you have results!'">
-            </InformationForm>
+          <div class="form-group">
+            <div
+              class="form__input_for_icon"
+              :class="{'form-group-error': $v.formData.youEmail.$error}"
+            >
+              <input
+                class="form__input form__input_for_icon"
+                placeholder="Work Email"
+                v-model="formData.youEmail"
+              />
+              <InformationForm
+                icon="envelope"
+                size="1x"
+                :tooltip="'Your work email - so we can contact you when you have results!'">
+              </InformationForm>
+            </div>
             <template v-if="$v.formData.youEmail.$error">
               <div
                 class="form__input-error"
@@ -122,20 +127,22 @@
               </div>
             </template>
           </div>
-          <div
-            class="form-group form__input_for_icon"
-            :class="{'form-group-error': $v.formData.department.$error}"
-          >
-            <input
-              class="form__input"
-              placeholder="Department"
-              v-model="formData.department"
-            />
-            <InformationForm
-              :tooltip="'Your work department'"
-              icon="user-friends"
-              size="1x">
-            </InformationForm>
+          <div class="form-group">
+            <div
+              class="form__input_for_icon"
+              :class="{'form-group-error': $v.formData.department.$error}"
+            >
+              <input
+                class="form__input"
+                placeholder="Department"
+                v-model="formData.department"
+              />
+              <InformationForm
+                :tooltip="'Your work department'"
+                icon="user-friends"
+                size="1x">
+              </InformationForm>
+            </div>
             <template v-if="$v.formData.department.$error">
               <div
                 class="form__input-error"
@@ -145,53 +152,57 @@
               </div>
             </template>
           </div>
-          <div
-            class="form-group form__input_for_icon"
-            :class="{'form-group-error': $v.formData.role.$error}"
-          >
-            <input
-              class="form__input"
-              placeholder="Role"
-              v-model="formData.role"
-            />
-            <InformationForm
-              :tooltip="'Your role at the company'"
-              icon="user-tag"
-              size="1x">
-            </InformationForm>
-            <template v-if="$v.formData.role.$error">
-              <div
-                class="form__input-error"
-                v-if="!$v.formData.role.required"
-              >
-                Field is required
-              </div>
-            </template>
+          <div class="form-group">
+            <div
+              class="form__input_for_icon"
+              :class="{'form-group-error': $v.formData.role.$error}"
+            >
+              <input
+                class="form__input"
+                placeholder="Role"
+                v-model="formData.role"
+              />
+              <InformationForm
+                :tooltip="'Your role at the company'"
+                icon="user-tag"
+                size="1x">
+              </InformationForm>
+            </div>
+              <template v-if="$v.formData.role.$error">
+                <div
+                  class="form__input-error"
+                  v-if="!$v.formData.role.required"
+                >
+                  Field is required
+                </div>
+              </template>
           </div>
-          <div
-            class="form-group form__input_for_icon"
-            :class="{'form-group-error': $v.formData.managerEmail.$error}"
-          >
-            <input
-              class="form__input"
-              placeholder="Direct Supervisor Email"
-              v-model="formData.managerEmail"
-            />
-            <InformationForm
-                    icon="envelope"
-                    size="1x"
-                    :tooltip="'Your direct supervisor\'s email - DON\'T WORRY:' +
+          <div class="form-group">
+            <div
+              class="form__input_for_icon"
+              :class="{'form-group-error': $v.formData.managerEmail.$error}"
+            >
+              <input
+                class="form__input"
+                placeholder="Direct Supervisor Email"
+                v-model="formData.managerEmail"
+              />
+              <InformationForm
+                icon="envelope"
+                size="1x"
+                :tooltip="'Your direct supervisor\'s email - DON\'T WORRY:' +
              ' your results are confidential. We need this so we' +
               ' can aggregate the anonymous results accurately'">
-            </InformationForm>
-            <template v-if="$v.formData.managerEmail.$error">
-              <div
-                class="form__input-error"
-                v-if="$v.formData.managerEmail.email">
-                Check correct email
-              </div>
-            </template>
-          </div>
+              </InformationForm>
+            </div>
+              <template v-if="$v.formData.managerEmail.$error">
+                <div
+                  class="form__input-error"
+                  v-if="$v.formData.managerEmail.email">
+                  Check correct email
+                </div>
+              </template>
+           </div>
 <!--          <div-->
 <!--            class="form-group flex-default-gap"-->
 <!--            :class="{'form-group-error': $v.formData.month.$error}"-->
