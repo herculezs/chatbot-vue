@@ -7,7 +7,7 @@
      'animation-show-hide': animations.cardHide}"
       v-if="!show.card"
     >
-      {{ title }}
+      {{ title }} <span class="arrow_card">></span>
     </div>
 
     <b-collapse v-model="show.card" v-if="showText !== undefined">
@@ -240,6 +240,8 @@ export default {
   .arrow_icon{
     fill: $txtColor5;
   }
-
+  .arrow_card{
+    padding-left: 15px;
+  }
 
 </style>

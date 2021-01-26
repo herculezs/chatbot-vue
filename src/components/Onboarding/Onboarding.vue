@@ -81,7 +81,7 @@
           >
             <input
               class="form__input"
-              placeholder="Surname"
+              placeholder="Last Name"
               v-model="formData.surname"
             />
             <InformationForm
@@ -105,7 +105,7 @@
           >
             <input
               class="form__input form__input_for_icon"
-              placeholder="Your Work Email"
+              placeholder="Work Email"
               v-model="formData.youEmail"
             />
             <InformationForm

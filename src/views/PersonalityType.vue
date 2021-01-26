@@ -1,10 +1,10 @@
 <template>
   <div class="personality-type">
     <Content>
-      <h1 class="h5">
+      <h1 class="h5 title-content">
         Here are the different personality types:
         hover over each dot to see a brief summary then click
-        "Show Results when you are ready"
+        "Show Results" when you are ready
       </h1>
       <b class="stability-label">Stability</b>
       <ChartChooseYourPersonality :data="chartOptionsBar"
@@ -67,6 +67,9 @@ export default {
       height: 350px;
       margin-bottom: 24px;
     }
+  }
+  .title-content {
+    text-align: center;
   }
 
 </style>
