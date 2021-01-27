@@ -140,6 +140,8 @@ export default {
         yAxis: {
           maxInterval: 2,
           minInterval: 2,
+          min: -2,
+          max: 2,
           nameLocation: 'end',
           position: 'right',
           splitLine: {

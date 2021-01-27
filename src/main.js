@@ -12,6 +12,7 @@ import { BootstrapVue } from 'bootstrap-vue';
 import VueSocialSharing from 'vue-social-sharing';
 import Vue2TouchEvents from 'vue2-touch-events';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import VTooltip from 'v-tooltip';
 import {
   faUserSecret, faUserAlt, faEnvelope, faUserTag, faUserFriends, faMobile,
 } from '@fortawesome/free-solid-svg-icons';
@@ -40,7 +41,7 @@ Vue.use(BootstrapVue);
 Vue.use(VueSocialSharing);
 Vue.use(Vue2TouchEvents);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
-
+Vue.use(VTooltip);
 
 library.add(faUserSecret);
 library.add(faUserAlt);

@@ -3,7 +3,12 @@
           :icon="icon"
           :size="size"
           class="py-3"
-          alt="information" boundary="" v-b-tooltip.hover.top="tooltip"
+
+          alt="information" boundary="" v-tooltip.left-end="{
+            content: tooltip,
+            trigger: 'click hover',
+            autoHide: true,
+          }"
 
   />
 </template>

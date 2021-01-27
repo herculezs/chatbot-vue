@@ -10,8 +10,10 @@
         When at least 3 others have completed their questionnaires,
         you will see what they think here as well!
       </div>
-      <ChartCompare :data="refreshData()"></ChartCompare>
-
+      <div class="diagram">
+        <b>Stability</b>
+        <ChartCompare :data="refreshData()"></ChartCompare>
+      </div>
       <div class="diagram mb-5">
         <Radar :data="getChartBarData" />
       </div>
@@ -107,7 +109,6 @@ export default {
       return this.data;
     },
     coordinates(Res) {
-      console.log('finalCategoryFormula', Res);
       const finalCategoryFormula = Res.split(/(?=[-+])/);
 
       const currentCards = Object.values(constants.cards);
@@ -203,7 +204,6 @@ export default {
           value: [],
           type: 'NEAREST',
           data: [...value, title],
-
         });
       });
 
@@ -214,7 +214,7 @@ export default {
           type: 'YOU_THINK_ABOUT',
           data: [resYouThink[0], resYouThink[1], `You think ${this.getPersonalityTest.name} is here${(this.getPersonalityTest.othersAmount >= 3 && (resYouThink[0] === resColleguag[0] && resYouThink[1] === resColleguag[1])) ? '\nthe GROUP answered' : ''}`],
         },
-        // ...this.nearPoints,
+        ...this.nearPoints,
       );
 
       if (this.getPersonalityTest.othersAmount >= 3

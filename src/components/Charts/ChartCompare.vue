@@ -53,9 +53,9 @@ export default {
         color: '#e46c0a',
       },
       YOU_THINK_ABOUT: {
-        label: '#ffb900',
+        label: '#ff5151',
         border: '#ff0008',
-        color: '#dda100',
+        color: 'rgba(255,81,81,0.73)',
       },
     },
     getChartData: {
