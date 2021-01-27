@@ -71,8 +71,8 @@ export default {
           {
             value: this.getPersonalityTest.result.split(/(?=[-+])/),
             areaStyle: {
-              color: '#ffc000',
-              colorHover: 'rgba(255,192,0,0.83)',
+              color: '#ff5151',
+              colorHover: 'rgba(255,81,81,0.73)',
             },
             name: 'You',
           },
@@ -90,8 +90,8 @@ export default {
           {
             value: this.getPersonalityTest.result.split(/(?=[-+])/),
             areaStyle: {
-              color: '#ffc000',
-              colorHover: 'rgba(255,192,0,0.83)',
+              color: '#ff5151',
+              colorHover: 'rgba(255,81,81,0.73)',
             },
             name: 'You',
           },
@@ -107,6 +107,7 @@ export default {
       return this.data;
     },
     coordinates(Res) {
+      console.log('finalCategoryFormula', Res);
       const finalCategoryFormula = Res.split(/(?=[-+])/);
 
       const currentCards = Object.values(constants.cards);

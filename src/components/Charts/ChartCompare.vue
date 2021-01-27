@@ -28,9 +28,9 @@ export default {
     selectedCharateristic: [],
     colorsByType: {
       YOU_ARE: {
-        label: '#ff132e',
-        border: '#CE1602',
-        color: '#CE2900',
+        label: '#7811c9',
+        border: '#54109a',
+        color: 'rgba(90,16,147,0.89)',
       },
       GUESS: {
         label: '#0077a2',
@@ -43,9 +43,9 @@ export default {
         color: '#0011dd',
       },
       COLLEAGUE: {
-        label: '#ffb900',
-        border: '#976e00',
-        color: '#dda100',
+        label: '#ff5151',
+        border: '#b43e3e',
+        color: '#ff5151',
       },
       GROUP: {
         label: '#e46c0a',
@@ -107,12 +107,42 @@ export default {
         return [];
       }
 
+      let filter = [];
+      const filterResult = [];
+
+      console.log('this.data', this.data);
+
       const alignedData = (this.data || []).map(({ data: arr, type }) => ({
         data: [arr[0] - xNeutralOffset, arr[1] - yNeutralOffset, arr[2], arr[3]],
         type,
       }));
 
-      return alignedData.map(({ data, type }) => {
+      alignedData.forEach(({ data, type }) => {
+        if (type === 'YOU_ARE' || type === 'COLLEAGUE') {
+          filter.push({
+            data,
+            type,
+          });
+        }
+      });
+      alignedData.forEach(({ data, type }) => {
+        const filter1 = filter.filter(({ data: dataInner }) => {
+          // eslint-disable-next-line no-empty
+          if (data[0] === dataInner[0] && data[1] === dataInner[1] && type === 'GUESS') {
+            return true;
+          }
+          return false;
+        });
+        if (filter1.length === 0) {
+          filterResult.push({
+            data,
+            type,
+          });
+        }
+      });
+
+      filter = [];
+      return filterResult.map(({ data, type }) => {
         const choseColor = '#0077a2';
         const color = data[2] === this.selectedCharateristic[2] ? choseColor
           : this.colorsByType[type].color;

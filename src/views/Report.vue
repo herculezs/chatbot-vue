@@ -137,8 +137,8 @@ export default {
         value: [],
         type: 'bar',
         areaStyle: {
-          color: 'rgba(0, 157, 206)',
-          colorHover: 'rgba(0,157,206,0.58)',
+          color: '#7811c9',
+          colorHover: '#a111ff',
         },
         name: 'Me',
       },
@@ -146,8 +146,8 @@ export default {
         value: [],
         type: 'bar',
         areaStyle: {
-          color: 'rgba(255, 192, 0)',
-          colorHover: 'rgba(255,192,0,0.83)',
+          color: '#ff5151',
+          colorHover: 'rgba(255,81,81,0.73)',
         },
         name: 'Colleagues',
       },

@@ -16,7 +16,7 @@ export default {
   },
   fetchInvitationQuestionnaire(id) {
     return new Promise((resolve, reject) => {
-      http.get(`questionnaire/invitation/${process.env.QUESTIONNAIRE_ID}}/u2/${id}`).then(
+      http.get(`questionnaire/invitation/${process.env.QUESTIONNAIRE_ID}/u2/${id}`).then(
         ({ data }) => {
           resolve(data);
         },
