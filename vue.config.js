@@ -20,6 +20,14 @@ module.exports = {
       customPlugins.push(new webpack.NormalModuleReplacementPlugin(
         /src\/assets\/logo\.png/,
         `../profiles/${process.env.VUE_APP_BUILD}/logo.png`,
+      ),
+      new webpack.NormalModuleReplacementPlugin(
+        /src\/assets\/checkbox_fill\.svg/,
+        `../profiles/${process.env.VUE_APP_BUILD}/checkbox_fill.svg`,
+      ),
+      new webpack.NormalModuleReplacementPlugin(
+        /src\/assets\/step_1\.gif/,
+        `../profiles/${process.env.VUE_APP_BUILD}/step_1.gif`,
       ));
       customPlugins.push(new CopyWebpackPlugin(
         [

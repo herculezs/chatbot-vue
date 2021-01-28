@@ -6,7 +6,7 @@
     >
       <div class="onBoarding-carousel__slide">
         <img class="onBoarding__video onBoarding__video_step1"
-             src="../../assets/step_1.gif" alt="video">
+             :src="step1" alt="video">
         <div class="text-center">
           <button
             class="button button_w-100
@@ -338,6 +338,7 @@ import TelInput from '@components/InputTel/TelInput.vue';
 import PolicyModal from '@components/Modals/PolicyModal.vue';
 import TermsConditionsModal from '@components/Modals/TermsConditionsModal.vue';
 import InformationForm from '@components/Onboarding/InformationForm.vue';
+import step1 from '../../assets/step_1.gif';
 
 // numeric, minValue, maxValue,
 const {
@@ -397,6 +398,7 @@ export default {
     },
   },
   data: () => ({
+    step1,
     allMonths: ['January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'],
     formData: {

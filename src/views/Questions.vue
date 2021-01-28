@@ -27,7 +27,7 @@
               {{ item.text }}
               <img v-if="1+index === selectedAnswer"
                    class="questions-item__icon-checked"
-                   src="../assets/checkbox_fill.5aa28413.svg"
+                   :src="checkbox"
                    alt="checkbox">
             </div>
           </div>
@@ -62,6 +62,7 @@
 import Content from '@components/Content/Content.vue';
 import { debounce } from 'lodash';
 import { mapGetters } from 'vuex';
+import checkbox from '../assets/checkbox_fill.svg';
 
 export default {
   name: 'Questions',
@@ -69,6 +70,7 @@ export default {
     Content,
   },
   data: () => ({
+    checkbox,
     questions: null,
     currentStep: 1,
     allStepCount: 1,
