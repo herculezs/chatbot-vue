@@ -352,7 +352,7 @@ export default {
       const isCompletedFeedBack = this.getProfile.completedFeedbacks.length;
 
       if (!isCompletedFeedBack && isOthersAmount) {
-        setTimeout(() => this.setShowReportModal(true), 5000);
+        setTimeout(() => this.setShowReportModal(true), 60000);
       }
     },
     setShowReportModal(value) {
