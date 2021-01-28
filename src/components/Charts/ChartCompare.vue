@@ -110,8 +110,6 @@ export default {
       let filter = [];
       const filterResult = [];
 
-      console.log('this.data', this.data);
-
       const alignedData = (this.data || []).map(({ data: arr, type }) => ({
         data: [arr[0] - xNeutralOffset, arr[1] - yNeutralOffset, arr[2], arr[3]],
         type,

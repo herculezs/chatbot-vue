@@ -23,7 +23,7 @@
         />
       </template>
 
-      <template v-if="this.isOthersAmount && !this.showReportModal">
+      <template v-if="this.isOthersAmount">
         <div class="h5 mb-4">
           Based on answers from your contacts
         </div>
@@ -99,7 +99,7 @@
         </p>
         <InputCopy v-model="shareLink" class="mb-4" />
       </b-modal>
-      <FeedbackModal @input="setShowReportModal" v-model="showReportModal" />
+      <FeedbackModal v-model="showReportModal" />
       <button
         v-b-modal.modal-multi-1
         class="button button_w-100 button_theme-default button_size-m">
@@ -214,7 +214,6 @@ export default {
       // eslint-disable-next-line no-mixed-operators
       if (!this.showReportModal && this.OtherCoordinate && (this.SelfCoordinate[0]
         !== this.OtherCoordinate[0] || this.OtherCoordinate[1] !== this.SelfCoordinate[1])) {
-        console.log('COLLEAGUE');
         this.data.push({
           value: [],
           type: 'COLLEAGUE',
@@ -353,15 +352,11 @@ export default {
       const isCompletedFeedBack = this.getProfile.completedFeedbacks.length;
 
       if (!isCompletedFeedBack && isOthersAmount) {
-        this.setShowReportModal(true);
+        setTimeout(() => this.setShowReportModal(true), 5000);
       }
     },
     setShowReportModal(value) {
       this.showReportModal = value;
-      if (value === false) {
-        this.chartOptionsBar();
-        this.$forceUpdate();
-      }
     },
   },
 };
