@@ -13,7 +13,8 @@ import 'echarts/lib/chart/scatter';
 import 'echarts/lib/chart/pie';
 import 'echarts/lib/chart/map';
 import ECharts from 'vue-echarts';
-
+import variablesWellment from '../../styles/variables-wellment.scss';
+import variables from '../../styles/variables.scss';
 
 export default {
   components: {
@@ -33,9 +34,9 @@ export default {
         color: 'rgba(90,16,147,0.89)',
       },
       GUESS: {
-        label: '#0077a2',
-        border: '#00658a',
-        color: '#00bbff',
+        label: process.env.VUE_APP_BUILD === 'wellment' ? variablesWellment.pointColor : variables.pointColor,
+        border: process.env.VUE_APP_BUILD === 'wellment' ? variablesWellment.pointColor : variables.pointColor,
+        color: process.env.VUE_APP_BUILD === 'wellment' ? variablesWellment.pointColor : variables.pointColor,
       },
       NEAREST: {
         label: '#007ea7',

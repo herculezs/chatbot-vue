@@ -74,7 +74,10 @@ $starBorderColor: #7811C9;
 
 $md-gap: 24px;
 
+$pointColor: #b990da;
+
 :export{
   starActiveColor: $starActiveColor;
   starBorderColor: $starBorderColor;
+  pointColor: $pointColor;
 }

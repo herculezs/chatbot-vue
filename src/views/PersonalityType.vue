@@ -23,6 +23,8 @@
 import Content from '@components/Content/Content.vue';
 import ChartChooseYourPersonality from '@components/Charts/ChartChooseYourPersonality.vue';
 import constants from '@constants';
+import variablesWellment from '../styles/variables-wellment.scss';
+import variables from '../styles/variables.scss';
 
 export default {
   components: {
@@ -38,10 +40,10 @@ export default {
           value: card.value,
           detailedCharacteristics: card.detailedCharacteristics,
           label: {
-            color: '#009dce',
+            color: process.env.VUE_APP_BUILD === 'wellment' ? variablesWellment.pointColor : variables.pointColor,
           },
           itemStyle: {
-            color: '#009dce',
+            color: process.env.VUE_APP_BUILD === 'wellment' ? variablesWellment.pointColor : variables.pointColor,
           },
         })),
       },
