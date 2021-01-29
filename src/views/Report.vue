@@ -2,13 +2,13 @@
   <div class="report">
     <Content>
       <div class="report-notifications" v-if="!isOthersAmount">
-        To keep responses anonymous and honest,
-        I will wait until I have received at least 4 responses before
-        I send your first results and will update you as I receive more
+        To keep responses anonymous and honest, we will wait until we have received at
+        least 4 responses before we send your initial results.
+        We will update you as we receive more responses ...
       </div>
 
       <h1 class="h4 text-center mb-1">Well done {{ getProfile.name }}!</h1>
-      <h2 class="text mb-5 text-center">Here’s your first report</h2>
+      <h2 class="first_report text mb-5 text-center">Here’s your first report</h2>
 
       <template v-if="youAnswerCard">
         <div class="h5 mb-4">
@@ -56,7 +56,6 @@
             Respondents:  {{ respondentsCount }}
           </div>
         </div>
-        <b>Stability</b>
         <ChartCompare :data="refreshData()" @charateristic-click="setChosenCharacteristic($event)">
         </ChartCompare>
 
@@ -79,23 +78,16 @@
         hide-footer
       >
         <template v-slot:modal-title>
-           Crowdsource your Work Persona
+          {{configEnv.report.textForReport.title}}
         </template>
         <p class="text mb-3">
-          Your report so far is what you think your personality is.
-          This is called your Anima.
-          The "you" that others experience is called your Persona.
-          We can find out what your Work Persona is by asking people you work or have worked with
-          to answer questions about you.
+          {{configEnv.report.textForReport.paragraph1}}
         </p>
         <p class="text mb-3">
-          Share the link with your colleagues - they can answer a similar questionnaire about
-          you and remain totally anonymous. We do this so they are more open and honest than
-          they might be if you asked them directly.
+          {{configEnv.report.textForReport.paragraph2}}
         </p>
         <p class="text mb-4">
-          You need to get at least 4 responses for us to show the anonymised results.
-          We will continue to update you as we receive more responses.
+          {{configEnv.report.textForReport.paragraph3}}
         </p>
         <InputCopy v-model="shareLink" class="mb-4" />
       </b-modal>
@@ -116,7 +108,7 @@ import Content from '@components/Content/Content.vue';
 import Radar from '@components/Radar/Radar.vue';
 import FeedbackModal from '@components/Modals/FeedbackModal.vue';
 import ChartCompare from '@components/Charts/ChartCompare.vue';
-
+import configEnv from '@configEnv';
 
 import { mapGetters } from 'vuex';
 import constants from '@constants';
@@ -132,6 +124,7 @@ export default {
   },
   name: 'Report',
   data: () => ({
+    configEnv,
     radarData: [
       {
         value: [],
@@ -396,10 +389,11 @@ export default {
     justify-content: space-between;
   }
   .report-notifications{
+    text-align: center;
     padding: 16px;
     border: 1px solid #ddd;
     font-family: $defaultFont;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 16px;
     color: $txtColor2;
     border-radius: 4px;
@@ -432,4 +426,7 @@ export default {
     margin-right: 5px;
   }
 
+  .first_report {
+    font-size: 16px;
+  }
 </style>

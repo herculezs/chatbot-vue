@@ -7,7 +7,7 @@
      'animation-show-hide': animations.cardHide}"
       v-if="!show.card"
     >
-      {{ title }} <span class="arrow_card">></span>
+      {{ title }} (show more)<span class="arrow_card">></span>
     </div>
 
     <b-collapse v-model="show.card" v-if="showText !== undefined">

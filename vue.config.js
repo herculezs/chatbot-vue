@@ -28,6 +28,10 @@ module.exports = {
       new webpack.NormalModuleReplacementPlugin(
         /src\/assets\/step_1\.gif/,
         `../profiles/${process.env.VUE_APP_BUILD}/step_1.gif`,
+      ),
+      new webpack.NormalModuleReplacementPlugin(
+        /src\/configEnv\/index\.js/,
+        `../profiles/${process.env.VUE_APP_BUILD}/index.js`,
       ));
       customPlugins.push(new CopyWebpackPlugin(
         [
@@ -65,6 +69,7 @@ module.exports = {
     config.resolve.alias.set('@helpers', resolve('src/helpers'));
     config.resolve.alias.set('@config', resolve('src/config'));
     config.resolve.alias.set('@constants', resolve('src/constants'));
+    config.resolve.alias.set('@configEnv', resolve('src/configEnv'));
     config.resolve.alias.set('@mixins', resolve('src/mixins'));
   },
   css: {

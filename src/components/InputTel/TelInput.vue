@@ -6,8 +6,8 @@
     <vue-tel-input
       class="form__input-tel"
       :class="getClassByLengthCountryCode"
-      defaultCountry="US"
-      placeholder="65 243 236"
+      :defaultCountry="this.defaultCountry"
+      :placeholder="this.placeHolder"
       enabledCountryCode
       validCharactersOnly
       @input="changeTel"
@@ -43,6 +43,12 @@ export default {
     },
     validPhone: {
       type: Object,
+    },
+    placeHolder: {
+      type: String,
+    },
+    defaultCountry: {
+      type: String,
     },
   },
   computed: {

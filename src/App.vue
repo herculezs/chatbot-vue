@@ -17,9 +17,9 @@ export default {
     Notification,
   },
   created() {
-    document.title = 'innerworks';
+    document.title = 'InnerWorks';
     if (process.env.VUE_APP_BUILD !== undefined) {
-      document.title = 'Wellment';
+      document.title = 'WellMent';
     }
   },
 };

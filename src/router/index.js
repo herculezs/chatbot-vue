@@ -108,21 +108,21 @@ export default new Router({
         next();
       },
     },
-    {
-      path: '/personality-type',
-      name: 'personality-type',
-      component: () => import('@views/PersonalityType.vue'),
-      beforeEnter: (to, from, next) => {
-        // eslint-disable-next-line no-underscore-dangle
-        const userAuth = Store.getters['auth/getProfile'].token;
-
-        if (!userAuth) {
-          next('/');
-        }
-
-        next();
-      },
-    },
+    // {
+    //   path: '/personality-type',
+    //   name: 'personality-type',
+    //   component: () => import('@views/PersonalityType.vue'),
+    //   beforeEnter: (to, from, next) => {
+    //     // eslint-disable-next-line no-underscore-dangle
+    //     const userAuth = Store.getters['auth/getProfile'].token;
+    //
+    //     if (!userAuth) {
+    //       next('/');
+    //     }
+    //
+    //     next();
+    //   },
+    // },
     {
       path: '/create-password',
       name: 'create-password',

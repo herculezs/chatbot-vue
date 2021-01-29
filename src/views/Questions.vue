@@ -185,7 +185,7 @@ export default {
 
       return this.$api.questionnaire.saveAnswer(this.formData)
         .then(() => {
-          this.$router.push({ name: 'personality-type' });
+          this.$router.push({ name: 'report' });
         });
     },
     // eslint-disable-next-line func-names

@@ -14,7 +14,7 @@
           onBoarding-carousel__button"
             @click.prevent="gotToSlide(1)"
           >
-            Find out how
+            {{ configEnv.onboarding.buttonOnFirstPage }}
           </button>
         </div>
       </div>
@@ -25,11 +25,11 @@
           How it works
         </div>
         <div class="text onBoarding__tex text-center mb-3">
-          Step 1: You will be 12 quick questions about
-          yourself and receive your first report.
+          Step 1: You will be asked 12 short questions about
+          and receive your first report.
         </div>
         <div class="text onBoarding__tex text-center mb-3">
-          Step 2: Ask your contacts to answer 12 quick
+          Step 2: Ask your contacts to answer 12 short
           questions about you to receive your comparative report.
         </div>
         <button
@@ -44,12 +44,14 @@
         <div class="title onBoarding__title">
           Details
         </div>
-        <div class="caption text-center mb-3">
+        <div class="first_report caption text-center mb-3">
           We need your details so we can notify you of your results.
           We won’t contact you otherwise
           <br/>
+          <br/>
           <b>Any answers you give about others will be <b>totally anonymous</b>
             to everyone in the company</b>
+          <br/>
         </div>
         <form class="form">
           <div class="form-group">
@@ -109,13 +111,13 @@
             >
               <input
                 class="form__input form__input_for_icon"
-                placeholder="Work Email"
+                :placeholder="configEnv.onboarding.emailPlaceHolder"
                 v-model="formData.youEmail"
               />
               <InformationForm
                 icon="envelope"
                 size="1x"
-                :tooltip="'Your work email - so we can contact you when you have results!'">
+                :tooltip="configEnv.onboarding.tooltipEmail">
               </InformationForm>
             </div>
             <template v-if="$v.formData.youEmail.$error">
@@ -127,82 +129,6 @@
               </div>
             </template>
           </div>
-          <div class="form-group">
-            <div
-              class="form__input_for_icon"
-              :class="{'form-group-error': $v.formData.department.$error}"
-            >
-              <input
-                class="form__input"
-                placeholder="Department"
-                v-model="formData.department"
-              />
-              <InformationForm
-                :tooltip="'Your work department'"
-                icon="user-friends"
-                size="1x">
-              </InformationForm>
-            </div>
-            <template v-if="$v.formData.department.$error">
-              <div
-                class="form__input-error"
-                v-if="!$v.formData.department.required"
-              >
-                Field is required
-              </div>
-            </template>
-          </div>
-          <div class="form-group">
-            <div
-              class="form__input_for_icon"
-              :class="{'form-group-error': $v.formData.role.$error}"
-            >
-              <input
-                class="form__input"
-                placeholder="Role"
-                v-model="formData.role"
-              />
-              <InformationForm
-                :tooltip="'Your role at the company'"
-                icon="user-tag"
-                size="1x">
-              </InformationForm>
-            </div>
-              <template v-if="$v.formData.role.$error">
-                <div
-                  class="form__input-error"
-                  v-if="!$v.formData.role.required"
-                >
-                  Field is required
-                </div>
-              </template>
-          </div>
-          <div class="form-group">
-            <div
-              class="form__input_for_icon"
-              :class="{'form-group-error': $v.formData.managerEmail.$error}"
-            >
-              <input
-                class="form__input"
-                placeholder="Direct Supervisor Email"
-                v-model="formData.managerEmail"
-              />
-              <InformationForm
-                icon="envelope"
-                size="1x"
-                :tooltip="'Your direct supervisor\'s email - DON\'T WORRY:' +
-             ' your results are confidential. We need this so we' +
-              ' can aggregate the anonymous results accurately'">
-              </InformationForm>
-            </div>
-              <template v-if="$v.formData.managerEmail.$error">
-                <div
-                  class="form__input-error"
-                  v-if="$v.formData.managerEmail.email">
-                  Check correct email
-                </div>
-              </template>
-           </div>
 <!--          <div-->
 <!--            class="form-group flex-default-gap"-->
 <!--            :class="{'form-group-error': $v.formData.month.$error}"-->
@@ -295,6 +221,8 @@
               :diaCode="formData.diaCode"
               :validPhone="$v.formData.phone"
               @onDiaCode="countryChanged"
+              :placeHolder="configEnv.onboarding.placeholderPhone"
+              :defaultCountry="configEnv.onboarding.defaultStatePhone"
             >
 
             </TelInput>
@@ -338,6 +266,7 @@ import TelInput from '@components/InputTel/TelInput.vue';
 import PolicyModal from '@components/Modals/PolicyModal.vue';
 import TermsConditionsModal from '@components/Modals/TermsConditionsModal.vue';
 import InformationForm from '@components/Onboarding/InformationForm.vue';
+import configEnv from '@configEnv';
 import step1 from '../../assets/step_1.gif';
 
 // numeric, minValue, maxValue,
@@ -367,16 +296,6 @@ export default {
       surname: {
         required,
       },
-      department: {
-        required,
-      },
-      role: {
-        required,
-      },
-      managerEmail: {
-        required,
-        email,
-      },
       // month: {
       //   required,
       // },
@@ -398,6 +317,7 @@ export default {
     },
   },
   data: () => ({
+    configEnv,
     step1,
     allMonths: ['January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'],
@@ -481,9 +401,6 @@ export default {
         name: this.formData.firstName,
         surname: this.formData.surname,
         youEmail: this.formData.youEmail,
-        department: this.formData.department,
-        role: this.formData.role,
-        managerEmail: this.formData.managerEmail,
         // eslint-disable-next-line radix,max-len
         // dateOfBirth: [this.formData.year, currentMonthNumber < 9 ? `0${currentMonthNumber}` : currentMonthNumber, this.formData.day <= 9 ? `0${parseInt(this.formData.day)}` : parseInt(this.formData.day)].join('-'),
         phone,
@@ -641,5 +558,7 @@ export default {
     -moz-appearance: none;
     background-color: white;
   }
-
+  .first_report {
+    font-size: 16px;
+  }
 </style>

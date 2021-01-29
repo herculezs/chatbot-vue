@@ -2,9 +2,7 @@
   <div class="personality-type">
     <Content>
       <h1 class="h5 title-content">
-        Here are the different personality types:
-        hover over each dot to see a brief summary then click
-        "Show Results" when you are ready
+        {{ configEnv.personalityType.title }}
       </h1>
       <b class="stability-label">Stability</b>
       <ChartChooseYourPersonality :data="chartOptionsBar"
@@ -23,8 +21,7 @@
 import Content from '@components/Content/Content.vue';
 import ChartChooseYourPersonality from '@components/Charts/ChartChooseYourPersonality.vue';
 import constants from '@constants';
-import variablesWellment from '../styles/variables-wellment.scss';
-import variables from '../styles/variables.scss';
+import configEnv from '@configEnv';
 
 export default {
   components: {
@@ -32,6 +29,7 @@ export default {
     Content,
   },
   data: () => ({
+    configEnv,
     chartOptionsBar: [
       {
         value: [],
@@ -40,10 +38,10 @@ export default {
           value: card.value,
           detailedCharacteristics: card.detailedCharacteristics,
           label: {
-            color: process.env.VUE_APP_BUILD === 'wellment' ? variablesWellment.pointColor : variables.pointColor,
+            color: configEnv.charts.pointColor,
           },
           itemStyle: {
-            color: process.env.VUE_APP_BUILD === 'wellment' ? variablesWellment.pointColor : variables.pointColor,
+            color: configEnv.charts.pointColor,
           },
         })),
       },
