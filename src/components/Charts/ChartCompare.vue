@@ -49,14 +49,14 @@ export default {
         color: '#ff5151',
       },
       GROUP: {
-        label: '#e46c0a',
-        border: '#ff5600',
-        color: '#e46c0a',
+        label: '#7811c9',
+        border: '#54109a',
+        color: 'rgba(90,16,147,0.89)',
       },
       YOU_THINK_ABOUT: {
         label: '#ff5151',
-        border: '#ff0008',
-        color: 'rgba(255,81,81,0.73)',
+        border: '#b43e3e',
+        color: '#ff5151',
       },
     },
     getChartData: {
@@ -117,7 +117,8 @@ export default {
       }));
 
       alignedData.forEach(({ data, type }) => {
-        if (type === 'YOU_ARE' || type === 'COLLEAGUE') {
+        if (type === 'YOU_ARE' || type === 'COLLEAGUE'
+          || type === 'YOU_THINK_ABOUT' || type === 'GROUP') {
           filter.push({
             data,
             type,

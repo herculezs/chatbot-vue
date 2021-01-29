@@ -182,7 +182,6 @@ export default {
     this.fetchPersonalityTypeReport();
   },
   methods: {
-
     setChosenCharacteristic(event) {
       this.selectedCharateristic = {
         name: event[2],

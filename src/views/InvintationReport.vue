@@ -2,16 +2,39 @@
   <div class="report">
     <Content>
       <h1 class="h4 mb-1">Report</h1>
+      <h1 class="h6 mb-1 first_report">
+        This report shows what personality type you
+        think your contact is and how your
+        answers compare to the other people asked.</h1>
       <div class="h5 mb-4" v-if="getPersonalityTest.othersAmount >= 3">
-        Based on your {{ getPersonalityTest.othersAmount }}
-        respondents, {{ getPersonalityTest.name }} ...
+        Based on {{getPersonalityTest.othersAmount}}
+        respondents, {{getPersonalityTest.name}}'s persona is ...
       </div>
       <div class="h5 mb-4" v-else>
         When at least 3 others have completed their questionnaires,
         you will see what they think here as well!
       </div>
+      <template v-if="isOthersAmount">
+        <Card
+          :title="collegAnswerCard.title"
+          :showText="collegAnswerCard.showText"
+          :tag="collegAnswerCard.tag"
+          :img="collegAnswerCard.src"
+          :typeCard="'Guessed'"
+        />
+      </template>
       <div class="diagram">
-        <ChartCompare :data="refreshData()"></ChartCompare>
+        <ChartCompare :data="refreshData()" @charateristic-click="setChosenCharacteristic($event)">
+        </ChartCompare>
+        <template v-if="selectedCharateristic">
+          <Card
+            class="mt-5"
+            :title="selectedCharateristic.name"
+            :showText="selectedCharateristic.text"
+            :typeCard="'Based'"
+            default-open
+          />
+        </template>
       </div>
       <div class="h5 mb-4">
         Personality trait comparison, by category
@@ -38,6 +61,7 @@ import Radar from '@components/Radar/Radar.vue';
 import constants from '@constants';
 import FeedbackModal from '@components/Modals/FeedbackModal.vue';
 import ChartCompare from '@components/Charts/ChartCompare.vue';
+import Card from '@components/Card/Card.vue';
 
 
 import { mapGetters } from 'vuex';
@@ -48,6 +72,7 @@ export default {
     Content,
     Radar,
     ChartCompare,
+    Card,
   },
   name: 'InvintationReport',
   data: () => ({
@@ -56,6 +81,8 @@ export default {
     OtherCoordinate: null,
     data: [],
     nearPoints: [],
+    collegAnswerCard: {},
+    selectedCharateristic: null,
   }),
   computed: {
     ...mapGetters({
@@ -63,6 +90,9 @@ export default {
       getProfile: 'auth/getProfile',
 
     }),
+    isOthersAmount() {
+      return this.getPersonalityTest.othersAmount > 3;
+    },
     getCard() {
       if (!this.getPersonalityTest.result) return null;
 
@@ -75,16 +105,16 @@ export default {
           {
             value: this.getPersonalityTest.result.split(/(?=[-+])/),
             areaStyle: {
-              color: '#ff5151',
-              colorHover: 'rgba(255,81,81,0.73)',
+              color: '#7811c9',
+              colorHover: '#a111ff',
             },
             name: 'You',
           },
           {
             value: this.getPersonalityTest.othersAverageResult.split(/(?=[-+])/),
             areaStyle: {
-              color: '#e46c0a',
-              colorHover: 'rgba(228,108,10,0.82)',
+              color: '#ff5151',
+              colorHover: 'rgba(255,81,81,0.73)',
             },
             name: 'Average',
           },
@@ -94,8 +124,8 @@ export default {
           {
             value: this.getPersonalityTest.result.split(/(?=[-+])/),
             areaStyle: {
-              color: '#ff5151',
-              colorHover: 'rgba(255,81,81,0.73)',
+              color: '#7811c9',
+              colorHover: '#a111ff',
             },
             name: 'You',
           },
@@ -110,6 +140,17 @@ export default {
   methods: {
     refreshData() {
       return this.data;
+    },
+    setChosenCharacteristic(event) {
+      this.selectedCharateristic = {
+        name: event[2],
+        text: event[3],
+      };
+      console.log('this.selectedCharateristic', this.selectedCharateristic);
+    },
+    setCollegeAnswerCard(title) {
+      this.collegAnswerCard = constants.cards[title];
+      console.log('this.collegAnswerCard', this.collegAnswerCard);
     },
     coordinates(Res) {
       const finalCategoryFormula = Res.split(/(?=[-+])/);
@@ -148,6 +189,8 @@ export default {
     chartOptionsBar() {
       const resYouThink = this.coordinates(this.getPersonalityTest.result);
       const resColleguag = this.coordinates(this.getPersonalityTest.othersAverageResult);
+      console.log('resColleguag', resColleguag);
+      this.setCollegeAnswerCard(resColleguag[2]);
 
       const [youAreX, youAreY] = resYouThink;
 
@@ -210,6 +253,14 @@ export default {
         });
       });
 
+      Object.values(constants.cards).forEach((value) => {
+        this.data.push({
+          value: [],
+          type: 'GUESS',
+          data: [...value.value, value.title, value.showText],
+        });
+      });
+
 
       this.data.push(
         {
@@ -217,7 +268,6 @@ export default {
           type: 'YOU_THINK_ABOUT',
           data: [resYouThink[0], resYouThink[1], `You think ${this.getPersonalityTest.name} is here${(this.getPersonalityTest.othersAmount >= 3 && (resYouThink[0] === resColleguag[0] && resYouThink[1] === resColleguag[1])) ? '\nthe GROUP answered' : ''}`],
         },
-        ...this.nearPoints,
       );
 
       if (this.getPersonalityTest.othersAmount >= 3
@@ -236,10 +286,10 @@ export default {
           type: 'error',
           text: 'User has already completed the personality test',
         });
-        return;
+        // return;
       }
 
-      this.$router.push('questionnaire');
+      // this.$router.push('questionnaire');
     },
   },
 };
@@ -256,5 +306,8 @@ export default {
       width: 100%;
       height: 310px;
     }
+  }
+  .first_report {
+    text-align: center;
   }
 </style>
