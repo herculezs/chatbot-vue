@@ -54,7 +54,6 @@ export default {
           name: (this.data[0]).name,
           data: formatResult[0],
           color: this.data[0].areaStyle.color,
-          barWidth: 30,
           barGap: 0,
           emphasis: {
             itemStyle: {
@@ -66,7 +65,6 @@ export default {
           name: (this.data[1]).name,
           data: formatResult[1],
           color: this.data[1].areaStyle.color,
-          barWidth: 30,
           emphasis: {
             itemStyle: {
               color: this.data[1].areaStyle.colorHover,
@@ -79,7 +77,6 @@ export default {
           name: (this.data[0]).name,
           data: formatResult[0],
           color: this.data[0].areaStyle.color,
-          barWidth: 30,
           barGap: 0,
           emphasis: {
             itemStyle: {
@@ -107,7 +104,7 @@ export default {
           left: '1%',
           right: '1%',
           bottom: '3%',
-          containLabel: true,
+          top: '35%',
         },
         tooltip: {},
         xAxis: {
@@ -126,7 +123,7 @@ export default {
             fontSize: 15,
           },
           axisLine: {
-            length: 4,
+            length: 6,
             lineStyle: {
               width: 2,
             },
@@ -153,6 +150,8 @@ export default {
             },
           },
           axisLabel: {
+            backgroundColor: 'white',
+            inside: true,
             showMaxLabel: true,
             fontWeight: 'bold',
             formatter: (value) => {

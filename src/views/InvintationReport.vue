@@ -11,8 +11,10 @@
         you will see what they think here as well!
       </div>
       <div class="diagram">
-        <b>Stability</b>
         <ChartCompare :data="refreshData()"></ChartCompare>
+      </div>
+      <div class="h5 mb-4">
+        Personality trait comparison, by category
       </div>
       <div class="diagram mb-5">
         <Radar :data="getChartBarData" />
@@ -49,7 +51,7 @@ export default {
   },
   name: 'InvintationReport',
   data: () => ({
-    showReportModal: true,
+    showReportModal: false,
     SelfCoordinate: null,
     OtherCoordinate: null,
     data: [],
@@ -102,7 +104,8 @@ export default {
     },
   },
   created() {
-
+    // eslint-disable-next-line no-return-assign
+    setTimeout(() => this.showReportModal = true, 60000);
   },
   methods: {
     refreshData() {

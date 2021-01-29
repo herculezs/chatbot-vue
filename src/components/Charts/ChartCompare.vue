@@ -14,6 +14,7 @@ import 'echarts/lib/chart/pie';
 import 'echarts/lib/chart/map';
 import ECharts from 'vue-echarts';
 import configEnv from '@configEnv';
+import constant from '@constants';
 
 export default {
   components: {
@@ -67,8 +68,8 @@ export default {
         height: '280px',
       },
       xAxis: {
-        max: 4.5,
-        min: -4.5,
+        max: 4.1,
+        min: -4.2,
         axisLabel: false,
         nameLocation: 'end',
         nameRotate: 270,
@@ -166,7 +167,21 @@ export default {
           emphasis: {
             label: {
               formatter(param) {
-                return `${param.value[2]}${param.value[3] ? '\nClick for more details' : ''}`;
+                // return `${param.value[2]}${param.value[3] ? '\nClick for more details' : ''}`;
+                let res = `${param.data[2]}`;
+                // eslint-disable-next-line no-unused-expressions
+                const oneCharacter = Object.values(constant.cards)
+                  .filter(x => x.title === param.value[2]);
+
+                if (oneCharacter[0]) {
+                  res += ':\n';
+                  oneCharacter[0].detailedCharacteristics.forEach((d) => {
+                    res += `${d}\n`;
+                  });
+                  return `${res}Click for more details`;
+                }
+
+                return res;
               },
               color: data[2] === this.selectedCharateristic[2] ? choseColor
                 : this.colorsByType[type].label,

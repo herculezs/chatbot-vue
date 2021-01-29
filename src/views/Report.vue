@@ -8,11 +8,18 @@
       </div>
 
       <h1 class="h4 text-center mb-1">Well done {{ getProfile.name }}!</h1>
-      <h2 class="first_report text mb-5 text-center">Here’s your first report</h2>
+      <h2 class="first_report text mb-5 text-center">
+        Here's your first report. It shows your personality
+        type in relation to the other 34 personality
+        types and where <b>you think</b> you lie on the
+        Flexibility-Stability scale.
+        <br/>
+        Hover over the dots to show a brief summary of characteristics.
+      </h2>
 
       <template v-if="youAnswerCard">
         <div class="h5 mb-4">
-          Based on your answers
+          Based on your answers, your type is ...
         </div>
         <Card
           :title="youAnswerCard.title"
@@ -25,7 +32,7 @@
 
       <template v-if="this.isOthersAmount">
         <div class="h5 mb-4">
-          Based on answers from your contacts
+          Your contacts think your personality type is ...
         </div>
         <Card
           :title="collegAnswerCard.title"
@@ -58,7 +65,7 @@
         </div>
         <ChartCompare :data="refreshData()" @charateristic-click="setChosenCharacteristic($event)">
         </ChartCompare>
-
+        <br/>
         <template v-if="selectedCharateristic">
           <Card
                   class="mt-5"
@@ -68,7 +75,9 @@
                   default-open
           />
         </template>
-
+        <div class="h5 mb-4">
+          Personality trait comparison, by category
+        </div>
         <Radar :data="radarData" />
       </div>
 
