@@ -63,8 +63,12 @@
             Respondents:  {{ respondentsCount }}
           </div>
         </div>
+        <div class="name-label-chart-top"><b class="chart-label">More Flexible</b></div>
+        <div class="name-label-chart-left"><b class="chart-label">Less Stable</b></div>
+        <div class="name-label-chart-right"><b class="chart-label">More Stable</b></div>
         <ChartCompare :data="refreshData()" @charateristic-click="setChosenCharacteristic($event)">
         </ChartCompare>
+        <div class="name-label-chart-bottom"><b class="chart-label">Less Flexible</b></div>
         <br/>
         <template v-if="selectedCharateristic">
           <Card
@@ -207,7 +211,7 @@ export default {
           {
             value: [],
             type: 'YOU_ARE',
-            data: [this.SelfCoordinate[0], this.SelfCoordinate[1], `Your scored yourself as - \n${this.youAnswerCard.title.toUpperCase()}${(this.OtherCoordinate && (this.SelfCoordinate[0] === this.OtherCoordinate[0] && this.OtherCoordinate[1] === this.SelfCoordinate[1])) ? `\ncolleagues say - \n${this.collegAnswerCard.title.toUpperCase()}` : ''}`],
+            data: [this.SelfCoordinate[0], this.SelfCoordinate[1], `You scored yourself as - \n${this.youAnswerCard.title.toUpperCase()}${(this.OtherCoordinate && (this.SelfCoordinate[0] === this.OtherCoordinate[0] && this.OtherCoordinate[1] === this.SelfCoordinate[1])) ? `\ncolleagues say - \n${this.collegAnswerCard.title.toUpperCase()}` : ''}`],
           },
         );
       }
@@ -436,5 +440,36 @@ export default {
 
   .first_report {
     font-size: 16px;
+  }
+  .name-label-chart-bottom {
+    text-align: center;
+  }
+  .name-label-chart-top {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 35px;
+  }
+
+  .name-label-chart-left {
+    text-align: left;
+    position: absolute;
+    top: 178px;
+    left: 0;
+  }
+
+  .name-label-chart-right {
+    text-align: right;
+    position: absolute;
+    top: 178px;
+    right: 0;
+  }
+
+  .chart-label {
+    background-color: $chartLabel;
+    font-size: 14px;
   }
 </style>

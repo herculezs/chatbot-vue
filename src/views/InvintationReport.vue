@@ -24,8 +24,12 @@
         />
       </template>
       <div class="diagram">
+        <div class="name-label-chart-top"><b class="chart-label">More Flexible</b></div>
+        <div class="name-label-chart-left"><b class="chart-label">Less Stable</b></div>
+        <div class="name-label-chart-right"><b class="chart-label">More Stable</b></div>
         <ChartCompare :data="refreshData()" @charateristic-click="setChosenCharacteristic($event)">
         </ChartCompare>
+        <div class="name-label-chart-bottom"><b class="chart-label">Less Flexible</b></div>
         <template v-if="selectedCharateristic">
           <Card
             class="mt-5"
@@ -309,5 +313,36 @@ export default {
   }
   .first_report {
     text-align: center;
+  }
+  .name-label-chart-bottom {
+    text-align: center;
+  }
+  .name-label-chart-top {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 35px;
+  }
+
+  .name-label-chart-left {
+    text-align: left;
+    position: absolute;
+    top: 178px;
+    left: 0;
+  }
+
+  .name-label-chart-right {
+    text-align: right;
+    position: absolute;
+    top: 178px;
+    right: 0;
+  }
+
+  .chart-label {
+    background-color: $chartLabel;
+    font-size: 14px;
   }
 </style>

@@ -72,13 +72,10 @@ export default {
         min: -4.3,
         axisLabel: false,
         nameLocation: 'end',
-        nameRotate: 270,
-        nameGap: 10,
         boundaryGap: true,
         nameTextStyle: {
           fontWeight: 'bold',
           fontSize: 15,
-          padding: [0, 0, -30, 150],
         },
         splitLine: {
           show: false,
