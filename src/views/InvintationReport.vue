@@ -192,8 +192,10 @@ export default {
     },
     chartOptionsBar() {
       const resYouThink = this.coordinates(this.getPersonalityTest.result);
-      const resColleguag = this.coordinates(this.getPersonalityTest.othersAverageResult);
-      console.log('resColleguag', resColleguag);
+      let resColleguag;
+      if (this.getPersonalityTest.othersAverageResult) {
+        resColleguag = this.coordinates(this.getPersonalityTest.othersAverageResult);
+      }
       this.setCollegeAnswerCard(resColleguag[2]);
 
       const [youAreX, youAreY] = resYouThink;
