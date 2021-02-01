@@ -154,7 +154,6 @@ export default {
     },
     setCollegeAnswerCard(title) {
       this.collegAnswerCard = constants.cards[title];
-      console.log('this.collegAnswerCard', this.collegAnswerCard);
     },
     coordinates(Res) {
       const finalCategoryFormula = Res.split(/(?=[-+])/);
@@ -191,8 +190,12 @@ export default {
       return [x, y, character];
     },
     chartOptionsBar() {
-      const resYouThink = this.coordinates(this.getPersonalityTest.result);
+      let resYouThink;
       let resColleguag;
+
+      if (this.getPersonalityTest.result) {
+        resYouThink = this.coordinates(this.getPersonalityTest.result);
+      }
       if (this.getPersonalityTest.othersAverageResult) {
         resColleguag = this.coordinates(this.getPersonalityTest.othersAverageResult);
       }
