@@ -68,8 +68,8 @@ export default {
         height: '240px',
       },
       xAxis: {
-        max: 4.1,
-        min: -4.2,
+        max: 4.3,
+        min: -4.3,
         axisLabel: false,
         nameLocation: 'end',
         nameRotate: 270,

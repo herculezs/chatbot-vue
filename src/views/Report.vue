@@ -207,7 +207,7 @@ export default {
           {
             value: [],
             type: 'YOU_ARE',
-            data: [this.SelfCoordinate[0], this.SelfCoordinate[1], `You are - ${this.youAnswerCard.title.toUpperCase()}${(this.OtherCoordinate && (this.SelfCoordinate[0] === this.OtherCoordinate[0] && this.OtherCoordinate[1] === this.SelfCoordinate[1])) ? `\ncolleagues say - ${this.collegAnswerCard.title.toUpperCase()}` : ''}`],
+            data: [this.SelfCoordinate[0], this.SelfCoordinate[1], `Your scored yourself as - \n${this.youAnswerCard.title.toUpperCase()}${(this.OtherCoordinate && (this.SelfCoordinate[0] === this.OtherCoordinate[0] && this.OtherCoordinate[1] === this.SelfCoordinate[1])) ? `\ncolleagues say - \n${this.collegAnswerCard.title.toUpperCase()}` : ''}`],
           },
         );
       }
@@ -218,7 +218,7 @@ export default {
         this.data.push({
           value: [],
           type: 'COLLEAGUE',
-          data: [this.OtherCoordinate[0], this.OtherCoordinate[1], `Your \n Colleagues \n say - ${this.collegAnswerCard.title.toUpperCase()}`],
+          data: [this.OtherCoordinate[0], this.OtherCoordinate[1], `Your Colleagues say - \n${this.collegAnswerCard.title.toUpperCase()}`],
         });
       }
     },
