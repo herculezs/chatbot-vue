@@ -2,9 +2,9 @@
   <div class="report">
     <Content>
       <div class="report-notifications" v-if="!isOthersAmount">
-        To keep responses anonymous and honest, we will wait until we have received at
-        least 4 responses before we send your initial results.
-        We will update you as we receive more responses ...
+        To keep responses anonymous and honest,
+        we will wait until we have received at least <b>4 responses</b> before
+        we send your first results. We will update you as further responses come in ...
       </div>
 
       <h1 class="h4 text-center mb-1">Well done {{ getProfile.name }}!</h1>
@@ -44,7 +44,7 @@
       </template>
 
       <div class="diagram mb-5">
-        <div class="diagram__title-with-respondents mb-3" v-if="respondentsCount">
+        <div class="diagram__title-with-respondents" v-if="respondentsCount">
           <div class="report__respondents">
             <svg class="report__respondents-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.42 15.93">
               <circle

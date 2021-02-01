@@ -65,7 +65,7 @@ export default {
         bottom: '3%',
         containLabel: true,
         width: '100%',
-        height: '280px',
+        height: '240px',
       },
       xAxis: {
         max: 4.1,
@@ -146,29 +146,40 @@ export default {
         const choseColor = '#0077a2';
         const color = data[2] === this.selectedCharateristic[2] ? choseColor
           : this.colorsByType[type].color;
+        let labelByPoint;
+
+        if (type === 'YOU_ARE' || type === 'COLLEAGUE'
+          || type === 'YOU_THINK_ABOUT' || type === 'GROUP') {
+          labelByPoint = {
+            show: true,
+            position: 'top',
+            formatter(d) {
+              const v = d.value;
+              return v[2];
+            },
+          };
+        } else {
+          labelByPoint = {
+            show: false,
+            position: 'top',
+          };
+        }
 
         return ({
           type: 'scatter',
           symbolSize: 15,
           symbol: 'diamond',
+          label: labelByPoint,
           itemStyle: {
             normal: {
               color,
               borderWidth: 0,
-              label: {
-                show: true,
-                position: 'top',
-                formatter(d) {
-                  const v = d.value;
-                  return v[2];
-                },
-              },
             },
           },
           emphasis: {
             label: {
+              show: true,
               formatter(param) {
-                // return `${param.value[2]}${param.value[3] ? '\nClick for more details' : ''}`;
                 let res = `${param.data[2]}`;
                 // eslint-disable-next-line no-unused-expressions
                 const oneCharacter = Object.values(constant.cards)

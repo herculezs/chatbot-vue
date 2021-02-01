@@ -25,12 +25,10 @@
           How it works
         </div>
         <div class="text onBoarding__tex text-center mb-3">
-          Step 1: You will be asked 12 short questions about
-          and receive your first report.
+          {{ configEnv.onboarding.step1 }}
         </div>
         <div class="text onBoarding__tex text-center mb-3">
-          Step 2: Ask your contacts to answer 12 short
-          questions about you to receive your comparative report.
+          {{ configEnv.onboarding.step2 }}
         </div>
         <button
           class="button button_w-100
