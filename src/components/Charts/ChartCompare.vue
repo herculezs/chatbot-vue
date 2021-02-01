@@ -49,14 +49,14 @@ export default {
         color: '#ff5151',
       },
       GROUP: {
-        label: '#7811c9',
-        border: '#54109a',
-        color: 'rgba(90,16,147,0.89)',
-      },
-      YOU_THINK_ABOUT: {
         label: '#ff5151',
         border: '#b43e3e',
         color: '#ff5151',
+      },
+      YOU_THINK_ABOUT: {
+        label: '#7811c9',
+        border: '#54109a',
+        color: 'rgba(90,16,147,0.89)',
       },
     },
     getChartData: {
