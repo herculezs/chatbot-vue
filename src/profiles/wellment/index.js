@@ -2,16 +2,13 @@ export default {
   report: {
     textForReport: {
       title: 'Crowdsource your Work Persona',
-      paragraph1: 'Your report so far is what you think your personality is.'
-        + ' This is called your Anima.'
-        + ' The "you" that others experience is called your Persona.'
-        + ' We can find out what your Work Persona is by asking people you work or have worked with'
-        + ' to answer questions about you.',
-      paragraph2: 'Share the link with your colleagues - they can answer a similar questionnaire about'
-        + ' you and remain totally anonymous. We do this so they are more open and honest than'
-        + ' they might be if you asked them directly.',
-      paragraph3: 'You need to get at least 4 responses for us to show the anonymised results.'
-        + ' We will continue to update you as we receive more responses.',
+      paragraph1: 'Hi, {{firstName}} {{secondName}} would like you to'
+        + ' click the link below and fill in the survey. {{firstName}}'
+        + ' is trying to find out what their personality is like.'
+        + ' We find out what their personality is by asking people they know.',
+      paragraph2: 'Once we get at a minimum of 3 other responses, we will show you the anonymized results.'
+        + ' You can go through the process yourself once you have answered {{firstName}}\'s questions.',
+      paragraph3: 'Here is the link:',
     },
   },
   charts: {

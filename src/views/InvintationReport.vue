@@ -275,7 +275,7 @@ export default {
         {
           value: [],
           type: 'YOU_THINK_ABOUT',
-          data: [resYouThink[0], resYouThink[1], `You think ${this.getPersonalityTest.name} is here${(this.getPersonalityTest.othersAmount >= 3 && (resYouThink[0] === resColleguag[0] && resYouThink[1] === resColleguag[1])) ? '\nthe GROUP answered' : ''}`],
+          data: [resYouThink[0], resYouThink[1], `You score ${this.getPersonalityTest.name} as - \n${this.collegAnswerCard.title.toUpperCase()}${(this.getPersonalityTest.othersAmount >= 3 && (resYouThink[0] === resColleguag[0] && resYouThink[1] === resColleguag[1])) ? '\nthe GROUP answered' : ''}`],
         },
       );
 
@@ -295,10 +295,10 @@ export default {
           type: 'error',
           text: 'User has already completed the personality test',
         });
-        // return;
+        return;
       }
 
-      // this.$router.push('questionnaire');
+      this.$router.push('questionnaire');
     },
   },
 };

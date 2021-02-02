@@ -94,13 +94,23 @@
           {{configEnv.report.textForReport.title}}
         </template>
         <p class="text mb-3">
-          {{configEnv.report.textForReport.paragraph1}}
+          {{changeName(configEnv.report.textForReport.paragraph1)}}
         </p>
         <p class="text mb-3">
-          {{configEnv.report.textForReport.paragraph2}}
+          <b>
+            Your answers are totally anonymous - you only see what you have
+            answered and those answers are aggregated up so that no one can tell what you have said.
+          </b>
+        </p>
+        <p class="text mb-3">
+          We made it anonymous as we hope you can be more
+          open and honest than you might be if you were asked directly.
+        </p>
+        <p class="text mb-3">
+          {{changeName(configEnv.report.textForReport.paragraph2)}}
         </p>
         <p class="text mb-4">
-          {{configEnv.report.textForReport.paragraph3}}
+          {{changeName(configEnv.report.textForReport.paragraph3)}}
         </p>
         <InputCopy v-model="shareLink" class="mb-4" />
       </b-modal>
@@ -186,6 +196,10 @@ export default {
     this.fetchPersonalityTypeReport();
   },
   methods: {
+    changeName(text) {
+      return text.replace(/\{\{firstName\}\}/g, this.getProfile.name).replace(/\{\{secondName\}\}/g,
+        this.getProfile.lastName);
+    },
     setChosenCharacteristic(event) {
       this.selectedCharateristic = {
         name: event[2],
@@ -199,6 +213,7 @@ export default {
       this.collegAnswerCard = constants.cards[title];
     },
     chartOptionsBar() {
+      console.log('this.', this.getProfile);
       Object.values(constants.cards).forEach((value) => {
         this.data.push({
           value: [],
