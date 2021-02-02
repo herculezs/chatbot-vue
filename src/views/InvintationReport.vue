@@ -150,7 +150,6 @@ export default {
         name: event[2],
         text: event[3],
       };
-      console.log('this.selectedCharateristic', this.selectedCharateristic);
     },
     setCollegeAnswerCard(title) {
       this.collegAnswerCard = constants.cards[title];

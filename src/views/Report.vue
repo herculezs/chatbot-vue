@@ -267,7 +267,7 @@ export default {
         this.SelfCoordinate = this.Coordinates(res.selfResult);
 
         this.setYouAnswerCard(this.SelfCoordinate[2]);
-        this.shareLink = `${window.location.host}${res.invitationLink}`;
+        this.shareLink = `${window.location.protocol}//${window.location.host}${res.invitationLink}`;
 
         const [youAreX, youAreY] = this.SelfCoordinate;
 
