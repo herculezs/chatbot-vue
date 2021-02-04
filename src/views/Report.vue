@@ -117,8 +117,13 @@
       <FeedbackModal v-model="showReportModal" />
       <button
         v-b-modal.modal-multi-1
-        class="button button_w-100 button_theme-default button_size-m">
+        class="button button_theme-default button_size-m button-left">
         Ask Colleagues
+      </button>
+      <button
+        @click="redirectToQuestionnaireManagement"
+        class="button button_theme-default button_size-m button-right">
+        See Surveys
       </button>
     </Content>
   </div>
@@ -196,6 +201,9 @@ export default {
     this.fetchPersonalityTypeReport();
   },
   methods: {
+    redirectToQuestionnaireManagement() {
+      this.$router.push('questionnaire-management');
+    },
     changeName(text) {
       return text.replace(/\{\{firstName\}\}/g, this.getProfile.name).replace(/\{\{secondName\}\}/g,
         this.getProfile.lastName);
@@ -213,7 +221,6 @@ export default {
       this.collegAnswerCard = constants.cards[title];
     },
     chartOptionsBar() {
-      console.log('this.', this.getProfile);
       Object.values(constants.cards).forEach((value) => {
         this.data.push({
           value: [],
@@ -486,5 +493,16 @@ export default {
   .chart-label {
     background-color: $chartLabel;
     font-size: 14px;
+  }
+
+  .button-left {
+    float: left;
+    width: 45%;
+  }
+
+  .button-right {
+    float: right;
+    width: 45%;
+    margin-bottom: 50px;
   }
 </style>

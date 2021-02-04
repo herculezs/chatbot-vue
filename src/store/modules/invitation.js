@@ -2,6 +2,7 @@ import api from '@api';
 
 const getters = {
   getPersonalityTest: state => state.personalityTest,
+  getPersonalityTestForManager: state => state.personalityTest,
 };
 
 const actions = {
@@ -10,11 +11,17 @@ const actions = {
       commit('setPersonalityTest', res);
     });
   },
+  setPersonalityTestForManager({ commit }, formData) {
+    commit('setPersonalityTestForManager', formData);
+  },
 };
 
 const mutations = {
   setPersonalityTest(state, data) {
     state.personalityTest = data;
+  },
+  setPersonalityTestForManager(state, formData) {
+    state.personalityTest = formData.formData;
   },
 };
 

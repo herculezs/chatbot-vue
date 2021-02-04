@@ -6,7 +6,7 @@
         This report shows what personality type you
         think your contact is and how your
         answers compare to the other people asked.</h1>
-      <div class="h5 mb-4" v-if="getPersonalityTest.othersAmount >= 3">
+      <div class="h5 mb-4" v-if="getPersonalityTest.othersAmount > 3">
         Based on {{getPersonalityTest.othersAmount}}
         respondents, {{getPersonalityTest.name}}'s persona is ...
       </div>
@@ -50,10 +50,14 @@
 
       <FeedbackModal v-model="showReportModal" />
       <button
-        class="button button_w-100 button_theme-default button_size-m"
-        @click="redirectToQuestions"
-      >
+        class="button button_theme-default button_size-m button-left"
+        @click="redirectToQuestions" >
         Find Out How Others See You
+      </button>
+      <button
+        @click="redirectToQuestionnaireManagement"
+        class="button button_theme-default button_size-m button-right">
+        See Surveys
       </button>
     </Content>
   </div>
@@ -92,7 +96,6 @@ export default {
     ...mapGetters({
       getPersonalityTest: 'invitation/getPersonalityTest',
       getProfile: 'auth/getProfile',
-
     }),
     isOthersAmount() {
       return this.getPersonalityTest.othersAmount > 3;
@@ -103,6 +106,7 @@ export default {
       return constants.cards[this.getPersonalityTest.result];
     },
     getChartBarData() {
+      console.log('this.getPersonalityTest', this.getPersonalityTest);
       this.chartOptionsBar();
       if (this.getPersonalityTest.othersAmount >= 3) {
         return [
@@ -197,8 +201,8 @@ export default {
       }
       if (this.getPersonalityTest.othersAverageResult) {
         resColleguag = this.coordinates(this.getPersonalityTest.othersAverageResult);
+        this.setCollegeAnswerCard(resColleguag[2]);
       }
-      this.setCollegeAnswerCard(resColleguag[2]);
 
       const [youAreX, youAreY] = resYouThink;
 
@@ -299,6 +303,9 @@ export default {
 
       this.$router.push('questionnaire');
     },
+    redirectToQuestionnaireManagement() {
+      this.$router.push('questionnaire-management');
+    },
   },
 };
 </script>
@@ -348,5 +355,16 @@ export default {
   .chart-label {
     background-color: $chartLabel;
     font-size: 14px;
+  }
+
+  .button-left {
+    float: left;
+    width: 45%;
+  }
+
+  .button-right {
+    float: right;
+    width: 45%;
+    margin-bottom: 50px;
   }
 </style>

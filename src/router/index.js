@@ -100,11 +100,19 @@ export default new Router({
         // eslint-disable-next-line no-underscore-dangle
         // const userAuth = Store.getters['auth/getProfile'].token;
         const invitation = Store.getters['invitation/getPersonalityTest'].result;
+        let invitationManager;
+        if (Store.getters['invitation/getPersonalityTestForManager']) {
+          invitationManager = Store.getters['invitation/getPersonalityTestForManager'];
+        }
 
-        if (!invitation) {
+
+        if (!invitationManager && (invitation !== undefined)) {
           next('/');
         }
 
+        if (!invitation && invitationManager) {
+          next('/');
+        }
         next();
       },
     },
@@ -197,6 +205,21 @@ export default new Router({
         if (userAuth) {
           next('/questionnaire');
           return;
+        }
+
+        next();
+      },
+    },
+    {
+      path: '/questionnaire-management',
+      name: 'questionnaire-management',
+      component: () => import('@views/QuestionnaireManagement.vue'),
+      beforeEnter: (to, from, next) => {
+        // eslint-disable-next-line no-underscore-dangle
+        const userAuth = Store.getters['auth/getProfile'].token;
+
+        if (!userAuth) {
+          next('/');
         }
 
         next();
