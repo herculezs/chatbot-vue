@@ -49,6 +49,9 @@ const actions = {
   setRedirectAuth({ commit }, path) {
     commit('setRedirectAuth', path);
   },
+  updateProfile({ commit }, data) {
+    commit('setProfile', data);
+  },
 };
 
 const mutations = {

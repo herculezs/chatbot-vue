@@ -121,7 +121,15 @@ export default {
   .button {
     text-align: center;
   }
+  .button:active {
+    border-color: $mnColor2;
+    background-color: $mnColor3;
+  }
   .button-other {
     text-align: center;
+  }
+  .button-other:active {
+    border-color: $mnColor2;
+    background-color: $mnColor3;
   }
 </style>

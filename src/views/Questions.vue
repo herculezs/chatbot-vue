@@ -185,6 +185,15 @@ export default {
 
       return this.$api.questionnaire.saveAnswer(this.formData)
         .then(() => {
+          const profile = {
+            ...this.getProfile,
+            completedQuestionnaires: [...this.getProfile.completedQuestionnaires,
+              process.env.QUESTIONNAIRE_ID],
+          };
+
+          this.$store.dispatch('auth/updateProfile', profile).then(() => {
+            this.$router.replace(this.getRedirectAuth);
+          });
           this.$router.push({ name: 'report' });
         });
     },

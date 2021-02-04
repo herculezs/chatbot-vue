@@ -177,7 +177,7 @@ export default {
             label: {
               show: true,
               formatter(param) {
-                let res = `${param.data[2]}`;
+                let res = `${param.data[2].toUpperCase()}`;
                 // eslint-disable-next-line no-unused-expressions
                 const oneCharacter = Object.values(constant.cards)
                   .filter(x => x.title === param.value[2]);

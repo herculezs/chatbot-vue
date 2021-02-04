@@ -106,7 +106,6 @@ export default {
       return constants.cards[this.getPersonalityTest.result];
     },
     getChartBarData() {
-      console.log('this.getPersonalityTest', this.getPersonalityTest);
       this.chartOptionsBar();
       if (this.getPersonalityTest.othersAmount >= 3) {
         return [
@@ -298,7 +297,7 @@ export default {
           type: 'error',
           text: 'User has already completed the personality test',
         });
-        return;
+        this.$router.push('report');
       }
 
       this.$router.push('questionnaire');
