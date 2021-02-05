@@ -16,7 +16,6 @@
       <br/>
       <div class="questions-list" v-if="selfResult">
         <div class="questions-item"
-             v-bind:class="{ active: selectButtonSurveys }"
              v-on:click="selectSurveysMyReport">
           <div
             class="questions-item__content button">
@@ -28,18 +27,12 @@
         <div class="questions-item"
              v-for="(item, index) in otherResult"
              :key="index">
-          <!--           :class="{'active' : 1+index === selectedAnswer}"-->
           <div
             v-bind:class="{ active: selectButtonSurveys }"
             class="questions-item__content button-other"
             @click.prevent="selectQuestion(item)"
           >
-            <b>{{item.firstName + " " + item.lastName + ","}}</b> {{ item.phone }}
-            <br/>{{ item.email }}
-            <!--          <img v-if="1+index === selectedAnswer"-->
-            <!--               class="questions-item__icon-checked"-->
-            <!--               :src="checkbox"-->
-            <!--               alt="checkbox">-->
+            <b>{{item.firstName + " " + item.lastName}}</b>
           </div>
         </div>
       </div>
@@ -120,16 +113,19 @@ export default {
 <style lang="scss">
   .button {
     text-align: center;
+    background-color: $btnColor1;
+    color: white;
   }
   .button:active {
-    border-color: $mnColor2;
+    border-color: $mnColor3;
     background-color: $mnColor3;
   }
   .button-other {
     text-align: center;
+    background-color: $btnColor3;
   }
   .button-other:active {
-    border-color: $mnColor2;
+    border-color: $mnColor3;
     background-color: $mnColor3;
   }
 </style>

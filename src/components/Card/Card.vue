@@ -148,7 +148,6 @@ export default {
 
   .card-info__title{
     text-align: center;
-    color: $txtColor6;
     font-family: $defaultFont;
   }
   .card__button-show-more{
@@ -157,6 +156,12 @@ export default {
   .card_hide{
     background: $bgCardColor1;
     transition: background 0.3s;
+    & .card-info__title{
+      color: $txtColor6;
+    }
+    & .card-info__text{
+      color: $txtColor6;
+    }
     &:hover, &:focus{
       background: $bgCardHoverColor1;
     }
@@ -167,16 +172,28 @@ export default {
   .card_hide_answers{
     background: $bgCardColor2;
     transition: background 0.3s;
+    & .card-info__text{
+      color: $txtColor7;
+    }
+    & .card-info__title{
+      color: $txtColor7;
+    }
     &:hover, &:focus{
       background: $bgCardHoverColor2;
     }
     & .character-color {
-      color: rgb(255, 255, 255);
+      color: $txtColor7;
     }
   }
   .card_hide_contact{
     background: $bgCardColor3;
     transition: background 0.3s;
+    & .card-info__title{
+      color: $txtColor6;
+    }
+    & .card-info__text{
+      color: $txtColor6;
+    }
     &:hover, &:focus{
       background: $bgCardHoverColor3;
     }
