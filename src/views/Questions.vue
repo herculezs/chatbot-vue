@@ -159,7 +159,7 @@ export default {
     },
     saveAnswerByPersonalityTest() {
       if (!localStorage.getItem('uniqueId')) {
-        localStorage.setItem('uniqueId', `${Math.floor(Math.random()
+        localStorage.setItem('uniqueId', `anonymous${Math.floor(Math.random()
           * Math.floor(Math.random() * Date.now()) * Math.random())}`);
       }
 

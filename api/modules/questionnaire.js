@@ -39,7 +39,6 @@ export default {
     });
   },
   saveInvitationAnswer(formData, id, uniqueId) {
-    console.log('213123', uniqueId);
     return new Promise((resolve, reject) => {
       http.post(`/questionnaire/invitation/${process.env.QUESTIONNAIRE_ID}/u2/${id}`, { answers: formData, uniqueId }).then(
         (res) => {
