@@ -394,6 +394,10 @@ export default {
       const phone = `+${this.formData.diaCode}${this.formData.phone}`
         .replace(/\s/g, '');
 
+      let uniqueId = null;
+      if (localStorage.getItem('uniqueId') !== null) {
+        uniqueId = localStorage.getItem('uniqueId');
+      }
       // const currentMonthNumber = this.formData.month + 1;
       return {
         name: this.formData.firstName,
@@ -402,6 +406,8 @@ export default {
         // eslint-disable-next-line radix,max-len
         // dateOfBirth: [this.formData.year, currentMonthNumber < 9 ? `0${currentMonthNumber}` : currentMonthNumber, this.formData.day <= 9 ? `0${parseInt(this.formData.day)}` : parseInt(this.formData.day)].join('-'),
         phone,
+        questionId: process.env.QUESTIONNAIRE_ID,
+        uniqueId,
       };
     },
     start() {

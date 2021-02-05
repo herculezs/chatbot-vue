@@ -7,9 +7,10 @@ const getters = {
 
 const actions = {
   setPersonalityTest({ commit }, data) {
-    return api.questionnaire.saveInvitationAnswer(data.formData, data.id).then((res) => {
-      commit('setPersonalityTest', res);
-    });
+    return api.questionnaire.saveInvitationAnswer(data.formData, data.id, data.uniqueId)
+      .then((res) => {
+        commit('setPersonalityTest', res);
+      });
   },
   setPersonalityTestForManager({ commit }, formData) {
     commit('setPersonalityTestForManager', formData);

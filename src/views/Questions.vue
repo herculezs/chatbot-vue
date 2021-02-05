@@ -158,20 +158,26 @@ export default {
       this.formData[this.getDataByStep.qid] = questionId;
     },
     saveAnswerByPersonalityTest() {
+      if (!localStorage.getItem('uniqueId')) {
+        localStorage.setItem('uniqueId', `${Math.floor(Math.random()
+          * Math.floor(Math.random() * Date.now()) * Math.random())}`);
+      }
+
       return this.$store.dispatch('invitation/setPersonalityTest',
         {
           formData: this.formData,
           id: this.$route.params.id,
+          uniqueId: localStorage.getItem('uniqueId'),
         }).then(() => {
         if (this.isAuth) {
-          return this.$router.push({ name: this.redirectLink });
+          return this.$router.push({ name: 'questionnaire-management' });
         }
 
         return this.toggleShowContent();
       });
     },
     setRedirectAuth() {
-      this.$store.dispatch('auth/setRedirectAuth', this.redirectLink);
+      this.$store.dispatch('auth/setRedirectAuth', 'questionnaire-management');
     },
     toggleShowContent() {
       this.show.questions = !this.show.questions;
