@@ -118,7 +118,7 @@
       <button
         v-b-modal.modal-multi-1
         class="button button_theme-default button_size-m button-left">
-        Ask Colleagues
+        Ask Contacts
       </button>
       <button
         @click="redirectToQuestionnaireManagement"
