@@ -88,4 +88,21 @@ export default {
       });
     });
   },
+  newCode(id) {
+    return new Promise((resolve, reject) => {
+      http.post(`user-auth/${id}/resend-code`).then(
+        ({ data }) => {
+          Vue.notify({
+            type: 'success',
+            title: 'Success',
+            text: 'The new code was successfully sent',
+          });
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
 };

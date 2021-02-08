@@ -24,6 +24,14 @@
             </div>
           </template>
         </div>
+        <div class="resent-code">
+          <span class="resent-code-text" @click.prevent="sendNewSmsCode" v-if="countDown === 0">
+            Resend code?
+          </span>
+          <span class="resent-code-text-timer" v-else>
+            Resend code will be available in {{countDown}} seconds
+          </span>
+        </div>
         <div class="form-group form-group_submit">
           <button
             class="form button button_w-100 button_theme-default button_size-m"
@@ -60,6 +68,8 @@ export default {
     formData: {
       code: null,
     },
+    countDown: 0,
+    firstTime: true,
   }),
   computed: {
     ...mapGetters({
@@ -80,8 +90,41 @@ export default {
         // });
       }
     },
+    sendNewSmsCode() {
+      if (this.countDown === 0) {
+        this.$api.auth.newCode(this.getProfile.id);
+        this.countDown = 60;
+        this.countDownTimer();
+      }
+    },
+    countDownTimer() {
+      if (this.countDown > 0) {
+        setTimeout(() => {
+          this.countDown -= 1;
+          this.countDownTimer();
+        }, 1000);
+      }
+    },
   },
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+  .resent-code {
+    float: right;
+    margin-bottom: 15px;
+  }
+  .resent-code-text {
+    cursor: pointer;
+    color: $lnkColor2;
+    font-family: Montserrat,sans-serif;
+  }
+  .resent-code-text-timer {
+    color: $lnkColor2;
+    font-family: Montserrat,sans-serif;
+  }
+  .resent-code-text:active {
+    cursor: pointer;
+    color: $activeLnkColor2;
+  }
+</style>

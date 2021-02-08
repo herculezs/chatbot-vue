@@ -49,16 +49,26 @@
 
 
       <FeedbackModal v-model="showReportModal" />
-      <button
-        class="button button_theme-default button_size-m button-left"
-        @click="redirectToQuestions" >
-        Find Out How Others See You
-      </button>
-      <button
-        @click="redirectToQuestionnaireManagement"
-        class="button button_theme-default button_size-m button-right">
-        See Surveys
-      </button>
+      <div v-if="checkCompletedTest()">
+        <button
+          class="button button_theme-default button_size-m button-left"
+          @click="redirectToQuestions">
+          Find Out How Others See You
+        </button>
+        <button
+          @click="redirectToQuestionnaireManagement"
+          class="button button_theme-default button_size-m button-right">
+          See Surveys
+        </button>
+      </div>
+      <div v-else>
+        <button
+          @click="redirectToQuestionnaireManagement"
+          class="button button_w-100 button_theme-default button_size-m">
+          See Surveys
+        </button>
+      </div>
+
     </Content>
   </div>
 </template>
@@ -106,6 +116,7 @@ export default {
       return constants.cards[this.getPersonalityTest.result];
     },
     getChartBarData() {
+      console.log('getProfile', this.getProfile);
       this.chartOptionsBar();
       if (this.getPersonalityTest.othersAmount >= 3) {
         return [
@@ -156,6 +167,15 @@ export default {
     },
     setCollegeAnswerCard(title) {
       this.collegAnswerCard = constants.cards[title];
+    },
+    checkCompletedTest() {
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i <= this.getProfile.completedQuestionnaires.length; i++) {
+        if (this.getProfile.completedQuestionnaires[i] === process.env.QUESTIONNAIRE_ID) {
+          return false;
+        }
+      }
+      return true;
     },
     coordinates(Res) {
       const finalCategoryFormula = Res.split(/(?=[-+])/);

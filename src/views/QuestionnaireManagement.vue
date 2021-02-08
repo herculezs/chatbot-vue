@@ -3,7 +3,7 @@
     <Content>
       <br/>
       <div v-if="!selfResult && fetchRes">
-        <button class="button button_w-100 button_theme-default button_size-m"
+        <button class="button-management button_w-100 button_theme-default button_size-m"
                 @click="redirectToQuestions"
         >
           Take Your Own Survey
@@ -18,7 +18,7 @@
         <div class="questions-item"
              v-on:click="selectSurveysMyReport">
           <div
-            class="questions-item__content button">
+            class="questions-item__content button-management">
             Your Survey
           </div>
         </div>
@@ -114,12 +114,12 @@ export default {
 </script>
 
 <style lang="scss">
-  .button {
+  .button-management {
     text-align: center;
     background-color: $btnColor1;
     color: white;
   }
-  .button:active {
+  .button-management:active {
     border-color: $mnColor3;
     background-color: $mnColor3;
   }
