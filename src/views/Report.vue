@@ -86,33 +86,30 @@
       </div>
 
       <b-modal
+        modal-class="modal-sticky-bottom ask-contacts"
+        class="ask-contacts"
         id="modal-multi-1"
-        modal-class="modal-sticky-bottom"
         hide-footer
       >
         <template v-slot:modal-title>
           {{configEnv.report.textForReport.title}}
         </template>
-        <p class="text mb-3">
-          {{changeName(configEnv.report.textForReport.paragraph1)}}
+        <p class="text mb-3" v-html="configEnv.report.textForReport.paragraph1">
+          {{configEnv.report.textForReport.paragraph1}}
         </p>
         <p class="text mb-3">
-          <b>
-            Your answers are totally anonymous - you only see what you have
-            answered and those answers are aggregated up so that no one can tell what you have said.
-          </b>
+          {{configEnv.report.textForReport.paragraph2}}
         </p>
-        <p class="text mb-3">
-          We made it anonymous as we hope you can be more
-          open and honest than you might be if you were asked directly.
-        </p>
-        <p class="text mb-3">
-          {{changeName(configEnv.report.textForReport.paragraph2)}}
+        <p class="text mb-3" v-html="configEnv.report.textForReport.paragraph3">
+          {{configEnv.report.textForReport.paragraph3}}
         </p>
         <p class="text mb-4">
-          {{changeName(configEnv.report.textForReport.paragraph3)}}
+          Click the <b>copy button below</b> and paste the explanatory
+          text and link to your colleagues using your favourite method.
         </p>
         <InputCopy v-model="shareLink" class="mb-4" />
+        <br/>
+        <br/>
       </b-modal>
       <FeedbackModal v-model="showReportModal" />
       <button
@@ -128,7 +125,7 @@
     </Content>
   </div>
 </template>
-
+<!--          {{changeName(configEnv.report.textForReport.paragraph2)}}-->
 <script>
 import Card from '@components/Card/Card.vue';
 import InputCopy from '@components/InputCopy/InputCopy.vue';
@@ -244,7 +241,7 @@ export default {
         this.data.push({
           value: [],
           type: 'COLLEAGUE',
-          data: [this.OtherCoordinate[0], this.OtherCoordinate[1], `Your Colleagues say - \n${this.collegAnswerCard.title.toUpperCase()}`],
+          data: [this.OtherCoordinate[0], this.OtherCoordinate[1], `Your contacts say - \n${this.collegAnswerCard.title.toUpperCase()}`],
         });
       }
     },
@@ -376,10 +373,11 @@ export default {
     },
     showFeedBackModalByParams() {
       const { isOthersAmount } = this;
-      const isCompletedFeedBack = this.getProfile.completedFeedbacks.length;
-
-      if (!isCompletedFeedBack && isOthersAmount) {
-        setTimeout(() => this.setShowReportModal(true), 60000);
+      if (isOthersAmount) {
+        const { completedFeedbacks } = this.getProfile;
+        if (!completedFeedbacks.includes(process.env.FEEDBACK_ID)) {
+          setTimeout(() => this.setShowReportModal(true), 60000);
+        }
       }
     },
     setShowReportModal(value) {
@@ -498,6 +496,15 @@ export default {
   .button-left {
     float: left;
     width: 45%;
+  }
+
+
+  .ask-contacts .modal-content {
+    @media (max-height: $xxsMaxHeight) {
+      max-height: 100vh;
+      overflow: auto;
+    }
+
   }
 
   .button-right {

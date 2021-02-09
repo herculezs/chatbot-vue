@@ -25,11 +25,14 @@
           </template>
         </div>
         <div class="resent-code">
-          <span class="resent-code-text" @click.prevent="sendNewSmsCode" v-if="countDown === 0">
-            Resend code?
-          </span>
-          <span class="resent-code-text-timer" v-else>
-            Resend code will be available in {{countDown}} seconds
+<!--       <span class="resent-code-text" @click.prevent="sendNewSmsCode" v-if="countDown === 0">-->
+<!--            Resend code?-->
+<!--          </span>-->
+<!--          <span class="resent-code-text-timer" v-else>-->
+<!--            Resend code will be available in {{countDown}} seconds-->
+<!--          </span>-->
+          <span class="resent-code-text" @click.prevent="redirectToMainPage">
+            Not received code?
           </span>
         </div>
         <div class="form-group form-group_submit">
@@ -90,20 +93,24 @@ export default {
         // });
       }
     },
-    sendNewSmsCode() {
-      if (this.countDown === 0) {
-        this.$api.auth.newCode(this.getProfile.id);
-        this.countDown = 60;
-        this.countDownTimer();
-      }
-    },
-    countDownTimer() {
-      if (this.countDown > 0) {
-        setTimeout(() => {
-          this.countDown -= 1;
-          this.countDownTimer();
-        }, 1000);
-      }
+    // resent code
+    // sendNewSmsCode() {
+    //   if (this.countDown === 0) {
+    //     this.$api.auth.newCode(this.getProfile.id);
+    //     this.countDown = 60;
+    //     this.countDownTimer();
+    //   }
+    // },
+    // countDownTimer() {
+    //   if (this.countDown > 0) {
+    //     setTimeout(() => {
+    //       this.countDown -= 1;
+    //       this.countDownTimer();
+    //     }, 1000);
+    //   }
+    // },
+    redirectToMainPage() {
+      this.$router.push({ name: 'main' });
     },
   },
 };

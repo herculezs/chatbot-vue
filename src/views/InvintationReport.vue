@@ -3,9 +3,9 @@
     <Content>
       <h1 class="h4 mb-1">Report</h1>
       <h1 class="h6 mb-1 first_report">
-        This report shows what personality type you
-        think your contact is and how your
-        answers compare to the other people asked.</h1>
+        This report shows what personality type you think {{getProfile.name}}
+        is and how your answers compare to the other people asked.
+      </h1>
       <div class="h5 mb-4" v-if="getPersonalityTest.othersAmount > 3">
         Based on {{getPersonalityTest.othersAmount}}
         respondents, {{getPersonalityTest.name}}'s persona is ...
@@ -153,7 +153,7 @@ export default {
   },
   created() {
     // eslint-disable-next-line no-return-assign
-    setTimeout(() => this.showReportModal = true, 60000);
+    this.showFeedBackModalByParams();
   },
   methods: {
     refreshData() {
@@ -324,6 +324,17 @@ export default {
     },
     redirectToQuestionnaireManagement() {
       this.$router.push('questionnaire-management');
+    },
+
+    showFeedBackModalByParams() {
+      // eslint-disable-next-line no-plusplus
+      const { completedFeedbacks } = this.getProfile;
+      if (!completedFeedbacks.includes(process.env.FEEDBACK_ID)) {
+        setTimeout(() => this.setShowReportModal(true), 60000);
+      }
+    },
+    setShowReportModal(value) {
+      this.showReportModal = value;
     },
   },
 };

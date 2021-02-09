@@ -59,8 +59,7 @@ export default {
       },
       question3: {
         type: 'textarea',
-        question: 'Thanks you!  Let us know what we can do to be even better\n'
-          + 'or if you would like us to contact you?',
+        question: 'What can we do to improve?',
         value: '',
       },
     },
@@ -86,22 +85,30 @@ export default {
         this.formData.question3.question = this.getQuestionsByRating();
       },
     },
+    'formData.question1.value': {
+      handler() {
+        this.formData.question3.question = this.getQuestionsByRating();
+      },
+    },
   },
   methods: {
     getQuestionsByRating() {
-      const rating = this.formData.question2.value;
+      const questionRating1 = this.formData.question1.value;
+      const questionRation2 = this.formData.question2.value;
+      const avgRating = (questionRating1 + questionRation2) / 2;
+
       let result = '';
 
       switch (true) {
-        case (rating <= 3):
+        case (avgRating <= 3):
           result = 'What can we do to improve?';
           break;
-        case (rating >= 3.5 && rating <= 4):
+        case (avgRating >= 3.5 && avgRating <= 4):
           result = 'What was the reason for your score?';
           break;
-        case (rating > 4):
-          result = 'Thank you!  Let us know what we can '
-            + 'do to be even better or if you would like us to contact you?';
+        case (avgRating > 4):
+          result = 'Thank you! Let us know what we can do to be even better. '
+            + 'We can contact you or you can use the in-app chat below to talk to us';
           break;
         default:
           result = 'What can we do to improve?';

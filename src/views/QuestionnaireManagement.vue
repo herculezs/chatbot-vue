@@ -118,6 +118,7 @@ export default {
     text-align: center;
     background-color: $btnColor1;
     color: white;
+    border: none;
   }
   .button-management:active {
     border-color: $mnColor3;

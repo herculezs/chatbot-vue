@@ -1,14 +1,17 @@
 export default {
   report: {
     textForReport: {
-      title: 'Crowdsource your Persona',
-      paragraph1: 'Hi, {{firstName}} {{secondName}} would like you to'
-        + ' click the link below and fill in the survey. {{firstName}}'
-        + ' is trying to find out what their personality is like.'
-        + ' We find out what their personality is by asking people they know.',
-      paragraph2: 'Once we get at a minimum of 3 other responses, we will show you the anonymized results.'
-        + ' You can go through the process yourself once you have answered {{firstName}}\'s questions.',
-      paragraph3: 'Here is the link:',
+      title: 'Crowdsource your Social Persona',
+      paragraph1: 'Your report so far is what <b>you think your personality is</b>. This is called your Anima.'
+        + ' The "you" that others experience is called your Persona. We'
+        + ' can find out what your Social Persona is by asking people you'
+        + ' know socially to answer questions about you.',
+      paragraph2: 'Share the link with your friends and family - they can answer a'
+        + ' similar questionnaire about you and all answers remain'
+        + ' totally anonymous. We do this so everyone can be more open and'
+        + ' honest than they might be if they were asked directly.',
+      paragraph3: 'You need to get at least <b>4 responses</b> for us to show the'
+        + ' anonymised results. We will continue to update you as we receive more responses.',
     },
   },
   charts: {
