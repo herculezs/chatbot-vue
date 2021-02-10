@@ -224,7 +224,6 @@ export default {
         this.setYourAnswerCard(resYouThink[2]);
       }
       if (this.getPersonalityTest.othersAverageResult) {
-
         resColleguag = this.coordinates(this.getPersonalityTest.othersAverageResult);
         this.setCollegeAnswerCard(resColleguag[2]);
       }
