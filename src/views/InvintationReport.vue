@@ -3,7 +3,7 @@
     <Content>
       <h1 class="h4 mb-1">Report</h1>
       <h1 class="h6 mb-1 first_report">
-        This report shows what personality type you think {{getProfile.name}}
+        This report shows what personality type you think {{getPersonalityTest.name}}
         is and how your answers compare to the other people asked.
       </h1>
       <div class="h5 mb-4" v-if="getPersonalityTest.othersAmount > 3">
@@ -100,6 +100,7 @@ export default {
     data: [],
     nearPoints: [],
     collegAnswerCard: {},
+    yourAnswerCard: {},
     selectedCharateristic: null,
   }),
   computed: {
@@ -168,6 +169,9 @@ export default {
     setCollegeAnswerCard(title) {
       this.collegAnswerCard = constants.cards[title];
     },
+    setYourAnswerCard(title) {
+      this.yourAnswerCard = constants.cards[title];
+    },
     checkCompletedTest() {
       // eslint-disable-next-line no-plusplus
       for (let i = 0; i <= this.getProfile.completedQuestionnaires.length; i++) {
@@ -217,8 +221,10 @@ export default {
 
       if (this.getPersonalityTest.result) {
         resYouThink = this.coordinates(this.getPersonalityTest.result);
+        this.setYourAnswerCard(resYouThink[2]);
       }
       if (this.getPersonalityTest.othersAverageResult) {
+
         resColleguag = this.coordinates(this.getPersonalityTest.othersAverageResult);
         this.setCollegeAnswerCard(resColleguag[2]);
       }
@@ -297,7 +303,7 @@ export default {
         {
           value: [],
           type: 'YOU_THINK_ABOUT',
-          data: [resYouThink[0], resYouThink[1], `You score ${this.getPersonalityTest.name} as - \n${this.collegAnswerCard.title.toUpperCase()}${(this.getPersonalityTest.othersAmount >= 3 && (resYouThink[0] === resColleguag[0] && resYouThink[1] === resColleguag[1])) ? '\nthe GROUP answered' : ''}`],
+          data: [resYouThink[0], resYouThink[1], `You score ${this.getPersonalityTest.name} as - \n${this.yourAnswerCard.title.toUpperCase()}${(this.getPersonalityTest.othersAmount >= 3 && (resYouThink[0] === resColleguag[0] && resYouThink[1] === resColleguag[1])) ? '\nthe GROUP answered' : ''}`],
         },
       );
 

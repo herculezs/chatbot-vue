@@ -88,6 +88,23 @@ export default {
       });
     });
   },
+  updatePhoneNumber(phoneNumber, id) {
+    return new Promise((resolve, reject) => {
+      http.post(`/user-auth/${id}/new-phone-number?phoneNumber=${phoneNumber.replace('+', '%2B')}`).then(
+        ({ data }) => {
+          Vue.notify({
+            type: 'success',
+            title: 'Success',
+            text: 'The new phone was successfully',
+          });
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
   newCode(id) {
     return new Promise((resolve, reject) => {
       http.post(`user-auth/${id}/resend-code`).then(

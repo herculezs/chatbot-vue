@@ -6,9 +6,21 @@
         Please check your phone for SMS with your security code
       </div>
       <form class="form">
+        <div v-if="resentCode" class="form-group form-group_submit">
+          <TelInput
+            v-model="formDataPhone.phone"
+            :diaCode="formDataPhone.diaCode"
+            :validPhone="$v.formDataPhone.phone"
+            @onDiaCode="countryChanged"
+            :placeHolder="configEnv.onboarding.placeholderPhone"
+            :defaultCountry="configEnv.onboarding.defaultStatePhone"
+          >
+          </TelInput>
+        </div>
         <div
-          class="form-group"
+          class="form-group input_enter_code"
           :class="{'form-group-error': $v.formData.code.$error}"
+          v-else
         >
           <input
             class="form__input"
@@ -32,11 +44,17 @@
 <!--            Resend code will be available in {{countDown}} seconds-->
 <!--          </span>-->
           <span class="resent-code-text" @click.prevent="redirectToMainPage">
-            Not received code?
+            {{labelResentCode}}
           </span>
         </div>
         <div class="form-group form-group_submit">
-          <button
+          <button v-if="resentCode"
+            class="form button button_w-100 button_theme-default button_size-m"
+            @click.prevent="updatePhoneNumberSubmit"
+          >
+            Resent Code
+          </button>
+          <button v-else
             class="form button button_w-100 button_theme-default button_size-m"
             @click.prevent="submit"
           >
@@ -52,12 +70,15 @@
 import { validationMixin } from 'vuelidate';
 import { mapGetters } from 'vuex';
 import Content from '@components/Content/Content.vue';
+import configEnv from '@configEnv';
+import TelInput from '@components/InputTel/TelInput.vue';
 
 const { required } = require('vuelidate/lib/validators');
 
 export default {
   components: {
     Content,
+    TelInput,
   },
   mixins: [validationMixin],
   validations: {
@@ -66,13 +87,25 @@ export default {
         required,
       },
     },
+    formDataPhone: {
+      phone: {
+        required,
+      },
+    },
   },
   data: () => ({
+    configEnv,
     formData: {
       code: null,
     },
+    formDataPhone: {
+      diaCode: '',
+      phone: '',
+    },
     countDown: 0,
     firstTime: true,
+    resentCode: false,
+    labelResentCode: 'Not received code?',
   }),
   computed: {
     ...mapGetters({
@@ -80,9 +113,12 @@ export default {
     }),
   },
   methods: {
+    countryChanged(data) {
+      this.formDataPhone.diaCode = data.dialCode;
+    },
     submit() {
-      this.$v.$touch();
-      if (!this.$v.$invalid) {
+      this.$v.formData.$touch();
+      if (!this.$v.formData.$invalid) {
         // eslint-disable-next-line no-underscore-dangle
         this.$store.dispatch('auth/setSecurityCode', this.formData)
           .then(() => {
@@ -93,28 +129,49 @@ export default {
         // });
       }
     },
-    // resent code
-    // sendNewSmsCode() {
-    //   if (this.countDown === 0) {
-    //     this.$api.auth.newCode(this.getProfile.id);
-    //     this.countDown = 60;
-    //     this.countDownTimer();
-    //   }
-    // },
-    // countDownTimer() {
-    //   if (this.countDown > 0) {
-    //     setTimeout(() => {
-    //       this.countDown -= 1;
-    //       this.countDownTimer();
-    //     }, 1000);
-    //   }
-    // },
+    updatePhoneNumberSubmit() {
+      this.$v.formDataPhone.$touch();
+      if (!this.$v.formDataPhone.$invalid) {
+        const phone = `+${this.formDataPhone.diaCode}${this.formDataPhone.phone}`
+          .replace(/\s/g, '');
+        // eslint-disable-next-line no-underscore-dangle
+        this.$store.dispatch('auth/updatePhoneNumber', phone)
+          .then(() => {
+            this.resentCode = false;
+          })
+          .catch(() => {
+            this.$router.push('enter-security-code');
+          });
+      }
+    },
     redirectToMainPage() {
-      this.$router.push({ name: 'main' });
+      this.resentCode = !this.resentCode;
+      if (this.resentCode) {
+        this.labelResentCode = 'Enter security code';
+      } else {
+        this.labelResentCode = 'Not received code?';
+      }
     },
   },
 };
 </script>
+
+<!--// resent code-->
+<!--// sendNewSmsCode() {-->
+<!--//   if (this.countDown === 0) {-->
+<!--//     this.$api.auth.newCode(this.getProfile.id);-->
+<!--//     this.countDown = 60;-->
+<!--//     this.countDownTimer();-->
+<!--//   }-->
+<!--// },-->
+<!--// countDownTimer() {-->
+<!--//   if (this.countDown > 0) {-->
+<!--//     setTimeout(() => {-->
+<!--//       this.countDown -= 1;-->
+<!--//       this.countDownTimer();-->
+<!--//     }, 1000);-->
+<!--//   }-->
+<!--// },-->
 
 <style lang="scss">
   .resent-code {
@@ -133,5 +190,8 @@ export default {
   .resent-code-text:active {
     cursor: pointer;
     color: $activeLnkColor2;
+  }
+  .input_enter_code {
+    margin-top: 32px;
   }
 </style>

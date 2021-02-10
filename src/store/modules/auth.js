@@ -12,6 +12,11 @@ const actions = {
       commit('setSecurityCode', data.code);
     });
   },
+  updatePhoneNumber({ commit, state }, data) {
+    return api.auth.updatePhoneNumber(data, state.profile.id).then((res) => {
+      commit('updatePhoneNumber', res);
+    });
+  },
   registerRequest({ commit }, data) {
     return api.auth.register(data).then((res) => {
       commit('setProfile', res);
@@ -75,6 +80,9 @@ const mutations = {
       ...state.profile.completedFeedbacks,
       data,
     ];
+  },
+  updatePhoneNumber(state, data) {
+    state.profile.phone = data;
   },
   setRedirectAuth(state, path) {
     state.redirectAuth = path;
