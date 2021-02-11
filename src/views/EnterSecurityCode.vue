@@ -132,7 +132,8 @@ export default {
     updatePhoneNumberSubmit() {
       this.$v.formDataPhone.$touch();
       if (!this.$v.formDataPhone.$invalid) {
-        const phone = `+${this.formDataPhone.diaCode}${this.formDataPhone.phone}`
+        const formPhone = this.formData.phone;
+        const phone = `+${this.formData.diaCode}${formPhone.charAt(0) === '0' ? formPhone.substring(1) : formPhone}`
           .replace(/\s/g, '');
         // eslint-disable-next-line no-underscore-dangle
         this.$store.dispatch('auth/updatePhoneNumber', phone)

@@ -44,7 +44,7 @@ export default {
           Vue.notify({
             type: 'success',
             title: 'Success',
-            text: 'The validation code was successfully',
+            text: 'Code validation successful',
           });
           resolve(data);
         },
@@ -61,7 +61,7 @@ export default {
           Vue.notify({
             type: 'success',
             title: 'Success',
-            text: 'The reset password was successfully',
+            text: 'Reset password successful',
           });
           resolve(data);
         },
@@ -78,7 +78,7 @@ export default {
           Vue.notify({
             type: 'success',
             title: 'Success',
-            text: 'The new password was successfully',
+            text: 'New password successful',
           });
           resolve(data);
         },

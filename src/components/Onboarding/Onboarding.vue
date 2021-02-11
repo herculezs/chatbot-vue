@@ -391,7 +391,8 @@ export default {
       this.formData.diaCode = data.dialCode;
     },
     prepareDataForRequest() {
-      const phone = `+${this.formData.diaCode}${this.formData.phone}`
+      const formPhone = this.formData.phone;
+      const phone = `+${this.formData.diaCode}${formPhone.charAt(0) === '0' ? formPhone.substring(1) : formPhone}`
         .replace(/\s/g, '');
 
       let uniqueId = null;

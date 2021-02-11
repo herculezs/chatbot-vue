@@ -169,7 +169,7 @@ export default {
           color: '#ff5151',
           colorHover: 'rgba(255,81,81,0.73)',
         },
-        name: 'Colleagues',
+        name: 'Contacts',
       },
     ],
     respondentsCount: null,
@@ -261,7 +261,7 @@ export default {
         this.setRadar(res.selfResult.split(/(?=[-+])/), 'Me');
 
         if (this.isOthersAmount) {
-          this.setRadar(res.othersAverageResult.split(/(?=[-+])/), 'Colleagues');
+          this.setRadar(res.othersAverageResult.split(/(?=[-+])/), 'Contacts');
           this.OtherCoordinate = this.Coordinates(res.othersAverageResult);
           this.setCollegAnswerCard(this.OtherCoordinate[2]);
         }
