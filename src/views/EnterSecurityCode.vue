@@ -52,7 +52,7 @@
             class="form button button_w-100 button_theme-default button_size-m"
             @click.prevent="updatePhoneNumberSubmit"
           >
-            Resent Code
+            Continue
           </button>
           <button v-else
             class="form button button_w-100 button_theme-default button_size-m"
@@ -146,11 +146,6 @@ export default {
     },
     redirectToMainPage() {
       this.resentCode = !this.resentCode;
-      if (this.resentCode) {
-        this.labelResentCode = 'Enter security code';
-      } else {
-        this.labelResentCode = 'Not received code?';
-      }
     },
   },
 };

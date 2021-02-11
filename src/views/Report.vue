@@ -112,20 +112,22 @@
         <br/>
       </b-modal>
       <FeedbackModal v-model="showReportModal" />
-      <button
-        v-b-modal.modal-multi-1
-        class="button button_theme-default button_size-m button-left">
-        Ask Contacts
-      </button>
-      <button
-        @click="redirectToQuestionnaireManagement"
-        class="button button_theme-default button_size-m button-right">
-        See Surveys
-      </button>
+      <div class="buttons-report">
+        <button
+          v-b-modal.modal-multi-1
+          class="button button_theme-default button_size-m button-left">
+          Ask Contacts
+        </button>
+        <button
+          @click="redirectToQuestionnaireManagement"
+          class="button button_theme-default button_size-m button-right">
+          See Surveys
+        </button>
+      </div>
     </Content>
   </div>
 </template>
-<!--          {{changeName(configEnv.report.textForReport.paragraph2)}}-->
+
 <script>
 import Card from '@components/Card/Card.vue';
 import InputCopy from '@components/InputCopy/InputCopy.vue';
@@ -510,6 +512,8 @@ export default {
   .button-right {
     float: right;
     width: 45%;
-    margin-bottom: 50px;
+  }
+  .buttons-report {
+    margin-bottom: 110px;
   }
 </style>

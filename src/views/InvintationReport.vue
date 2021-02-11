@@ -49,7 +49,7 @@
 
 
       <FeedbackModal v-model="showReportModal" />
-      <div v-if="checkCompletedTest()">
+      <div v-if="checkCompletedTest()" class="buttons-report">
         <button
           class="button button_theme-default button_size-m button-left"
           @click="redirectToQuestions">
@@ -117,7 +117,6 @@ export default {
       return constants.cards[this.getPersonalityTest.result];
     },
     getChartBarData() {
-      console.log('getProfile', this.getProfile);
       this.chartOptionsBar();
       if (this.getPersonalityTest.othersAmount >= 3) {
         return [
@@ -333,7 +332,9 @@ export default {
 
     showFeedBackModalByParams() {
       // eslint-disable-next-line no-plusplus
+      console.log(this.getProfile);
       const { completedFeedbacks } = this.getProfile;
+
       if (!completedFeedbacks.includes(process.env.FEEDBACK_ID)) {
         setTimeout(() => this.setShowReportModal(true), 60000);
       }
@@ -400,6 +401,9 @@ export default {
   .button-right {
     float: right;
     width: 45%;
-    margin-bottom: 50px;
+  }
+
+  .buttons-report {
+    margin-bottom: 110px;
   }
 </style>
