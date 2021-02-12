@@ -232,7 +232,7 @@ export default {
           {
             value: [],
             type: 'YOU_ARE',
-            data: [this.SelfCoordinate[0], this.SelfCoordinate[1], `You scored yourself as - \n${this.youAnswerCard.title.toUpperCase()}${(this.OtherCoordinate && (this.SelfCoordinate[0] === this.OtherCoordinate[0] && this.OtherCoordinate[1] === this.SelfCoordinate[1])) ? `\ncolleagues say - \n${this.collegAnswerCard.title.toUpperCase()}` : ''}`],
+            data: [this.SelfCoordinate[0], this.SelfCoordinate[1], `You scored yourself as - \n${this.youAnswerCard.title.toUpperCase()}${(this.OtherCoordinate && (this.SelfCoordinate[0] === this.OtherCoordinate[0] && this.OtherCoordinate[1] === this.SelfCoordinate[1])) ? `\n\n\nColleagues say - \n${this.collegAnswerCard.title.toUpperCase()}` : ''}`],
           },
         );
       }

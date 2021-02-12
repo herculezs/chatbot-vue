@@ -149,7 +149,9 @@ export default {
           || type === 'YOU_THINK_ABOUT' || type === 'GROUP') {
           labelByPoint = {
             show: true,
-            position: 'top',
+            position: [13, -28],
+            align: 'center',
+            color,
             formatter(d) {
               const v = d.value;
               return v[2];
@@ -159,6 +161,7 @@ export default {
           labelByPoint = {
             show: false,
             position: 'top',
+            backgroundColor: 'white',
           };
         }
 

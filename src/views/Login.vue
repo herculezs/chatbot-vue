@@ -83,6 +83,7 @@ export default {
   computed: {
     ...mapGetters({
       getRedirectAuth: 'auth/getRedirectAuth',
+      getProfile: 'auth/getProfile',
     }),
     getClassByLengthCountryCode() {
       return `code-length-${this.diaCode.length}`;
@@ -106,7 +107,12 @@ export default {
       if (!this.$v.$invalid) {
         const data = this.prepareDataForRequest();
         this.$store.dispatch('auth/loginRequest', data).then(() => {
-          this.$router.replace(this.getRedirectAuth);
+          const { completedQuestionnaires } = this.getProfile;
+          if (!completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
+            this.$router.push('questionnaire-management');
+          } else {
+            this.$router.replace(this.getRedirectAuth);
+          }
         });
       }
     },
