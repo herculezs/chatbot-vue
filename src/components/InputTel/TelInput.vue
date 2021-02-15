@@ -13,6 +13,7 @@
       @input="changeTel"
       @country-changed="countryChanged"
       v-model="getPhone"
+      :ignoredCountries="ignoredCountries"
     >
       <template slot="arrow-icon">
               <span class="form__input-tel-arrow-icon">
@@ -62,6 +63,10 @@ export default {
       set(newValue) {
         return this.$emit('input', newValue);
       },
+    },
+    ignoredCountries() {
+      return ['EG', 'ID', 'CZ', 'RU', 'JP', 'KE', 'KZ', 'KW',
+        'OM', 'PK', 'PH', 'SA', 'TZ', 'AE', 'VN'];
     },
   },
   methods: {
