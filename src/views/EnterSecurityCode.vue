@@ -132,8 +132,8 @@ export default {
     updatePhoneNumberSubmit() {
       this.$v.formDataPhone.$touch();
       if (!this.$v.formDataPhone.$invalid) {
-        const formPhone = this.formData.phone;
-        const phone = `+${this.formData.diaCode}${formPhone.charAt(0) === '0' ? formPhone.substring(1) : formPhone}`
+        const formPhone = this.formDataPhone.phone;
+        const phone = `+${this.formDataPhone.diaCode}${formPhone.charAt(0) === '0' ? formPhone.substring(1) : formPhone}`
           .replace(/\s/g, '');
         // eslint-disable-next-line no-underscore-dangle
         this.$store.dispatch('auth/updatePhoneNumber', phone)
@@ -147,6 +147,11 @@ export default {
     },
     redirectToMainPage() {
       this.resentCode = !this.resentCode;
+      if (this.resentCode) {
+        this.labelResentCode = 'Resend Code';
+      } else {
+        this.labelResentCode = 'Not received code?';
+      }
     },
   },
 };

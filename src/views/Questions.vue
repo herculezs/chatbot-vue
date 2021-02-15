@@ -174,6 +174,10 @@ export default {
         }
 
         return this.toggleShowContent();
+      }).catch(() => {
+        this.$router.push({
+          name: 'main',
+        });
       });
     },
     setRedirectAuth() {
