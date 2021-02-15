@@ -91,12 +91,20 @@ export default {
   },
   methods: {
     prepareDataForRequest() {
-      const phone = `+${this.diaCode}${this.formData.phone}`
+      const formPhone = this.formData.phone;
+      const phone = `+${this.diaCode}${formPhone.charAt(0) === '0' ? formPhone.substring(1) : formPhone}`
         .replace(/\s/g, '');
+
+      let uniqueId = null;
+      if (localStorage.getItem('uniqueId') !== null) {
+        uniqueId = localStorage.getItem('uniqueId');
+      }
 
       return {
         password: this.formData.password,
         phone,
+        uniqueId,
+        questionId: process.env.QUESTIONNAIRE_ID,
       };
     },
     countryChanged(data) {
