@@ -86,12 +86,14 @@ export default {
       this.$router.push('report');
     },
     redirectToQuestions() {
-      if (this.getProfile.selfPersonalityType) {
+      const { completedQuestionnaires } = this.getProfile;
+
+      if (completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
         this.$notify({
           type: 'error',
           text: 'User has already completed the personality test',
         });
-        return;
+        this.$router.push('report');
       }
 
       this.$router.push('questionnaire');

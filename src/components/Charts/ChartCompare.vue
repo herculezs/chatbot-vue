@@ -149,7 +149,7 @@ export default {
           || type === 'YOU_THINK_ABOUT' || type === 'GROUP') {
           labelByPoint = {
             show: true,
-            position: [13, -28],
+            position: [8, -28],
             align: 'center',
             color,
             formatter(d) {

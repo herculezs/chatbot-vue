@@ -316,7 +316,9 @@ export default {
       }
     },
     redirectToQuestions() {
-      if (this.getProfile.selfPersonalityType) {
+      const { completedQuestionnaires } = this.getProfile;
+
+      if (completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
         this.$notify({
           type: 'error',
           text: 'User has already completed the personality test',
@@ -332,7 +334,6 @@ export default {
 
     showFeedBackModalByParams() {
       // eslint-disable-next-line no-plusplus
-      console.log(this.getProfile);
       const { completedFeedbacks } = this.getProfile;
 
       if (!completedFeedbacks.includes(process.env.FEEDBACK_ID)) {
