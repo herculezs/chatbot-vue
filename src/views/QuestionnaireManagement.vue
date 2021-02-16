@@ -30,7 +30,7 @@
           <div
             v-bind:class="{ active: selectButtonSurveys }"
             class="questions-item__content button-other"
-            @click.prevent="selectQuestion(item)"
+            @click.prevent="selectQuestion(item.userId)"
           >
             <b>{{item.firstName + " " + item.lastName}}</b>
           </div>
@@ -95,21 +95,11 @@ export default {
         });
         this.$router.push('report');
       }
-
       this.$router.push('questionnaire');
     },
-    selectQuestion(answer) {
-      this.selectButtonSurveys = true;
-      this.$store.dispatch('invitation/setPersonalityTestForManager',
-        {
-          formData: answer.myResult,
-        }).then(() => {
-        this.$router.push('invintation-report');
-      }).catch((e) => {
-        console.log('e', e);
-      });
+    selectQuestion(userId) {
+      this.$router.push({ name: 'invintation-report', params: { userId } });
     },
-
   },
 };
 

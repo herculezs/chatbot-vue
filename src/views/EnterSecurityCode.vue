@@ -148,7 +148,7 @@ export default {
     redirectToMainPage() {
       this.resentCode = !this.resentCode;
       if (this.resentCode) {
-        this.labelResentCode = 'Resend Code';
+        this.labelResentCode = 'Enter Code';
       } else {
         this.labelResentCode = 'Not received code?';
       }

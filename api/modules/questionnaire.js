@@ -50,4 +50,16 @@ export default {
       });
     });
   },
+  getInvitationAnswer(id) {
+    return new Promise((resolve, reject) => {
+      http.post(`/questionnaire/get-invitation/${process.env.QUESTIONNAIRE_ID}/u2/${id}`).then(
+        (res) => {
+          resolve(res.data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
 };

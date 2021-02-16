@@ -199,7 +199,6 @@ export default {
                 : this.colorsByType[type].label,
               distance: 5,
               fontWeight: 'bold',
-              backgroundColor: 'white',
             },
             itemStyle: {
               color,

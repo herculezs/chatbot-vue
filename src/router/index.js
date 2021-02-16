@@ -93,26 +93,27 @@ export default new Router({
       },
     },
     {
-      path: '/invintation-report',
+      path: '/invintation-report/:userId',
       name: 'invintation-report',
+      props: true,
       component: () => import('@views/InvintationReport.vue'),
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
-        // const userAuth = Store.getters['auth/getProfile'].token;
+        const userAuth = Store.getters['auth/getProfile'].token;
         const invitation = Store.getters['invitation/getPersonalityTest'].result;
         let invitationManager;
         if (Store.getters['invitation/getPersonalityTestForManager']) {
           invitationManager = Store.getters['invitation/getPersonalityTestForManager'];
         }
 
-
         if (!invitationManager && (invitation !== undefined)) {
           next('/');
         }
 
-        if (!invitation && invitationManager) {
+        if (!userAuth) {
           next('/');
         }
+
         next();
       },
     },

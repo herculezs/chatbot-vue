@@ -6,21 +6,34 @@
         This report shows what personality type you think {{getPersonalityTest.name}}
         is and how your answers compare to the other people asked.
       </h1>
-      <div class="h5 mb-4" v-if="getPersonalityTest.othersAmount > 3">
-        Based on {{getPersonalityTest.othersAmount}}
-        respondents, {{getPersonalityTest.name}}'s persona is ...
-      </div>
-      <div class="h5 mb-4" v-else>
+      <br/>
+      <template v-if="yourAnswerCard">
+        <div class="h5 mb-4">
+          You think U2's personality is closest to ...
+        </div>
+        <Card
+          :title="yourAnswerCard.title"
+          :showText="yourAnswerCard.showText"
+          :tag="yourAnswerCard.tag"
+          :img="yourAnswerCard.src"
+          :typeCard="'Guessed'"
+        />
+      </template>
+      <div class="h5 mb-4" v-if="!this.isOthersAmount">
         When at least 3 others have completed their questionnaires,
         you will see what they think here as well!
       </div>
-      <template v-if="isOthersAmount">
+      <template v-if="this.isOthersAmount">
+        <div class="h5 mb-4">
+          Based on {{getPersonalityTest.othersAmount}}
+          respondents, {{getPersonalityTest.name}}'s personality is closest to ...
+        </div>
         <Card
           :title="collegAnswerCard.title"
           :showText="collegAnswerCard.showText"
           :tag="collegAnswerCard.tag"
           :img="collegAnswerCard.src"
-          :typeCard="'Guessed'"
+          :typeCard="'Contacts'"
         />
       </template>
       <div class="diagram">
@@ -43,8 +56,8 @@
       <div class="h5 mb-4">
         Personality trait comparison, by category
       </div>
-      <div class="diagram mb-5">
-        <Radar :data="getChartBarData" />
+      <div class="diagram mb-5" v-if="barChart !== null">
+        <Radar :data="barChart" />
       </div>
 
 
@@ -83,6 +96,7 @@ import Card from '@components/Card/Card.vue';
 
 
 import { mapGetters } from 'vuex';
+import api from '@api/index';
 
 export default {
   components: {
@@ -91,6 +105,11 @@ export default {
     Radar,
     ChartCompare,
     Card,
+  },
+  props: {
+    userId: {
+      type: String,
+    },
   },
   name: 'InvintationReport',
   data: () => ({
@@ -102,6 +121,8 @@ export default {
     collegAnswerCard: {},
     yourAnswerCard: {},
     selectedCharateristic: null,
+    ready: false,
+    barChart: null,
   }),
   computed: {
     ...mapGetters({
@@ -116,10 +137,29 @@ export default {
 
       return constants.cards[this.getPersonalityTest.result];
     },
+  },
+  created() {
+    api.questionnaire.getInvitationAnswer(this.userId).then((answer) => {
+      this.$store.dispatch('invitation/setPersonalityTestForManager',
+        {
+          formData: answer,
+        }).then(() => {
+        this.getChartBarData();
+        this.chartOptionsBar();
+      });
+    }).catch(() => {
+      this.$router.push({ name: 'questionnaire-management' });
+    });
+    // eslint-disable-next-line no-return-assign
+    this.showFeedBackModalByParams();
+  },
+  methods: {
+    refreshData() {
+      return this.data;
+    },
     getChartBarData() {
-      this.chartOptionsBar();
       if (this.getPersonalityTest.othersAmount >= 3) {
-        return [
+        this.barChart = [
           {
             value: this.getPersonalityTest.result.split(/(?=[-+])/),
             areaStyle: {
@@ -138,7 +178,7 @@ export default {
           },
         ];
       } else { // eslint-disable-line
-        return [
+        this.barChart = [
           {
             value: this.getPersonalityTest.result.split(/(?=[-+])/),
             areaStyle: {
@@ -149,15 +189,6 @@ export default {
           },
         ];
       }
-    },
-  },
-  created() {
-    // eslint-disable-next-line no-return-assign
-    this.showFeedBackModalByParams();
-  },
-  methods: {
-    refreshData() {
-      return this.data;
     },
     setChosenCharacteristic(event) {
       this.selectedCharateristic = {
@@ -301,7 +332,7 @@ export default {
         {
           value: [],
           type: 'YOU_THINK_ABOUT',
-          data: [resYouThink[0], resYouThink[1], `You score ${this.getPersonalityTest.name} as - \n${this.yourAnswerCard.title.toUpperCase()}${(this.getPersonalityTest.othersAmount >= 3 && (resYouThink[0] === resColleguag[0] && resYouThink[1] === resColleguag[1])) ? '\n\n\nThe GROUP answered' : ''}`],
+          data: [resYouThink[0], resYouThink[1], `You score ${this.getPersonalityTest.name} as - \n${this.yourAnswerCard.title.toUpperCase()}${(this.getPersonalityTest.othersAmount >= 3 && (resYouThink[0] === resColleguag[0] && resYouThink[1] === resColleguag[1])) ? `\n\n\nThe GROUP answered as -\n${this.collegAnswerCard.title.toUpperCase()}` : ''}`],
         },
       );
 
@@ -311,7 +342,7 @@ export default {
         this.data.push({
           value: [],
           type: 'GROUP',
-          data: [resColleguag[0], resColleguag[1], 'The GROUP answered'],
+          data: [resColleguag[0], resColleguag[1], `The GROUP answered as - \n${this.collegAnswerCard.title.toUpperCase()}`],
         });
       }
     },
@@ -323,13 +354,13 @@ export default {
           type: 'error',
           text: 'User has already completed the personality test',
         });
-        this.$router.push('report');
+        this.$router.push({ name: 'report' });
       }
 
-      this.$router.push('questionnaire');
+      this.$router.push({ name: 'questionnaire' });
     },
     redirectToQuestionnaireManagement() {
-      this.$router.push('questionnaire-management');
+      this.$router.push({ name: 'questionnaire-management' });
     },
 
     showFeedBackModalByParams() {
