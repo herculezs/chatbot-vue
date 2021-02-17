@@ -6,21 +6,9 @@
         Please check your phone for SMS with your security code
       </div>
       <form class="form">
-        <div v-if="resentCode" class="form-group form-group_submit">
-          <TelInput
-            v-model="formDataPhone.phone"
-            :diaCode="formDataPhone.diaCode"
-            :validPhone="$v.formDataPhone.phone"
-            @onDiaCode="countryChanged"
-            :placeHolder="configEnv.onboarding.placeholderPhone"
-            :defaultCountry="configEnv.onboarding.defaultStatePhone"
-          >
-          </TelInput>
-        </div>
         <div
           class="form-group input_enter_code"
           :class="{'form-group-error': $v.formData.code.$error}"
-          v-else
         >
           <input
             class="form__input"
@@ -37,24 +25,12 @@
           </template>
         </div>
         <div class="resent-code">
-<!--       <span class="resent-code-text" @click.prevent="sendNewSmsCode" v-if="countDown === 0">-->
-<!--            Resend code?-->
-<!--          </span>-->
-<!--          <span class="resent-code-text-timer" v-else>-->
-<!--            Resend code will be available in {{countDown}} seconds-->
-<!--          </span>-->
-          <span class="resent-code-text" @click.prevent="redirectToMainPage">
+          <span class="resent-code-text" @click="redirectToRegistration">
             {{labelResentCode}}
           </span>
         </div>
         <div class="form-group form-group_submit">
-          <button v-if="resentCode"
-            class="form button button_w-100 button_theme-default button_size-m"
-            @click.prevent="updatePhoneNumberSubmit"
-          >
-            Continue
-          </button>
-          <button v-else
+          <button
             class="form button button_w-100 button_theme-default button_size-m"
             @click.prevent="submit"
           >
@@ -71,14 +47,12 @@ import { validationMixin } from 'vuelidate';
 import { mapGetters } from 'vuex';
 import Content from '@components/Content/Content.vue';
 import configEnv from '@configEnv';
-import TelInput from '@components/InputTel/TelInput.vue';
 
 const { required } = require('vuelidate/lib/validators');
 
 export default {
   components: {
     Content,
-    TelInput,
   },
   mixins: [validationMixin],
   validations: {
@@ -105,7 +79,7 @@ export default {
     countDown: 0,
     firstTime: true,
     resentCode: false,
-    labelResentCode: 'Not received code?',
+    labelResentCode: 'Not received code',
   }),
   computed: {
     ...mapGetters({
@@ -129,50 +103,18 @@ export default {
         // });
       }
     },
-    updatePhoneNumberSubmit() {
-      this.$v.formDataPhone.$touch();
-      if (!this.$v.formDataPhone.$invalid) {
-        const formPhone = this.formDataPhone.phone;
-        const phone = `+${this.formDataPhone.diaCode}${formPhone.charAt(0) === '0' ? formPhone.substring(1) : formPhone}`
-          .replace(/\s/g, '');
-        // eslint-disable-next-line no-underscore-dangle
-        this.$store.dispatch('auth/updatePhoneNumber', phone)
-          .then(() => {
-            this.resentCode = false;
-          })
-          .catch(() => {
-            this.$router.push('enter-security-code');
-          });
-      }
-    },
-    redirectToMainPage() {
-      this.resentCode = !this.resentCode;
-      if (this.resentCode) {
-        this.labelResentCode = 'Enter Code';
-      } else {
-        this.labelResentCode = 'Not received code?';
-      }
+    redirectToRegistration() {
+      this.$router.push({
+        name: 'main',
+        params: {
+          slide: 3,
+        },
+      });
     },
   },
 };
 </script>
 
-<!--// resent code-->
-<!--// sendNewSmsCode() {-->
-<!--//   if (this.countDown === 0) {-->
-<!--//     this.$api.auth.newCode(this.getProfile.id);-->
-<!--//     this.countDown = 60;-->
-<!--//     this.countDownTimer();-->
-<!--//   }-->
-<!--// },-->
-<!--// countDownTimer() {-->
-<!--//   if (this.countDown > 0) {-->
-<!--//     setTimeout(() => {-->
-<!--//       this.countDown -= 1;-->
-<!--//       this.countDownTimer();-->
-<!--//     }, 1000);-->
-<!--//   }-->
-<!--// },-->
 
 <style lang="scss">
   .resent-code {

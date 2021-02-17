@@ -9,7 +9,7 @@
       <br/>
       <template v-if="yourAnswerCard">
         <div class="h5 mb-4">
-          You think U2's personality is closest to ...
+          You think {{getPersonalityTest.name}}'s personality is closest to ...
         </div>
         <Card
           :title="yourAnswerCard.title"
@@ -37,6 +37,25 @@
         />
       </template>
       <div class="diagram">
+        <div class="diagram__title-with-respondents" v-if="respondentsCount">
+          <div class="report__respondents">
+            <svg class="report__respondents-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.42 15.93">
+              <circle
+                fill="none"
+                stroke="#999"
+                stroke-miterlimit="10"
+                cx="6.21"
+                cy="4"
+                r="3.91"/>
+              <path
+                fill="none" stroke="#999" stroke-miterlimit="10"
+                d="M2.29,16a5.71,5.71,0,0,1,11.34-.92,5.62,5.62,0,0,1,.08.92"
+                transform="translate(-1.79 -0.07)"
+              />
+            </svg>
+            Respondents:  {{ respondentsCount }}
+          </div>
+        </div>
         <div class="name-label-chart-top"><b class="chart-label">More Flexible</b></div>
         <div class="name-label-chart-left"><b class="chart-label">Less Stable</b></div>
         <div class="name-label-chart-right"><b class="chart-label">More Stable</b></div>
@@ -123,6 +142,7 @@ export default {
     selectedCharateristic: null,
     ready: false,
     barChart: null,
+    respondentsCount: null,
   }),
   computed: {
     ...mapGetters({
@@ -248,8 +268,8 @@ export default {
     chartOptionsBar() {
       let resYouThink;
       let resColleguag;
-
       if (this.getPersonalityTest.result) {
+        this.respondentsCount = this.getPersonalityTest.othersAmount;
         resYouThink = this.coordinates(this.getPersonalityTest.result);
         this.setYourAnswerCard(resYouThink[2]);
       }
@@ -363,12 +383,17 @@ export default {
       this.$router.push({ name: 'questionnaire-management' });
     },
 
-    showFeedBackModalByParams() {
-      // eslint-disable-next-line no-plusplus
-      const { completedFeedbacks } = this.getProfile;
+    async showFeedBackModalByParams() {
+      const { completedFeedbacks, completedQuestionnaires } = this.getProfile;
 
-      if (!completedFeedbacks.includes(process.env.FEEDBACK_ID)) {
-        setTimeout(() => this.setShowReportModal(true), 60000);
+      const completeTest = await this.$api.personalityTypeReport.countOtherCompleteTestForU1();
+
+      if ((completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)
+        && completeTest > 3) || (!completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)
+        && this.getPersonalityTest.othersAmount > 3)) {
+        if (!completedFeedbacks.includes(process.env.FEEDBACK_ID)) {
+          setTimeout(() => this.setShowReportModal(true), 60000);
+        }
       }
     },
     setShowReportModal(value) {
@@ -437,5 +462,21 @@ export default {
 
   .buttons-report {
     margin-bottom: 110px;
+  }
+  .report__respondents-icon{
+    width: 14px;
+    height: 17px;
+    margin-right: 5px;
+  }
+  .report__respondents{
+    color: $txtColor3;
+    font-family: $defaultFont;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 17px;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    float: right;
   }
 </style>

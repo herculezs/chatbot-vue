@@ -220,7 +220,7 @@
               :validPhone="$v.formData.phone"
               @onDiaCode="countryChanged"
               :placeHolder="configEnv.onboarding.placeholderPhone"
-              :defaultCountry="configEnv.onboarding.defaultStatePhone"
+              :defaultCountry="getCountryCode"
             >
 
             </TelInput>
@@ -230,6 +230,7 @@
           class="button button_w-100 button_theme-default
         button_size-m slide-details__button"
           @click.prevent="start"
+          :disabled="disableSendCode"
         >
           Send Code
         </button>
@@ -265,6 +266,7 @@ import PolicyModal from '@components/Modals/PolicyModal.vue';
 import TermsConditionsModal from '@components/Modals/TermsConditionsModal.vue';
 import InformationForm from '@components/Onboarding/InformationForm.vue';
 import configEnv from '@configEnv';
+import { mapGetters } from 'vuex';
 import step1 from '../../assets/step_1.gif';
 
 // numeric, minValue, maxValue,
@@ -319,6 +321,7 @@ export default {
     step1,
     allMonths: ['January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'],
+    disableSendCode: false,
     formData: {
       phone: null,
       firstName: '',
@@ -331,6 +334,7 @@ export default {
       day: undefined,
       year: undefined,
       diaCode: '',
+      isoCountryCode: '',
     },
     carousel: {
       settings: {
@@ -356,25 +360,30 @@ export default {
     currentPage: 0,
   }),
   computed: {
+    ...mapGetters({
+      getPersonalityTest: 'invitation/getPersonalityTest',
+      getProfile: 'auth/getProfile',
+    }),
     getClassByLengthCountryCode() {
       return `code-length-${this.formData.diaCode.length}`;
     },
+    getCountryCode() {
+      if (this.getProfile.phone) {
+        return this.getProfile.isoCountryCode;
+      }
+      return configEnv.onboarding.defaultStatePhone;
+    },
   },
   mounted() {
+    this.disableSendCode = false;
+
+    if (this.getProfile.phone) {
+      this.formData.firstName = this.getProfile.name;
+      this.formData.surname = this.getProfile.lastName;
+      this.formData.youEmail = this.getProfile.email;
+      this.formData.phone = this.getProfile.phone.replace(this.getProfile.codeCountry, '');
+    }
     this.initialSlider();
-    // eslint-disable-next-line camelcase,no-use-before-define
-    const Tawk_API = Tawk_API || {};
-    // eslint-disable-next-line camelcase,no-unused-vars
-    const Tawk_LoadStart = new Date();
-    (function () {
-      const s1 = document.createElement('script');
-      const s0 = document.getElementsByTagName('script')[0];
-      s1.async = true;
-      s1.src = 'https://embed.tawk.to/5f9ad3827f0a8e57c2d83734/default';
-      s1.charset = 'UTF-8';
-      s1.setAttribute('crossorigin', '*');
-      s0.parentNode.insertBefore(s1, s0);
-    }());
   },
   methods: {
     initialSlider() {
@@ -388,6 +397,7 @@ export default {
       this.$refs.slickCarousel.goTo(numberSlide);
     },
     countryChanged(data) {
+      this.formData.isoCountryCode = data.iso2;
       this.formData.diaCode = data.dialCode;
     },
     prepareDataForRequest() {
@@ -408,15 +418,21 @@ export default {
         // dateOfBirth: [this.formData.year, currentMonthNumber < 9 ? `0${currentMonthNumber}` : currentMonthNumber, this.formData.day <= 9 ? `0${parseInt(this.formData.day)}` : parseInt(this.formData.day)].join('-'),
         phone,
         questionId: process.env.QUESTIONNAIRE_ID,
+        codeCountry: `+${this.formData.diaCode}`,
+        isoCountryCode: this.formData.isoCountryCode,
         uniqueId,
       };
     },
     start() {
+      this.disableSendCode = true;
       this.$v.$touch();
       if (!this.$v.$invalid) {
         const data = this.prepareDataForRequest();
         this.$store.dispatch('auth/registerRequest', data).then(() => {
           this.$router.push('enter-security-code');
+          this.disableSendCode = false;
+        }).catch(() => {
+          this.disableSendCode = false;
         });
       }
     },

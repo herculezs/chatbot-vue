@@ -26,4 +26,16 @@ export default {
       });
     });
   },
+  countOtherCompleteTestForU1() {
+    return new Promise((resolve, reject) => {
+      http.get(`user/count-other-complete-test/${process.env.QUESTIONNAIRE_ID}`).then(
+        ({ data }) => {
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
 };
