@@ -16,11 +16,28 @@ export default {
     Header,
     Notification,
   },
+  computed: {
+    title() {
+      if (process.env.VUE_APP_BUILD !== undefined) {
+        return 'WellMent';
+      }
+      return 'InnerWorks';
+    },
+  },
   created() {
-    document.title = 'InnerWorks';
-    if (process.env.VUE_APP_BUILD !== undefined) {
-      document.title = 'WellMent';
-    }
+  },
+  metaInfo() {
+    return {
+      title: this.title,
+      meta: [
+        { name: 'description', content: 'A Simple and Fun way to find Your TRUE Personality' },
+        {
+          name: 'keywords',
+          content: 'personality,psychology,assessment,crowd source,big 5,16 personalities,disc,'
+            + 'network,adaptive,psychological,inventory,temperament,myers-briggs,psychometrics,compatibility',
+        },
+      ],
+    };
   },
 };
 </script>

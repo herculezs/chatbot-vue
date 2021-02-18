@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="description" content='A Simple and Fun way to find Your TRUE Personality'></meta>
+    <meta name="keywords" content='personality,psychology,assessment,crowd source,big 5,16 personalities,disc,network,adaptive,psychological,inventory,temperament,myers-briggs,psychometrics,compatibility'></meta>
+
+
+
+</head>
+
+<body>
+<div id="app"></div>
+</body>
+</html>

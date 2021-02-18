@@ -71,6 +71,19 @@ module.exports = {
     config.resolve.alias.set('@constants', resolve('src/constants'));
     config.resolve.alias.set('@configEnv', resolve('src/configEnv'));
     config.resolve.alias.set('@mixins', resolve('src/mixins'));
+    let title = 'InnerWorks';
+    if (process.env.VUE_APP_BUILD !== undefined) {
+      title = 'WellMent';
+    }
+    config
+      .plugin('html')
+      .tap((args) => {
+        // eslint-disable-next-line no-param-reassign
+        args[0].title = title;
+        // eslint-disable-next-line no-param-reassign
+        args[0].template = './src/index.html.template';
+        return args;
+      });
   },
   css: {
     loaderOptions: {
