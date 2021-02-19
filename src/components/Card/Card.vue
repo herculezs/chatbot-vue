@@ -137,6 +137,11 @@ export default {
     align-items: center;
     color: $txtColor5;
   }
+  .card_hide_answers {
+    & .card__title {
+      color: $txtColor7;
+    }
+  }
   .card-info__text{
     text-align: center;
     color: $txtColor6;

@@ -1,0 +1,88 @@
+//Fonts
+//@font-face {
+//  font-family: 'Roboto';
+//  font-style: normal;
+//  font-display: swap;
+//  src: local('Roboto'), url(https://fonts.gstatic.com/s/roboto/v19/KFOmCnqEu92Fr1Mu72xKOzY.woff2) format('woff2');
+//  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+//}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+$defaultFont: 'Lato', sans-serif;
+$titleFont: 'Montserrat', sans-serif;
+$btnFont: 'Montserrat', sans-serif;
+
+//Background card
+$bgCardColor1: #7811c9;
+$bgCardColor2: #ff7b00;
+$bgCardColor3: #ff5151;
+
+//Background card hover
+$bgCardHoverColor1: #4e1191;
+$bgCardHoverColor2: #bb6300;
+$bgCardHoverColor3: #a83636;
+
+// General Color
+$mnColor1: #333;
+$mnColor2: #ff7b00;
+$mnColor3: rgba(255, 129, 0, 0.54);
+
+//Background color
+$bgColor1: #fff7ef;
+$bgColor2: #f9fdff;
+$bgColor3: #d6e7ff;
+$bgColor4: #deffed;
+$bgColor5: #d2d2ef;
+
+//Text color
+$txtColor1: #333;
+$txtColor2: #666;
+$txtColor3: #999;
+$txtColor4: #999;
+$txtColor5: #ffffff;
+$txtColor6: #ffffff;
+$txtColor7: #ffffff;
+$txtColorDanger: #f05000;
+
+//Link color
+$lnkColo1: #666;
+$lnkColor2: #ff7b00;
+
+//Press link color
+$activeLnkColor2: #ba6500;
+
+//Button color
+$btnColor1: #ff7c00;
+$btnColor2: #333;
+$btnColor3: rgba(255, 213, 0, 0.85);
+
+//Form
+//Input
+$formInputBorderRadius: 4px;
+$formInputBorderColor: #ddd;
+$formInputBorderDangerColor: #f05000;
+$formInputColor: #999;
+
+//ProgressBar
+$progressBarBg: #ff7b00;
+$progressBarAllFieldBg: #E9DCF3;
+
+//Responsive
+$xsMaxHeight: 668px;
+$xxsMaxHeight: 580px;
+
+//star color
+$starActiveColor: #ff7b00;
+$starBorderColor: #ff7b00;
+
+$md-gap: 24px;
+
+$pointColor: #ffb672;
+$chartLabel: #FFFFFF;
+:export{
+  starActiveColor: $starActiveColor;
+  starBorderColor: $starBorderColor;
+  pointColor: $pointColor;
+}

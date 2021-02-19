@@ -140,7 +140,7 @@ export default {
 
       filter = [];
       return filterResult.map(({ data, type }) => {
-        const choseColor = '#0077a2';
+        const choseColor = configEnv.charts.chosePointColor;
         const color = data[2] === this.selectedCharateristic[2] ? choseColor
           : this.colorsByType[type].color;
         let labelByPoint;
@@ -161,7 +161,7 @@ export default {
           labelByPoint = {
             show: false,
             position: 'top',
-            backgroundColor: 'white',
+            backgroundColor: configEnv.charts.backGroundColorLabel,
           };
         }
 

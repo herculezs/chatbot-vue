@@ -18,8 +18,8 @@ export default {
   },
   computed: {
     title() {
-      if (process.env.VUE_APP_BUILD !== undefined) {
-        return 'WellMent';
+      if (process.env.VUE_APP_TITLE) {
+        return process.env.VUE_APP_TITLE;
       }
       return 'InnerWorks';
     },

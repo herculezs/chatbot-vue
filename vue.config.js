@@ -72,8 +72,8 @@ module.exports = {
     config.resolve.alias.set('@configEnv', resolve('src/configEnv'));
     config.resolve.alias.set('@mixins', resolve('src/mixins'));
     let title = 'InnerWorks';
-    if (process.env.VUE_APP_BUILD !== undefined) {
-      title = 'WellMent';
+    if (process.env.VUE_APP_TITLE) {
+      title = process.env.VUE_APP_TITLE;
     }
     config
       .plugin('html')

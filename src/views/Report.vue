@@ -6,7 +6,6 @@
         we will wait until we have received at least <b>4 responses</b> before
         we send your first results. We will update you as further responses come in ...
       </div>
-
       <h1 class="h4 text-center mb-1">Well done {{ getProfile.name }}!</h1>
       <h2 class="first_report text mb-5 text-center">
         Here's your first report. It shows your personality
@@ -71,6 +70,9 @@
         <div class="name-label-chart-bottom"><b class="chart-label">Less Flexible</b></div>
         <br/>
         <template v-if="selectedCharateristic">
+          <div class="h5 mb-4">
+            You clicked ...
+          </div>
           <Card
                   class="mt-5"
                   :title="selectedCharateristic.name"
@@ -393,7 +395,6 @@ export default {
   .diagram{
     margin-left: -24px;
     margin-right: -24px;
-    background-color: #fff;
     padding: 0 24px;
     position: relative;
 
@@ -491,7 +492,6 @@ export default {
   }
 
   .chart-label {
-    background-color: $chartLabel;
     font-size: 14px;
   }
 
@@ -502,6 +502,7 @@ export default {
 
 
   .ask-contacts .modal-content {
+    background: $bgColor1;
     @media (max-height: $xxsMaxHeight) {
       max-height: 100vh;
       overflow: auto;

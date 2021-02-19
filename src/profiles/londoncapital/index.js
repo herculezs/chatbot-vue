@@ -21,13 +21,13 @@ export default {
     },
   },
   charts: {
-    pointColor: '#00bbff',
-    chosePointColor: '#0077a2',
-    backGroundColorLabel: '#ffffff',
+    pointColor: 'rgba(255,131,0,0.73)',
+    chosePointColor: 'rgb(180,103,0)',
+    backGroundColorLabel: '#fff7ef',
   },
   starRatingReport: {
-    starActiveColor: '#3A9CCD',
-    starBorderColor: '#3A9CCD',
+    starActiveColor: '#ff7b00',
+    starBorderColor: '#ff7b00',
   },
   personalityType: {
     title: 'Here are the 35 different personality types:'
@@ -36,8 +36,8 @@ export default {
       + ' You can see a more detailed analysis of each type after you get your results',
   },
   onboarding: {
-    defaultStatePhone: 'US',
-    placeholderPhone: '123-456-7890',
+    defaultStatePhone: 'GB',
+    placeholderPhone: '12345-678901',
     emailPlaceHolder: 'Work Email',
     tooltipEmail: 'Your work email - so we can contact you when you have results!',
     buttonOnFirstPage: 'Get Started',

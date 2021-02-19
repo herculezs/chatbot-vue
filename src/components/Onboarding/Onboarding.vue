@@ -424,9 +424,9 @@ export default {
       };
     },
     start() {
-      this.disableSendCode = true;
       this.$v.$touch();
       if (!this.$v.$invalid) {
+        this.disableSendCode = true;
         const data = this.prepareDataForRequest();
         this.$store.dispatch('auth/registerRequest', data).then(() => {
           this.$router.push('enter-security-code');
@@ -512,7 +512,7 @@ export default {
   }
 
   .onBoarding{
-    background-color: #fdf9fe;
+    background-color: $bgColor1;
     padding-bottom: 0;
     min-height: 100vh;
     .content{

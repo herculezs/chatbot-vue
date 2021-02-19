@@ -16,6 +16,8 @@ export default {
   },
   charts: {
     pointColor: '#b990da',
+    backGroundColorLabel: '#ffffff',
+    chosePointColor: '#4d1187',
   },
   starRatingReport: {
     starActiveColor: '#7811C9',

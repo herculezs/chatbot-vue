@@ -63,6 +63,9 @@
         </ChartCompare>
         <div class="name-label-chart-bottom"><b class="chart-label">Less Flexible</b></div>
         <template v-if="selectedCharateristic">
+          <div class="h5 mb-4">
+            You clicked ...
+          </div>
           <Card
             class="mt-5"
             :title="selectedCharateristic.name"
@@ -407,7 +410,6 @@ export default {
   .diagram{
     margin-left: -24px;
     margin-right: -24px;
-    background-color: #fff;
     padding: 0 24px;
     position: relative;
     .echarts{
@@ -446,7 +448,6 @@ export default {
   }
 
   .chart-label {
-    background-color: $chartLabel;
     font-size: 14px;
   }
 
