@@ -175,7 +175,10 @@ export default {
 
         return this.toggleShowContent();
       }).catch(() => {
-        this.$router.push({
+        if (this.isAuth) {
+          return this.$router.push({ name: 'questionnaire-management' });
+        }
+        return this.$router.push({
           name: 'main',
         });
       });

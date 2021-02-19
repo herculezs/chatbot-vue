@@ -76,9 +76,6 @@ export default {
           this.selfResult = x.myResult;
           this.otherResult = x.otherPeople;
           this.fetchRes = true;
-          if (localStorage.getItem('uniqueId') !== null) {
-            localStorage.removeItem('uniqueId');
-          }
         });
     },
     selectSurveysMyReport() {
