@@ -6,85 +6,92 @@
         we will wait until we have received at least <b>4 responses</b> before
         we send your first results. We will update you as further responses come in ...
       </div>
-      <h1 class="h4 text-center mb-1">Well done {{ getProfile.name }}!</h1>
-      <h2 class="first_report text mb-5 text-center">
-        Here's your first report. It shows your personality
-        type in relation to the other 34 personality
-        types and where <b>you think</b> you lie on the
-        Flexibility-Stability scale.
-        <br/>
-        Hover over the dots to show a brief summary of characteristics.
-      </h2>
-
-      <template v-if="youAnswerCard">
-        <div class="h5 mb-4">
-          Based on your answers, your type is ...
-        </div>
-        <Card
-          :title="youAnswerCard.title"
-          :showText="youAnswerCard.showText"
-          :tag="youAnswerCard.tag"
-          :img="youAnswerCard.src"
-          :typeCard="'Guessed'"
-        />
-      </template>
-
-      <template v-if="this.isOthersAmount">
-        <div class="h5 mb-4">
-          Your contacts think your personality type is ...
-        </div>
-        <Card
-          :title="collegAnswerCard.title"
-          :showText="collegAnswerCard.showText"
-          :tag="collegAnswerCard.tag"
-          :img="collegAnswerCard.src"
-          :typeCard="'Contacts'"
-        />
-      </template>
-
-      <div class="diagram mb-5">
-        <div class="diagram__title-with-respondents" v-if="respondentsCount">
-          <div class="report__respondents">
-            <svg class="report__respondents-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.42 15.93">
-              <circle
-                fill="none"
-                stroke="#999"
-                stroke-miterlimit="10"
-                cx="6.21"
-                cy="4"
-                r="3.91"/>
-              <path
-                fill="none" stroke="#999" stroke-miterlimit="10"
-                d="M2.29,16a5.71,5.71,0,0,1,11.34-.92,5.62,5.62,0,0,1,.08.92"
-                transform="translate(-1.79 -0.07)"
-              />
-            </svg>
-            Respondents:  {{ respondentsCount }}
-          </div>
-        </div>
-        <div class="name-label-chart-top"><b class="chart-label">More Flexible</b></div>
-        <div class="name-label-chart-left"><b class="chart-label">Less Stable</b></div>
-        <div class="name-label-chart-right"><b class="chart-label">More Stable</b></div>
-        <ChartCompare :data="refreshData()" @charateristic-click="setChosenCharacteristic($event)">
-        </ChartCompare>
-        <div class="name-label-chart-bottom"><b class="chart-label">Less Flexible</b></div>
-        <br/>
-        <template v-if="selectedCharateristic">
+      <div class="block">
+        <h1 class="h4 text-center mb-1">Well done {{ getProfile.name }}!</h1>
+        <h2 class="first_report text mb-5 text-center">
+          Here's your first report. It shows your personality
+          type in relation to the other 34 personality
+          types and where <b>you think</b> you lie on the
+          Flexibility-Stability scale.
+          <br/>
+          Hover over the dots to show a brief summary of characteristics.
+        </h2>
+      </div>
+      <div class="block">
+        <template v-if="youAnswerCard">
           <div class="h5 mb-4">
-            You clicked ...
+            Based on your answers, your type is ...
           </div>
           <Card
-                  class="mt-5"
-                  :title="selectedCharateristic.name"
-                  :showText="selectedCharateristic.text"
-                  :typeCard="'Based'"
-                  default-open
+            :title="youAnswerCard.title"
+            :showText="youAnswerCard.showText"
+            :tag="youAnswerCard.tag"
+            :img="youAnswerCard.src"
+            :typeCard="'Guessed'"
           />
         </template>
-        <div class="h5 mb-4">
-          Personality trait comparison, by category
+      </div>
+      <template v-if="this.isOthersAmount" >
+        <div class="block">
+          <div class="h5 mb-4">
+            Your contacts think your personality type is ...
+          </div>
+          <Card
+            :title="collegAnswerCard.title"
+            :showText="collegAnswerCard.showText"
+            :tag="collegAnswerCard.tag"
+            :img="collegAnswerCard.src"
+            :typeCard="'Contacts'"
+          />
         </div>
-        <Radar :data="radarData" />
+      </template>
+      <div class="diagram mb-5">
+        <div class="block">
+          <div class="diagram__title-with-respondents" v-if="respondentsCount">
+            <div class="report__respondents">
+              <svg class="report__respondents-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.42 15.93">
+                <circle
+                  fill="none"
+                  stroke="#999"
+                  stroke-miterlimit="10"
+                  cx="6.21"
+                  cy="4"
+                  r="3.91"/>
+                <path
+                  fill="none" stroke="#999" stroke-miterlimit="10"
+                  d="M2.29,16a5.71,5.71,0,0,1,11.34-.92,5.62,5.62,0,0,1,.08.92"
+                  transform="translate(-1.79 -0.07)"
+                />
+              </svg>
+              Respondents:  {{ respondentsCount }}
+            </div>
+          </div>
+          <div class="name-label-chart-top"><b class="chart-label">More Flexible</b></div>
+          <div class="name-label-chart-left"><b class="chart-label">Less Stable</b></div>
+          <div class="name-label-chart-right"><b class="chart-label">More Stable</b></div>
+          <ChartCompare :data="refreshData()"
+                        @charateristic-click="setChosenCharacteristic($event)">
+          </ChartCompare>
+          <div class="name-label-chart-bottom"><b class="chart-label">Less Flexible</b></div>
+          <template v-if="selectedCharateristic">
+            <div class="h5 mb-4">
+              You clicked ...
+            </div>
+            <Card
+              class="mt-5"
+              :title="selectedCharateristic.name"
+              :showText="selectedCharateristic.text"
+              :typeCard="'Based'"
+              default-open
+            />
+          </template>
+        </div>
+        <div class="block">
+          <div class="h5 mb-4">
+            Personality trait comparison, by category
+          </div>
+          <Radar :data="radarData" />
+        </div>
       </div>
 
       <b-modal
@@ -114,17 +121,19 @@
         <br/>
       </b-modal>
       <FeedbackModal v-model="showReportModal" />
-      <div class="buttons-report">
-        <button
-          v-b-modal.modal-multi-1
-          class="button button_theme-default button_size-m button-left">
-          Ask Contacts
-        </button>
-        <button
-          @click="redirectToQuestionnaireManagement"
-          class="button button_theme-default button_size-m button-right">
-          See Surveys
-        </button>
+      <div class="block">
+        <div class="buttons-report">
+          <button
+            v-b-modal.modal-multi-1
+            class="button button_theme-default button_size-m button-left">
+            Ask Contacts
+          </button>
+          <button
+            @click="redirectToQuestionnaireManagement"
+            class="button button_theme-default button_size-m button-right">
+            See Surveys
+          </button>
+        </div>
       </div>
     </Content>
   </div>
@@ -397,7 +406,7 @@ export default {
     margin-right: -24px;
     padding: 0 24px;
     position: relative;
-
+    margin-bottom: 0;
     .echarts{
       width: 100%;
       height: 310px;
@@ -412,6 +421,7 @@ export default {
     display: flex;
     align-items: center;
     margin-left: auto;
+    padding-top: 6px;
   }
   .report__respondents-icon{
     width: 14px;
@@ -433,6 +443,9 @@ export default {
     color: $txtColor2;
     border-radius: 4px;
     margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
   }
 
   .diagram__legend{
@@ -463,9 +476,11 @@ export default {
 
   .first_report {
     font-size: 16px;
+    margin-bottom: 5px;
   }
   .name-label-chart-bottom {
     text-align: center;
+    margin-bottom: 1px;
   }
   .name-label-chart-top {
     position: absolute;
@@ -480,15 +495,15 @@ export default {
   .name-label-chart-left {
     text-align: left;
     position: absolute;
-    top: 178px;
-    left: 0;
+    top: 185px;
+    left: 40px;
   }
 
   .name-label-chart-right {
     text-align: right;
     position: absolute;
-    top: 178px;
-    right: 0;
+    top: 185px;
+    right: 40px;
   }
 
   .chart-label {
@@ -515,6 +530,18 @@ export default {
     width: 45%;
   }
   .buttons-report {
-    margin-bottom: 110px;
+    margin-bottom: 70px;
+    padding-top: 7px;
+    @media (max-width: 600px) {
+      margin-bottom: 85px;
+    }
+    @media (max-width: 850px) {
+      margin-bottom: 93px;
+    }
+  }
+  .block {
+    border: 1px solid #ccc;
+    padding: 0 7px 0 7px;
+    margin: 20px 5px 0 5px;
   }
 </style>

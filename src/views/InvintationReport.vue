@@ -1,42 +1,47 @@
 <template>
   <div class="report">
     <Content>
-      <h1 class="h4 mb-1">Report</h1>
-      <h1 class="h6 mb-1 first_report">
-        This report shows what personality type you think {{getPersonalityTest.name}}
-        is and how your answers compare to the other people asked.
-      </h1>
-      <br/>
-      <template v-if="yourAnswerCard">
-        <div class="h5 mb-4">
-          You think {{getPersonalityTest.name}}'s personality is closest to ...
-        </div>
-        <Card
-          :title="yourAnswerCard.title"
-          :showText="yourAnswerCard.showText"
-          :tag="yourAnswerCard.tag"
-          :img="yourAnswerCard.src"
-          :typeCard="'Guessed'"
+      <div class="block">
+        <h1 class="h4 mb-1">Report</h1>
+        <h1 class="h6 mb-1 first_report">
+          This report shows what personality type you think {{getPersonalityTest.name}}
+          is and how your answers compare to the other people asked.
+        </h1>
+      </div>
+      <div class="block">
+        <template v-if="yourAnswerCard">
+          <div class="h5 mb-4">
+            You think {{getPersonalityTest.name}}'s personality is closest to ...
+          </div>
+          <Card
+            :title="yourAnswerCard.title"
+            :showText="yourAnswerCard.showText"
+            :tag="yourAnswerCard.tag"
+            :img="yourAnswerCard.src"
+            :typeCard="'Guessed'"
         />
-      </template>
-      <div class="h5 mb-4" v-if="!this.isOthersAmount">
+        </template>
+      </div>
+      <div class="h5 mb-4 block" v-if="!this.isOthersAmount">
         When at least 3 others have completed their questionnaires,
         you will see what they think here as well!
       </div>
       <template v-if="this.isOthersAmount">
-        <div class="h5 mb-4">
-          Based on {{getPersonalityTest.othersAmount}}
-          respondents, {{getPersonalityTest.name}}'s personality is closest to ...
+        <div class="block">
+          <div class="h5 mb-4">
+            Based on {{getPersonalityTest.othersAmount}}
+            respondents, {{getPersonalityTest.name}}'s personality is closest to ...
+          </div>
+          <Card
+            :title="collegAnswerCard.title"
+            :showText="collegAnswerCard.showText"
+            :tag="collegAnswerCard.tag"
+            :img="collegAnswerCard.src"
+            :typeCard="'Contacts'"
+          />
         </div>
-        <Card
-          :title="collegAnswerCard.title"
-          :showText="collegAnswerCard.showText"
-          :tag="collegAnswerCard.tag"
-          :img="collegAnswerCard.src"
-          :typeCard="'Contacts'"
-        />
       </template>
-      <div class="diagram">
+      <div class="diagram block">
         <div class="diagram__title-with-respondents" v-if="respondentsCount">
           <div class="report__respondents">
             <svg class="report__respondents-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.42 15.93">
@@ -75,35 +80,38 @@
           />
         </template>
       </div>
-      <div class="h5 mb-4">
-        Personality trait comparison, by category
-      </div>
-      <div class="diagram mb-5" v-if="barChart !== null">
-        <Radar :data="barChart" />
-      </div>
 
+      <div class="block">
+        <div class="h5 mb-4">
+          Personality trait comparison, by category
+        </div>
+        <div class="diagram mb-5" v-if="barChart !== null">
+          <Radar :data="barChart" />
+        </div>
+      </div>
 
       <FeedbackModal v-model="showReportModal" />
-      <div v-if="checkCompletedTest()" class="buttons-report">
-        <button
-          class="button button_theme-default button_size-m button-left"
-          @click="redirectToQuestions">
-          Find Out How Others See You
-        </button>
-        <button
-          @click="redirectToQuestionnaireManagement"
-          class="button button_theme-default button_size-m button-right">
-          See Surveys
-        </button>
+      <div class="block">
+        <div v-if="checkCompletedTest()" class="buttons-report">
+          <button
+            class="button button_theme-default button_size-m button-left"
+            @click="redirectToQuestions">
+            Find Out How Others See You
+          </button>
+          <button
+            @click="redirectToQuestionnaireManagement"
+            class="button button_theme-default button_size-m button-right">
+            See Surveys
+          </button>
+        </div>
+        <div class="button-report" v-else>
+          <button
+            @click="redirectToQuestionnaireManagement"
+            class="button button_w-100 button_theme-default button_size-m">
+            See Surveys
+          </button>
+        </div>
       </div>
-      <div v-else>
-        <button
-          @click="redirectToQuestionnaireManagement"
-          class="button button_w-100 button_theme-default button_size-m">
-          See Surveys
-        </button>
-      </div>
-
     </Content>
   </div>
 </template>
@@ -412,6 +420,7 @@ export default {
     margin-right: -24px;
     padding: 0 24px;
     position: relative;
+    margin-bottom: 0;
     .echarts{
       width: 100%;
       height: 310px;
@@ -422,6 +431,7 @@ export default {
   }
   .name-label-chart-bottom {
     text-align: center;
+    margin-bottom: 3px;
   }
   .name-label-chart-top {
     position: absolute;
@@ -430,21 +440,21 @@ export default {
     left: 0;
     right: 0;
     text-align: center;
-    top: 35px;
+    top: 20px;
   }
 
   .name-label-chart-left {
     text-align: left;
     position: absolute;
-    top: 178px;
-    left: 0;
+    top: 185px;
+    left: 10px;
   }
 
   .name-label-chart-right {
     text-align: right;
     position: absolute;
-    top: 178px;
-    right: 0;
+    top: 185px;
+    right: 10px;
   }
 
   .chart-label {
@@ -462,8 +472,17 @@ export default {
   }
 
   .buttons-report {
-    margin-bottom: 110px;
+    margin-bottom: 85px;
+    padding-top: 7px;
+    height: 20px;
+    @media (max-width: 600px) {
+      margin-bottom: 60px;
+    }
+    @media (max-width: 450px) {
+      margin-bottom: 130px;
+    }
   }
+
   .report__respondents-icon{
     width: 14px;
     height: 17px;
@@ -479,5 +498,15 @@ export default {
     align-items: center;
     margin-left: auto;
     float: right;
+    padding-top: 6px;
+  }
+  .button-report{
+    padding-bottom: 7px;
+    padding-top: 7px;
+  }
+  .block {
+    border: 1px solid #ccc;
+    padding: 0 7px 0 7px;
+    margin: 20px 5px 0 5px;
   }
 </style>

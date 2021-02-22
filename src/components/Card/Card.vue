@@ -124,7 +124,7 @@ export default {
     border-radius: 8px;
     background: linear-gradient(0deg, #EEFBF4 100%, rgba(238,251,244,0) 0);
     box-shadow: 0 8px 24px 0 rgba(140,180,160,0.48);
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     overflow: hidden;
     cursor: pointer;
     position: relative;

@@ -182,6 +182,7 @@ export default {
   .radar-legend{
     display: flex;
     justify-content: center;
+    margin-bottom: 7px;
   }
   .radar-legend-list{
     display: flex;
