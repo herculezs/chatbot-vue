@@ -121,7 +121,7 @@
             <template v-if="$v.formData.youEmail.$error">
               <div
                 class="form__input-error"
-                v-if="$v.formData.youEmail.email"
+                v-if="!$v.formData.youEmail.mustBeCool"
               >
                 Check correct email
               </div>
@@ -271,9 +271,13 @@ import step1 from '../../assets/step_1.gif';
 
 // numeric, minValue, maxValue,
 const {
-  required, email,
+  required,
 } = require('vuelidate/lib/validators');
 
+const mustBeCool = (emailValid) => {
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(emailValid).toLowerCase());
+};
 
 export default {
   components: {
@@ -291,7 +295,7 @@ export default {
       },
       youEmail: {
         required,
-        email,
+        mustBeCool,
       },
       surname: {
         required,
@@ -413,7 +417,7 @@ export default {
       return {
         name: this.formData.firstName,
         surname: this.formData.surname,
-        youEmail: this.formData.youEmail,
+        youEmail: this.formData.youEmail.toLowerCase(),
         // eslint-disable-next-line radix,max-len
         // dateOfBirth: [this.formData.year, currentMonthNumber < 9 ? `0${currentMonthNumber}` : currentMonthNumber, this.formData.day <= 9 ? `0${parseInt(this.formData.day)}` : parseInt(this.formData.day)].join('-'),
         phone,
@@ -425,6 +429,8 @@ export default {
     },
     start() {
       this.$v.$touch();
+      console.log(this.$v.formData.youEmail.mustBeCool);
+      console.log(this.$v.formData.youEmail);
       if (!this.$v.$invalid) {
         this.disableSendCode = true;
         const data = this.prepareDataForRequest();

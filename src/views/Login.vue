@@ -121,6 +121,13 @@ export default {
           } else {
             this.$router.replace(this.getRedirectAuth);
           }
+        }).catch(() => {
+          this.$router.push({
+            name: 'main',
+            params: {
+              slide: 3,
+            },
+          });
         });
       }
     },
