@@ -429,8 +429,6 @@ export default {
     },
     start() {
       this.$v.$touch();
-      console.log(this.$v.formData.youEmail.mustBeCool);
-      console.log(this.$v.formData.youEmail);
       if (!this.$v.$invalid) {
         this.disableSendCode = true;
         const data = this.prepareDataForRequest();
