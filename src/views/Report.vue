@@ -121,8 +121,8 @@
         <br/>
       </b-modal>
       <FeedbackModal v-model="showReportModal" />
-      <div class="block">
-        <div class="buttons-report">
+      <div class="buttons-report">
+        <div class="block">
           <button
             v-b-modal.modal-multi-1
             class="button button_theme-default button_size-m button-left">
@@ -511,10 +511,8 @@ export default {
   }
 
   .button-left {
-    float: left;
     width: 45%;
   }
-
 
   .ask-contacts .modal-content {
     background: $bgColor1;
@@ -532,16 +530,13 @@ export default {
   .buttons-report {
     margin-bottom: 70px;
     padding-top: 7px;
-    @media (max-width: 600px) {
-      margin-bottom: 85px;
-    }
-    @media (max-width: 850px) {
-      margin-bottom: 93px;
-    }
   }
   .block {
     border: 1px solid #ccc;
     padding: 0 7px 0 7px;
     margin: 20px 5px 0 5px;
+  }
+  .buttons-report .block {
+    padding: 6px 7px 6px 7px;
   }
 </style>

@@ -21,13 +21,13 @@ export default {
     },
   },
   charts: {
-    pointColor: 'rgba(255,131,0,0.73)',
-    chosePointColor: 'rgb(180,103,0)',
+    pointColor: 'rgba(255, 123, 0, 1)',
+    chosePointColor: 'rgba(255, 123, 0, 1)',
     backGroundColorLabel: '#fff7ef',
   },
   starRatingReport: {
-    starActiveColor: '#ff7b00',
-    starBorderColor: '#ff7b00',
+    starActiveColor: 'rgba(255, 123, 0)',
+    starBorderColor: 'rgba(255, 123, 0)',
   },
   personalityType: {
     title: 'Here are the 35 different personality types:'

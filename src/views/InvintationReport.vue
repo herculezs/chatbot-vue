@@ -23,7 +23,7 @@
         </template>
       </div>
       <div class="h5 mb-4 block" v-if="!this.isOthersAmount">
-        When at least 3 others have completed their questionnaires,
+        When at least {{ 4 - respondentsCount }} others have completed their questionnaires,
         you will see what they think here as well!
       </div>
       <template v-if="this.isOthersAmount">
@@ -91,27 +91,29 @@
       </div>
 
       <FeedbackModal v-model="showReportModal" />
-      <div class="block">
         <div v-if="checkCompletedTest()" class="buttons-report">
-          <button
-            class="button button_theme-default button_size-m button-left"
-            @click="redirectToQuestions">
-            Find Out How Others See You
-          </button>
-          <button
-            @click="redirectToQuestionnaireManagement"
-            class="button button_theme-default button_size-m button-right">
-            See Surveys
-          </button>
+          <div class="block">
+            <button
+              class="button button_theme-default button_size-m button-left"
+              @click="redirectToQuestions">
+              Find Out How Others See You
+            </button>
+            <button
+              @click="redirectToQuestionnaireManagement"
+              class="button button_theme-default button_size-m button-right">
+              See Surveys
+            </button>
+          </div>
         </div>
-        <div class="button-report" v-else>
-          <button
-            @click="redirectToQuestionnaireManagement"
-            class="button button_w-100 button_theme-default button_size-m">
-            See Surveys
-          </button>
+        <div class="buttons-report" v-else>
+          <div class="block">
+            <button
+              @click="redirectToQuestionnaireManagement"
+              class="button button_w-100 button_theme-default button_size-m">
+              See Surveys
+            </button>
+          </div>
         </div>
-      </div>
     </Content>
   </div>
 </template>
@@ -462,25 +464,12 @@ export default {
   }
 
   .button-left {
-    float: left;
     width: 45%;
   }
 
   .button-right {
     float: right;
     width: 45%;
-  }
-
-  .buttons-report {
-    margin-bottom: 85px;
-    padding-top: 7px;
-    height: 20px;
-    @media (max-width: 600px) {
-      margin-bottom: 60px;
-    }
-    @media (max-width: 450px) {
-      margin-bottom: 130px;
-    }
   }
 
   .report__respondents-icon{
@@ -508,5 +497,8 @@ export default {
     border: 1px solid #ccc;
     padding: 0 7px 0 7px;
     margin: 20px 5px 0 5px;
+  }
+  .buttons-report .block {
+    padding: 7px 7px 7px 7px;
   }
 </style>

@@ -16,21 +16,21 @@ $btnFont: 'Montserrat', sans-serif;
 
 //Background card
 $bgCardColor1: #7811c9;
-$bgCardColor2: #ff7b00;
+$bgCardColor2: rgba(255, 123, 0, 1);
 $bgCardColor3: #ff5151;
 
 //Background card hover
 $bgCardHoverColor1: #4e1191;
-$bgCardHoverColor2: #bb6300;
+$bgCardHoverColor2: rgba(255, 123, 0, 0.5);
 $bgCardHoverColor3: #a83636;
 
 // General Color
 $mnColor1: #333;
-$mnColor2: #ff7b00;
+$mnColor2: rgba(255, 123, 0, 1);
 $mnColor3: rgba(255, 129, 0, 0.54);
 
 //Background color
-$bgColor1: #fff7ef;
+$bgColor1: rgba(255, 123, 0, 0.05);
 $bgColor2: #f9fdff;
 $bgColor3: #d6e7ff;
 $bgColor4: #deffed;
@@ -48,15 +48,15 @@ $txtColorDanger: #f05000;
 
 //Link color
 $lnkColo1: #666;
-$lnkColor2: #ff7b00;
+$lnkColor2: rgba(255, 123, 0, 1);
 
 //Press link color
-$activeLnkColor2: #ba6500;
+$activeLnkColor2: rgba(255, 123, 0, 0.5);
 
 //Button color
-$btnColor1: #ff7c00;
+$btnColor1: rgba(255, 123, 0, 1);
 $btnColor2: #333;
-$btnColor3: rgba(255, 213, 0, 0.85);
+$btnColor3: rgba(255, 123, 0, 0.5);
 
 //Form
 //Input
@@ -66,16 +66,16 @@ $formInputBorderDangerColor: #f05000;
 $formInputColor: #999;
 
 //ProgressBar
-$progressBarBg: #ff7b00;
-$progressBarAllFieldBg: #E9DCF3;
+$progressBarBg: rgba(255, 123, 0, 1);
+$progressBarAllFieldBg: #ffc081;
 
 //Responsive
 $xsMaxHeight: 668px;
 $xxsMaxHeight: 580px;
 
 //star color
-$starActiveColor: #ff7b00;
-$starBorderColor: #ff7b00;
+$starActiveColor: rgba(255, 123, 0, 1);
+$starBorderColor: rgba(255, 123, 0, 1);
 
 $md-gap: 24px;
 
