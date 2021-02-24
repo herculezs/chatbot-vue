@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ECharts
-      :options="getChartData"
+    <VueECharts
+      :option="getChartData"
       autoresize
     />
     <div class="radar-legend">
@@ -29,11 +29,11 @@ import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/pie';
 import 'echarts/lib/chart/map';
 import 'echarts/lib/component/legend';
-import ECharts from 'vue-echarts';
+import VueECharts from 'vue-echarts';
 
 export default {
   components: {
-    ECharts,
+    VueECharts,
   },
   props: {
     data: {
@@ -90,6 +90,7 @@ export default {
     getChartData() {
       return {
         toolbox: {
+          show: false,
           feature: {
             magicType: {
               type: ['stack', 'tiled'],
@@ -106,7 +107,9 @@ export default {
           bottom: '3%',
           top: '35%',
         },
-        tooltip: {},
+        tooltip: {
+          show: false,
+        },
         xAxis: {
           data: ['Open', 'Conscientious', 'Extraverted', 'Agreeable', 'Neurotic'],
           position: 'top',
