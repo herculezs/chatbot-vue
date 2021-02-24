@@ -489,7 +489,7 @@ export default {
     left: 0;
     right: 0;
     text-align: center;
-    top: 35px;
+    top: 30px;
   }
 
   .name-label-chart-left {

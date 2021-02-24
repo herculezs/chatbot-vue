@@ -41,7 +41,7 @@
           />
         </div>
       </template>
-      <div class="diagram block">
+      <div class="diagram mb-5 block">
         <div class="diagram__title-with-respondents" v-if="respondentsCount">
           <div class="report__respondents">
             <svg class="report__respondents-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.42 15.93">
@@ -442,7 +442,6 @@ export default {
     left: 0;
     right: 0;
     text-align: center;
-    top: 20px;
   }
 
   .name-label-chart-left {
@@ -500,5 +499,10 @@ export default {
   }
   .buttons-report .block {
     padding: 7px 7px 7px 7px;
+  }
+  .diagram__title-with-respondents{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 </style>

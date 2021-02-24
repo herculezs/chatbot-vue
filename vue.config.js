@@ -99,6 +99,8 @@ module.exports = {
   //   proxy: process.env.VUE_APP_URL,
   // },
 
+  transpileDependencies: [/@vue[\\/]composition-api/],
+
   // output built static files to Laravel's public dir.
   // note the "build" script in package.json needs to be modified as well.
   outputDir: process.env.OUTPUT_DIR,

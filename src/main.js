@@ -1,3 +1,4 @@
+import './installCompositionApi';
 import Vue from 'vue';
 import Notifications from 'vue-notification';
 import moment from 'moment';
@@ -15,6 +16,9 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import VTooltip from 'v-tooltip';
 import VueI18n from 'vue-i18n';
 import VueMeta from 'vue-meta';
+
+import 'echarts';
+
 import {
   faUserSecret, faUserAlt, faEnvelope, faUserTag, faUserFriends, faMobile,
 } from '@fortawesome/free-solid-svg-icons';

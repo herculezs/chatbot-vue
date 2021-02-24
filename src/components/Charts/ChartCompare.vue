@@ -1,7 +1,7 @@
 <template>
   <div>
     <ECharts
-      :options="{...getChartData, series}"
+      :option="{...getChartData, series}"
       autoresize
       @click="choose"
     />
@@ -137,6 +137,13 @@ export default {
           });
         }
       });
+      const chartWidth = Math.min(window.innerWidth - 62, 470);
+      let fontSizeLabel = 12;
+      let fontSizeLabelFocus = 12;
+      if (chartWidth <= 400) {
+        fontSizeLabel = 11;
+        fontSizeLabelFocus = 11;
+      }
 
       filter = [];
       return filterResult.map(({ data, type }) => {
@@ -144,6 +151,7 @@ export default {
         const color = data[2] === this.selectedCharateristic[2] ? choseColor
           : this.colorsByType[type].color;
         let labelByPoint;
+        let positionResult = {};
 
         if (type === 'YOU_ARE' || type === 'COLLEAGUE'
           || type === 'YOU_THINK_ABOUT' || type === 'GROUP') {
@@ -152,13 +160,47 @@ export default {
             position: [8, -28],
             align: 'center',
             color,
+            fontSize: fontSizeLabel,
             formatter(d) {
               const v = d.value;
               return v[2];
             },
           };
         } else {
+          if (data[1] >= 0 && (data[0] >= -2.16 && data[0] <= 0)) {
+            positionResult = {
+              position: ['13', '85'],
+            };
+          }
+
+          if (data[1] <= 0 && (data[0] >= -2.16 && data[0] <= 0)) {
+            positionResult = {
+              position: 'top',
+            };
+          }
+
+          if (data[1] >= 0 && (data[0] <= 2.16 && data[0] >= 0)) {
+            positionResult = {
+              position: ['13', '85'],
+            };
+          }
+          if ((data[1] <= 0 && (data[0] <= 2.16 && data[0] >= 0))
+            || (data[1] === 0 && data[0] === 0)) {
+            positionResult = {
+              position: 'top',
+            };
+          }
+          if (data[0] >= 2.16) {
+            positionResult = {
+              position: ['-60', '33'],
+            };
+          } else if (data[0] <= -2.16) {
+            positionResult = {
+              position: ['80', '33'],
+            };
+          }
           labelByPoint = {
+            fontSize: fontSizeLabel,
             show: false,
             position: 'top',
             backgroundColor: configEnv.charts.backGroundColorLabel,
@@ -180,7 +222,7 @@ export default {
             label: {
               show: true,
               formatter(param) {
-                let res = `${param.data[2].toUpperCase()}`;
+                let res = `${param.data[2]}`;
                 // eslint-disable-next-line no-unused-expressions
                 const oneCharacter = Object.values(constant.cards)
                   .filter(x => x.title === param.value[2]);
@@ -199,11 +241,32 @@ export default {
                 : this.colorsByType[type].label,
               distance: 5,
               fontWeight: 'bold',
+              fontSize: fontSizeLabelFocus,
+              ...positionResult,
+            },
+            labelLine: {
+              show: false,
             },
             itemStyle: {
               color,
               borderColor: this.colorsByType[type].border,
               borderWidth: 2,
+            },
+          },
+          labelLayout: {
+            y: '15%',
+            align: 'center',
+            verticalAlign: 'bottom',
+            showAbove: true,
+            hideOverlap: true,
+            moveOverlap: 'shiftX',
+          },
+          labelLine: {
+            show: true,
+            smooth: true,
+            length2: 40,
+            lineStyle: {
+              color: '#bbb',
             },
           },
           color: [this.colorsByType[type].color],
@@ -215,6 +278,7 @@ export default {
   methods: {
     choose(dataObject) {
       // return data only if text is available
+      console.log(this.series, 'series');
       if (dataObject.value[3]) {
         this.selectedCharateristic = dataObject.value;
         this.$forceUpdate();
