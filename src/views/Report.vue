@@ -67,6 +67,7 @@
             </div>
           </div>
           <div class="name-label-chart-top"><b class="chart-label">More Flexible</b></div>
+          <br/>
           <div class="name-label-chart-left"><b class="chart-label">Less Stable</b></div>
           <div class="name-label-chart-right"><b class="chart-label">More Stable</b></div>
           <ChartCompare :data="refreshData()"
@@ -243,7 +244,7 @@ export default {
           {
             value: [],
             type: 'YOU_ARE',
-            data: [this.SelfCoordinate[0], this.SelfCoordinate[1], `You scored yourself as - \n${this.youAnswerCard.title.toUpperCase()}${(this.OtherCoordinate && (this.SelfCoordinate[0] === this.OtherCoordinate[0] && this.OtherCoordinate[1] === this.SelfCoordinate[1])) ? `\n\n\nColleagues say - \n${this.collegAnswerCard.title.toUpperCase()}` : ''}`],
+            data: [this.SelfCoordinate[0], this.SelfCoordinate[1], `You scored yourself as - \n${this.youAnswerCard.title.toUpperCase()}${(this.OtherCoordinate && (this.SelfCoordinate[0] === this.OtherCoordinate[0] && this.OtherCoordinate[1] === this.SelfCoordinate[1])) ? `\nColleagues say - \n${this.collegAnswerCard.title.toUpperCase()}` : ''}`],
           },
         );
       }
@@ -494,14 +495,14 @@ export default {
   .name-label-chart-left {
     text-align: left;
     position: absolute;
-    top: 185px;
+    top: 205px;
     left: 40px;
   }
 
   .name-label-chart-right {
     text-align: right;
     position: absolute;
-    top: 185px;
+    top: 205px;
     right: 40px;
   }
 

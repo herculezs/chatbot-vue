@@ -254,7 +254,8 @@ export default {
             },
           },
           labelLayout: {
-            y: '15%',
+            y: '20%',
+            dx: -5,
             align: 'center',
             verticalAlign: 'bottom',
             showAbove: true,
@@ -266,7 +267,8 @@ export default {
             smooth: true,
             length2: 40,
             lineStyle: {
-              color: '#bbb',
+              color,
+              width: 2,
             },
           },
           color: [this.colorsByType[type].color],
