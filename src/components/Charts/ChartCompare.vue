@@ -255,7 +255,7 @@ export default {
           },
           labelLayout: {
             y: '20%',
-            dx: -5,
+            dx: -15,
             align: 'center',
             verticalAlign: 'bottom',
             showAbove: true,
