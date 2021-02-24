@@ -10,7 +10,7 @@
       </div>
       <div class="block">
         <template v-if="yourAnswerCard">
-          <div class="h5 mb-4">
+          <div class="h5">
             You think {{getPersonalityTest.name}}'s personality is closest to ...
           </div>
           <Card
@@ -28,7 +28,7 @@
       </div>
       <template v-if="this.isOthersAmount">
         <div class="block">
-          <div class="h5 mb-4">
+          <div class="h5">
             Based on {{getPersonalityTest.othersAmount}}
             respondents, {{getPersonalityTest.name}}'s personality is closest to ...
           </div>

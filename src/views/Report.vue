@@ -19,7 +19,7 @@
       </div>
       <div class="block">
         <template v-if="youAnswerCard">
-          <div class="h5 mb-4">
+          <div class="h5">
             Based on your answers, your type is ...
           </div>
           <Card
@@ -33,7 +33,7 @@
       </div>
       <template v-if="this.isOthersAmount" >
         <div class="block">
-          <div class="h5 mb-4">
+          <div class="h5">
             Your contacts think your personality type is ...
           </div>
           <Card
