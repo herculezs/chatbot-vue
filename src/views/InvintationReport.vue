@@ -69,11 +69,11 @@
         </ChartCompare>
         <div class="name-label-chart-bottom"><b class="chart-label">Less Flexible</b></div>
         <template v-if="selectedCharateristic">
-          <div class="h5 mb-4">
+          <br/>
+          <div class="h5">
             You clicked ...
           </div>
           <Card
-            class="mt-5"
             :title="selectedCharateristic.name"
             :showText="selectedCharateristic.text"
             :typeCard="'Based'"
