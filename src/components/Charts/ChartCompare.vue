@@ -62,7 +62,7 @@ export default {
     getChartData: {
       grid: {
         left: 1,
-        bottom: '3%',
+        bottom: '10%',
         containLabel: true,
         width: '100%',
         height: '240px',
@@ -152,9 +152,15 @@ export default {
           : this.colorsByType[type].color;
         let labelByPoint;
         let positionResult = {};
-
+        let y = '10%';
         if (type === 'YOU_ARE' || type === 'COLLEAGUE'
           || type === 'YOU_THINK_ABOUT' || type === 'GROUP') {
+          if (data[1] > 0) {
+            y = '10%';
+          } else if (data[1] < 0) {
+            y = '100%';
+          }
+
           labelByPoint = {
             show: true,
             position: [8, -28],
@@ -254,7 +260,7 @@ export default {
             },
           },
           labelLayout: {
-            y: '20%',
+            y,
             dx: -15,
             align: 'center',
             verticalAlign: 'bottom',
@@ -265,10 +271,11 @@ export default {
           labelLine: {
             show: true,
             smooth: true,
-            length2: 40,
+            length2: 60,
             lineStyle: {
               color,
               width: 2,
+              type: 'dashed',
             },
           },
           color: [this.colorsByType[type].color],

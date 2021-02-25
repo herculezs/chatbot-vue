@@ -366,13 +366,11 @@ export default {
         {
           value: [],
           type: 'YOU_THINK_ABOUT',
-          data: [resYouThink[0], resYouThink[1], `You score ${this.getPersonalityTest.name} as - \n${this.yourAnswerCard.title.toUpperCase()}${(this.getPersonalityTest.othersAmount >= 3 && (resYouThink[0] === resColleguag[0] && resYouThink[1] === resColleguag[1])) ? `\nThe GROUP answered as -\n${this.collegAnswerCard.title.toUpperCase()}` : ''}`],
+          data: [resYouThink[0], resYouThink[1], `You score ${this.getPersonalityTest.name} as - \n${this.yourAnswerCard.title.toUpperCase()}`],
         },
       );
 
-      if (this.getPersonalityTest.othersAmount >= 3
-        && (resYouThink[0] !== resColleguag[0]
-        || resYouThink[1] !== resColleguag[1])) {
+      if (this.getPersonalityTest.othersAmount > 3) {
         this.data.push({
           value: [],
           type: 'GROUP',
@@ -448,14 +446,14 @@ export default {
   .name-label-chart-left {
     text-align: left;
     position: absolute;
-    top: 205px;
+    top: 185px;
     left: 10px;
   }
 
   .name-label-chart-right {
     text-align: right;
     position: absolute;
-    top: 205px;
+    top: 185px;
     right: 10px;
   }
 

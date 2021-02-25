@@ -244,14 +244,12 @@ export default {
           {
             value: [],
             type: 'YOU_ARE',
-            data: [this.SelfCoordinate[0], this.SelfCoordinate[1], `You scored yourself as - \n${this.youAnswerCard.title.toUpperCase()}${(this.OtherCoordinate && (this.SelfCoordinate[0] === this.OtherCoordinate[0] && this.OtherCoordinate[1] === this.SelfCoordinate[1])) ? `\nColleagues say - \n${this.collegAnswerCard.title.toUpperCase()}` : ''}`],
+            data: [this.SelfCoordinate[0], this.SelfCoordinate[1], `You scored yourself as - \n${this.youAnswerCard.title.toUpperCase()}`],
           },
         );
       }
 
-      // eslint-disable-next-line no-mixed-operators
-      if (!this.showReportModal && this.OtherCoordinate && (this.SelfCoordinate[0]
-        !== this.OtherCoordinate[0] || this.OtherCoordinate[1] !== this.SelfCoordinate[1])) {
+      if (!this.showReportModal && this.OtherCoordinate) {
         this.data.push({
           value: [],
           type: 'COLLEAGUE',
@@ -495,18 +493,21 @@ export default {
   .name-label-chart-left {
     text-align: left;
     position: absolute;
-    top: 205px;
+    top: 185px;
     left: 40px;
   }
 
   .name-label-chart-right {
     text-align: right;
     position: absolute;
-    top: 205px;
+    top: 185px;
     right: 40px;
   }
 
   .chart-label {
+    @media (max-height: $xxsMaxHeight) {
+      font-size: 10px;
+    }
     font-size: 14px;
   }
 
