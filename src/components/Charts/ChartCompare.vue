@@ -287,7 +287,6 @@ export default {
   methods: {
     choose(dataObject) {
       // return data only if text is available
-      console.log(this.series, 'series');
       if (dataObject.value[3]) {
         this.selectedCharateristic = dataObject.value;
         this.$forceUpdate();
