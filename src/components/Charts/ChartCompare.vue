@@ -175,34 +175,34 @@ export default {
         } else {
           if (data[1] >= 0 && (data[0] >= -2.16 && data[0] <= 0)) {
             positionResult = {
-              position: ['13', '85'],
+              position: ['23', '85'],
             };
           }
 
           if (data[1] <= 0 && (data[0] >= -2.16 && data[0] <= 0)) {
             positionResult = {
-              position: 'top',
+              position: ['23', '0'],
             };
           }
 
           if (data[1] >= 0 && (data[0] <= 2.16 && data[0] >= 0)) {
             positionResult = {
-              position: ['13', '85'],
+              position: ['23', '85'],
             };
           }
           if ((data[1] <= 0 && (data[0] <= 2.16 && data[0] >= 0))
             || (data[1] === 0 && data[0] === 0)) {
             positionResult = {
-              position: 'top',
+              position: ['23', '0'],
             };
           }
           if (data[0] >= 2.16) {
             positionResult = {
-              position: ['-60', '33'],
+              position: ['-50', '33'],
             };
           } else if (data[0] <= -2.16) {
             positionResult = {
-              position: ['80', '33'],
+              position: ['100', '33'],
             };
           }
           labelByPoint = {
@@ -215,7 +215,7 @@ export default {
 
         return ({
           type: 'scatter',
-          symbolSize: 15,
+          symbolSize: -15,
           symbol: 'diamond',
           label: labelByPoint,
           itemStyle: {
@@ -271,7 +271,7 @@ export default {
           labelLine: {
             show: true,
             smooth: true,
-            length2: 60,
+            length2: 23,
             lineStyle: {
               color,
               width: 2,
