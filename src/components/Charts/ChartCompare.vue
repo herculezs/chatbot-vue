@@ -153,12 +153,15 @@ export default {
         let labelByPoint;
         let positionResult = {};
         let y = '10%';
+        let dx = -10;
         if (type === 'YOU_ARE' || type === 'COLLEAGUE'
           || type === 'YOU_THINK_ABOUT' || type === 'GROUP') {
           if (data[1] > 0) {
             y = '10%';
+            dx = -10;
           } else if (data[1] < 0) {
             y = '100%';
+            dx = 10;
           }
 
           labelByPoint = {
@@ -215,7 +218,7 @@ export default {
 
         return ({
           type: 'scatter',
-          symbolSize: -15,
+          symbolSize: 15,
           symbol: 'diamond',
           label: labelByPoint,
           itemStyle: {
@@ -261,7 +264,7 @@ export default {
           },
           labelLayout: {
             y,
-            dx: -15,
+            dx,
             align: 'center',
             verticalAlign: 'bottom',
             showAbove: true,
