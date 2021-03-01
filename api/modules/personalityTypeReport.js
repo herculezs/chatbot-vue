@@ -14,6 +14,18 @@ export default {
       });
     });
   },
+  fetchPersonalityTypeReportFreeVersion(uniqueId) {
+    return new Promise((resolve, reject) => {
+      http.get(`user/personality-type-report/free-version/${process.env.QUESTIONNAIRE_ID}?uniqueId=${uniqueId}`).then(
+        ({ data }) => {
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
   setPersonalityType(formData) {
     return new Promise((resolve, reject) => {
       http.post('/user/personality-type', formData).then(

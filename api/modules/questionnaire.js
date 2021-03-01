@@ -38,6 +38,18 @@ export default {
       });
     });
   },
+  saveAnswerFreeVersion(formData, uniqueId) {
+    return new Promise((resolve, reject) => {
+      http.post(`questionnaire/free-version/${process.env.QUESTIONNAIRE_ID}`, { answers: formData, uniqueId }).then(
+        ({ data }) => {
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
   saveInvitationAnswer(formData, id, uniqueId) {
     return new Promise((resolve, reject) => {
       http.post(`/questionnaire/invitation/${process.env.QUESTIONNAIRE_ID}/u2/${id}`, { answers: formData, uniqueId }).then(

@@ -62,6 +62,7 @@
 import Content from '@components/Content/Content.vue';
 import { debounce } from 'lodash';
 import { mapGetters } from 'vuex';
+import isFreeVersion from '@helpers/func';
 import checkbox from '../assets/checkbox_fill.svg';
 
 export default {
@@ -195,6 +196,21 @@ export default {
       if (this.isPersonalityTest) {
         return this.saveAnswerByPersonalityTest();
       }
+
+      if (isFreeVersion) {
+        if (!localStorage.getItem('uniqueId')) {
+          localStorage.setItem('uniqueId', `anonymous${Math.floor(Math.random()
+            * Math.floor(Math.random() * Date.now()) * Math.random())}`);
+        }
+
+        return this.$api.questionnaire.saveAnswerFreeVersion(this.formData, localStorage.getItem('uniqueId'))
+          .then(() => {
+            this.$router.push({ name: 'report' });
+          }).catch(() => {
+            this.$router.push({ name: 'report' });
+          });
+      }
+
 
       return this.$api.questionnaire.saveAnswer(this.formData)
         .then(() => {

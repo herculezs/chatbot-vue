@@ -33,210 +33,14 @@
         <button
           class="button button_w-100
         button_theme-default button_size-m"
-          @click.prevent="gotToSlide(2)"
+          @click.prevent="redirectFreeVersion()"
         >
           Start
         </button>
       </div>
-      <div class="onBoarding-carousel__slide">
-        <div class="title onBoarding__title">
-          Details
-        </div>
-        <div class="first_report caption text-center mb-3">
-          We need your details so we can notify you of your results.
-          We won’t contact you otherwise
-          <br/>
-          <br/>
-          <b>Any answers you give about others will be <b>totally anonymous</b>
-            to everyone in the company</b>
-          <br/>
-        </div>
-        <form class="form">
-          <div class="form-group">
-            <div
-              class="form__input_for_icon"
-              :class="{'form-group-error': $v.formData.firstName.$error}"
-            >
-              <input
-                class="form__input"
-                placeholder="First name"
-                v-model="formData.firstName"
-              />
-              <InformationForm
-                icon="user-alt"
-                size="1x"
-                :tooltip="'Your first name'">
-              </InformationForm>
-            </div>
-            <template v-if="$v.formData.firstName.$error">
-              <div
-                class="form__input-error"
-                v-if="!$v.formData.firstName.required"
-              >
-                Field is required
-              </div>
-            </template>
-          </div>
-          <div class="form-group">
-            <div
-              class="form__input_for_icon"
-              :class="{'form-group-error': $v.formData.surname.$error}"
-            >
-              <input
-                class="form__input"
-                placeholder="Last Name"
-                v-model="formData.surname"
-              />
-              <InformationForm
-                icon="user-alt"
-                size="1x"
-                :tooltip="'Your last name'">
-              </InformationForm>
-            </div>
-            <template v-if="$v.formData.surname.$error">
-              <div
-                class="form__input-error"
-                v-if="!$v.formData.surname.required"
-              >
-                Field is required
-              </div>
-            </template>
-          </div>
-          <div class="form-group">
-            <div
-              class="form__input_for_icon"
-              :class="{'form-group-error': $v.formData.youEmail.$error}"
-            >
-              <input
-                class="form__input form__input_for_icon"
-                :placeholder="configEnv.onboarding.emailPlaceHolder"
-                v-model="formData.youEmail"
-              />
-              <InformationForm
-                icon="envelope"
-                size="1x"
-                :tooltip="configEnv.onboarding.tooltipEmail">
-              </InformationForm>
-            </div>
-            <template v-if="$v.formData.youEmail.$error">
-              <div
-                class="form__input-error"
-                v-if="!$v.formData.youEmail.mustBeCool"
-              >
-                Check correct email
-              </div>
-            </template>
-          </div>
-<!--          <div-->
-<!--            class="form-group flex-default-gap"-->
-<!--            :class="{'form-group-error': $v.formData.month.$error}"-->
-<!--          >-->
-<!--            <select required-->
-<!--                    class="form__input select-month"-->
-<!--                    v-model="formData.month"-->
-<!--            >-->
-<!--              <option value="undefined" disabled selected hidden>Month</option>-->
-<!--              <option :value="index" v-for="(month, index) in allMonths" :key="month">-->
-<!--                {{month}}-->
-<!--              </option>-->
-<!--            </select>-->
-
-<!--            <input class="form__input"-->
-<!--                   placeholder="Day"-->
-<!--                   v-model="formData.day"-->
-<!--            />-->
-<!--            <input class="form__input"-->
-<!--                   placeholder="Year"-->
-<!--                   v-model="formData.year"-->
-<!--            />-->
-
-<!--          </div>-->
-<!--          <div class="form-group flex-default-gap error-group-section">-->
-
-<!--            <div class="full-width">-->
-
-<!--              <template v-if="$v.formData.month.$error">-->
-<!--                <div-->
-<!--                        class="form__input-error"-->
-<!--                        v-if="!$v.formData.month.required">-->
-<!--                  Month is required-->
-<!--                </div>-->
-<!--              </template>-->
-<!--            </div>-->
-
-<!--            <div class="full-width">-->
-
-<!--              <template v-if="$v.formData.day.$error">-->
-<!--                <div-->
-<!--                        class="form__input-error"-->
-<!--                        v-if="!$v.formData.day.required">-->
-<!--                  Day is required-->
-<!--                </div>-->
-<!--                <div-->
-<!--                        class="form__input-error"-->
-<!--                        v-if="!$v.formData.day.minValue || !$v.formData.day.maxValue">-->
-<!--                  Must be from 1 to 31-->
-<!--                </div>-->
-
-<!--              </template>-->
-<!--            </div>-->
-
-<!--            <div class="full-width">-->
-
-<!--              <template v-if="$v.formData.year.$error">-->
-<!--                <div-->
-<!--                        class="form__input-error"-->
-<!--                        v-if="!$v.formData.year.required">-->
-<!--                  Year is required-->
-<!--                </div>-->
-<!--                <div-->
-<!--                        class="form__input-error"-->
-<!--                        v-if="!$v.formData.year.minValue || !$v.formData.year.maxValue">-->
-<!--                  From 1900 to {{new Date().getFullYear()}}-->
-<!--                </div>-->
-<!--              </template>-->
-<!--            </div>-->
-
-<!--              <template v-if="$v.formData.year.$error">-->
-<!--                <div-->
-<!--                        class="form__input-error"-->
-<!--                        v-if="!$v.formData.year.required">-->
-<!--                  Year is required-->
-<!--                </div>-->
-<!--                <div-->
-<!--                        class="form__input-error"-->
-<!--                        v-if="!$v.formData.year.minValue || !$v.formData.year.maxValue">-->
-<!--                  From 1900 to {{new Date().getFullYear()}}-->
-<!--                </div>-->
-<!--              </template>-->
-<!--            </div>-->
-
-<!--          </div>-->
-
-
-            <TelInput
-              v-model="formData.phone"
-              :diaCode="formData.diaCode"
-              :validPhone="$v.formData.phone"
-              @onDiaCode="countryChanged"
-              :placeHolder="configEnv.onboarding.placeholderPhone"
-              :defaultCountry="getCountryCode"
-            >
-
-            </TelInput>
-        </form>
-
-        <button
-          class="button button_w-100 button_theme-default
-        button_size-m slide-details__button"
-          @click.prevent="start"
-          :disabled="disableSendCode"
-        >
-          Send Code
-        </button>
-        <div class="caption onBoarding-carousel-button__caption text-center">
-          By using our service, you consent to our Privacy Policy and Terms and Conditions below
-        </div>
+      <div class="onBoarding-carousel__slide" v-if="isFreeV">
+        <RegistrationPage :afterCompleteQuiz="true">
+        </RegistrationPage>
       </div>
     </VueSlickCarousel>
     <TermsConditionsModal />
@@ -260,65 +64,20 @@
 
 <script>
 import VueSlickCarousel from 'vue-slick-carousel';
-import { validationMixin } from 'vuelidate';
-import TelInput from '@components/InputTel/TelInput.vue';
 import PolicyModal from '@components/Modals/PolicyModal.vue';
 import TermsConditionsModal from '@components/Modals/TermsConditionsModal.vue';
-import InformationForm from '@components/Onboarding/InformationForm.vue';
 import configEnv from '@configEnv';
 import { mapGetters } from 'vuex';
+import isFreeVersion from '@helpers/func';
+import RegistrationPage from '@components/Onboarding/RegistrationPage.vue';
 import step1 from '../../assets/step_1.gif';
-
-// numeric, minValue, maxValue,
-const {
-  required,
-} = require('vuelidate/lib/validators');
-
-const mustBeCool = (emailValid) => {
-  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(emailValid).toLowerCase());
-};
 
 export default {
   components: {
-    InformationForm,
     VueSlickCarousel,
-    TelInput,
     PolicyModal,
     TermsConditionsModal,
-  },
-  mixins: [validationMixin],
-  validations: {
-    formData: {
-      firstName: {
-        required,
-      },
-      youEmail: {
-        required,
-        mustBeCool,
-      },
-      surname: {
-        required,
-      },
-      // month: {
-      //   required,
-      // },
-      // day: {
-      //   required,
-      //   numeric,
-      //   minValue: minValue(1),
-      //   maxValue: maxValue(31),
-      // },
-      // year: {
-      //   required,
-      //   numeric,
-      //   minValue: minValue(1900),
-      //   maxValue: maxValue(new Date().getFullYear()),
-      // },
-      phone: {
-        required,
-      },
-    },
+    RegistrationPage,
   },
   data: () => ({
     configEnv,
@@ -368,25 +127,11 @@ export default {
       getPersonalityTest: 'invitation/getPersonalityTest',
       getProfile: 'auth/getProfile',
     }),
-    getClassByLengthCountryCode() {
-      return `code-length-${this.formData.diaCode.length}`;
-    },
-    getCountryCode() {
-      if (this.getProfile.phone) {
-        return this.getProfile.isoCountryCode;
-      }
-      return configEnv.onboarding.defaultStatePhone;
+    isFreeV() {
+      return !isFreeVersion();
     },
   },
   mounted() {
-    this.disableSendCode = false;
-
-    if (this.getProfile.phone) {
-      this.formData.firstName = this.getProfile.name;
-      this.formData.surname = this.getProfile.lastName;
-      this.formData.youEmail = this.getProfile.email;
-      this.formData.phone = this.getProfile.phone.replace(this.getProfile.codeCountry, '');
-    }
     this.initialSlider();
   },
   methods: {
@@ -397,48 +142,16 @@ export default {
         this.gotToSlide(slide);
       }
     },
+    redirectFreeVersion() {
+      if (isFreeVersion()) {
+        this.$router.push('questionnaire');
+      } else {
+        this.gotToSlide(2);
+      }
+    },
     gotToSlide(numberSlide) {
+      // eslint-disable-next-line no-new-wrappers
       this.$refs.slickCarousel.goTo(numberSlide);
-    },
-    countryChanged(data) {
-      this.formData.isoCountryCode = data.iso2;
-      this.formData.diaCode = data.dialCode;
-    },
-    prepareDataForRequest() {
-      const formPhone = this.formData.phone;
-      const phone = `+${this.formData.diaCode}${formPhone.charAt(0) === '0' ? formPhone.substring(1) : formPhone}`
-        .replace(/\s/g, '');
-
-      let uniqueId = null;
-      if (localStorage.getItem('uniqueId') !== null) {
-        uniqueId = localStorage.getItem('uniqueId');
-      }
-      // const currentMonthNumber = this.formData.month + 1;
-      return {
-        name: this.formData.firstName,
-        surname: this.formData.surname,
-        youEmail: this.formData.youEmail.toLowerCase(),
-        // eslint-disable-next-line radix,max-len
-        // dateOfBirth: [this.formData.year, currentMonthNumber < 9 ? `0${currentMonthNumber}` : currentMonthNumber, this.formData.day <= 9 ? `0${parseInt(this.formData.day)}` : parseInt(this.formData.day)].join('-'),
-        phone,
-        questionId: process.env.QUESTIONNAIRE_ID,
-        codeCountry: `+${this.formData.diaCode}`,
-        isoCountryCode: this.formData.isoCountryCode,
-        uniqueId,
-      };
-    },
-    start() {
-      this.$v.$touch();
-      if (!this.$v.$invalid) {
-        this.disableSendCode = true;
-        const data = this.prepareDataForRequest();
-        this.$store.dispatch('auth/registerRequest', data).then(() => {
-          this.$router.push('enter-security-code');
-          this.disableSendCode = false;
-        }).catch(() => {
-          this.disableSendCode = false;
-        });
-      }
     },
   },
 };

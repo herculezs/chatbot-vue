@@ -121,19 +121,43 @@
         <br/>
         <br/>
       </b-modal>
-      <FeedbackModal v-model="showReportModal" />
-      <div class="buttons-report">
-        <div class="block">
-          <button
-            v-b-modal.modal-multi-1
-            class="button button_theme-default button_size-m button-left">
-            Ask Contacts
-          </button>
-          <button
-            @click="redirectToQuestionnaireManagement"
-            class="button button_theme-default button_size-m button-right">
-            See Surveys
-          </button>
+      <div v-if="isFreeVersionWebSite">
+        <div class="buttons-report">
+          <div class="block">
+            <h2 class="first_report text mb-5 text-center">
+              Your report so far is what you think your personality is. This is called your Anima.
+              The "you" that others experience is called your Persona. We can find out what your
+              Social Persona is by asking people you know socially to answer questions about you.
+            </h2>
+            <button
+              v-b-modal.modal-1
+              class="button button_w-100 button_theme-default button_size-m">
+              Ask Others
+            </button>
+          </div>
+          <b-modal
+            id="modal-1"
+            hide-footer
+          >
+            <AskOthers></AskOthers>
+          </b-modal>
+        </div>
+      </div>
+      <div v-else>
+        <FeedbackModal v-model="showReportModal" />
+        <div class="buttons-report">
+          <div class="block">
+            <button
+              v-b-modal.modal-multi-1
+              class="button button_theme-default button_size-m button-left">
+              Ask Contacts
+            </button>
+            <button
+              @click="redirectToQuestionnaireManagement"
+              class="button button_theme-default button_size-m button-right">
+              See Surveys
+            </button>
+          </div>
         </div>
       </div>
     </Content>
@@ -147,7 +171,9 @@ import Content from '@components/Content/Content.vue';
 import Radar from '@components/Radar/Radar.vue';
 import FeedbackModal from '@components/Modals/FeedbackModal.vue';
 import ChartCompare from '@components/Charts/ChartCompare.vue';
+import AskOthers from '@components/AskOthers/AskOthers.vue';
 import configEnv from '@configEnv';
+import isFreeVersion from '@helpers/func';
 
 import { mapGetters } from 'vuex';
 import constants from '@constants';
@@ -160,6 +186,7 @@ export default {
     Radar,
     FeedbackModal,
     ChartCompare,
+    AskOthers,
   },
   name: 'Report',
   data: () => ({
@@ -206,6 +233,13 @@ export default {
     },
     getGuessedCard() {
       return constants.cards[this.getProfile.selfPersonalityType];
+    },
+    isFreeVersionWebSite() {
+      if (this.getProfile.completedQuestionnaires) {
+        return isFreeVersion() && !this.getProfile.completedQuestionnaires
+          .includes(process.env.QUESTIONNAIRE_ID);
+      }
+      return isFreeVersion();
     },
   },
   created() {
@@ -265,90 +299,112 @@ export default {
       average.value = Object.values(data);
     },
     fetchPersonalityTypeReport() {
-      this.$api.personalityTypeReport.fetchPersonalityTypeReport().then((res) => {
-        this.respondentsCount = res.othersAmount;
+      if (this.isFreeVersionWebSite) {
+        const uniqueId = localStorage.getItem('uniqueId');
 
-        this.setRadar(res.selfResult.split(/(?=[-+])/), 'Me');
+        this.$api.personalityTypeReport.fetchPersonalityTypeReportFreeVersion(uniqueId)
+          .then((res) => {
+            this.respondentsCount = res.othersAmount;
 
-        if (this.isOthersAmount) {
-          this.setRadar(res.othersAverageResult.split(/(?=[-+])/), 'Contacts');
-          this.OtherCoordinate = this.Coordinates(res.othersAverageResult);
-          this.setCollegAnswerCard(this.OtherCoordinate[2]);
-        }
+            this.setRadar(res.selfResult.split(/(?=[-+])/), 'Me');
 
-        this.showFeedBackModalByParams(res.othersAmount);
+            this.showFeedBackModalByParams(res.othersAmount);
 
-        this.tag = res.selfResult;
-        this.tagOthersAverage = res.othersAverageResult;
-        this.SelfCoordinate = this.Coordinates(res.selfResult);
+            this.tag = res.selfResult;
+            this.tagOthersAverage = res.othersAverageResult;
+            this.SelfCoordinate = this.Coordinates(res.selfResult);
 
-        this.setYouAnswerCard(this.SelfCoordinate[2]);
-        this.shareLink = `${window.location.protocol}//${window.location.host}${res.invitationLink}`;
+            this.setYouAnswerCard(this.SelfCoordinate[2]);
 
-        const [youAreX, youAreY] = this.SelfCoordinate;
-
-        const mostLikelyCharacters = {
-          left: {},
-          right: {},
-          bottom: {},
-          top: {},
-        };
-
-        const allDirections = [{
-          key: 'left',
-          isRightDirection: (sourceX, sourceY, x) => sourceX <= x,
-        },
-        {
-          key: 'right',
-          isRightDirection: (sourceX, sourceY, x) => sourceX > x,
-        },
-        {
-          key: 'bottom',
-          isRightDirection: (sourceX, sourceY, x, y) => sourceY <= y,
-        },
-        {
-          key: 'top',
-          isRightDirection: (sourceX, sourceY, x, y) => sourceY > y,
-        },
-        ];
-
-        allDirections.forEach((direction) => {
-          const currentCards = Object.values(constants.cards);
-          currentCards
-            .filter(({ title }) => {
-              const allValues = Object.values(mostLikelyCharacters);
-              return !allValues.filter(d => title === d.title).length;
-            })
-            .forEach(({ value, title }) => {
-              const coordinateX = value[0];
-              const coordinateY = value[1];
-              const distance = Math.sqrt(((coordinateX - youAreX) ** 2)
-                + ((coordinateY - youAreY) ** 2));
-
-              const rightDirection = direction.isRightDirection(coordinateX, coordinateY,
-                youAreX, youAreY);
-
-              const lastDistance = mostLikelyCharacters[direction.key].distance || Number.MAX_VALUE;
-
-              if (rightDirection && lastDistance > distance) {
-                mostLikelyCharacters[direction.key].distance = distance;
-                mostLikelyCharacters[direction.key].title = title;
-                mostLikelyCharacters[direction.key].value = value;
-              }
-            });
-        });
-
-        Object.values(mostLikelyCharacters).filter(v => v.value).forEach(({ title, value }) => {
-          this.nearPoints.push({
-            value: [],
-            type: 'NEAREST',
-            data: [...value, title],
-
+            this.chartOptionsBar();
           });
-        });
+      } else {
+        this.$api.personalityTypeReport.fetchPersonalityTypeReport().then((res) => {
+          this.respondentsCount = res.othersAmount;
 
-        this.chartOptionsBar();
-      });
+          this.setRadar(res.selfResult.split(/(?=[-+])/), 'Me');
+
+          if (this.isOthersAmount) {
+            this.setRadar(res.othersAverageResult.split(/(?=[-+])/), 'Contacts');
+            this.OtherCoordinate = this.Coordinates(res.othersAverageResult);
+            this.setCollegAnswerCard(this.OtherCoordinate[2]);
+          }
+
+          this.showFeedBackModalByParams(res.othersAmount);
+
+          this.tag = res.selfResult;
+          this.tagOthersAverage = res.othersAverageResult;
+          this.SelfCoordinate = this.Coordinates(res.selfResult);
+
+          this.setYouAnswerCard(this.SelfCoordinate[2]);
+          this.shareLink = `${window.location.protocol}//${window.location.host}${res.invitationLink}`;
+
+          const [youAreX, youAreY] = this.SelfCoordinate;
+
+          const mostLikelyCharacters = {
+            left: {},
+            right: {},
+            bottom: {},
+            top: {},
+          };
+
+          const allDirections = [{
+            key: 'left',
+            isRightDirection: (sourceX, sourceY, x) => sourceX <= x,
+          },
+          {
+            key: 'right',
+            isRightDirection: (sourceX, sourceY, x) => sourceX > x,
+          },
+          {
+            key: 'bottom',
+            isRightDirection: (sourceX, sourceY, x, y) => sourceY <= y,
+          },
+          {
+            key: 'top',
+            isRightDirection: (sourceX, sourceY, x, y) => sourceY > y,
+          },
+          ];
+
+          allDirections.forEach((direction) => {
+            const currentCards = Object.values(constants.cards);
+            currentCards
+              .filter(({ title }) => {
+                const allValues = Object.values(mostLikelyCharacters);
+                return !allValues.filter(d => title === d.title).length;
+              })
+              .forEach(({ value, title }) => {
+                const coordinateX = value[0];
+                const coordinateY = value[1];
+                const distance = Math.sqrt(((coordinateX - youAreX) ** 2)
+                  + ((coordinateY - youAreY) ** 2));
+
+                const rightDirection = direction.isRightDirection(coordinateX, coordinateY,
+                  youAreX, youAreY);
+
+                const lastDistance = mostLikelyCharacters[direction.key].distance
+                  || Number.MAX_VALUE;
+
+                if (rightDirection && lastDistance > distance) {
+                  mostLikelyCharacters[direction.key].distance = distance;
+                  mostLikelyCharacters[direction.key].title = title;
+                  mostLikelyCharacters[direction.key].value = value;
+                }
+              });
+          });
+
+          Object.values(mostLikelyCharacters).filter(v => v.value).forEach(({ title, value }) => {
+            this.nearPoints.push({
+              value: [],
+              type: 'NEAREST',
+              data: [...value, title],
+
+            });
+          });
+
+          this.chartOptionsBar();
+        });
+      }
     },
     Coordinates(Res) {
       const finalCategoryFormula = Res.split(/(?=[-+])/);
@@ -508,7 +564,7 @@ export default {
     @media (max-height: $xxsMaxHeight) {
       font-size: 10px;
     }
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .button-left {
@@ -528,10 +584,7 @@ export default {
     float: right;
     width: 45%;
   }
-  .buttons-report {
-    margin-bottom: 70px;
-    padding-top: 7px;
-  }
+
   .block {
     border: 1px solid #ccc;
     padding: 0 7px 0 7px;
@@ -540,4 +593,12 @@ export default {
   .buttons-report .block {
     padding: 6px 7px 6px 7px;
   }
+  #modal-1 {
+    & .modal-dialog{
+      width: auto;
+      position: relative;
+      max-width: 490px !important;
+      margin: auto auto;
+  }
+}
 </style>

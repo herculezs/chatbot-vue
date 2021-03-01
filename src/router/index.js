@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import isFreeVersion from '@helpers/func';
 import Store from '../store';
 
 Vue.use(Router);
@@ -20,11 +21,26 @@ export default new Router({
         // eslint-disable-next-line no-underscore-dangle
         const userAuth = Store.getters['auth/getProfile'].token;
 
-        if (userAuth) {
+        if (isFreeVersion()) {
+          next();
+        } else if (userAuth) {
           next('/questionnaire');
           return;
         }
 
+        next();
+      },
+    },
+    {
+      path: '/registration',
+      name: 'registration',
+      props: true,
+      component: () => import('@components/Onboarding/RegistrationPage'),
+      beforeEnter: (to, from, next) => {
+        // eslint-disable-next-line no-underscore-dangle
+        if (!isFreeVersion()) {
+          next('/');
+        }
         next();
       },
     },
@@ -43,20 +59,23 @@ export default new Router({
         // eslint-disable-next-line no-underscore-dangle
         const userAuth = Store.getters['auth/getProfile'].token;
         const { completedQuestionnaires = [] } = Store.getters['auth/getProfile'];
-
-        if (to.params.id) {
+        if (isFreeVersion() && !completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
           next();
-          return;
-        }
+        } else {
+          if (to.params.id) {
+            next();
+            return;
+          }
 
-        if (!userAuth) {
-          next('/');
-          return;
-        }
+          if (!userAuth) {
+            next('/');
+            return;
+          }
 
-        if (completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
-          next('/report');
-          return;
+          if (completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
+            next('/report');
+            return;
+          }
         }
 
         next();
@@ -84,8 +103,11 @@ export default new Router({
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
         const userAuth = Store.getters['auth/getProfile'].token;
+        const { completedQuestionnaires = [] } = Store.getters['auth/getProfile'];
 
-        if (!userAuth) {
+        if (isFreeVersion() && !completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
+          next();
+        } else if (!userAuth) {
           next('/');
         }
 

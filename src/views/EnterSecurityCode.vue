@@ -47,6 +47,7 @@ import { validationMixin } from 'vuelidate';
 import { mapGetters } from 'vuex';
 import Content from '@components/Content/Content.vue';
 import configEnv from '@configEnv';
+import isFreeVersion from '@helpers/func';
 
 const { required } = require('vuelidate/lib/validators');
 
@@ -104,12 +105,18 @@ export default {
       }
     },
     redirectToRegistration() {
-      this.$router.push({
-        name: 'main',
-        params: {
-          slide: 3,
-        },
-      });
+      if (isFreeVersion()) {
+        this.$router.push({
+          name: 'registration',
+        });
+      } else {
+        this.$router.push({
+          name: 'main',
+          params: {
+            slide: 3,
+          },
+        });
+      }
     },
   },
 };

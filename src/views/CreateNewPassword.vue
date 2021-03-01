@@ -35,7 +35,11 @@ export default {
       this.$store.dispatch('auth/newPassword',
         { formData: dataForRequest, userId: this.getProfile.id })
         .then(() => {
-          this.$router.replace(this.getRedirectAuth);
+          if (this.getProfile.completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
+            this.$router.replace('report');
+          } else {
+            this.$router.replace(this.getRedirectAuth);
+          }
         });
     },
   },
