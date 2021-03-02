@@ -32,7 +32,7 @@ export default {
     defaultStatePhone: 'GB',
     placeholderPhone: '12345-678901',
     emailPlaceHolder: 'Email',
-    tooltipEmail: 'Your email - so we can contact you when we have results',
+    tooltipEmail: 'Your email',
     buttonOnFirstPage: 'Find out how',
     step1: 'Step 1: You will be asked 10 short questions about you and then you will receive your first report ...',
     step2: 'Step 2: Ask your contacts to answer 10 short questions about you to receive your comparative report.',
