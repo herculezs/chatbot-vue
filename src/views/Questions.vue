@@ -39,12 +39,21 @@
         </div>
         <div class="text">
           <span @click="this.setRedirectAuth" >
-            <router-link :to="{
+            <span v-if="isFreeVersionWebSite">
+              <router-link :to="{
+                name: 'registration'
+              }">
+                Register
+              </router-link>
+            </span>
+            <span v-else>
+              <router-link :to="{
             name: 'main',
             params:  { slide: 3 }
           }">
-            Register
-          </router-link>
+                Register
+              </router-link>
+            </span>
           </span>
             or
           <span @click="this.setRedirectAuth">
@@ -105,7 +114,9 @@ export default {
     isAuth() {
       return this.getProfile.token;
     },
-
+    isFreeVersionWebSite() {
+      return isFreeVersion();
+    },
   },
   created() {
     this.fetchData();
@@ -197,7 +208,7 @@ export default {
         return this.saveAnswerByPersonalityTest();
       }
 
-      if (isFreeVersion) {
+      if (this.isFreeVersionWebSite) {
         if (!localStorage.getItem('uniqueId')) {
           localStorage.setItem('uniqueId', `anonymous${Math.floor(Math.random()
             * Math.floor(Math.random() * Date.now()) * Math.random())}`);
