@@ -1,7 +1,7 @@
 <template>
-  <div class="reset-password">
+  <div class="login-admin-page">
     <Content>
-      <h1 class="h4 text-center mb-6">Login</h1>
+      <h1 class="h4 text-center mb-6">Login to Admin Page</h1>
       <form class="form">
         <TelInput
           v-model="formData.phone"
@@ -31,12 +31,9 @@
             </div>
           </template>
         </div>
-        <div class="form-group form-group_link">
-          <router-link to="/reset-password" class="link">Forgot password?</router-link>
-        </div>
         <div class="form-group form-group_submit">
           <button
-            class="form button button_w-100 button_theme-default button_size-m"
+            class="form button button_w-100 button_theme-default button_size-m button_theme"
             @click.prevent="login"
           >
             Log in
@@ -53,7 +50,6 @@ import Content from '@components/Content/Content.vue';
 import TelInput from '@components/InputTel/TelInput.vue';
 import { mapGetters } from 'vuex';
 import configEnv from '@configEnv';
-import isFreeVersion from '@helpers/func';
 
 const { required } = require('vuelidate/lib/validators');
 
@@ -96,16 +92,9 @@ export default {
       const phone = `+${this.diaCode}${formPhone.charAt(0) === '0' ? formPhone.substring(1) : formPhone}`
         .replace(/\s/g, '');
 
-      let uniqueId = null;
-      if (localStorage.getItem('uniqueId') !== null) {
-        uniqueId = localStorage.getItem('uniqueId');
-      }
-
       return {
         password: this.formData.password,
         phone,
-        uniqueId,
-        questionId: process.env.QUESTIONNAIRE_ID,
       };
     },
     countryChanged(data) {
@@ -116,23 +105,13 @@ export default {
       if (!this.$v.$invalid) {
         const data = this.prepareDataForRequest();
         this.$store.dispatch('auth/loginRequest', data).then(() => {
-          const { completedQuestionnaires } = this.getProfile;
-          if (!completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
-            this.$router.push('questionnaire-management');
-          } else {
-            this.$router.replace(this.getRedirectAuth);
-          }
+          this.$router.push({
+            name: 'adminMenu',
+          });
         }).catch(() => {
-          if (isFreeVersion()) {
-            this.$router.push('registration');
-          } else {
-            this.$router.push({
-              name: 'main',
-              params: {
-                slide: 3,
-              },
-            });
-          }
+          this.$router.push({
+            name: 'adminLogin',
+          });
         });
       }
     },
@@ -140,3 +119,7 @@ export default {
 };
 
 </script>
+
+<style lang="scss">
+
+</style>

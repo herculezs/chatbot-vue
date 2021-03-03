@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import isFreeVersion from '@helpers/func';
+import checkRole from '@helpers/adminFunction';
 import Store from '../store';
 
 Vue.use(Router);
@@ -38,7 +39,54 @@ export default new Router({
       component: () => import('@components/Onboarding/RegistrationPage'),
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
-        if (!isFreeVersion()) {
+        const userAuth = Store.getters['auth/getProfile'].token;
+
+        if (userAuth || !isFreeVersion()) {
+          next('/');
+        }
+        next();
+      },
+    },
+    {
+      path: '/admin/login',
+      name: 'adminLogin',
+      component: () => import('@views/adminViews/LoginAdminPage.vue'),
+      beforeEnter: (to, from, next) => {
+        const userAuth = Store.getters['auth/getProfile'].token;
+        // eslint-disable-next-line no-underscore-dangle
+        // isFreeVersion() ||
+        if (userAuth) {
+          next('/');
+        }
+        next();
+      },
+    },
+    {
+      path: '/admin/menu',
+      name: 'adminMenu',
+      component: () => import('@views/adminViews/AdminMenu.vue'),
+      beforeEnter: (to, from, next) => {
+        // eslint-disable-next-line no-underscore-dangle
+        // if (isFreeVersion()) {
+        //   next('/');
+        // }
+
+        if (!checkRole.isAdmin()) {
+          next('/');
+        }
+        next();
+      },
+    },
+    {
+      path: '/admin/dashboard',
+      name: 'adminDashboard',
+      component: () => import('@views/adminViews/AdminDashboard.vue'),
+      beforeEnter: (to, from, next) => {
+        // if (isFreeVersion()) {
+        //   next('/');
+        // }
+
+        if (!checkRole.isAdmin()) {
           next('/');
         }
         next();

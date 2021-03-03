@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <Header/>
+    <Header /> <!--v-if="mainPageHeader"-->
     <router-view class="main__content" />
     <Notification />
   </div>
@@ -16,6 +16,7 @@ export default {
     Header,
     Notification,
   },
+
   computed: {
     title() {
       if (process.env.VUE_APP_TITLE) {
@@ -23,6 +24,10 @@ export default {
       }
       return 'InnerWorks';
     },
+    // mainPageHeader() {
+    //   const route = this.$route.path.split('/').filter(x => x !== '');
+    //   return route[0] !== 'admin';
+    // },
   },
   created() {
   },

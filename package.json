@@ -56,6 +56,7 @@
     "vue2-touch-events": "^2.3.2",
     "vuedraggable": "^2.24.1",
     "vuelidate": "^0.7.5",
+    "vuetify": "^2.4.5",
     "vuex": "^3.5.1",
     "vuex-persistedstate": "^2.7.1"
   },

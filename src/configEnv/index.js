@@ -33,7 +33,7 @@ export default {
     placeholderPhone: '12345-678901',
     emailPlaceHolder: 'Email',
     tooltipEmail: 'Your email',
-    buttonOnFirstPage: 'Find out how',
+    buttonOnFirstPage: 'Get Started',
     step1: 'Step 1: You will be asked 10 short questions about you and then you will receive your first report ...',
     step2: 'Step 2: Ask your contacts to answer 10 short questions about you to receive your comparative report.',
   },
