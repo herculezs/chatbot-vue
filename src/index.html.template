@@ -8,7 +8,8 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
     <meta name="description" content='A Simple and Fun way to find Your TRUE Personality'></meta>
     <meta name="keywords" content='personality,psychology,assessment,crowd source,big 5,16 personalities,disc,network,adaptive,psychological,inventory,temperament,myers-briggs,psychometrics,compatibility'></meta>
-
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
 
 
 </head>

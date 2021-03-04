@@ -16,6 +16,8 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import VTooltip from 'v-tooltip';
 import VueI18n from 'vue-i18n';
 import VueMeta from 'vue-meta';
+import vuetify from '@/plugins/vuetify';
+
 
 import 'echarts';
 
@@ -58,8 +60,10 @@ library.add(faUserTag); // role
 library.add(faUserFriends); // depart
 library.add(faMobile); // phone
 
+
 window.app = new Vue({
   router,
   store,
+  vuetify,
   render: h => h(App),
 }).$mount('#app');

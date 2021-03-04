@@ -71,6 +71,7 @@ module.exports = {
     config.resolve.alias.set('@constants', resolve('src/constants'));
     config.resolve.alias.set('@configEnv', resolve('src/configEnv'));
     config.resolve.alias.set('@mixins', resolve('src/mixins'));
+    config.resolve.alias.set('@plugins', resolve('src/plugins'));
     let title = 'InnerWorks';
     if (process.env.VUE_APP_TITLE) {
       title = process.env.VUE_APP_TITLE;

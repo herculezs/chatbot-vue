@@ -22,7 +22,7 @@ export default new Router({
         // eslint-disable-next-line no-underscore-dangle
         const userAuth = Store.getters['auth/getProfile'].token;
 
-        if (isFreeVersion()) {
+        if (isFreeVersion() && !userAuth) {
           next();
         } else if (userAuth) {
           next('/questionnaire');
