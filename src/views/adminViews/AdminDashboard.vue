@@ -2,35 +2,46 @@
   <div class="admin-dashboard">
     <Content>
       <h1 class="h4 text-center mb-3">Dashboard</h1>
-      <div data-app>
-        <v-data-table
-          item-key="name"
-          :headers="headers"
-          :items="desserts"
-          :page.sync="page"
-          :show-expand="true"
-          :loading="loadingTable"
-          :items-per-page="itemsPerPage"
-          loading-text="Loading... Please wait"
-          hide-default-footer
-          @page-count="calculateCountPage()"
-          class="elevation-1"
-        >
-        </v-data-table>
-        <div class="text-center pt-2">
-          <v-pagination
-            v-model="page"
-            :disabled="disableButton"
-            :length="calculateCountPage()"
-            :total-visible="10"
-            @input="pageCounts"
-          ></v-pagination>
-        </div>
-      </div>
-      <v-progress-linear
-        indeterminate
-        color="yellow darken-2"
-      ></v-progress-linear>
+      <v-app>
+        <v-card>
+          <v-data-table
+            item-key="name"
+            :headers="headers"
+            :items="desserts"
+            :page.sync="page"
+            class="elevation-1"
+            @click:row="clicked"
+            single-expand
+            :loading="loadingTable"
+            :items-per-page="itemsPerPage"
+            loading-text="Loading... Please wait"
+            hide-default-footer
+            @page-count="calculateCountPage()"
+            @item-expanded="loadDetails">
+            >
+            <template v-slot:item.employee="props">
+              <v-edit-dialog
+                :return-value.sync="props.item.employee"
+                @open="open"
+              >
+                {{ props.item.employee }}
+                <template v-slot:input>
+                  3244444444444444444444444444444444444444444444444444
+                </template>
+              </v-edit-dialog>
+            </template>
+          </v-data-table>
+          <div class="text-center pt-2">
+            <v-pagination
+              v-model="page"
+              :disabled="disableButton"
+              :length="calculateCountPage()"
+              :total-visible="10"
+              @input="pageCounts"
+            ></v-pagination>
+          </div>
+        </v-card>
+      </v-app>
     </Content>
   </div>
 </template>
@@ -46,7 +57,8 @@ export default {
   },
   data: () => ({
     Stretch,
-    page: 1,
+    page: 7,
+    snack: false,
     pageCount: 0,
     itemsPerPage: 20,
     desserts: [],
@@ -69,6 +81,9 @@ export default {
   computed: {
   },
   methods: {
+    open() {
+      this.snack = true;
+    },
     calculateCountPage() {
       return Math.floor(this.pageCount / this.itemsPerPage);
     },
@@ -95,6 +110,7 @@ export default {
             }
 
             this.desserts.push({
+              userId: x.id,
               employee: x.employee,
               department: x.department,
               manager: x.manager,
@@ -104,8 +120,15 @@ export default {
               reviewerRanking: x.reviewerRanking,
             });
             this.disableButton = false;
+            this.loadingTable = false;
           });
         });
+    },
+    loadDetails({ item }) {
+      console.log('item', item);
+    },
+    clicked(value) {
+      console.log('value', value);
     },
   },
 };
