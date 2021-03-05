@@ -115,7 +115,7 @@
         </p>
         <p class="text mb-4">
           Click the <b>copy button below</b> and paste the explanatory
-          text and link to your colleagues using your favourite method.
+          text and link to your colleagues using your favorite method.
         </p>
         <InputCopy v-model="shareLink" class="mb-4" />
         <br/>

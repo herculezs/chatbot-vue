@@ -6,8 +6,8 @@ export default {
         + ' The "you" that others experience is called your Persona. We can find out what your Work Persona'
         + ' is by asking people you work, or have worked with, to answer questions about you.',
       paragraph2: 'Share the link with your colleagues - they can answer a similar questionnaire about you and '
-        + 'all answers remain totally anonymous. We do this so they are more open and honest than they might be if you asked them directly.',
-      paragraph3: 'You need to get at least <b>4 responses</b> for us to show the anonymised'
+        + 'all answers remain totally anonymized. We do this so they are more open and honest than they might be if you asked them directly.',
+      paragraph3: 'You need to get at least <b>4 responses</b> for us to show the anonymized'
         + ' results. We will continue to update you as we receive more responses.',
     },
     textForInput: {
