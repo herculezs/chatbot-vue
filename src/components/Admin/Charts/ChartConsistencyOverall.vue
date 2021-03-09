@@ -1,26 +1,14 @@
 <template>
-  <div>
+  <div class="barChartConsistency">
+    <div class="consistencyData">{{this.data.open}}%</div>
+    <div class="consistencyData">{{this.data.conscientious}}%</div>
+    <div class="consistencyData">{{this.data.extraverted}}%</div>
+    <div class="consistencyData">{{this.data.agreeable}}%</div>
+    <div class="consistencyData">{{this.data.neuotic}}%</div>
     <VueECharts
       :option="getChartData"
       autoresize
     />
-    <div class="radar-legend">
-      <div class="radar-legend-list">
-        <div
-          class="radar-legend-item"
-          v-for="(item, index) in getDataForLegends"
-          :key="index"
-        >
-          <div
-            class="radar-legend-item-indicator"
-            :style="{'background-color': item.areaStyle.color,
-             'border-color': item.areaStyle.color}"
-          >
-          </div>
-          <div class="radar-legend-item-text">{{ item.name }}</div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -37,55 +25,26 @@ export default {
   },
   props: {
     data: {
-      type: Array,
+      type: Object,
     },
   },
   computed: {
-    getDataForLegends() {
-      return this.data.filter(item => item.value.length);
-    },
     series() {
-      let ser;
-      const formatResult = this.data.map(x => x.value.map(u => u - 3));
+      const formatResult = [this.data.open, this.data.conscientious, this.data.extraverted,
+        this.data.agreeable, this.data.neuotic];
 
-      if (this.data[1] !== undefined && (this.data[1]).value.length > 0) {
-        ser = [{
-          type: 'bar',
-          name: (this.data[0]).name,
-          data: formatResult[0],
-          color: this.data[0].areaStyle.color,
-          barGap: 0,
-          emphasis: {
-            itemStyle: {
-              color: this.data[0].areaStyle.colorHover,
-            },
+      return [{
+        type: 'bar',
+        name: '(this.data[0]).name',
+        data: formatResult,
+        color: '#a111ff',
+        barGap: 0,
+        emphasis: {
+          itemStyle: {
+            color: '#7811c9',
           },
-        }, {
-          type: 'bar',
-          name: (this.data[1]).name,
-          data: formatResult[1],
-          color: this.data[1].areaStyle.color,
-          emphasis: {
-            itemStyle: {
-              color: this.data[1].areaStyle.colorHover,
-            },
-          },
-        }];
-      } else {
-        ser = [{
-          type: 'bar',
-          name: (this.data[0]).name,
-          data: formatResult[0],
-          color: this.data[0].areaStyle.color,
-          barGap: 0,
-          emphasis: {
-            itemStyle: {
-              color: this.data[0].areaStyle.colorHover,
-            },
-          },
-        }];
-      }
-      return ser;
+        },
+      }];
     },
     getChartData() {
       return {
@@ -138,10 +97,10 @@ export default {
           },
         },
         yAxis: {
-          maxInterval: 2,
-          minInterval: 2,
-          min: -2,
-          max: 2,
+          maxInterval: 100,
+          minInterval: 100,
+          min: 0,
+          max: 100,
           nameLocation: 'end',
           position: 'right',
           splitLine: {
@@ -161,7 +120,7 @@ export default {
               let temp;
               if (value === 0) {
                 temp = ' ';
-              } else if (value === 2) {
+              } else if (value === 100) {
                 temp = 'max';
               } else if (value === -2) {
                 temp = 'min';
@@ -209,5 +168,19 @@ export default {
     font-family: $defaultFont;
     color: $txtColor2;
     font-size: 16px;
+  }
+  .barChartConsistency {
+    height: 300px;
+    width: 300px;
+  }
+  .firstConsistencyData{
+    margin-left: 5px;
+  }
+  .consistencyData {
+    width: 34px;
+    display: inline-block;
+    margin-left: 24px;
+    font-weight: bold;
+    color: $lnkColor2;
   }
 </style>

@@ -140,3 +140,9 @@ export default {
 };
 
 </script>
+
+<style lang="scss">
+  input {
+    background-color: white;
+  }
+</style>

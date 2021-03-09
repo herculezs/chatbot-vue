@@ -66,14 +66,11 @@
               Respondents:  {{ respondentsCount }}
             </div>
           </div>
-          <div class="name-label-chart-top"><b class="chart-label">More Flexible</b></div>
-          <br/>
-          <div class="name-label-chart-left"><b class="chart-label">Less Stable</b></div>
-          <div class="name-label-chart-right"><b class="chart-label">More Stable</b></div>
+          <br v-else/>
           <ChartCompare :data="refreshData()"
                         @charateristic-click="setChosenCharacteristic($event)">
           </ChartCompare>
-          <div class="name-label-chart-bottom"><b class="chart-label">Less Flexible</b></div>
+
           <template v-if="selectedCharateristic">
             <br/>
             <div class="h5">
@@ -501,32 +498,6 @@ export default {
     font-size: 16px;
     margin-bottom: 5px;
   }
-  .name-label-chart-bottom {
-    text-align: center;
-    margin-bottom: 1px;
-  }
-  .name-label-chart-top {
-    position: absolute;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-    text-align: center;
-  }
-
-  .name-label-chart-left {
-    text-align: left;
-    position: absolute;
-    top: 185px;
-    left: 40px;
-  }
-
-  .name-label-chart-right {
-    text-align: right;
-    position: absolute;
-    top: 185px;
-    right: 40px;
-  }
 
   .chart-label {
     @media (max-height: $xxsMaxHeight) {
@@ -545,7 +516,6 @@ export default {
       max-height: 100vh;
       overflow: auto;
     }
-
   }
 
   .button-right {

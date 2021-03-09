@@ -533,4 +533,7 @@ export default {
   .reg-notification {
     margin: 10px 0;
   }
+  input {
+    background-color: white;
+  }
 </style>
