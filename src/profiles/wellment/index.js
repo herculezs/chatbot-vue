@@ -35,6 +35,13 @@ export default {
       + ' when you are ready.'
       + ' You can see a more detailed analysis of each type after you get your results',
   },
+  inputCopy: {
+    copyText: 'Hi, I am taking a survey to learn about my anima (how I see myself) and my persona (how others see me). Would you be willing to help me in this process by clicking the link below and completing the survey (it should only take 1-2 minutes)?\n\n'
+      + 'The survey is anonymous so you can be more open and honest than you might be if you were asked directly.\n\n'
+      + 'Once I get at a minimum of 3 other responses, I will see the anonymous results. You can go through the process yourself if you want once you have answered my survey.\n\n'
+      + 'Here is the link:\n\n',
+    copyText2: '\n\nThanks, {{firstName}}',
+  },
   onboarding: {
     defaultStatePhone: 'US',
     placeholderPhone: '123-456-7890',

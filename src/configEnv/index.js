@@ -28,6 +28,14 @@ export default {
       + ' hover over each dot to see a brief summary then click'
       + ' "Show Results" when you are ready',
   },
+  inputCopy: {
+    copyText: 'Hi, {{firstName}} {{secondName}} would like you to click the link below and fill in the survey. {{firstName}} is trying to find out what their personality is like. We find out what their personality is by asking people they know.\n\n'
+      + 'Your answers are totally anonymous - you only see what you have answered and those answers are aggregated up so that no one can tell what you have said.\n\n'
+      + 'We made it anonymous as we hope you can be more open and honest than you might be if you were asked directly.\n\n'
+      + 'Once we get at a minimum of 3 other responses, we will show you the anonymized results. You can go through the process yourself once you have answered {{firstName}}\'s questions.\n\n'
+      + 'Here is the link:\n\n',
+    copyText2: '',
+  },
   onboarding: {
     defaultStatePhone: 'GB',
     placeholderPhone: '12345-678901',
