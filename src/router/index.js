@@ -62,22 +62,6 @@ export default new Router({
       },
     },
     {
-      path: '/admin/menu',
-      name: 'adminMenu',
-      component: () => import('@views/adminViews/AdminMenu.vue'),
-      beforeEnter: (to, from, next) => {
-        // eslint-disable-next-line no-underscore-dangle
-        // if (isFreeVersion()) {
-        //   next('/');
-        // }
-
-        if (!checkRole.isAdmin()) {
-          next('/');
-        }
-        next();
-      },
-    },
-    {
       path: '/admin/dashboard',
       name: 'adminDashboard',
       component: () => import('@views/adminViews/AdminDashboard.vue'),
@@ -88,7 +72,9 @@ export default new Router({
 
         if (!checkRole.isAdmin()) {
           next('/');
+          return;
         }
+
         next();
       },
     },
@@ -107,6 +93,7 @@ export default new Router({
         // eslint-disable-next-line no-underscore-dangle
         const userAuth = Store.getters['auth/getProfile'].token;
         const { completedQuestionnaires = [] } = Store.getters['auth/getProfile'];
+        console.log('----questionnare');
         if (isFreeVersion() && !completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
           next();
         } else {
@@ -126,6 +113,28 @@ export default new Router({
           }
         }
 
+        next();
+      },
+    },
+    {
+      path: '/admin/menu',
+      name: 'adminMenu',
+      component: () => import('@views/adminViews/AdminMenu.vue'),
+      beforeEnter: (to, from, next) => {
+        // eslint-disable-next-line no-underscore-dangle
+        // if (isFreeVersion()) {
+        //   next('/');
+        // }
+        console.log('!checkRole.isAdmin()', !checkRole.isAdmin());
+        console.log('!checkRole.isAdmin()', Store.getters['auth/getProfile']);
+        if (checkRole.isAdmin()) {
+          next();
+          return;
+        }
+        if (!checkRole.isAdmin()) {
+          next('/');
+          return;
+        }
         next();
       },
     },
@@ -152,7 +161,7 @@ export default new Router({
         // eslint-disable-next-line no-underscore-dangle
         const userAuth = Store.getters['auth/getProfile'].token;
         const { completedQuestionnaires = [] } = Store.getters['auth/getProfile'];
-
+        console.log('----report');
         if (isFreeVersion() && !completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
           next();
         } else if (!userAuth) {
@@ -187,21 +196,6 @@ export default new Router({
         next();
       },
     },
-    // {
-    //   path: '/personality-type',
-    //   name: 'personality-type',
-    //   component: () => import('@views/PersonalityType.vue'),
-    //   beforeEnter: (to, from, next) => {
-    //     // eslint-disable-next-line no-underscore-dangle
-    //     const userAuth = Store.getters['auth/getProfile'].token;
-    //
-    //     if (!userAuth) {
-    //       next('/');
-    //     }
-    //
-    //     next();
-    //   },
-    // },
     {
       path: '/create-password',
       name: 'create-password',

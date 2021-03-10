@@ -54,6 +54,7 @@ import TelInput from '@components/InputTel/TelInput.vue';
 import { mapGetters } from 'vuex';
 import configEnv from '@configEnv';
 import isFreeVersion from '@helpers/func';
+import checkRole from '@helpers/adminFunction';
 
 const { required } = require('vuelidate/lib/validators');
 
@@ -117,7 +118,12 @@ export default {
         const data = this.prepareDataForRequest();
         this.$store.dispatch('auth/loginRequest', data).then(() => {
           const { completedQuestionnaires } = this.getProfile;
-          if (!completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
+
+          if (checkRole.isAdmin()) {
+            this.$router.push({
+              name: 'adminMenu',
+            });
+          } else if (!completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
             this.$router.push('questionnaire-management');
           } else {
             this.$router.replace(this.getRedirectAuth);
