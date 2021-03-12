@@ -36,57 +36,57 @@
             loading-text="Loading... Please wait"
             hide-default-footer
             @page-count="returnTotalPages()">
-            <template v-slot:expanded-item="{ headers, item }">
-              <td :colspan="headers.length">
-                <div class="row">
-                  <div class="col">
-                    <div class="text-center quiz-score">
-                      <h4>Quiz score a number of times</h4>
-                    </div>
-                    <v-col
-                      v-for="count in countAnswers"
-                      :key="count"
-                      class="d-flex"
-                      cols="6"
-                      sm="1"
-                    >
-                      <v-select
-                        :items="items"
-                        :label="'Question ' + count"
-                        :value="questionResult[count]"
-                        return-object
-                        @change="answers => selectResult(answers, count, item.id)"
-                      ></v-select>
-                    </v-col>
-                      <v-col
-                        class="d-flex"
-                        cols="4"
-                        sm="1"
-                      >
-                        <v-select
-                          :items="NumberOfTimes"
-                          :value="numberOfTimes"
-                          label="Number Of Times"
-                          return-object
-                          @change="answers => selectNumberOfTimes(answers, item.id)"
-                        ></v-select>
-                      </v-col>
-                    <v-col
-                      class="d-flex"
-                      cols="4"
-                      sm="1"
-                    >
-                      <v-btn
-                        class="button-send"
-                        elevation="7"
-                        :disabled="disabled"
-                        @click="sendQuestionnaireResult"
-                      >Submit</v-btn>
-                      </v-col>
-                  </div>
-                </div>
-              </td>
-            </template>
+<!--            <template v-slot:expanded-item="{ headers, item }">-->
+<!--              <td :colspan="headers.length">-->
+<!--                <div class="row">-->
+<!--                  <div class="col">-->
+<!--                    <div class="text-center quiz-score">-->
+<!--                      <h4>Quiz score a number of times</h4>-->
+<!--                    </div>-->
+<!--                    <v-col-->
+<!--                      v-for="count in countAnswers"-->
+<!--                      :key="count"-->
+<!--                      class="d-flex"-->
+<!--                      cols="6"-->
+<!--                      sm="1"-->
+<!--                    >-->
+<!--                      <v-select-->
+<!--                        :items="items"-->
+<!--                        :label="'Question ' + count"-->
+<!--                        :value="questionResult[count]"-->
+<!--                        return-object-->
+<!--                        @change="answers => selectResult(answers, count, item.id)"-->
+<!--                      ></v-select>-->
+<!--                    </v-col>-->
+<!--                      <v-col-->
+<!--                        class="d-flex"-->
+<!--                        cols="4"-->
+<!--                        sm="1"-->
+<!--                      >-->
+<!--                        <v-select-->
+<!--                          :items="NumberOfTimes"-->
+<!--                          :value="numberOfTimes"-->
+<!--                          label="Number Of Times"-->
+<!--                          return-object-->
+<!--                          @change="answers => selectNumberOfTimes(answers, item.id)"-->
+<!--                        ></v-select>-->
+<!--                      </v-col>-->
+<!--                    <v-col-->
+<!--                      class="d-flex"-->
+<!--                      cols="4"-->
+<!--                      sm="1"-->
+<!--                    >-->
+<!--                      <v-btn-->
+<!--                        class="button-send"-->
+<!--                        elevation="7"-->
+<!--                        :disabled="disabled"-->
+<!--                        @click="sendQuestionnaireResult"-->
+<!--                      >Submit</v-btn>-->
+<!--                      </v-col>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </td>-->
+<!--            </template>-->
             <template v-slot:item.actions="{ item }">
               <v-icon
                 @click="removeWaitingUser(item)"
