@@ -1,5 +1,6 @@
 <template>
   <div class="chartCompare">
+    <span class="dashboard-chart-padding"></span>
     <div class="name-label-chart-top"><b class="chart-label">More Flexible</b></div>
     <div class="name-label-chart-left"><b class="chart-label">Less Stable</b></div>
     <div class="name-label-chart-right"><b class="chart-label">More Stable</b></div>
@@ -9,6 +10,7 @@
       autoresize
       @click="choose"
     />
+    <span class="dashboard-chart-padding-bottom"></span>
     </div>
 </template>
 
@@ -67,6 +69,7 @@ export default {
       grid: {
         left: 1,
         bottom: '10%',
+        top: '13%',
         containLabel: true,
         width: '100%',
         height: '240px',
@@ -308,7 +311,7 @@ export default {
   .name-label-chart-bottom {
     position: absolute;
     text-align: center;
-    top: 342px;
+    top: 350px;
     left: 0;
     right: 0;
   }
@@ -318,25 +321,26 @@ export default {
     margin-right: auto;
     left: 0;
     right: 0;
-    top: 20px;
+    top: 30px;
     text-align: center;
   }
 
   .name-label-chart-left {
     text-align: left;
     position: absolute;
-    top: 190px;
+    top: 200px;
     left: 38px;
   }
 
   .name-label-chart-right {
     text-align: right;
     position: absolute;
-    top: 190px;
+    top: 200px;
     right: 38px;
   }
 
   .chartCompare {
-    margin-top: 30px;
+    margin-top: 20px;
+    margin-bottom: 19px;
   }
 </style>

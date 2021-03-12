@@ -47,7 +47,7 @@
       </template>
       <div class="diagram mb-5">
         <div class="block">
-          <div class="diagram__title-with-respondents" v-if="respondentsCount">
+          <div class="diagram__title-with-respondents">
             <div class="report__respondents">
               <svg class="report__respondents-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.42 15.93">
                 <circle
@@ -66,13 +66,11 @@
               Respondents:  {{ respondentsCount }}
             </div>
           </div>
-          <br v-else/>
           <ChartCompare :data="refreshData()"
                         @charateristic-click="setChosenCharacteristic($event)">
           </ChartCompare>
 
           <template v-if="selectedCharateristic">
-            <br/>
             <div class="h5">
               You clicked ...
             </div>
@@ -209,7 +207,7 @@ export default {
         name: 'Contacts',
       },
     ],
-    respondentsCount: null,
+    respondentsCount: 0,
     shareLink: null,
     tag: null,
     tagOthersAverage: null,

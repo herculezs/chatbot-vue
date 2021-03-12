@@ -19,14 +19,15 @@
         Sales:  {{ respondentsCount }}
       </div>
     </div>
-    <div class="name-label-chart-top"><b class="chart-label">More Flexible</b></div>
-    <div class="name-label-chart-left"><b class="chart-label">Less Stable</b></div>
-    <div class="name-label-chart-right"><b class="chart-label">More Stable</b></div>
-    <div class="name-label-chart-bottom"><b class="chart-label">Less Flexible</b></div>
+    <div class="name-label-chart-top-d"><b class="chart-label">More Flexible</b></div>
+    <div class="name-label-chart-left-d"><b class="chart-label">Less Stable</b></div>
+    <div class="name-label-chart-right-d"><b class="chart-label">More Stable</b></div>
+    <div class="name-label-chart-bottom-d"><b class="chart-label">Less Flexible</b></div>
     <ECharts
       :option="{...getChartData, series}"
       autoresize
     />
+    <div class="padding"><br/></div>
   </div>
 </template>
 
@@ -182,35 +183,35 @@ export default {
 </script>
 
 <style lang="scss">
-  .name-label-chart-bottom {
+  .name-label-chart-bottom-d {
     position: absolute;
     text-align: center;
-    top: 342px;
+    top: 300px;
     left: 0;
     right: 0;
   }
-  .name-label-chart-top {
+  .name-label-chart-top-d {
     position: absolute;
     margin-left: auto;
     margin-right: auto;
     left: 0;
     right: 0;
-    top: 20px;
+    top: 5px;
     text-align: center;
   }
 
-  .name-label-chart-left {
+  .name-label-chart-left-d {
     text-align: left;
     position: absolute;
-    top: 190px;
-    left: 38px;
+    top: 152px;
+    left: 5px;
   }
 
-  .name-label-chart-right {
+  .name-label-chart-right-d {
     text-align: right;
     position: absolute;
-    top: 190px;
-    right: 38px;
+    top: 152px;
+    right: 5px;
   }
 
   .chartCompare {
@@ -237,5 +238,8 @@ export default {
     width: 14px;
     height: 17px;
     margin-right: 5px;
+  }
+  .padding {
+    margin-top: -2px;
   }
 </style>

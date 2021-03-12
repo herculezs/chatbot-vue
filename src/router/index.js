@@ -79,6 +79,23 @@ export default new Router({
       },
     },
     {
+      path: '/admin/test-dashboard',
+      name: 'adminTestDashboard',
+      component: () => import('@views/adminViews/AdminTestDashboard.vue'),
+      beforeEnter: (to, from, next) => {
+        // if (isFreeVersion()) {
+        //   next('/');
+        // }
+
+        if (!checkRole.isAdmin()) {
+          next('/');
+          return;
+        }
+
+        next();
+      },
+    },
+    {
       path: '/questionnaire',
       name: 'questionnaire',
       component: () => import('@views/Questions.vue'),
@@ -93,7 +110,7 @@ export default new Router({
         // eslint-disable-next-line no-underscore-dangle
         const userAuth = Store.getters['auth/getProfile'].token;
         const { completedQuestionnaires = [] } = Store.getters['auth/getProfile'];
-        console.log('----questionnare');
+
         if (isFreeVersion() && !completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
           next();
         } else {
@@ -125,8 +142,6 @@ export default new Router({
         // if (isFreeVersion()) {
         //   next('/');
         // }
-        console.log('!checkRole.isAdmin()', !checkRole.isAdmin());
-        console.log('!checkRole.isAdmin()', Store.getters['auth/getProfile']);
         if (checkRole.isAdmin()) {
           next();
           return;
@@ -161,7 +176,6 @@ export default new Router({
         // eslint-disable-next-line no-underscore-dangle
         const userAuth = Store.getters['auth/getProfile'].token;
         const { completedQuestionnaires = [] } = Store.getters['auth/getProfile'];
-        console.log('----report');
         if (isFreeVersion() && !completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
           next();
         } else if (!userAuth) {

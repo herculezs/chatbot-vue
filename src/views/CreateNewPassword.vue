@@ -11,6 +11,7 @@
 import CreatePassword from '@components/CreatePassword/CreatePassword.vue';
 import Content from '@components/Content/Content.vue';
 import { mapGetters } from 'vuex';
+import checkRole from '@helpers/adminFunction';
 
 export default {
   components: {
@@ -35,7 +36,12 @@ export default {
       this.$store.dispatch('auth/newPassword',
         { formData: dataForRequest, userId: this.getProfile.id })
         .then(() => {
-          if (this.getProfile.completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
+          if (checkRole.isAdmin()) {
+            this.$router.push({
+              name: 'adminMenu',
+            });
+          } else if (this.getProfile.completedQuestionnaires
+            .includes(process.env.QUESTIONNAIRE_ID)) {
             this.$router.replace('report');
           } else {
             this.$router.replace(this.getRedirectAuth);

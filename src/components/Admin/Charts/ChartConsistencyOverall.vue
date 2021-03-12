@@ -1,10 +1,5 @@
 <template>
-  <div class="barChartConsistency">
-    <div class="consistencyData">{{this.data.open}}%</div>
-    <div class="consistencyData">{{this.data.conscientious}}%</div>
-    <div class="consistencyData">{{this.data.extraverted}}%</div>
-    <div class="consistencyData">{{this.data.agreeable}}%</div>
-    <div class="consistencyData">{{this.data.neuotic}}%</div>
+  <div class="barChart">
     <VueECharts
       :option="getChartData"
       autoresize
@@ -39,6 +34,14 @@ export default {
         data: formatResult,
         color: '#a111ff',
         barGap: 0,
+        label: {
+          show: true,
+          fontWeight: 'bold',
+          align: 'center',
+          formatter(d) {
+            return `${d.data}%`;
+          },
+        },
         emphasis: {
           itemStyle: {
             color: '#7811c9',
