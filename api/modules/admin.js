@@ -45,6 +45,30 @@ export default {
       });
     });
   },
+  updateUserById(questionId, formData) {
+    return new Promise((resolve, reject) => {
+      http.put(`admin/update-user/${questionId}`, formData).then(
+        ({ data }) => {
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
+  createUser(questionId, formData) {
+    return new Promise((resolve, reject) => {
+      http.post(`admin/create-user/${questionId}`, formData).then(
+        ({ data }) => {
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
   addQuestionnaireResult(questionId, userId, questionResult, numberOfTimes) {
     return new Promise((resolve, reject) => {
       http.post(`admin/add-questionnaire-result/${questionId}?userId=${userId}`, { questionResult, numberOfTimes }).then(
