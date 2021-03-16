@@ -123,7 +123,6 @@ export default new Router({
             next('/');
             return;
           }
-
           if (completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
             next('/report');
             return;
@@ -180,6 +179,9 @@ export default new Router({
           next();
         } else if (!userAuth) {
           next('/');
+        }
+        if (!isFreeVersion() && !completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
+          next('/questionnaire');
         }
 
         next();
