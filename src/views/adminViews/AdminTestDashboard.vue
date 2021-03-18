@@ -271,8 +271,8 @@ export default {
   data: () => ({
     configEnv,
     page: 1,
-    search: null,
-    searchField: null,
+    search: '',
+    searchField: '',
     snack: false,
     itemsPerPage: 0,
     dashboardData: [],
@@ -459,8 +459,8 @@ export default {
       }
     },
     clearSearchUser() {
-      this.search = null;
-      this.searchField = null;
+      this.search = '';
+      this.searchField = '';
       this.dashboardData = [];
       this.loadingTable = true;
       this.getDataTestDashboard();
