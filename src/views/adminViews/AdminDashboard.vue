@@ -1,14 +1,7 @@
 <template>
   <div class="admin-dashboard">
     <Content>
-      <h1 class="h4 text-center mb-3">Dashboard</h1>
-      <button
-        class="form button button_theme-default
-         button_size-m button_theme button_theme"
-        @click.prevent="redirectToMenu"
-      >
-        Back
-      </button>
+      <ButtonToMenu/>
       <v-app>
         <v-card>
           <v-data-table
@@ -63,16 +56,16 @@
                 </div>
               </td>
             </template>
-            <template v-slot:item.numberConnections="props">
-              <v-edit-dialog
-                :return-value.sync="props.item.numberConnections"
-                @open="open"
-              >
-                {{ props.item.numberConnections }}
-                <template v-slot:input>
-                </template>
-              </v-edit-dialog>
-            </template>
+<!--            <template v-slot:item.numberConnections="props">-->
+<!--              <v-edit-dialog-->
+<!--                :return-value.sync="props.item.numberConnections"-->
+<!--                @open="open"-->
+<!--              >-->
+<!--                {{ props.item.numberConnections }}-->
+<!--                <template v-slot:input>-->
+<!--                </template>-->
+<!--              </v-edit-dialog>-->
+<!--            </template>-->
           </v-data-table>
           <div class="text-center pt-2">
             <v-pagination
@@ -98,6 +91,7 @@ import DepartmentSummaryChart from '@components/Admin/Charts/DepartmentSummaryCh
 import Radar from '@components/Radar/Radar.vue';
 import constants from '@constants/index';
 import ChartCompare from '@components/Charts/ChartCompare.vue';
+import ButtonToMenu from '@components/Dashboard/ButtonToMenu.vue';
 
 export default {
   name: 'adminDashboard',
@@ -106,6 +100,7 @@ export default {
     Radar,
     ChartCompare,
     DepartmentSummaryChart,
+    ButtonToMenu,
   },
   data: () => ({
     Stretch,
@@ -162,7 +157,7 @@ export default {
       this.snack = true;
     },
     calculateCountPage() {
-      return Math.round(this.pageCount / this.itemsPerPage);
+      return Math.ceil(this.pageCount / this.itemsPerPage);
     },
     pageCounts(currentPage) {
       this.loadingTable = true;
@@ -179,6 +174,8 @@ export default {
       this.$api.admin.getInfoDashboard(process.env.QUESTIONNAIRE_ID, this.page - 1,
         this.sortField, this.sortDesc)
         .then((response) => {
+          this.dashboardData = [];
+          this.loadingTable = true;
           response.forEach((x) => {
             this.chartCompare = [];
             this.selfCoordinate = [];
@@ -244,6 +241,7 @@ export default {
               departmentSummary: this.departmentSummary,
             });
             this.loadingTable = false;
+            this.$forceUpdate();
           });
         });
     },

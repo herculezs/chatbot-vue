@@ -33,7 +33,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     value: {
@@ -54,7 +53,10 @@ export default {
   },
   computed: {
     getClassByLengthCountryCode() {
-      return `code-length-${this.diaCode.length}`;
+      if (this.diaCode && this.diaCode !== '' && this.diaCode != null) {
+        return `code-length-${this.diaCode.length}`;
+      }
+      return 'code-length-3';
     },
     getPhone: {
       get() {

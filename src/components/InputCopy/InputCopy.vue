@@ -68,7 +68,6 @@ export default {
     copyInputData() {
       const resultCopyText = `${configEnv.inputCopy.copyText}${this.value}${configEnv.inputCopy.copyText2}`;
 
-      console.log('this.inputCopy.copyText2', configEnv.inputCopy.copyText2);
       copy(this.changeName(resultCopyText));
       this.$notify({
         type: 'success',

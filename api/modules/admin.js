@@ -1,5 +1,6 @@
 import http from '@utils/http';
 import notifyError from '@helpers';
+import Vue from 'vue';
 
 export default {
   getInfoDashboard(id, page, sortField, sortDesc) {
@@ -21,9 +22,9 @@ export default {
       });
     });
   },
-  getDataTestDashboard(id, page, search) {
+  getDataTestDashboard(id, page, search, searchField) {
     return new Promise((resolve, reject) => {
-      http.post(`admin/get-data-test-dashboard/${id}?page=${page}`, { search }).then(
+      http.post(`admin/get-data-test-dashboard/${id}?page=${page}`, { search, searchField }).then(
         ({ data }) => {
           resolve(data);
         },
@@ -50,6 +51,11 @@ export default {
       http.put(`admin/update-user/${questionId}`, formData).then(
         ({ data }) => {
           resolve(data);
+          Vue.notify({
+            type: 'success',
+            title: 'Success',
+            text: 'Success',
+          });
         },
       ).catch((error) => {
         notifyError(error);
@@ -57,11 +63,16 @@ export default {
       });
     });
   },
-  createUser(questionId, formData) {
+  createUser(questionId, userDto) {
     return new Promise((resolve, reject) => {
-      http.post(`admin/create-user/${questionId}`, formData).then(
+      http.post(`admin/create-user/${questionId}`, userDto).then(
         ({ data }) => {
           resolve(data);
+          Vue.notify({
+            type: 'success',
+            title: 'Success',
+            text: 'Success',
+          });
         },
       ).catch((error) => {
         notifyError(error);
@@ -73,6 +84,11 @@ export default {
     return new Promise((resolve, reject) => {
       http.post(`admin/add-questionnaire-result/${questionId}?userId=${userId}`, { questionResult, numberOfTimes }).then(
         ({ data }) => {
+          Vue.notify({
+            type: 'success',
+            title: 'Success',
+            text: 'Success',
+          });
           resolve(data);
         },
       ).catch((error) => {

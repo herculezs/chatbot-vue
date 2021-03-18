@@ -52,4 +52,9 @@ export default {
     step1: 'Step 1: You will be asked 12 short questions about you and then you will receive your first report ...',
     step2: 'Step 2: Ask your contacts to answer 12 short questions about you to receive your comparative report.',
   },
+  testdashboard: {
+    defaultCodePhone: '+44',
+    placeholderPhoneDashboard: '+4412345-678901',
+    defaultStatePhone: 'GB',
+  },
 };

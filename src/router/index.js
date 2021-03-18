@@ -180,7 +180,8 @@ export default new Router({
         } else if (!userAuth) {
           next('/');
         }
-        if (!isFreeVersion() && !completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
+        if (!isFreeVersion() && !completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)
+          && !checkRole.isAdmin()) {
           next('/questionnaire');
         }
 
