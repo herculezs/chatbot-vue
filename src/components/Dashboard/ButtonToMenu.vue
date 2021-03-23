@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1 class="h4 text-center mb-3">Test Dashboard</h1>
     <button
       class="form button button_theme-default
          button_size-m button_theme button_theme"

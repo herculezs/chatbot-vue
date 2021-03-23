@@ -1,6 +1,7 @@
 <template>
   <div class="admin-dashboard">
     <Content>
+      <h1 class="h4 text-center mb-3">Dashboard</h1>
       <ButtonToMenu/>
       <v-app>
         <v-card>

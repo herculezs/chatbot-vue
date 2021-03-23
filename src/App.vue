@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <Header /> <!--v-if="mainPageHeader"-->
+    <Header/>
     <router-view class="main__content" />
     <Notification />
   </div>
@@ -24,10 +24,10 @@ export default {
       }
       return 'InnerWorks';
     },
-    // mainPageHeader() {
-    //   const route = this.$route.path.split('/').filter(x => x !== '');
-    //   return route[0] !== 'admin';
-    // },
+    mainPageHeader() {
+      const route = this.$route.path.split('/').filter(x => x !== '');
+      return route[0] !== 'manage';
+    },
   },
   created() {
   },

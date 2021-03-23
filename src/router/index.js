@@ -62,14 +62,24 @@ export default new Router({
       },
     },
     {
+      path: '/manage/login',
+      name: 'manageLogin',
+      component: () => import('@views/managePage/LoginManagePage.vue'),
+      beforeEnter: (to, from, next) => {
+        const userAuth = Store.getters['auth/getProfile'].token;
+        // eslint-disable-next-line no-underscore-dangle
+        // isFreeVersion() ||
+        if (userAuth) {
+          next('/');
+        }
+        next();
+      },
+    },
+    {
       path: '/admin/dashboard',
       name: 'adminDashboard',
       component: () => import('@views/adminViews/AdminDashboard.vue'),
       beforeEnter: (to, from, next) => {
-        // if (isFreeVersion()) {
-        //   next('/');
-        // }
-
         if (!checkRole.isAdmin()) {
           next('/');
           return;
@@ -83,10 +93,19 @@ export default new Router({
       name: 'adminTestDashboard',
       component: () => import('@views/adminViews/AdminTestDashboard.vue'),
       beforeEnter: (to, from, next) => {
-        // if (isFreeVersion()) {
-        //   next('/');
-        // }
+        if (!checkRole.isAdmin()) {
+          next('/');
+          return;
+        }
 
+        next();
+      },
+    },
+    {
+      path: '/manage/panel',
+      name: 'adminPanel',
+      component: () => import('@views/managePage/AdminPanel.vue'),
+      beforeEnter: (to, from, next) => {
         if (!checkRole.isAdmin()) {
           next('/');
           return;
@@ -110,6 +129,16 @@ export default new Router({
         // eslint-disable-next-line no-underscore-dangle
         const userAuth = Store.getters['auth/getProfile'].token;
         const { completedQuestionnaires = [] } = Store.getters['auth/getProfile'];
+
+        if (checkRole.isAdmin()) {
+          next('/admin/menu');
+          return;
+        }
+
+        if (checkRole.isSuperUser()) {
+          next('/manage/panel');
+          return;
+        }
 
         if (isFreeVersion() && !completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
           next();
@@ -175,6 +204,16 @@ export default new Router({
         // eslint-disable-next-line no-underscore-dangle
         const userAuth = Store.getters['auth/getProfile'].token;
         const { completedQuestionnaires = [] } = Store.getters['auth/getProfile'];
+        if (checkRole.isAdmin()) {
+          next('/admin/menu');
+          return;
+        }
+
+        if (checkRole.isSuperUser()) {
+          next('/manage/panel');
+          return;
+        }
+
         if (isFreeVersion() && !completedQuestionnaires.includes(process.env.QUESTIONNAIRE_ID)) {
           next();
         } else if (!userAuth) {
