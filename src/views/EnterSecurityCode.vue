@@ -144,4 +144,7 @@ export default {
   .input_enter_code {
     margin-top: 32px;
   }
+  .enter-security-code input {
+    background-color: white;
+  }
 </style>

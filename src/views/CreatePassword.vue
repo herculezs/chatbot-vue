@@ -23,3 +23,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+  .create-password input {
+    background-color: white;
+  }
+</style>

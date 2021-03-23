@@ -53,7 +53,6 @@ import Content from '@components/Content/Content.vue';
 import TelInput from '@components/InputTel/TelInput.vue';
 import { mapGetters } from 'vuex';
 import configEnv from '@configEnv';
-import isFreeVersion from '@helpers/func';
 import checkRole from '@helpers/adminFunction';
 
 const { required } = require('vuelidate/lib/validators');
@@ -129,16 +128,6 @@ export default {
             this.$router.replace(this.getRedirectAuth);
           }
         }).catch(() => {
-          if (isFreeVersion()) {
-            this.$router.push('registration');
-          } else {
-            this.$router.push({
-              name: 'main',
-              params: {
-                slide: 3,
-              },
-            });
-          }
         });
       }
     },
@@ -148,7 +137,7 @@ export default {
 </script>
 
 <style lang="scss">
-  input {
+  .reset-password input {
     background-color: white;
   }
 </style>

@@ -535,24 +535,24 @@ export default {
 </script>
 
 <style lang="scss">
-  .v-data-table-header  {
+  .admin-dashboard-test .v-data-table-header  {
     background-color: $tableColor1;
   }
-  td {
+  .admin-dashboard-test td {
     font-family: Montserrat, sans-serif;
   }
-  th span {
+  .admin-dashboard-test th span {
     font-family: Montserrat, sans-serif;
     font-size: 15px;
   }
-  tbody tr:nth-child(even) {
+  .admin-dashboard-test tbody tr:nth-child(even) {
     background-color: $tableColor1;
   }
 
-  tbody tr:nth-child(odd) {
+  .admin-dashboard-test tbody tr:nth-child(odd) {
     background-color: $tableColor2;
   }
-  .v-data-footer {
+  .admin-dashboard-test .v-data-footer {
     background-color: $tableColor1;
   }
   .v-pagination__item--active {

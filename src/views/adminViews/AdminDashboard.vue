@@ -26,7 +26,7 @@
                       <div class="barChartUsersResult">
                         <div class="departmentSummary">
                           <div class="blockBarChart">
-                            <div class="text-center">Consistency score overall</div>
+                            <div class="text-center">Consistency Score - Detail</div>
                             <ChartConsistencyOverall :data="item.scoreOverallChart">
                             </ChartConsistencyOverall>
                           </div>
@@ -323,21 +323,21 @@ export default {
 </script>
 
 <style lang="scss">
-  .v-data-table-header  {
+  .admin-dashboard .v-data-table-header  {
     background-color: $tableColor1;
   }
-  td {
+  .admin-dashboard td {
     font-family: Montserrat, sans-serif;
   }
-  th span {
+  .admin-dashboard th span {
     font-family: Montserrat, sans-serif;
     font-size: 15px;
   }
-  tbody tr:nth-child(even) {
+  .admin-dashboard tbody tr:nth-child(even) {
     background-color: $tableColor1;
   }
 
-  tbody tr:nth-child(odd) {
+  .admin-dashboard tbody tr:nth-child(odd) {
     background-color: $tableColor2;
   }
   .v-data-footer {
@@ -355,7 +355,7 @@ export default {
     justify-content: center;
     align-items: center;
     position: relative;
-    margin: 10px 30px 23px 40px;
+    margin: 10px 30px 43px 84px;
     border: 1px solid #ccc;
     padding: 0 7px 0 7px;
   }
@@ -421,7 +421,8 @@ export default {
     width: 400px;
   }
   .departmentSummary .blockBarChart {
-    width: 320px;
+    width: 400px;
+    height: 375px;
   }
   .barChartUsersResult {
     display: flex;

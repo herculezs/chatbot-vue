@@ -4,16 +4,24 @@
     <router-link to="/">
       <img src="../../assets/logo.png" alt="logo" height="70"/>
     </router-link>
-    <router-link class="header__link" to="/login" v-if="!getProfile.token">
-      Sign in
-    </router-link>
-    <div class="header__link" v-else @click.prevent="logOut"> Log out</div>
+    <div v-if="headerRegistration()">
+      <span class="header__link" @click.prevent="redirectToRegistration"  v-if="!getProfile.token">
+        Registration
+      </span>
+    </div>
+    <div v-else>
+      <span class="header__link" @click.prevent="redirectToLogIn" v-if="!getProfile.token">
+        Sign in
+      </span>
+      <div class="header__link" v-else @click.prevent="logOut"> Log out</div>
+    </div>
   </div>
 </template>
 
 <script>
 
 import { mapGetters } from 'vuex';
+import isFreeVersion from '@helpers/func';
 
 export default {
   computed: {
@@ -25,6 +33,25 @@ export default {
     logOut() {
       this.$store.dispatch('auth/logout');
       this.$router.push('/');
+    },
+    headerRegistration() {
+      const route = this.$route.path.split('/').filter(x => x !== '');
+      return route[0] === 'login';
+    },
+    redirectToRegistration() {
+      if (isFreeVersion()) {
+        this.$router.push('registration');
+      } else {
+        this.$router.push({
+          name: 'main',
+          params: {
+            slide: 3,
+          },
+        });
+      }
+    },
+    redirectToLogIn() {
+      this.$router.push({ name: 'login' });
     },
   },
 };

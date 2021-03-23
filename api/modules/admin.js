@@ -101,11 +101,6 @@ export default {
     return new Promise((resolve, reject) => {
       http.get('admin/get-company-employee').then(
         ({ data }) => {
-          Vue.notify({
-            type: 'success',
-            title: 'Success',
-            text: 'Success',
-          });
           resolve(data);
         },
       ).catch((error) => {
