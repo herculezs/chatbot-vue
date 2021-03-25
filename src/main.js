@@ -22,7 +22,7 @@ import vuetify from '@/plugins/vuetify';
 import 'echarts';
 
 import {
-  faUserSecret, faUserAlt, faEnvelope, faUserTag, faUserFriends, faMobile,
+  faUserSecret, faUserAlt, faEnvelope, faUserTag, faUserFriends, faMobile, faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -59,6 +59,7 @@ library.add(faEnvelope);
 library.add(faUserTag); // role
 library.add(faUserFriends); // depart
 library.add(faMobile); // phone
+library.add(faTrashAlt); // phone
 
 
 window.app = new Vue({

@@ -5,17 +5,6 @@
       <ButtonToMenu/>
       <v-app>
         <v-card>
-          <v-text-field
-            v-model="search"
-            label="Search by Phone or Email"
-            :append-outer-icon="'mdi-send'"
-            clear-icon="mdi-close-circle"
-            class="mx-4"
-            @click:append-outer="searchUser"
-            @keydown="searchUser"
-            clearable
-            @click:clear="clearSearchUser"
-          ></v-text-field>
           <v-data-table
             item-key="id"
             :headers="headers"
@@ -34,6 +23,17 @@
               <v-toolbar
                 flat
               >
+                <v-text-field
+                  v-model="search"
+                  label="Search by Phone or Email"
+                  :append-outer-icon="'mdi-send'"
+                  clear-icon="mdi-close-circle"
+                  class="mx-4"
+                  @click:append-outer="searchUser"
+                  @keydown="searchUser"
+                  clearable
+                  @click:clear="clearSearchUser"
+                ></v-text-field>
                 <v-spacer></v-spacer>
                 <v-dialog
                   v-model="dialog"
@@ -582,5 +582,8 @@ export default {
   }
   .admin-dashboard-test .form__input-error {
     padding-left: 0;
+  }
+  .admin-dashboard-test .v-input__control .v-input__slot{
+    margin-bottom: -10px;
   }
 </style>

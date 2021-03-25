@@ -16,13 +16,6 @@
       >
         Test Dashboard
       </button>
-      <button
-        class="form button button_w-100 button_theme-default
-         button_size-m button_theme button_theme"
-        @click.prevent="redirectToAdminPanel"
-      >
-        Admin Panel
-      </button>
     </Content>
   </div>
 </template>
@@ -39,11 +32,6 @@ export default {
     redirectToTestDashboard() {
       this.$router.push({
         name: 'adminTestDashboard',
-      });
-    },
-    redirectToAdminPanel() {
-      this.$router.push({
-        name: 'adminPanel',
       });
     },
   },

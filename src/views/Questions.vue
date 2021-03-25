@@ -208,7 +208,7 @@ export default {
         return this.saveAnswerByPersonalityTest();
       }
 
-      if (this.isFreeVersionWebSite) {
+      if (this.isFreeVersionWebSite && !this.getProfile.token) {
         if (!localStorage.getItem('uniqueId')) {
           localStorage.setItem('uniqueId', `anonymous${Math.floor(Math.random()
             * Math.floor(Math.random() * Date.now()) * Math.random())}`);

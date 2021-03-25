@@ -106,7 +106,7 @@ export default new Router({
       name: 'adminPanel',
       component: () => import('@views/managePage/AdminPanel.vue'),
       beforeEnter: (to, from, next) => {
-        if (!checkRole.isAdmin()) {
+        if (!checkRole.isAdminAndSuperUser()) {
           next('/');
           return;
         }
