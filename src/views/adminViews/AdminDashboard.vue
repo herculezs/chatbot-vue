@@ -11,13 +11,15 @@
             :items="dashboardData"
             :page.sync="page"
             class="elevation-1"
+            mobile-breakpoint="1"
             show-expand
-            single-expand
             :loading="loadingTable"
             :items-per-page="itemsPerPage"
             loading-text="Loading... Please wait"
             hide-default-footer
+            single-expand
             :custom-sort="customSort"
+            :expanded.sync="expanded"
             @page-count="calculateCountPage()">
             <template v-slot:expanded-item="{ headers, item }">
               <td :colspan="headers.length">
@@ -33,22 +35,23 @@
                         </div>
                         <div class="departmentSummary">
                           <div class="blockBarChart">
-                            <div class="text-center">Colleagues result</div>
+                            <div class="text-center">Colleagues Result</div>
                             <Radar :data=item.chartBar></Radar>
                           </div>
                         </div>
                         <div class="departmentSummary">
                           <div class="block">
-                            <div class="text-center">Colleagues result</div>
+                            <div class="text-center">Colleagues Result</div>
                             <ChartCompare :data="item.chartCompare">
                             </ChartCompare>
                           </div>
                         </div>
                         <div class="departmentSummary">
                           <div class="block">
-                            <div class="text-center">Department summary</div>
-                            <DepartmentSummaryChart :respondentsCount=item.countOther
-                                                    :data="item.departmentSummary">
+                            <div class="text-center">Department Summary</div>
+                            <DepartmentSummaryChart v-if="item.departmentSummary"
+                              :respondentsCount="item.countOther"
+                              :data="item.departmentSummary">
                             </DepartmentSummaryChart>
                           </div>
                         </div>
@@ -57,16 +60,6 @@
                 </div>
               </td>
             </template>
-<!--            <template v-slot:item.numberConnections="props">-->
-<!--              <v-edit-dialog-->
-<!--                :return-value.sync="props.item.numberConnections"-->
-<!--                @open="open"-->
-<!--              >-->
-<!--                {{ props.item.numberConnections }}-->
-<!--                <template v-slot:input>-->
-<!--                </template>-->
-<!--              </v-edit-dialog>-->
-<!--            </template>-->
           </v-data-table>
           <div class="text-center pt-2">
             <v-pagination
@@ -117,8 +110,13 @@ export default {
     sortDesc: false,
     departmentSummary: [],
     departmentSummaryOtherResult: [],
+    expanded: [],
     headers: [
+      { text: '', value: 'expand', align: 'end' },
       { text: 'Employee', value: 'employee', align: 'center' },
+      {
+        text: 'Created', value: 'createdDate', align: 'center', sortable: false,
+      },
       { text: 'Department', value: 'department', align: 'center' },
       { text: 'Manager', value: 'manager', align: 'center' },
       {
@@ -153,7 +151,31 @@ export default {
   },
   computed: {
   },
+  watch: {
+    // expanded() {
+    //   this.$forceUpdate();
+    // },
+  },
   methods: {
+    // clicked(value) {
+    //   // if (value.value) {
+    //   //   this.expanded.push(value.item);
+    //   // } else {
+    //   //   this.expanded.pop();
+    //   // }
+    //   //
+    //   // // eslint-disable-next-line array-callback-return,consistent-return
+    //   // this.expanded = this.expanded.map((x) => {
+    //   //   console.log(x.userId, value.item.userId);
+    //   //   if (x.userId === value.item.userId) {
+    //   //     console.log('x');
+    //   //     setTimeout(() => { this.expanded.shift(); }, 200);
+    //   //     return value.item;
+    //   //   }
+    //   // });
+    //
+    //   console.log('value.item', this.expanded);
+    // },
     open() {
       this.snack = true;
     },
@@ -183,6 +205,7 @@ export default {
             this.otherCoordinate = [];
             this.departmentSummary = [];
             this.departmentSummaryOtherResult = [];
+            this.countOther = null;
             this.radarData = [
               {
                 value: [],
@@ -223,7 +246,8 @@ export default {
                 this.departmentSummaryOtherResult.push(helpFunction.Coordinates(element));
               });
             }
-
+            const d = new Date(x.createdDate);
+            const createdDate = `${(`0${d.getDate()}`).slice(-2)}-${(`0${d.getMonth() + 1}`).slice(-2)}-${d.getFullYear()}`;
             this.chartOptionsBar(type, otherType);
             this.chartOptionsBarDepartmentSummary();
             this.dashboardData.push({
@@ -235,6 +259,7 @@ export default {
               scoreOverall: `${x.scoreOverall.generalPercent}%`,
               scoreOverallChart: x.scoreOverall,
               numberConnections: x.numberConnection,
+              createdDate,
               type,
               reviewerRanking: x.reviewerRanking,
               chartBar: this.radarData,
@@ -323,6 +348,8 @@ export default {
 </script>
 
 <style lang="scss">
+  .admin-dashboard {
+  }
   .admin-dashboard .v-data-table-header  {
     background-color: $tableColor1;
   }
@@ -347,15 +374,15 @@ export default {
     background-color: $bgCardColor1 !important;
     border-color: $bgCardColor1 !important;
   }
-  .barChart {
-    height: 300px;
-    width: 225px;
+  .admin-dashboard .barChart {
+    height: 319px;
+    width: 350px;
     background-color: white;
     display: inline-block;
     justify-content: center;
     align-items: center;
     position: relative;
-    margin: 10px 30px 43px 84px;
+    margin: 10px 30px 43px 17px;
     border: 1px solid #ccc;
     padding: 0 7px 0 7px;
   }
@@ -426,7 +453,9 @@ export default {
   }
   .barChartUsersResult {
     display: flex;
-    flex-wrap: wrap;
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
   }
   .departmentSummary {
     display: inline-block;

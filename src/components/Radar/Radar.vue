@@ -3,6 +3,7 @@
     <VueECharts
       :option="getChartData"
       autoresize
+      ref="chart"
     />
     <div class="radar-legend">
       <div class="radar-legend-list">
@@ -39,6 +40,9 @@ export default {
     data: {
       type: Array,
     },
+  },
+  beforeUpdate() {
+    this.$refs.chart.clear();
   },
   computed: {
     getDataForLegends() {

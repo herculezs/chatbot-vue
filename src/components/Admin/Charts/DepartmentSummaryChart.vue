@@ -1,6 +1,6 @@
 <template>
   <div class="chartCompare">
-    <div class="diagram__title-with-respondents" v-if="respondentsCount">
+    <div class="diagram__title-with-respondents">
       <div class="report__respondents">
         <svg class="report__respondents-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.42 15.93">
           <circle
@@ -16,7 +16,7 @@
             transform="translate(-1.79 -0.07)"
           />
         </svg>
-        Sales:  {{ respondentsCount }}
+        Sales:  <span v-if="respondentsCount">{{ respondentsCount }}</span><span v-else> 0</span>
       </div>
     </div>
     <div class="name-label-chart-top-d"><b class="chart-label">More Flexible</b></div>
@@ -25,6 +25,7 @@
     <div class="name-label-chart-bottom-d"><b class="chart-label">Less Flexible</b></div>
     <ECharts
       :option="{...getChartData, series}"
+      ref="chart"
       autoresize
     />
     <div class="padding"><br/></div>
@@ -103,6 +104,9 @@ export default {
       },
     },
   }),
+  beforeUpdate() {
+    this.$refs.chart.clear();
+  },
   computed: {
     series() {
       const xNeutralOffset = 6;

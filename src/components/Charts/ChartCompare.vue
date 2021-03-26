@@ -9,6 +9,7 @@
       :option="{...getChartData, series}"
       autoresize
       @click="choose"
+      ref="chart"
     />
     <span class="dashboard-chart-padding-bottom"></span>
     </div>
@@ -31,7 +32,14 @@ export default {
       type: Array,
     },
   },
+  beforeUpdate() {
+    if (this.updatedChart) {
+      this.$refs.chart.clear();
+    }
+    this.updatedChart = true;
+  },
   data: () => ({
+    updatedChart: true,
     selectedCharateristic: [],
     colorsByType: {
       YOU_ARE: {
@@ -297,10 +305,13 @@ export default {
   methods: {
     choose(dataObject) {
       // return data only if text is available
-      if (dataObject.value[3]) {
-        this.selectedCharateristic = dataObject.value;
-        this.$forceUpdate();
-        this.$emit('charateristic-click', dataObject.value);
+      this.updatedChart = false;
+      if (!this.updatedChart) {
+        if (dataObject.value[3]) {
+          this.selectedCharateristic = dataObject.value;
+          this.$forceUpdate();
+          this.$emit('charateristic-click', dataObject.value);
+        }
       }
     },
   },

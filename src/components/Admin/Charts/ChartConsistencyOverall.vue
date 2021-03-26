@@ -3,6 +3,7 @@
     <VueECharts
       :option="getChartData"
       autoresize
+      ref="chart"
     />
   </div>
 </template>
@@ -22,6 +23,9 @@ export default {
     data: {
       type: Object,
     },
+  },
+  beforeUpdate() {
+    this.$refs.chart.clear();
   },
   computed: {
     series() {
