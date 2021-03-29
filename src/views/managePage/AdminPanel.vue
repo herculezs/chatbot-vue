@@ -2,25 +2,76 @@
   <div class="admin-panel">
       <draggable class="admin-panel-content" :list="trashList"
                  handle=".handle"
-                 :options="trashOptions"
-                 @move="log"
-                 @change="log">
+                 :options="trashOptions">
         <div class="col-11">
           <div class="manager-name">
-            <span>Manager: {{`${getProfile.name} ${getProfile.lastName}`}} </span>
+            <v-toolbar>
+              <span>Manager: {{`${getProfile.name} ${getProfile.lastName}`}} </span>
+            </v-toolbar>
           </div>
           <div class="department">
-            <span>Department: <v-text-field
-              label="Sales"
-              class="input-department"
-              solo>
-            </v-text-field>
-            </span>
+            <div>
+            <v-app class="input-department">
+              <v-toolbar>
+                Department:
+                <v-autocomplete
+                  :search-input.sync="department"
+                  :items="items"
+                  item-text="name"
+                  item-value="id"
+                  cache-items
+                  flat
+                  hide-no-data
+                  hide-details
+                  return-object
+                  label="What you department?"
+                  solo
+                >
+                  <template v-slot:item="{ item }">
+                    <v-list-item-content>
+                      <v-list-item-title v-text="item.name"></v-list-item-title>
+                      <v-list-item-subtitle v-text="item.symbol"></v-list-item-subtitle>
+                    </v-list-item-content>
+                    <v-list-item-action>
+                      <v-btn icon color="blue darken-1"
+                             @click.prevent="openModalUpdateDepartment" text>
+                        <v-icon>mdi-pencil</v-icon>
+                      </v-btn>
+                    </v-list-item-action>
+                  </template>
+                </v-autocomplete>
+                <v-btn icon @click.prevent="newDepartmentEv">
+                  <v-icon>mdi-plus-circle-outline</v-icon>
+                </v-btn>
+              </v-toolbar>
+              <v-dialog v-model="showModalDepartmentUpdate" max-width="500px">
+                <v-card>
+                  <v-card-title class="headline">
+                    Update Department:
+                    <v-text-field
+                      class="updatedDepartment"
+                      @keypress="isNumber($event)"
+                      v-model="department"
+                      hide-details
+                      single-line
+                    /></v-card-title>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text
+                           @click="closeModalAutoRemind">Cancel</v-btn>
+                    <v-btn color="blue darken-1" text
+                           @click="confirmAutoRemind">Yes</v-btn>
+                    <v-spacer></v-spacer>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-app>
+            </div>
           </div>
           <div class="body-panel-table">
             <div class="col-10">
               <div class="table-employers">
-                <TablesEmployers/>
+                <TablesEmployers :department="department"/>
               </div>
             </div>
             <div class="col-3 employee-list-main">
@@ -48,13 +99,13 @@ export default {
     EmployeeList,
     draggable,
   },
-  computed: {
-    ...mapGetters({
-      getProfile: 'auth/getProfile',
-    }),
-  },
   data() {
     return {
+      items: [],
+      department: null,
+      departmentId: null,
+      newDepartment: null,
+      showModalDepartmentUpdate: false,
       trashOptions: {
         group: {
           name: 'trash',
@@ -66,20 +117,44 @@ export default {
       trashList: [],
     };
   },
+  computed: {
+    ...mapGetters({
+      getProfile: 'auth/getProfile',
+    }),
+  },
+  mounted() {
+    this.getDepartments();
+  },
   methods: {
-    add() {
-      this.list.push({ name: 'Juan' });
+    getDepartments() {
+      this.$api.manage.getDepartments().then((res) => {
+        res.forEach((x) => {
+          console.log(x);
+          this.items.push({ name: x.name, id: x.id });
+        });
+        console.log(this.items);
+      });
     },
-    replace() {
-      this.list = [{ name: 'Edgard' }];
+    departmentSave() {
+      if (this.department != null) {
+        this.$api.manage.saveDepartment(this.department, this.departmentId).then(() => {
+          this.getDepartments();
+        });
+      }
     },
-    clone(el) {
-      return {
-        name: `${el.name} cloned`,
-      };
+    closeModalAutoRemind() {
+      this.showModalDepartmentUpdate = false;
     },
-    log(evt) {
-      window.console.log('11111', evt);
+    confirmAutoRemind() {
+      this.departmentSave();
+    },
+    newDepartmentEv() {
+      this.departmentId = null;
+      this.departmentSave();
+    },
+    openModalUpdateDepartment() {
+      this.showModalDepartmentUpdate = true;
+      console.log(this.department);
     },
   },
 };
@@ -94,9 +169,9 @@ export default {
     display: flex;
   }
   .input-department {
-    margin-bottom:100px ;
-    width: 150px;
+    width: 360px;
     display: inline-block;
+    top: 20px;
   }
   .department {
     font-weight: bold;
@@ -104,6 +179,7 @@ export default {
     display: inline-block;
   }
   .manager-name {
+    margin-left: 13px;
     font-weight: bold;
     font-size: 20px;
     display: inline-block;
@@ -128,5 +204,12 @@ export default {
   }
   .admin-panel-content > .sortable-ghost {
     display: none;
+  }
+  .v-application .v-application--wrap{
+    min-height: initial;
+  }
+  .updatedDepartment {
+    margin-left: 10px;
+    margin-bottom: 14px;
   }
 </style>

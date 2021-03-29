@@ -1,7 +1,6 @@
 <template>
-
-  <v-app>
     <v-card>
+      <v-app class="table-v-app">
       <v-data-table
         item-key="id"
         :headers="headers"
@@ -28,24 +27,50 @@
         </template>
       </v-data-table>
       <div v-if="showButton">
-        <v-btn  class="buttons-selected-employers">Auto-remind</v-btn>
+        <v-btn v-if="setUpRemind" @click.prevent="openModalAutoRemind"
+               class="buttons-selected-employers">
+          Remind every {{ numberValue }} day(s)</v-btn>
+        <v-btn v-else @click.prevent="openModalAutoRemind"
+               class="buttons-selected-employers">
+          Auto-remind</v-btn>
         <v-btn class="buttons-selected-employers">Send-Reminders</v-btn>
-        <v-btn @click="openModalClearAll" class="buttons-selected-employers">Clear All</v-btn>
-        <v-dialog v-model="clearAll" max-width="500px">
+        <v-btn @click.prevent="openModalClearAll" class="buttons-selected-employers">
+          Clear All</v-btn>
+        <v-dialog v-model="showModalClearAll" max-width="500px">
           <v-card>
             <v-card-title class="headline">
-              Are you sure you want to delete this user?</v-card-title>
+              Are you sure?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="closeModalClearAll">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="clearAllConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="confirmClearAll">Yes</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-dialog v-model="showModalAutoRemind" max-width="500px">
+          <v-card>
+            <v-card-title class="headline">
+              Remind every
+              <v-text-field
+                class="remindEvery"
+                @keypress="isNumber($event)"
+                v-model.number="numberValue"
+                hide-details
+                single-line
+                type="number"
+            /> days(s)</v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="closeModalAutoRemind">Cancel</v-btn>
+              <v-btn color="blue darken-1" text @click="confirmAutoRemind">Yes</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
       </div>
+      </v-app>
     </v-card>
-  </v-app>
 </template>
 
 <script>
@@ -56,10 +81,19 @@ export default {
   components: {
     draggable,
   },
+  props: {
+    department: {
+      type: String,
+      default: null,
+    },
+  },
   data() {
     return {
       showButton: false,
-      clearAll: false,
+      showModalClearAll: false,
+      showModalAutoRemind: false,
+      setUpRemind: false,
+      numberValue: 1,
       tableList: [
         {
           name: 'John', surName: 'fdsfdsafsd', id: 1, email: 'test1@test.test', phone: '+380938798318',
@@ -113,24 +147,49 @@ export default {
   },
   watch: {
     tableList() {
-      console.log('1');
       this.showButton = this.tableList.length > 0;
     },
   },
   methods: {
+    isNumber($event) {
+      const keyCode = ($event.keyCode ? $event.keyCode : $event.which);
+      if (((keyCode > 31 && (keyCode < 48 || keyCode > 57)))) {
+        $event.preventDefault();
+      }
+      if (this.numberValue < 0 || this.numberValue > 10) {
+        $event.preventDefault();
+      }
+    },
     openModalClearAll() {
-      this.clearAll = true;
+      this.showModalClearAll = true;
     },
     closeModalClearAll() {
-      this.clearAll = false;
+      this.showModalClearAll = false;
     },
-    clearAllConfirm() {
+    confirmClearAll() {
       // logic clearAll
-      this.clearAll = false;
+      this.showModalClearAll = false;
+    },
+    openModalAutoRemind() {
+      this.showModalAutoRemind = true;
+    },
+    closeModalAutoRemind() {
+      this.showModalAutoRemind = false;
+    },
+    confirmAutoRemind() {
+      // logic clearAll
+      this.setUpRemind = true;
+      this.showModalAutoRemind = false;
     },
     log(evt) {
-      // request to BE update selectedEmployers
-      window.console.log('---2313', evt);
+      console.log(this.department);
+      if (evt.added) {
+        this.$api.manage.saveEmployeeToManager(this.department, evt.added.map(x => x.element.id));
+      }
+      if (evt.removed) {
+        console.log('removed', evt);
+      }
+      // this.$api.manage.saveEmployeeToManager(evt);
     },
   },
 };
@@ -141,5 +200,13 @@ export default {
     margin-left: 10px;
     margin-right: 20px;
     margin-bottom: 15px;
+  }
+  .table-v-app .v-application--wrap{
+    min-height: initial;
+  }
+  .remindEvery {
+    max-width: 60px;
+    padding-bottom: 9px;
+    padding-left: 12px;
   }
 </style>
