@@ -45,6 +45,9 @@ export default {
     step1: 'Step 1: You will be asked 10 short questions about you and then you will receive your first report ...',
     step2: 'Step 2: Ask your contacts to answer 10 short questions about you to receive your comparative report.',
   },
+  registerPage: {
+    titleDetailText: 'And don\'t worry, any answers you give about others will be completely anonymous to them',
+  },
   testdashboard: {
     defaultCodePhone: '+44',
     placeholderPhoneDashboard: '+4412345-678901',
