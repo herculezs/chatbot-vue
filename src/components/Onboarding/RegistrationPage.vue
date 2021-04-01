@@ -10,8 +10,7 @@
         We won’t contact you otherwise
         <br/>
         <br/>
-        <b>Any answers you give about others will be <b>totally anonymous</b>
-          to everyone in the company</b>
+        <b>{{ configEnv.registerPage.titleDetailText }}</b>
         <br/>
       </div>
     </div>
