@@ -1,6 +1,7 @@
 <template>
   <b-modal
-    modal-class="text-center"
+    modal-class="text-center modal-sticky-bottom ask-contacts"
+    class="ask-contacts"
     v-model="getModalShow"
     hide-footer
     no-close-on-backdrop
@@ -156,3 +157,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+  .ask-contacts .modal-content {
+    background: $bgColor1;
+  }
+</style>

@@ -152,30 +152,8 @@ export default {
   computed: {
   },
   watch: {
-    // expanded() {
-    //   this.$forceUpdate();
-    // },
   },
   methods: {
-    // clicked(value) {
-    //   // if (value.value) {
-    //   //   this.expanded.push(value.item);
-    //   // } else {
-    //   //   this.expanded.pop();
-    //   // }
-    //   //
-    //   // // eslint-disable-next-line array-callback-return,consistent-return
-    //   // this.expanded = this.expanded.map((x) => {
-    //   //   console.log(x.userId, value.item.userId);
-    //   //   if (x.userId === value.item.userId) {
-    //   //     console.log('x');
-    //   //     setTimeout(() => { this.expanded.shift(); }, 200);
-    //   //     return value.item;
-    //   //   }
-    //   // });
-    //
-    //   console.log('value.item', this.expanded);
-    // },
     open() {
       this.snack = true;
     },
@@ -229,18 +207,17 @@ export default {
 
             let type = '';
             let otherType = '';
-
             if (x.result) {
               // eslint-disable-next-line prefer-destructuring
               type = helpFunction.Coordinates(x.result)[2];
-              this.setRadar(x.result, 'Me');
+              this.setRadar(x.result.split(/(?=[-+])/), 'Me');
               this.selfCoordinate = helpFunction.Coordinates(x.result);
             }
 
             if (x.otherResult) {
               // eslint-disable-next-line prefer-destructuring
               otherType = helpFunction.Coordinates(x.otherResult)[2];
-              this.setRadar(x.otherResult, 'Contacts');
+              this.setRadar(x.otherResult.split(/(?=[-+])/), 'Contacts');
               this.otherCoordinate = helpFunction.Coordinates(x.otherResult);
               x.eachU1Result.forEach((element) => {
                 this.departmentSummaryOtherResult.push(helpFunction.Coordinates(element));
