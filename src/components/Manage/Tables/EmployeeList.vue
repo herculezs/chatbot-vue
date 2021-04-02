@@ -31,7 +31,6 @@
           <draggable :list="employeeList"
                      :group="{ name: 'employeeList', put: false }"
                      class="drag-employers"
-                     @change="log"
                      selected-class="multi-drag"
                      multi-drag>
             <tr
@@ -68,6 +67,23 @@ export default {
   mounted() {
     this.getEmployee();
   },
+  props: {
+    department: {
+      type: Object,
+      default: () => {},
+    },
+    update: {
+      type: Number,
+    },
+  },
+  watch: {
+    department() {
+      this.getEmployee();
+    },
+    update() {
+      this.getEmployee();
+    },
+  },
   data() {
     return {
       totalPages: 0,
@@ -95,30 +111,29 @@ export default {
       this.loadingTable = true;
       this.getEmployee();
     },
-    log(evt) {
-      window.console.log('11111', evt);
-    },
     pageCounts(currentPage) {
       this.loadingTable = true;
       this.page = currentPage;
       this.getEmployee();
     },
     getEmployee() {
-      this.$api.manage.getCompanyEmployee(this.page - 1, this.search)
-        .then((res) => {
-          this.employeeList = [];
-          this.page = res.number + 1;
-          this.totalPages = res.totalPages;
-          res.content.forEach((x) => {
-            this.employeeList.push({
-              id: x.id,
-              name: x.name,
-              surName: x.surName,
-              phone: x.phone,
-              email: x.corporateEmail,
+      if (this.department) {
+        this.$api.manage.getCompanyEmployee(this.page - 1, this.search, this.department.id)
+          .then((res) => {
+            this.employeeList = [];
+            this.page = res.number + 1;
+            this.totalPages = res.totalPages;
+            res.content.forEach((x) => {
+              this.employeeList.push({
+                id: x.id,
+                name: x.name,
+                surName: x.surName,
+                phone: x.phone,
+                email: x.corporateEmail,
+              });
             });
           });
-        });
+      }
     },
   },
 };

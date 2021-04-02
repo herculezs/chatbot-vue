@@ -1,18 +1,18 @@
 <template>
     <v-card>
       <v-app class="table-v-app">
-      <v-data-table
-        item-key="id"
-        :headers="headers"
-        :items="tableList"
-        :footer-props="{
+        <v-data-table
+          item-key="id"
+          :headers="headers"
+          :items="tableList"
+          :footer-props="{
       'items-per-page-options': [],
       'items-per-page-text': '',
       }">
         <template v-slot:body="props">
           <draggable tag="tbody" :list="tableList"
                      :group="{ name: 'selectedEmployers', put: 'employeeList'}"
-                     @change="log"
+                     @change="updateBlock"
           >
             <tr
               v-for="(user, index) in props.items"
@@ -20,8 +20,11 @@
             >
               <td> {{ user.name }} </td>
               <td> {{ user.surName }} </td>
-              <td> {{ user.email }} </td>
-              <td> {{ user.phone}} </td>
+              <td>{{ user.email }} </td>
+              <td>{{ user.phone }} </td>
+              <td> {{ user.invitationSend }}</td>
+              <td> {{ user.reminderSentOne }} </td>
+              <td> {{ user.reminderSentTwo }} </td>
             </tr>
           </draggable>
         </template>
@@ -33,7 +36,8 @@
         <v-btn v-else @click.prevent="openModalAutoRemind"
                class="buttons-selected-employers">
           Auto-remind</v-btn>
-        <v-btn class="buttons-selected-employers">Send-Reminders</v-btn>
+        <v-btn @click.prevent="sendReminders" class="buttons-selected-employers">
+          Send-Reminders</v-btn>
         <v-btn @click.prevent="openModalClearAll" class="buttons-selected-employers">
           Clear All</v-btn>
         <v-dialog v-model="showModalClearAll" max-width="500px">
@@ -48,6 +52,7 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
+
         <v-dialog v-model="showModalAutoRemind" max-width="500px">
           <v-card>
             <v-card-title class="headline">
@@ -58,8 +63,7 @@
                 v-model.number="numberValue"
                 hide-details
                 single-line
-                type="number"
-            /> days(s)</v-card-title>
+            /> day(s)</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="closeModalAutoRemind">Cancel</v-btn>
@@ -82,32 +86,28 @@ export default {
     draggable,
   },
   props: {
+    dataEmployee: {
+      type: Array,
+      default: () => [],
+    },
     department: {
-      type: String,
-      default: null,
+      type: Object,
+      default: () => {},
+    },
+    getDepartments: {
+      type: Function,
     },
   },
   data() {
     return {
+      openModalLeastLeastOneType: false,
+      checkLeastOneType: [],
       showButton: false,
       showModalClearAll: false,
       showModalAutoRemind: false,
       setUpRemind: false,
       numberValue: 1,
-      tableList: [
-        {
-          name: 'John', surName: 'fdsfdsafsd', id: 1, email: 'test1@test.test', phone: '+380938798318',
-        },
-        {
-          name: 'Joao', surName: 'fdsfdsafsd', id: 2, email: 'test23@test.test', phone: '+3804324324',
-        },
-        {
-          name: 'Jean', surName: 'fdsfdsafsd', id: 3, email: 'test43@test.test', phone: '+3804324324',
-        },
-        {
-          name: 'Gerard', surName: 'fdsfdsafsd', id: 4, email: 'test@test.test', phone: '+3804324324',
-        },
-      ],
+      tableList: [],
       headers: [
         {
           text: 'NAME', value: 'name', align: 'center', sortable: false,
@@ -123,7 +123,7 @@ export default {
         },
         {
           text: 'INVITATION SENT',
-          value: 'invitationSent',
+          value: 'invitationSend',
           align: 'center',
           sortable: false,
         },
@@ -149,6 +149,18 @@ export default {
     tableList() {
       this.showButton = this.tableList.length > 0;
     },
+    dataEmployee() {
+      this.tableList = this.dataEmployee;
+    },
+    department() {
+      if (this.department.daysAutoRemindEvery) {
+        this.numberValue = this.department.daysAutoRemindEvery;
+        this.setUpRemind = true;
+      } else {
+        this.numberValue = 1;
+        this.setUpRemind = false;
+      }
+    },
   },
   methods: {
     isNumber($event) {
@@ -160,6 +172,14 @@ export default {
         $event.preventDefault();
       }
     },
+    sendReminders() {
+      if (this.department) {
+        this.openModalLeastLeastOneType = !this.checkLeastOneType.includes(true);
+        this.$api.manage.sendReminders(this.department.id).then(() => {
+          this.getDepartments();
+        });
+      }
+    },
     openModalClearAll() {
       this.showModalClearAll = true;
     },
@@ -167,7 +187,7 @@ export default {
       this.showModalClearAll = false;
     },
     confirmClearAll() {
-      // logic clearAll
+      this.clearAll();
       this.showModalClearAll = false;
     },
     openModalAutoRemind() {
@@ -177,19 +197,46 @@ export default {
       this.showModalAutoRemind = false;
     },
     confirmAutoRemind() {
-      // logic clearAll
+      if (this.department) {
+        this.$api.manage.saveAutoReminders(this.department.id, this.numberValue).then((x) => {
+          console.log(x);
+          this.setUpRemind = true;
+          this.showModalAutoRemind = false;
+        });
+      }
       this.setUpRemind = true;
       this.showModalAutoRemind = false;
     },
-    log(evt) {
-      console.log(this.department);
+    clearAll() {
+      if (this.department) {
+        this.$api.manage.clearAllAdminPanel(this.department.id).then(() => {
+          this.getDepartments();
+        });
+      }
+    },
+    updateBlock(evt) {
       if (evt.added) {
-        this.$api.manage.saveEmployeeToManager(this.department, evt.added.map(x => x.element.id));
+        if (evt.added.element) {
+          this.$api.manage.saveEmployeeToManager(this.department.id,
+            [evt.added.element.id]).then(() => {
+            this.getDepartments();
+          });
+        } else {
+          this.$api.manage.saveEmployeeToManager(this.department.id,
+            evt.added.map(x => x.element.id)).then(() => {
+            this.getDepartments();
+          });
+        }
       }
       if (evt.removed) {
-        console.log('removed', evt);
+        this.$api.manage.removeOneEmployee(this.department.id, evt.removed.element.id).then(() => {
+          this.getDepartments();
+          this.$emit('enlarge-text', 1);
+        });
       }
-      // this.$api.manage.saveEmployeeToManager(evt);
+      if (evt.moved) {
+        this.getDepartments();
+      }
     },
   },
 };
@@ -208,5 +255,26 @@ export default {
     max-width: 60px;
     padding-bottom: 9px;
     padding-left: 12px;
+  }
+  .invitation-sent-selected {
+    display: flex;
+  }
+  .button-confirm {
+    margin-top: 15px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  .table-v-app .v-label {
+    top: 3px;
+    margin-right: 10px;
+  }
+  .select-type-text {
+    position: relative;
+    top: 21px;
+    right: 10px;
+    font-weight: bold;
+  }
+  .select-type-td {
+    cursor: pointer;
   }
 </style>

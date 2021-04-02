@@ -15,26 +15,27 @@
               <v-toolbar>
                 Department:
                 <v-autocomplete
-                  :search-input.sync="department"
+                  v-model="department"
+                  :search-input.sync="departmentName"
                   :items="items"
                   item-text="name"
                   item-value="id"
-                  cache-items
                   flat
                   hide-no-data
                   hide-details
                   return-object
                   label="What you department?"
                   solo
+                  @change="selectOtherDepartments"
+                  @keyup.enter.prevent="newDepartmentEv"
                 >
                   <template v-slot:item="{ item }">
                     <v-list-item-content>
                       <v-list-item-title v-text="item.name"></v-list-item-title>
-                      <v-list-item-subtitle v-text="item.symbol"></v-list-item-subtitle>
                     </v-list-item-content>
                     <v-list-item-action>
                       <v-btn icon color="blue darken-1"
-                             @click.prevent="openModalUpdateDepartment" text>
+                             @click="openModalUpdateDepartment" text>
                         <v-icon>mdi-pencil</v-icon>
                       </v-btn>
                     </v-list-item-action>
@@ -50,8 +51,7 @@
                     Update Department:
                     <v-text-field
                       class="updatedDepartment"
-                      @keypress="isNumber($event)"
-                      v-model="department"
+                      v-model="departmentName"
                       hide-details
                       single-line
                     /></v-card-title>
@@ -71,12 +71,15 @@
           <div class="body-panel-table">
             <div class="col-10">
               <div class="table-employers">
-                <TablesEmployers :department="department"/>
+                <SelectedEmployers :dataEmployee="tableData" :department="department"
+                                   :getDepartments="getDepartments"
+                                   v-on:enlarge-text="updateEmployeeList += $event"
+                />
               </div>
             </div>
             <div class="col-3 employee-list-main">
               <div class="list-employers">
-                <EmployeeList/>
+                <EmployeeList :department="department" :update="updateEmployeeList"/>
               </div>
             </div>
           </div>
@@ -86,7 +89,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import TablesEmployers from '@components/Manage/Tables/SelectedEmployers.vue';
+import SelectedEmployers from '@components/Manage/Tables/SelectedEmployers.vue';
 import EmployeeList from '@components/Manage/Tables/EmployeeList.vue';
 import draggable from 'vuedraggable';
 
@@ -95,17 +98,21 @@ export default {
   display: 'Two Lists',
   order: 1,
   components: {
-    TablesEmployers,
+    SelectedEmployers,
     EmployeeList,
     draggable,
   },
   data() {
     return {
       items: [],
+      tableData: [],
       department: null,
       departmentId: null,
       newDepartment: null,
+      departmentName: null,
       showModalDepartmentUpdate: false,
+      updateEmployeeList: 1,
+      postFontSize: 1,
       trashOptions: {
         group: {
           name: 'trash',
@@ -128,19 +135,52 @@ export default {
   methods: {
     getDepartments() {
       this.$api.manage.getDepartments().then((res) => {
+        this.items = [];
+        if (!this.department) {
+          // eslint-disable-next-line prefer-destructuring
+          this.department = res[0];
+        }
         res.forEach((x) => {
-          console.log(x);
-          this.items.push({ name: x.name, id: x.id });
+          this.items.push({ name: x.name, id: x.id, daysAutoRemindEvery: x.daysAutoRemindEvery });
         });
-        console.log(this.items);
+        this.loadDataAdminPanel();
+      });
+    },
+    selectOtherDepartments() {
+      this.$api.manage.getDepartments().then((res) => {
+        this.items = [];
+        res.forEach((x) => {
+          this.items.push({ name: x.name, id: x.id, daysAutoRemindEvery: x.daysAutoRemindEvery });
+        });
+        this.loadDataAdminPanel();
       });
     },
     departmentSave() {
-      if (this.department != null) {
-        this.$api.manage.saveDepartment(this.department, this.departmentId).then(() => {
+      if (this.departmentName != null) {
+        const id = this.department ? this.department.id : null;
+        this.$api.manage.saveDepartment(this.departmentName, id).then(() => {
           this.getDepartments();
+          this.showModalDepartmentUpdate = false;
         });
       }
+    },
+    loadDataAdminPanel() {
+      this.$api.manage.getDataAdminPanel(this.department.id).then((res) => {
+        this.tableData = [];
+        res.forEach((x) => {
+          this.tableData.push({
+            id: x.employeeDto.id,
+            name: x.employeeDto.name,
+            surName: x.employeeDto.surName,
+            phone: x.employeeDto.phone,
+            email: x.employeeDto.corporateEmail,
+            invitationType: x.employeeDto.invitationType,
+            invitationSend: x.employeeDto.invitationSend,
+            reminderSentOne: x.employeeDto.reminderSent1,
+            reminderSentTwo: x.employeeDto.reminderSent2,
+          });
+        });
+      });
     },
     closeModalAutoRemind() {
       this.showModalDepartmentUpdate = false;
@@ -154,7 +194,6 @@ export default {
     },
     openModalUpdateDepartment() {
       this.showModalDepartmentUpdate = true;
-      console.log(this.department);
     },
   },
 };
@@ -167,6 +206,10 @@ export default {
   }
   .admin-panel-content {
     display: flex;
+  }
+  .admin-panel-content .department .v-autocomplete__content {
+    max-width: 233px;
+    min-width: 223px !important;
   }
   .input-department {
     width: 360px;

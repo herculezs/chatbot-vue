@@ -125,18 +125,4 @@ export default {
         });
     });
   },
-  // updateInvitationSent(department, email, phone, employeeId) {
-  //   return new Promise((resolve, reject) => {
-  //     http.post(`manage/update-invitation-sent?email=${email}
-  //     &phone=${phone}&departmentId=${department}&employeeId=${employeeId}`)
-  //       .then(
-  //         ({ data }) => {
-  //           resolve(data);
-  //         },
-  //       ).catch((error) => {
-  //         notifyError(error);
-  //         reject(error);
-  //       });
-  //   });
-  // },
 };
