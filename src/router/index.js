@@ -102,6 +102,19 @@ export default new Router({
       },
     },
     {
+      path: '/admin/upload-employee',
+      name: 'adminUploadEmployee',
+      component: () => import('@views/adminViews/AdminUploadEmployee.vue'),
+      beforeEnter: (to, from, next) => {
+        if (!checkRole.isAdmin()) {
+          next('/');
+          return;
+        }
+
+        next();
+      },
+    },
+    {
       path: '/manage/panel',
       name: 'adminPanel',
       component: () => import('@views/managePage/AdminPanel.vue'),

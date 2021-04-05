@@ -109,4 +109,16 @@ export default {
       });
     });
   },
+  uploadCSVEmployee(file) {
+    return new Promise((resolve, reject) => {
+      http.post('admin/upload-csv-employees', file).then(
+        ({ data }) => {
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
 };

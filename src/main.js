@@ -17,7 +17,9 @@ import VTooltip from 'v-tooltip';
 import VueI18n from 'vue-i18n';
 import VueMeta from 'vue-meta';
 import vuetify from '@/plugins/vuetify';
-
+import VueFileAgent from 'vue-file-agent';
+// eslint-disable-next-line no-unused-vars
+import VueFileAgentStyles from 'vue-file-agent/dist/vue-file-agent.css';
 
 import 'echarts';
 
@@ -52,6 +54,7 @@ Vue.use(VueI18n);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.use(VTooltip);
 Vue.use(VueMeta);
+Vue.use(VueFileAgent);
 
 library.add(faUserSecret);
 library.add(faUserAlt);
