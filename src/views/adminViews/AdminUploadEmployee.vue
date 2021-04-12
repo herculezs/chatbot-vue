@@ -1,5 +1,6 @@
 <template>
   <div class="admin-upload-employee">
+    <h1 class="h4 text-center mb-3">Upload employees</h1>
     <ButtonToMenu/>
     <VueFileAgent
       ref="vueFileAgent"
@@ -89,7 +90,6 @@ export default {
     uploadFiles() {
       const formData = new FormData();
       formData.append('file', this.fileRecordsForUpload[0].file);
-      console.log(formData.get('file'));
       this.$api.admin.uploadCSVEmployee(formData).then(() => {
         this.fileRecordsForUpload = [];
         this.fileRecords = [];

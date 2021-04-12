@@ -6,14 +6,14 @@
         <div class="col-11">
           <div class="manager-name">
             <v-toolbar>
-              <span>Manager: {{`${getProfile.name} ${getProfile.lastName}`}} </span>
+              <span>MANAGER: {{`${getProfile.name} ${getProfile.lastName}`.toUpperCase()}} </span>
             </v-toolbar>
           </div>
           <div class="department">
-            <div>
+            <div class="padding-adaptive">
             <v-app class="input-department">
               <v-toolbar>
-                Department:
+                GROUP:
                 <v-autocomplete
                   v-model="department"
                   :search-input.sync="departmentName"
@@ -26,9 +26,11 @@
                   return-object
                   label="What you department?"
                   solo
+                  :hide-selected="true"
                   @change="selectOtherDepartments"
-                  @keyup.enter.prevent="newDepartmentEv"
+                  :disabled="disableAutoComplete"
                 >
+                  <!--       @keyup.prevent="newDepartmentEv"           -->
                   <template v-slot:item="{ item }">
                     <v-list-item-content>
                       <v-list-item-title v-text="item.name"></v-list-item-title>
@@ -68,10 +70,18 @@
             </v-app>
             </div>
           </div>
+          <div class="manager-remind-time" v-if="department != null && department.timeNextRemind">
+            <v-toolbar>
+              <span>
+                NEXT REMINDER: {{formatDateReminder()}}
+              </span>
+            </v-toolbar>
+          </div>
+          <div class="no-next-reminder" v-else></div>
           <div class="body-panel-table">
             <div class="col-10">
               <div class="table-employers">
-                <SelectedEmployers :dataEmployee="tableData" :department="department"
+                <SelectedEmployers :dataEmployee="tableData" :department.sync="department"
                                    :getDepartments="getDepartments"
                                    v-on:enlarge-text="updateEmployeeList += $event"
                 />
@@ -107,12 +117,15 @@ export default {
       items: [],
       tableData: [],
       department: null,
+      disableAutoComplete: false,
       departmentId: null,
       newDepartment: null,
       departmentName: null,
       showModalDepartmentUpdate: false,
       updateEmployeeList: 1,
       postFontSize: 1,
+      changeDate: 1,
+      timer: 0,
       trashOptions: {
         group: {
           name: 'trash',
@@ -131,26 +144,40 @@ export default {
   },
   mounted() {
     this.getDepartments();
+    this.checkUpdated();
   },
   methods: {
     getDepartments() {
       this.$api.manage.getDepartments().then((res) => {
         this.items = [];
-        if (!this.department) {
-          // eslint-disable-next-line prefer-destructuring
-          this.department = res[0];
-        }
+        this.department = res.find(x => x.selectedDepartment === true);
         res.forEach((x) => {
-          this.items.push({ name: x.name, id: x.id, daysAutoRemindEvery: x.daysAutoRemindEvery });
+          this.items.push({
+            name: x.name,
+            id: x.id,
+            daysAutoRemindEvery: x.daysAutoRemindEvery,
+            autoRemindSwitchOff: x.autoRemindSwitchOff,
+            selectedDepartment: x.selectedDepartment,
+            timeNextRemind: x.timeNextRemind,
+          });
         });
         this.loadDataAdminPanel();
       });
     },
-    selectOtherDepartments() {
-      this.$api.manage.getDepartments().then((res) => {
+    async selectOtherDepartments() {
+      await this.$api.manage.selectedDepartmentByDefault(this.department.id);
+      await this.$api.manage.getDepartments().then((res) => {
         this.items = [];
+        this.department = res.find(x => x.selectedDepartment === true);
         res.forEach((x) => {
-          this.items.push({ name: x.name, id: x.id, daysAutoRemindEvery: x.daysAutoRemindEvery });
+          this.items.push({
+            name: x.name,
+            id: x.id,
+            daysAutoRemindEvery: x.daysAutoRemindEvery,
+            autoRemindSwitchOff: x.autoRemindSwitchOff,
+            selectedDepartment: x.selectedDepartment,
+            timeNextRemind: x.timeNextRemind,
+          });
         });
         this.loadDataAdminPanel();
       });
@@ -158,29 +185,39 @@ export default {
     departmentSave() {
       if (this.departmentName != null) {
         const id = this.department ? this.department.id : null;
+        this.disableAutoComplete = true;
         this.$api.manage.saveDepartment(this.departmentName, id).then(() => {
           this.getDepartments();
           this.showModalDepartmentUpdate = false;
+          this.disableAutoComplete = false;
+        }).catch(() => {
+          this.disableAutoComplete = false;
+          this.getDepartments();
         });
+        this.checkUpdated();
       }
     },
     loadDataAdminPanel() {
-      this.$api.manage.getDataAdminPanel(this.department.id).then((res) => {
-        this.tableData = [];
-        res.forEach((x) => {
-          this.tableData.push({
-            id: x.employeeDto.id,
-            name: x.employeeDto.name,
-            surName: x.employeeDto.surName,
-            phone: x.employeeDto.phone,
-            email: x.employeeDto.corporateEmail,
-            invitationType: x.employeeDto.invitationType,
-            invitationSend: x.employeeDto.invitationSend,
-            reminderSentOne: x.employeeDto.reminderSent1,
-            reminderSentTwo: x.employeeDto.reminderSent2,
+      if (this.department) {
+        this.$api.manage.getDataAdminPanel(this.department.id).then((res) => {
+          this.tableData = [];
+          res.forEach((x) => {
+            this.tableData.push({
+              id: x.employeeDto.id,
+              name: x.employeeDto.name,
+              surName: x.employeeDto.surName,
+              phone: x.employeeDto.phone,
+              email: x.employeeDto.corporateEmail,
+              invitationType: x.employeeDto.invitationType,
+              invitationSend: x.employeeDto.invitationSend,
+              reminderSentOne: x.employeeDto.reminderSent1,
+              reminderSentTwo: x.employeeDto.reminderSent2,
+              completeU1: x.employeeDto.completeU1,
+              countCompleteU2: x.employeeDto.countCompleteU2,
+            });
           });
         });
-      });
+      }
     },
     closeModalAutoRemind() {
       this.showModalDepartmentUpdate = false;
@@ -189,11 +226,31 @@ export default {
       this.departmentSave();
     },
     newDepartmentEv() {
-      this.departmentId = null;
+      if (this.department) {
+        this.department.id = null;
+      }
       this.departmentSave();
     },
     openModalUpdateDepartment() {
       this.showModalDepartmentUpdate = true;
+    },
+    formatDateReminder() {
+      return `${this.$moment(this.department.timeNextRemind).locale('en-GB')
+        .format('dddd, MMMM D [at] hh:mm a')}`;
+    },
+    checkUpdated() {
+      const that = this;
+      clearTimeout(this.timer);
+      that.timer = setTimeout(function tick() {
+        if (that.department) {
+          that.$api.manage.checkUpdatedData(that.department.id).then((res) => {
+            if (res) {
+              that.getDepartments();
+            }
+            that.timer = setTimeout(tick, 30000);
+          });
+        }
+      }, 30000);
     },
   },
 };
@@ -228,6 +285,13 @@ export default {
     display: inline-block;
     margin-right: 40%;
   }
+  .manager-remind-time {
+    margin-left: 13px;
+    font-weight: bold;
+    font-size: 20px;
+    display: inline-block;
+    margin-right: 30%;
+  }
   .test {
     display: none;
   }
@@ -254,5 +318,11 @@ export default {
   .updatedDepartment {
     margin-left: 10px;
     margin-bottom: 14px;
+  }
+  .padding-adaptive {
+    margin-left: 13px;
+  }
+  .no-next-reminder {
+    margin-top: 60px;
   }
 </style>

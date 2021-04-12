@@ -101,6 +101,7 @@ export default {
   methods: {
     searchEmployee(e) {
       if (e.keyCode === 13 || e.button === 0) {
+        console.log(this.search);
         this.page = 1;
         this.loadingTable = true;
         this.getEmployee();

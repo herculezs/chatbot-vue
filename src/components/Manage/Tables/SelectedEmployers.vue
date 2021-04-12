@@ -5,12 +5,14 @@
           item-key="id"
           :headers="headers"
           :items="tableList"
+          hide-default-footer
+          :items-per-page="tableList.length"
           :footer-props="{
       'items-per-page-options': [],
       'items-per-page-text': '',
       }">
         <template v-slot:body="props">
-          <draggable tag="tbody" :list="tableList"
+          <draggable tag="tbody" :list="tableList" :disabled="disableClearAll"
                      :group="{ name: 'selectedEmployers', put: 'employeeList'}"
                      @change="updateBlock"
           >
@@ -20,26 +22,58 @@
             >
               <td> {{ user.name }} </td>
               <td> {{ user.surName }} </td>
-              <td>{{ user.email }} </td>
-              <td>{{ user.phone }} </td>
-              <td> {{ user.invitationSend }}</td>
-              <td> {{ user.reminderSentOne }} </td>
-              <td> {{ user.reminderSentTwo }} </td>
+              <td class="emails"> {{ user.email }} </td>
+              <td> {{ user.phone }} </td>
+              <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
+                {{ user.invitationSend }}</td>
+              <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
+                {{ checkComplete(user.completeU1, user.countCompleteU2,
+                user.reminderSentOne, user.invitationSend, user.reminderSentTwo, false)}}</td>
+              <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
+                {{ checkComplete(user.completeU1, user.countCompleteU2,
+                user.reminderSentTwo, user.reminderSentOne, user.reminderSentTwo, true)}}</td>
             </tr>
           </draggable>
         </template>
       </v-data-table>
-      <div v-if="showButton">
-        <v-btn v-if="setUpRemind" @click.prevent="openModalAutoRemind"
+      <div class="footer-selected-employee" v-if="showButton">
+        <v-spacer></v-spacer>
+        <v-btn v-if="currentButtonSend === true" @click.prevent="buttonPause"
+               color="primary"
+               dark
                class="buttons-selected-employers">
-          Remind every {{ numberValue }} day(s)</v-btn>
-        <v-btn v-else @click.prevent="openModalAutoRemind"
+          Pause</v-btn>
+        <v-btn v-else-if="currentButtonSend === null" :disabled="disableButtonSend"
+               @click.prevent="openModalAutoRemind"
                class="buttons-selected-employers">
-          Auto-remind</v-btn>
-        <v-btn @click.prevent="sendReminders" class="buttons-selected-employers">
-          Send-Reminders</v-btn>
-        <v-btn @click.prevent="openModalClearAll" class="buttons-selected-employers">
+          Send</v-btn>
+        <v-btn v-else-if="currentButtonSend === false" @click.prevent="resumeAutoRemind"
+               class="buttons-selected-employers"
+               color="primary"
+               dark
+        >
+          Resume</v-btn>
+
+        <v-btn @click.prevent="openModalClearAll" :disabled="disableClearAll"
+               class="buttons-selected-employers">
           Clear All</v-btn>
+        <v-dialog
+          v-model="showCancelModal"
+          width="210"
+        >
+          <v-card>
+            <v-card-title>
+            </v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="buttons-selected-employers"
+                      @click="buttonPauseCansel">PAUSE</v-btn>
+              <v-btn color="buttons-selected-employers"
+                     @click="buttonRESET">RESET</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
         <v-dialog v-model="showModalClearAll" max-width="500px">
           <v-card>
             <v-card-title class="headline">
@@ -47,7 +81,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="closeModalClearAll">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="confirmClearAll">Yes</v-btn>
+              <v-btn color="red darken-1" text @click="confirmClearAll">Yes</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -104,9 +138,15 @@ export default {
       checkLeastOneType: [],
       showButton: false,
       showModalClearAll: false,
+      showCancelModal: false,
       showModalAutoRemind: false,
       setUpRemind: false,
+      currentButtonSend: null,
+      disableButtonSend: true,
+      disableClearAll: false,
       numberValue: 1,
+      employeeCompleted: [],
+      employeeIncompleted: [],
       tableList: [],
       headers: [
         {
@@ -148,21 +188,76 @@ export default {
   watch: {
     tableList() {
       this.showButton = this.tableList.length > 0;
+      this.disableButtonSend = (this.tableList.length >= 5);
     },
     dataEmployee() {
       this.tableList = this.dataEmployee;
     },
     department() {
-      if (this.department.daysAutoRemindEvery) {
-        this.numberValue = this.department.daysAutoRemindEvery;
-        this.setUpRemind = true;
-      } else {
-        this.numberValue = 1;
-        this.setUpRemind = false;
+      if (this.department) {
+        if (this.department.autoRemindSwitchOff === true) {
+          this.disableClearAll = true;
+        }
+        if (this.department.autoRemindSwitchOff === false) {
+          this.disableClearAll = true;
+        }
+
+        if (this.department.daysAutoRemindEvery) {
+          this.numberValue = this.department.daysAutoRemindEvery;
+          this.currentButtonSend = this.department.autoRemindSwitchOff;
+          this.setUpRemind = true;
+        } else {
+          this.numberValue = 1;
+          this.setUpRemind = false;
+          this.currentButtonSend = null;
+          this.disableClearAll = false;
+        }
       }
     },
   },
   methods: {
+    checkCorrectColor(completeU1, countCompleteU2) {
+      if (completeU1 && countCompleteU2 === 0) {
+        return 'complete-people-u1';
+      } if (completeU1 && countCompleteU2 <= 4) {
+        return 'complete-people-u1 complete-people-u2-less4';
+      } if (completeU1 && countCompleteU2 > 3 && countCompleteU2 <= this.tableList.length - 1) {
+        return 'complete-people-u1 complete-people-u2-less-total';
+      }
+      if (completeU1 && countCompleteU2 === this.tableList.length - 1) {
+        return 'complete-people-u1 complete-people-u2-equal-total';
+      }
+      return '';
+    },
+    // eslint-disable-next-line no-unused-vars
+    checkComplete(completeU1, countCompleteU2, remind, checkBeforeData, checkIncomplete,
+      // eslint-disable-next-line no-unused-vars
+      lastReminder) {
+      if (checkBeforeData) {
+        if (completeU1 && countCompleteU2 === 0) {
+          if (checkIncomplete && lastReminder) {
+            return 'Incomplete';
+          }
+        } if (completeU1 && countCompleteU2 <= 4) {
+          if (checkIncomplete && lastReminder) {
+            return 'Incomplete';
+          }
+        } if (completeU1 && countCompleteU2 > 3
+        && countCompleteU2 <= this.tableList.length - 1) {
+          if (checkIncomplete && lastReminder) {
+            return 'Incomplete';
+          }
+        }
+        if (completeU1 && countCompleteU2 === this.tableList.length - 1) {
+          if (checkIncomplete && !lastReminder) {
+            return remind;
+          }
+          return 'Complete';
+        }
+      }
+
+      return remind;
+    },
     isNumber($event) {
       const keyCode = ($event.keyCode ? $event.keyCode : $event.which);
       if (((keyCode > 31 && (keyCode < 48 || keyCode > 57)))) {
@@ -172,11 +267,14 @@ export default {
         $event.preventDefault();
       }
     },
-    sendReminders() {
+    resumeAutoRemind() {
       if (this.department) {
-        this.openModalLeastLeastOneType = !this.checkLeastOneType.includes(true);
-        this.$api.manage.sendReminders(this.department.id).then(() => {
+        this.$api.manage.resumeAutoReminders(this.department.id).then(() => {
+          this.currentButtonSend = true;
+          this.disableClearAll = true;
           this.getDepartments();
+          this.setUpRemind = false;
+          this.showCancelModal = false;
         });
       }
     },
@@ -193,13 +291,40 @@ export default {
     openModalAutoRemind() {
       this.showModalAutoRemind = true;
     },
+    buttonPause() {
+      this.showCancelModal = true;
+    },
+    buttonRESET() {
+      if (this.department) {
+        this.$api.manage.resetAutoReminders(this.department.id).then(() => {
+          this.currentButtonSend = null;
+          this.disableClearAll = false;
+          this.numberValue = 1;
+          this.getDepartments();
+          this.setUpRemind = false;
+          this.showCancelModal = false;
+        });
+      }
+    },
+    buttonPauseCansel() {
+      if (this.department) {
+        this.$api.manage.pauseAutoReminders(this.department.id).then(() => {
+          this.currentButtonSend = false;
+          this.setUpRemind = false;
+          this.showCancelModal = false;
+          this.disableClearAll = true;
+        });
+      }
+    },
     closeModalAutoRemind() {
       this.showModalAutoRemind = false;
     },
     confirmAutoRemind() {
       if (this.department) {
-        this.$api.manage.saveAutoReminders(this.department.id, this.numberValue).then((x) => {
-          console.log(x);
+        this.$api.manage.saveAutoReminders(this.department.id, this.numberValue).then(() => {
+          this.currentButtonSend = true;
+          this.disableClearAll = true;
+          this.getDepartments();
           this.setUpRemind = true;
           this.showModalAutoRemind = false;
         });
@@ -276,5 +401,20 @@ export default {
   }
   .select-type-td {
     cursor: pointer;
+  }
+  .footer-selected-employee {
+    margin-top: 15px;
+  }
+  .complete-people-u1 {
+    font-weight: bold;
+  }
+  .complete-people-u2-less4 {
+    color: #ec6b66;
+  }
+  .complete-people-u2-less-total {
+    color: #17cc00;
+  }
+  .complete-people-u2-equal-total {
+    color: #6a27ff;
   }
 </style>

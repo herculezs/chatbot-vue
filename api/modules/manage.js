@@ -17,8 +17,14 @@ export default {
     });
   },
   saveDepartment(department, departmentId) {
+    let url;
+    if (departmentId) {
+      url = `manage/save-department?department=${department}&departmentId=${departmentId}`;
+    } else {
+      url = `manage/save-department?department=${department}`;
+    }
     return new Promise((resolve, reject) => {
-      http.post(`manage/save-department?department=${department}&departmentId=${departmentId}`)
+      http.post(url)
         .then(
           ({ data }) => {
             resolve(data);
@@ -44,7 +50,7 @@ export default {
   },
   getDataAdminPanel(department) {
     return new Promise((resolve, reject) => {
-      http.post(`manage/get-data-admin-panel?department=${department}`)
+      http.post(`manage/get-data-admin-panel/${process.env.QUESTIONNAIRE_ID}?department=${department}`)
         .then(
           ({ data }) => {
             resolve(data);
@@ -99,9 +105,9 @@ export default {
         });
     });
   },
-  sendReminders(department) {
+  saveAutoReminders(department, everyDays) {
     return new Promise((resolve, reject) => {
-      http.post(`manage/send-reminders?departmentId=${department}`)
+      http.post(`manage/save-auto-reminders/${process.env.QUESTIONNAIRE_ID}?departmentId=${department}&everyDays=${everyDays}`)
         .then(
           ({ data }) => {
             resolve(data);
@@ -112,9 +118,61 @@ export default {
         });
     });
   },
-  saveAutoReminders(department, everyDays) {
+  resetAutoReminders(department) {
     return new Promise((resolve, reject) => {
-      http.post(`manage/save-auto-reminders?departmentId=${department}&everyDays=${everyDays}`)
+      http.get(`manage/reset-auto-reminders?departmentId=${department}`)
+        .then(
+          ({ data }) => {
+            resolve(data);
+          },
+        ).catch((error) => {
+          notifyError(error);
+          reject(error);
+        });
+    });
+  },
+  pauseAutoReminders(department) {
+    return new Promise((resolve, reject) => {
+      http.get(`manage/pause-auto-reminders?departmentId=${department}`)
+        .then(
+          ({ data }) => {
+            resolve(data);
+          },
+        ).catch((error) => {
+          notifyError(error);
+          reject(error);
+        });
+    });
+  },
+  resumeAutoReminders(department) {
+    return new Promise((resolve, reject) => {
+      http.get(`manage/resume-auto-reminders?departmentId=${department}`)
+        .then(
+          ({ data }) => {
+            resolve(data);
+          },
+        ).catch((error) => {
+          notifyError(error);
+          reject(error);
+        });
+    });
+  },
+  selectedDepartmentByDefault(department) {
+    return new Promise((resolve, reject) => {
+      http.get(`manage/select-default-department?departmentId=${department}`)
+        .then(
+          ({ data }) => {
+            resolve(data);
+          },
+        ).catch((error) => {
+          notifyError(error);
+          reject(error);
+        });
+    });
+  },
+  checkUpdatedData(department) {
+    return new Promise((resolve, reject) => {
+      http.post(`manage/check-updated-data?departmentId=${department}`)
         .then(
           ({ data }) => {
             resolve(data);
