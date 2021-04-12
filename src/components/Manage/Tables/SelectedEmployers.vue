@@ -28,10 +28,12 @@
                 {{ user.invitationSend }}</td>
               <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
                 {{ checkComplete(user.completeU1, user.countCompleteU2,
-                user.reminderSentOne, user.invitationSend, user.reminderSentTwo, false)}}</td>
+                user.reminderSentOne, user.invitationSend, user.reminderSentTwo, false,
+                user.id)}}</td>
               <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
                 {{ checkComplete(user.completeU1, user.countCompleteU2,
-                user.reminderSentTwo, user.reminderSentOne, user.reminderSentTwo, true)}}</td>
+                user.reminderSentTwo, user.reminderSentOne, user.reminderSentTwo, true,
+                user.id)}}</td>
             </tr>
           </draggable>
         </template>
@@ -43,6 +45,10 @@
                dark
                class="buttons-selected-employers">
           Pause</v-btn>
+        <v-btn v-else-if="currentButtonSend === null && retry"
+               @click.prevent="openModalAutoRemind"
+               class="buttons-selected-employers">
+          Retry</v-btn>
         <v-btn v-else-if="currentButtonSend === null" :disabled="disableButtonSend"
                @click.prevent="openModalAutoRemind"
                class="buttons-selected-employers">
@@ -144,9 +150,11 @@ export default {
       currentButtonSend: null,
       disableButtonSend: true,
       disableClearAll: false,
+      retry: false,
       numberValue: 1,
       employeeCompleted: [],
       employeeIncompleted: [],
+      employeeIncompletedAndCompleted: [],
       tableList: [],
       headers: [
         {
@@ -189,6 +197,9 @@ export default {
     tableList() {
       this.showButton = this.tableList.length > 0;
       this.disableButtonSend = (this.tableList.length >= 5);
+      this.employeeCompleted = [];
+      this.employeeIncompleted = [];
+      this.employeeIncompletedAndCompleted = [];
     },
     dataEmployee() {
       this.tableList = this.dataEmployee;
@@ -214,6 +225,10 @@ export default {
         }
       }
     },
+    employeeIncompletedAndCompleted() {
+      this.retry = this.employeeIncompletedAndCompleted
+        .filter(this.onlyUnique).length === this.tableList.length;
+    },
   },
   methods: {
     checkCorrectColor(completeU1, countCompleteU2) {
@@ -229,34 +244,62 @@ export default {
       }
       return '';
     },
-    // eslint-disable-next-line no-unused-vars
     checkComplete(completeU1, countCompleteU2, remind, checkBeforeData, checkIncomplete,
-      // eslint-disable-next-line no-unused-vars
-      lastReminder) {
+      lastReminder, id) {
       if (checkBeforeData) {
+        if (!completeU1 && lastReminder) {
+          if (this.tableList.length !== this.employeeIncompleted.length) {
+            this.employeeIncompleted.push(id);
+            this.employeeIncompletedAndCompleted.push(id);
+          }
+
+          return 'Incomplete';
+        }
         if (completeU1 && countCompleteU2 === 0) {
           if (checkIncomplete && lastReminder) {
+            if (this.tableList.length !== this.employeeIncompleted.length) {
+              this.employeeIncompleted.push(id);
+              this.employeeIncompletedAndCompleted.push(id);
+            }
+
             return 'Incomplete';
           }
         } if (completeU1 && countCompleteU2 <= 4) {
           if (checkIncomplete && lastReminder) {
+            if (this.tableList.length !== this.employeeIncompleted.length) {
+              this.employeeIncompleted.push(id);
+              this.employeeIncompletedAndCompleted.push(id);
+            }
+
             return 'Incomplete';
           }
         } if (completeU1 && countCompleteU2 > 3
-        && countCompleteU2 <= this.tableList.length - 1) {
+        && countCompleteU2 <= this.tableList.length) {
           if (checkIncomplete && lastReminder) {
+            if (this.tableList.length !== this.employeeIncompleted.length) {
+              this.employeeIncompleted.push(id);
+              this.employeeIncompletedAndCompleted.push(id);
+            }
+
             return 'Incomplete';
           }
         }
-        if (completeU1 && countCompleteU2 === this.tableList.length - 1) {
+        if (completeU1 && countCompleteU2 === this.tableList.length) {
           if (checkIncomplete && !lastReminder) {
             return remind;
+          }
+          if (this.tableList.length !== this.employeeCompleted.length) {
+            this.employeeCompleted.push(id);
+            this.employeeIncompletedAndCompleted.push(id);
           }
           return 'Complete';
         }
       }
 
       return remind;
+    },
+    onlyUnique(value, index, self) {
+      return self.indexOf(value) === index;
     },
     isNumber($event) {
       const keyCode = ($event.keyCode ? $event.keyCode : $event.which);
@@ -320,17 +363,35 @@ export default {
       this.showModalAutoRemind = false;
     },
     confirmAutoRemind() {
-      if (this.department) {
-        this.$api.manage.saveAutoReminders(this.department.id, this.numberValue).then(() => {
-          this.currentButtonSend = true;
-          this.disableClearAll = true;
-          this.getDepartments();
-          this.setUpRemind = true;
-          this.showModalAutoRemind = false;
-        });
+      if (this.retry) {
+        if (this.department) {
+          const competedFilter = this.employeeCompleted.filter(this.onlyUnique);
+          const inCompetedFilter = this.employeeIncompleted.filter(this.onlyUnique);
+
+          this.$api.manage.retryAutoReminders(this.department.id, this.numberValue,
+            competedFilter, inCompetedFilter).then(() => {
+            this.currentButtonSend = true;
+            this.disableClearAll = true;
+            this.getDepartments();
+            this.setUpRemind = true;
+            this.showModalAutoRemind = false;
+          });
+        }
+        this.setUpRemind = true;
+        this.showModalAutoRemind = false;
+      } else {
+        if (this.department) {
+          this.$api.manage.saveAutoReminders(this.department.id, this.numberValue).then(() => {
+            this.currentButtonSend = true;
+            this.disableClearAll = true;
+            this.getDepartments();
+            this.setUpRemind = true;
+            this.showModalAutoRemind = false;
+          });
+        }
+        this.setUpRemind = true;
+        this.showModalAutoRemind = false;
       }
-      this.setUpRemind = true;
-      this.showModalAutoRemind = false;
     },
     clearAll() {
       if (this.department) {

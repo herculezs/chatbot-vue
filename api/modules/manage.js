@@ -3,9 +3,9 @@ import notifyError from '@helpers';
 import Vue from 'vue';
 
 export default {
-  getCompanyEmployee(page, search, department) {
+  getCompanyEmployee(page, search, departmentId) {
     return new Promise((resolve, reject) => {
-      http.post(`manage/get-company-employee?page=${page}&department=${department}`, { surName: search })
+      http.post(`manage/get-company-employee?page=${page}&departmentId=${departmentId}`, { surName: search })
         .then(
           ({ data }) => {
             resolve(data);
@@ -48,9 +48,9 @@ export default {
         });
     });
   },
-  getDataAdminPanel(department) {
+  getDataAdminPanel(departmentId) {
     return new Promise((resolve, reject) => {
-      http.post(`manage/get-data-admin-panel/${process.env.QUESTIONNAIRE_ID}?department=${department}`)
+      http.post(`manage/get-data-admin-panel/${process.env.QUESTIONNAIRE_ID}?departmentId=${departmentId}`)
         .then(
           ({ data }) => {
             resolve(data);
@@ -108,6 +108,20 @@ export default {
   saveAutoReminders(department, everyDays) {
     return new Promise((resolve, reject) => {
       http.post(`manage/save-auto-reminders/${process.env.QUESTIONNAIRE_ID}?departmentId=${department}&everyDays=${everyDays}`)
+        .then(
+          ({ data }) => {
+            resolve(data);
+          },
+        ).catch((error) => {
+          notifyError(error);
+          reject(error);
+        });
+    });
+  },
+  retryAutoReminders(department, everyDays, completedEmployee, incompletedEmployee) {
+    return new Promise((resolve, reject) => {
+      http.post(`manage/retry-auto-reminders/${process.env.QUESTIONNAIRE_ID}?departmentId=${department}&everyDays=${everyDays}`,
+        { completedEmployee, incompletedEmployee })
         .then(
           ({ data }) => {
             resolve(data);
