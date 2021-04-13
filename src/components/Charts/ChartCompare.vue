@@ -87,7 +87,6 @@ export default {
         min: -4.3,
         axisLabel: false,
         nameLocation: 'end',
-        boundaryGap: true,
         nameTextStyle: {
           fontWeight: 'bold',
           fontSize: 15,
