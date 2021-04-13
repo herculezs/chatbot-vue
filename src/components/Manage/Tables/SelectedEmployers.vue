@@ -176,13 +176,13 @@ export default {
           sortable: false,
         },
         {
-          text: 'REMINDER #1 SENT',
+          text: 'REMINDER # SENT',
           value: 'reminderSentOne',
           align: 'center',
           sortable: false,
         },
         {
-          text: 'REMINDER #2 SENT',
+          text: 'REMINDER # SENT',
           value: 'reminderSentTwo',
           align: 'center',
           sortable: false,
@@ -196,7 +196,7 @@ export default {
   watch: {
     tableList() {
       this.showButton = this.tableList.length > 0;
-      this.disableButtonSend = (this.tableList.length >= 5);
+      this.disableButtonSend = !(this.tableList.length >= 5);
       this.employeeCompleted = [];
       this.employeeIncompleted = [];
       this.employeeIncompletedAndCompleted = [];
@@ -206,6 +206,7 @@ export default {
     },
     department() {
       if (this.department) {
+        this.getDinamicHeaders();
         if (this.department.autoRemindSwitchOff === true) {
           this.disableClearAll = true;
         }
@@ -231,6 +232,42 @@ export default {
     },
   },
   methods: {
+    getDinamicHeaders() {
+      if (this.department) {
+        this.headers = [
+          {
+            text: 'NAME', value: 'name', align: 'center', sortable: false,
+          },
+          {
+            text: 'SECOND NAME', value: 'surName', align: 'center', sortable: false,
+          },
+          {
+            text: 'EMAIL', value: 'email', align: 'center', sortable: false,
+          },
+          {
+            text: 'PHONE', value: 'phone', align: 'center', sortable: false,
+          },
+          {
+            text: 'INVITATION SENT',
+            value: 'invitationSend',
+            align: 'center',
+            sortable: false,
+          },
+          {
+            text: `REMINDER #${this.department.countRetry + (this.department.countRetry - 1)} SENT`,
+            value: 'reminderSentOne',
+            align: 'center',
+            sortable: false,
+          },
+          {
+            text: `REMINDER #${this.department.countRetry + this.department.countRetry} SENT`,
+            value: 'reminderSentTwo',
+            align: 'center',
+            sortable: false,
+          },
+        ];
+      }
+    },
     checkCorrectColor(completeU1, countCompleteU2) {
       if (completeU1 && countCompleteU2 === 0) {
         return 'complete-people-u1';

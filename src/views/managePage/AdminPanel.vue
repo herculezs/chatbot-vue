@@ -159,6 +159,7 @@ export default {
             autoRemindSwitchOff: x.autoRemindSwitchOff,
             selectedDepartment: x.selectedDepartment,
             timeNextRemind: x.timeNextRemind,
+            countRetry: x.countRetry,
           });
         });
         this.loadDataAdminPanel();
@@ -177,6 +178,7 @@ export default {
             autoRemindSwitchOff: x.autoRemindSwitchOff,
             selectedDepartment: x.selectedDepartment,
             timeNextRemind: x.timeNextRemind,
+            countRetry: x.countRetry,
           });
         });
         this.loadDataAdminPanel();
