@@ -433,6 +433,8 @@ export default {
     flex: 1;
     overflow-x: auto;
     overflow-y: hidden;
+    align-items: center;
+    justify-content: center;
   }
   .departmentSummary {
     display: inline-block;
