@@ -6,7 +6,7 @@
           :headers="headers"
           :items="tableList"
           hide-default-footer
-          :items-per-page="tableList.length"
+          :items-per-page="-1"
           :footer-props="{
       'items-per-page-options': [],
       'items-per-page-text': '',
