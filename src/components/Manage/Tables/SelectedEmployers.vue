@@ -5,12 +5,9 @@
           item-key="id"
           :headers="headers"
           :items="tableList"
-          hide-default-footer
           :items-per-page="-1"
-          :footer-props="{
-      'items-per-page-options': [],
-      'items-per-page-text': '',
-      }">
+          hide-default-footer
+        >
         <template v-slot:body="props">
           <draggable tag="tbody" :list="tableList" :disabled="disableClearAll"
                      :group="{ name: 'selectedEmployers', put: 'employeeList'}"
