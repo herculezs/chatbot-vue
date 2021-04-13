@@ -124,11 +124,21 @@ export default {
 
   .admin-upload-employee .file-preview {
     top: 50px;
-    left: 30%;
+    left: 35%;
     position: relative;
     @media (max-width: 900px) {
       top: 50px;
       left: 0;
+      position: relative;
+    }
+    @media (min-width: 2210px) {
+      top: 50px;
+      left: 41%;
+      position: relative;
+    }
+    @media (min-width: 3750px) {
+      top: 50px;
+      left: 42%;
       position: relative;
     }
   }
