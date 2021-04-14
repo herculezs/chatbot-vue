@@ -1,13 +1,17 @@
 <template>
   <div class="table-employers-list">
     <v-card>
+      <div>
+        <span class="class-title-employee-list">Employee List</span>
+      </div>
       <v-data-table
         item-key="id"
-        :headers="headersEmployeeList"
+        :headers="headers"
         hide-default-footer
         :items-per-page="20"
         :page.sync="page"
         :loading="loadingTable"
+        :custom-sort="customSort"
         :items="employeeList">
         <template v-slot:top>
           <v-toolbar
@@ -15,7 +19,7 @@
           >
             <v-text-field
               v-model="search"
-              label="Search by Surname"
+              label="Search"
               :append-outer-icon="'mdi-send'"
               clear-icon="mdi-close-circle"
               class="mx-4"
@@ -29,6 +33,7 @@
         </template>
         <template v-slot:body="props">
           <draggable :list="employeeList"
+                     tag="tbody"
                      :group="{ name: 'employeeList', put: false }"
                      class="drag-employers"
                      selected-class="multi-drag"
@@ -37,10 +42,9 @@
               v-for="(user, index) in props.items"
               :key="index"
             >
-              <td class="table-row-employers"> {{ `${user.name} ${user.surName}` }} </td>
-              <td class="table-row-employers"> {{ `${user.name} ${user.surName}` }} </td>
-              <td class="table-row-employers"> {{ `${user.name} ${user.surName}` }} </td>
-              <td class="table-row-employers"> {{ `${user.name} ${user.surName}` }} </td>
+              <td> {{ user.name }} </td>
+              <td> {{ user.surName }} </td>
+              <td> {{ user.employeeDepartment }} </td>
             </tr>
           </draggable>
         </template>
@@ -94,9 +98,20 @@ export default {
       search: '',
       page: 1,
       employeeList: [],
-      headersEmployeeList: [
+      sortField: '',
+      sortDesc: false,
+      headers: [
         {
-          text: 'EMPLOYEE LIST', value: 'name', align: 'center', sortable: false,
+          text: 'NAME', value: 'name', align: 'center',
+        },
+        {
+          text: 'SECOND NAME', value: 'surName', align: 'center',
+        },
+        {
+          text: 'DEPARTMENT', value: 'employeeDepartment', align: 'center',
+        },
+        {
+          text: 'MANAGER', value: 'employeeManager', align: 'center',
         },
       ],
     };
@@ -119,9 +134,21 @@ export default {
       this.page = currentPage;
       this.getEmployee();
     },
+    customSort(items, index, isDesc) {
+      if (index.length !== 0 && isDesc.length !== 0 && (this.sortField !== index[0]
+        || this.sortDesc !== isDesc[0])) {
+        // eslint-disable-next-line prefer-destructuring
+        this.sortField = index[0];
+        // eslint-disable-next-line prefer-destructuring
+        this.sortDesc = isDesc[0];
+        this.getEmployee();
+      }
+      return items;
+    },
     getEmployee() {
       if (this.department) {
-        this.$api.manage.getCompanyEmployee(this.page - 1, this.search, this.department.id)
+        this.$api.manage.getCompanyEmployee(this.page - 1, this.search,
+          this.department.id, this.sortField, this.sortDesc)
           .then((res) => {
             this.employeeList = [];
             this.page = res.number + 1;
@@ -133,6 +160,7 @@ export default {
                 surName: x.surName,
                 phone: x.phone,
                 email: x.corporateEmail,
+                employeeDepartment: x.department,
               });
             });
           });
@@ -154,5 +182,12 @@ export default {
 
   .table-employers-list .v-input__control .v-input__slot{
     margin-bottom: -10px;
+  }
+  .table-employers-list .class-title-employee-list {
+    font-size: 20px;
+    text-align: center;
+    display: block;
+    color: #b4b4b4;
+    font-weight: bold;
   }
 </style>

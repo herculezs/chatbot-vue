@@ -3,9 +3,16 @@ import notifyError from '@helpers';
 import Vue from 'vue';
 
 export default {
-  getCompanyEmployee(page, search, departmentId) {
+  getCompanyEmployee(page, search, departmentId, sortField, sortDesc) {
+    let url;
+    if (!sortField) {
+      url = `manage/get-company-employee?page=${page}&departmentId=${departmentId}`;
+    } else {
+      url = `manage/get-company-employee?page=${page}&departmentId=${departmentId}&sort-field=${sortField}&sort-desc=${sortDesc}`;
+    }
+
     return new Promise((resolve, reject) => {
-      http.post(`manage/get-company-employee?page=${page}&departmentId=${departmentId}`, { surName: search })
+      http.post(url, { surName: search })
         .then(
           ({ data }) => {
             resolve(data);

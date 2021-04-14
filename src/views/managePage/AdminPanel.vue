@@ -94,7 +94,7 @@
           </div>
           <div class="no-next-reminder" v-else></div>
           <div class="body-panel-table">
-            <div class="col-10">
+            <div class="col-9">
               <div class="table-employers">
                 <SelectedEmployers :dataEmployee="tableData" :department.sync="department"
                                    :getDepartments="getDepartments"
@@ -102,7 +102,7 @@
                 />
               </div>
             </div>
-            <div class="col-3 employee-list-main">
+            <div class="col-4 employee-list-main">
               <div class="list-employers">
                 <EmployeeList :department="department" :update="updateEmployeeList"/>
               </div>
