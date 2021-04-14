@@ -38,6 +38,9 @@
               :key="index"
             >
               <td class="table-row-employers"> {{ `${user.name} ${user.surName}` }} </td>
+              <td class="table-row-employers"> {{ `${user.name} ${user.surName}` }} </td>
+              <td class="table-row-employers"> {{ `${user.name} ${user.surName}` }} </td>
+              <td class="table-row-employers"> {{ `${user.name} ${user.surName}` }} </td>
             </tr>
           </draggable>
         </template>

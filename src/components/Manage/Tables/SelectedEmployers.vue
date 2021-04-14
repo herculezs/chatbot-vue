@@ -35,6 +35,10 @@
           </draggable>
         </template>
       </v-data-table>
+        <div v-if="tableList.length <= 0">
+          <span class="no-item-text">Enter GROUP name and
+            drag-and-drop users here to construct your groups</span>
+        </div>
       <div class="footer-selected-employee" v-if="showButton">
         <v-spacer></v-spacer>
         <v-btn v-if="currentButtonSend === true" @click.prevent="buttonPause"
@@ -511,5 +515,13 @@ export default {
   }
   .complete-people-u2-equal-total {
     color: #6a27ff;
+  }
+  .no-item-text {
+    padding-left: 40px;
+    font-size: 18px;
+    color: #9a9a9a;
+    font-family: sans-serif Montserrat;
+    font-weight: bold;
+    font-style: italic;
   }
 </style>

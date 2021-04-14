@@ -35,18 +35,33 @@
                     <v-list-item-content>
                       <v-list-item-title v-text="item.name"></v-list-item-title>
                     </v-list-item-content>
-                    <v-list-item-action>
-                      <v-btn icon color="blue darken-1"
-                             @click="openModalUpdateDepartment" text>
-                        <v-icon>mdi-pencil</v-icon>
-                      </v-btn>
-                    </v-list-item-action>
+                    <v-btn icon color="blue darken-1"
+                           @click="openModalUpdateDepartment" text>
+                      <v-icon>mdi-pencil</v-icon>
+                    </v-btn>
+                    <v-btn icon color="red darken-1"
+                           @click.stop="openModalDeleteDepartment(item.id)" text>
+                      <v-icon>mdi-delete</v-icon>
+                    </v-btn>
                   </template>
                 </v-autocomplete>
                 <v-btn icon @click.prevent="newDepartmentEv">
                   <v-icon>mdi-plus-circle-outline</v-icon>
                 </v-btn>
               </v-toolbar>
+              <v-dialog v-model="showModalDepartmentDelete" max-width="500px">
+                <v-card>
+                  <v-card-title class="headline">
+                    Are you sure?</v-card-title>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="closeModalDeleteDepartment">
+                      Cancel</v-btn>
+                    <v-btn color="red darken-1" text @click="confirmDeleteDepartment">Yes</v-btn>
+                    <v-spacer></v-spacer>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
               <v-dialog v-model="showModalDepartmentUpdate" max-width="500px">
                 <v-card>
                   <v-card-title class="headline">
@@ -121,7 +136,9 @@ export default {
       departmentId: null,
       newDepartment: null,
       departmentName: null,
+      removeDepartmentId: null,
       showModalDepartmentUpdate: false,
+      showModalDepartmentDelete: false,
       updateEmployeeList: 1,
       postFontSize: 1,
       changeDate: 1,
@@ -235,6 +252,21 @@ export default {
     },
     openModalUpdateDepartment() {
       this.showModalDepartmentUpdate = true;
+    },
+    openModalDeleteDepartment(id) {
+      this.removeDepartmentId = id;
+      this.showModalDepartmentDelete = true;
+    },
+    closeModalDeleteDepartment() {
+      this.showModalDepartmentDelete = false;
+    },
+    confirmDeleteDepartment() {
+      if (this.removeDepartmentId) {
+        this.$api.manage.deleteDepartment(this.removeDepartmentId).then(() => {
+          this.getDepartments();
+          this.showModalDepartmentDelete = false;
+        });
+      }
     },
     formatDateReminder() {
       return `${this.$moment(this.department.timeNextRemind).locale('en-GB')

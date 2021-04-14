@@ -197,4 +197,17 @@ export default {
         });
     });
   },
+  deleteDepartment(departmentId) {
+    return new Promise((resolve, reject) => {
+      http.post(`manage/delete-department?departmentId=${departmentId}`)
+        .then(
+          ({ data }) => {
+            resolve(data);
+          },
+        ).catch((error) => {
+          notifyError(error);
+          reject(error);
+        });
+    });
+  },
 };
