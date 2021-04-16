@@ -46,7 +46,7 @@
                dark
                class="buttons-selected-employers">
           Pause</v-btn>
-        <v-btn v-else-if="currentButtonSend === null && retry"
+        <v-btn v-else-if="currentButtonSend === null && retry && department.countRetry !== 2"
                @click.prevent="openModalAutoRemind"
                class="buttons-selected-employers">
           Retry</v-btn>
@@ -286,7 +286,7 @@ export default {
       lastReminder, id) {
       if (checkBeforeData) {
         if (!completeU1 && lastReminder) {
-          if (this.tableList.length !== this.employeeIncompleted.length) {
+          if (this.tableList.length !== this.employeeIncompleted.length - 1) {
             this.employeeIncompleted.push(id);
             this.employeeIncompletedAndCompleted.push(id);
           }
@@ -295,7 +295,7 @@ export default {
         }
         if (completeU1 && countCompleteU2 === 0) {
           if (checkIncomplete && lastReminder) {
-            if (this.tableList.length !== this.employeeIncompleted.length) {
+            if (this.tableList.length !== this.employeeIncompleted.length - 1) {
               this.employeeIncompleted.push(id);
               this.employeeIncompletedAndCompleted.push(id);
             }
@@ -304,7 +304,7 @@ export default {
           }
         } if (completeU1 && countCompleteU2 <= 4) {
           if (checkIncomplete && lastReminder) {
-            if (this.tableList.length !== this.employeeIncompleted.length) {
+            if (this.tableList.length !== this.employeeIncompleted.length - 1) {
               this.employeeIncompleted.push(id);
               this.employeeIncompletedAndCompleted.push(id);
             }
@@ -314,7 +314,7 @@ export default {
         } if (completeU1 && countCompleteU2 > 3
         && countCompleteU2 <= this.tableList.length) {
           if (checkIncomplete && lastReminder) {
-            if (this.tableList.length !== this.employeeIncompleted.length) {
+            if (this.tableList.length !== this.employeeIncompleted.length - 1) {
               this.employeeIncompleted.push(id);
               this.employeeIncompletedAndCompleted.push(id);
             }
@@ -401,7 +401,7 @@ export default {
       this.showModalAutoRemind = false;
     },
     confirmAutoRemind() {
-      if (this.retry) {
+      if (this.retry && this.department.countRetry !== 2) {
         if (this.department) {
           const competedFilter = this.employeeCompleted.filter(this.onlyUnique);
           const inCompetedFilter = this.employeeIncompleted.filter(this.onlyUnique);
