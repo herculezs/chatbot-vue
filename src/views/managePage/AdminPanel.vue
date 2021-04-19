@@ -15,6 +15,7 @@
               <v-toolbar>
                 GROUP:
                 <v-autocomplete
+                  ref="autocomplete"
                   v-model="department"
                   :search-input.sync="departmentName"
                   :items="items"
@@ -24,11 +25,12 @@
                   hide-no-data
                   hide-details
                   return-object
-                  label="What you department?"
+                  label="Enter Group name"
                   solo
                   :hide-selected="true"
                   @change="selectOtherDepartments"
                   :disabled="disableAutoComplete"
+                  @blur="blurAutoSelect"
                 >
                   <!--       @keyup.prevent="newDepartmentEv"           -->
                   <template v-slot:item="{ item }">
@@ -46,7 +48,7 @@
                   </template>
                 </v-autocomplete>
                 <v-btn icon @click.prevent="newDepartmentEv">
-                  <v-icon>mdi-plus-circle-outline</v-icon>
+                  <v-icon :color="changeButtonColor">mdi-plus-circle-outline</v-icon>
                 </v-btn>
               </v-toolbar>
               <v-dialog v-model="showModalDepartmentDelete" max-width="500px">
@@ -137,6 +139,7 @@ export default {
       newDepartment: null,
       departmentName: null,
       removeDepartmentId: null,
+      changeButtonColor: '',
       showModalDepartmentUpdate: false,
       showModalDepartmentDelete: false,
       updateEmployeeList: 1,
@@ -162,8 +165,16 @@ export default {
   mounted() {
     this.getDepartments();
     this.checkUpdated();
+    const autocompleteInput = this.$refs.autocomplete.$refs.input;
+    autocompleteInput.addEventListener('focus', this.focusAutoSelect, true);
   },
   methods: {
+    focusAutoSelect() {
+      this.changeButtonColor = '#ff0d00';
+    },
+    blurAutoSelect() {
+      this.changeButtonColor = '';
+    },
     getDepartments() {
       this.$api.manage.getDepartments().then((res) => {
         this.items = [];
@@ -248,6 +259,7 @@ export default {
       if (this.department) {
         this.department.id = null;
       }
+      this.countSearch = 0;
       this.departmentSave();
     },
     openModalUpdateDepartment() {
@@ -358,5 +370,8 @@ export default {
   }
   .no-next-reminder {
     margin-top: 60px;
+  }
+  .plus-icon {
+    color: #005fff;
   }
 </style>

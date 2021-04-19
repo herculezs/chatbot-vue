@@ -20,14 +20,13 @@
             <v-text-field
               v-model="search"
               label="Search"
-              :append-outer-icon="'mdi-send'"
-              clear-icon="mdi-close-circle"
+              :append-icon="'mdi-send'"
+              :append-outer-icon="'mdi-close-circle'"
               class="mx-4"
-              @click:append-outer="searchEmployee"
+              @click:append="searchEmployee"
               @keydown="searchEmployee"
-              clearable
               @change="searchEmployee"
-              @click:clear="clearSearchEmployee"
+              @click:append-outer="clearSearchEmployee"
             ></v-text-field>
           </v-toolbar>
         </template>
@@ -189,5 +188,9 @@ export default {
     display: block;
     color: #b4b4b4;
     font-weight: bold;
+  }
+
+  .table-employers-list .v-input__append-outer {
+    padding-left: 15px;
   }
 </style>
