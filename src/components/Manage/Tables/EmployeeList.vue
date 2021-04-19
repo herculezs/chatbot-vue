@@ -18,16 +18,21 @@
             flat
           >
             <v-text-field
+              ref="searchInput"
               v-model="search"
               label="Search"
               :append-icon="'mdi-send'"
-              :append-outer-icon="'mdi-close-circle'"
               class="mx-4"
               @click:append="searchEmployee"
               @keydown="searchEmployee"
               @change="searchEmployee"
-              @click:append-outer="clearSearchEmployee"
-            ></v-text-field>
+            >
+              <template v-slot:append-outer>
+                <v-btn :class="{test: hiddenClear}" icon @click="clearSearchEmployee">
+                  <v-icon>mdi-close-circle</v-icon>
+                </v-btn>
+              </template>
+            </v-text-field>
           </v-toolbar>
         </template>
         <template v-slot:body="props">
@@ -44,6 +49,7 @@
               <td> {{ user.name }} </td>
               <td> {{ user.surName }} </td>
               <td> {{ user.employeeDepartment }} </td>
+              <td> {{ user.manager }} </td>
             </tr>
           </draggable>
         </template>
@@ -89,6 +95,9 @@ export default {
     update() {
       this.getEmployee();
     },
+    search() {
+      this.hiddenClear = this.search.length === 0;
+    },
   },
   data() {
     return {
@@ -99,6 +108,7 @@ export default {
       employeeList: [],
       sortField: '',
       sortDesc: false,
+      hiddenClear: true,
       headers: [
         {
           text: 'NAME', value: 'name', align: 'center',
@@ -125,6 +135,7 @@ export default {
     },
     clearSearchEmployee() {
       this.search = '';
+      this.hiddenClear = true;
       this.loadingTable = true;
       this.getEmployee();
     },
@@ -160,6 +171,7 @@ export default {
                 phone: x.phone,
                 email: x.corporateEmail,
                 employeeDepartment: x.department,
+                manager: x.manager,
               });
             });
           });
@@ -192,5 +204,14 @@ export default {
 
   .table-employers-list .v-input__append-outer {
     padding-left: 15px;
+  }
+
+  .table-employers-list .v-input__append-outer {
+    padding-left: 15px;
+  }
+
+  .table-employers-list .v-btn {
+    width: auto !important;
+    height: auto !important;
   }
 </style>
