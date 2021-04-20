@@ -17,6 +17,7 @@
                 <v-autocomplete
                   ref="autocomplete"
                   v-model="department"
+                  :menu-props="{ closeOnClick: true }"
                   :search-input.sync="departmentName"
                   :items="items"
                   item-text="name"
@@ -27,12 +28,13 @@
                   return-object
                   label="Enter Group name"
                   solo
-                  :hide-selected="true"
                   @change="selectOtherDepartments"
                   :disabled="disableAutoComplete"
                   @blur="blurAutoSelect"
+                  data-app="true"
+                  @keyup.enter.stop="newDepartmentEv"
                 >
-                  <!--       @keyup.prevent="newDepartmentEv"           -->
+                  <!--                  -->
                   <template v-slot:item="{ item }">
                     <v-list-item-content>
                       <v-list-item-title v-text="item.name"></v-list-item-title>
@@ -67,7 +69,7 @@
               <v-dialog v-model="showModalDepartmentUpdate" max-width="500px">
                 <v-card>
                   <v-card-title class="headline">
-                    Update Department:
+                    Update Group:
                     <v-text-field
                       class="updatedDepartment"
                       v-model="departmentName"
@@ -106,7 +108,8 @@
             </div>
             <div class="col-4 employee-list-main">
               <div class="list-employers">
-                <EmployeeList :department="department" :update="updateEmployeeList"/>
+                <EmployeeList :department="department" :update="updateEmployeeList"
+                              :removeGroup="removeGroup"/>
               </div>
             </div>
           </div>
@@ -133,6 +136,7 @@ export default {
     return {
       items: [],
       tableData: [],
+      removeGroup: 1,
       department: null,
       disableAutoComplete: false,
       departmentId: null,
@@ -162,6 +166,16 @@ export default {
       getProfile: 'auth/getProfile',
     }),
   },
+  watch: {
+    departmentName() {
+      console.log(this.departmentName);
+      console.log(this.department, '---');
+      if (this.departmentName === '') {
+        this.removeGroup = this.removeGroup + 1;
+        this.tableData = [];
+      }
+    },
+  },
   mounted() {
     this.getDepartments();
     this.checkUpdated();
@@ -174,6 +188,7 @@ export default {
     },
     blurAutoSelect() {
       this.changeButtonColor = '';
+      this.$refs.autocomplete.blur();
     },
     getDepartments() {
       this.$api.manage.getDepartments().then((res) => {
@@ -194,26 +209,28 @@ export default {
       });
     },
     async selectOtherDepartments() {
-      await this.$api.manage.selectedDepartmentByDefault(this.department.id);
-      await this.$api.manage.getDepartments().then((res) => {
-        this.items = [];
-        this.department = res.find(x => x.selectedDepartment === true);
-        res.forEach((x) => {
-          this.items.push({
-            name: x.name,
-            id: x.id,
-            daysAutoRemindEvery: x.daysAutoRemindEvery,
-            autoRemindSwitchOff: x.autoRemindSwitchOff,
-            selectedDepartment: x.selectedDepartment,
-            timeNextRemind: x.timeNextRemind,
-            countRetry: x.countRetry,
+      if (this.department) {
+        await this.$api.manage.selectedDepartmentByDefault(this.department.id);
+        await this.$api.manage.getDepartments().then((res) => {
+          this.items = [];
+          this.department = res.find(x => x.selectedDepartment === true);
+          res.forEach((x) => {
+            this.items.push({
+              name: x.name,
+              id: x.id,
+              daysAutoRemindEvery: x.daysAutoRemindEvery,
+              autoRemindSwitchOff: x.autoRemindSwitchOff,
+              selectedDepartment: x.selectedDepartment,
+              timeNextRemind: x.timeNextRemind,
+              countRetry: x.countRetry,
+            });
           });
+          this.loadDataAdminPanel();
         });
-        this.loadDataAdminPanel();
-      });
+      }
     },
     departmentSave() {
-      if (this.departmentName != null) {
+      if (this.departmentName != null && this.departmentName !== '') {
         const id = this.department ? this.department.id : null;
         this.disableAutoComplete = true;
         this.$api.manage.saveDepartment(this.departmentName, id).then(() => {
@@ -259,7 +276,6 @@ export default {
       if (this.department) {
         this.department.id = null;
       }
-      this.countSearch = 0;
       this.departmentSave();
     },
     openModalUpdateDepartment() {
@@ -275,6 +291,9 @@ export default {
     confirmDeleteDepartment() {
       if (this.removeDepartmentId) {
         this.$api.manage.deleteDepartment(this.removeDepartmentId).then(() => {
+          this.tableData = [];
+          this.items = [];
+          this.removeGroup = this.removeGroup + 1;
           this.getDepartments();
           this.showModalDepartmentDelete = false;
         });

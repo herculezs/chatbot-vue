@@ -2,6 +2,7 @@
     <v-card>
       <v-app class="table-v-app">
         <v-data-table
+          class="table-manager"
           item-key="id"
           :headers="headers"
           :items="tableList"
@@ -9,7 +10,20 @@
           hide-default-footer
         >
         <template v-slot:body="props">
-          <draggable tag="tbody" :list="tableList" :disabled="disableClearAll"
+          <draggable tag="tbody"
+                     v-tooltip="{ content: 'To remove, drag the name back to the employee list',
+                      placement: 'bottom-center',
+                      classes: ['info'],
+                      targetClasses: ['it-has-a-tooltip'],
+                      offset: 100,
+                      autoHide: true,
+                      disable: tableList.length === 0,
+                      delay: {
+                       show: 500,
+                       hide: 500,
+                      },
+                      }"
+                     :list="tableList" :disabled="disableClearAll"
                      :group="{ name: 'selectedEmployers', put: 'employeeList'}"
                      @change="updateBlock"
           >
@@ -31,6 +45,18 @@
                 {{ checkComplete(user.completeU1, user.countCompleteU2,
                 user.reminderSentTwo, user.reminderSentOne, user.reminderSentTwo, true,
                 user.id)}}</td>
+            </tr>
+            <tr
+              v-for="(user, index) in tempUser"
+              :key="'A'+ index"
+            >
+              <td> {{ user.temp1 }} </td>
+              <td> {{ user.temp2 }} </td>
+              <td> {{ user.temp3 }} </td>
+              <td> {{ user.temp4 }} </td>
+              <td> {{ user.temp5 }} </td>
+              <td> {{ user.temp6 }} </td>
+              <td> {{ user.temp7 }} </td>
             </tr>
           </draggable>
         </template>
@@ -157,6 +183,7 @@ export default {
       employeeIncompleted: [],
       employeeIncompletedAndCompleted: [],
       tableList: [],
+      tempUser: [],
       headers: [
         {
           text: 'NAME', value: 'name', align: 'center', sortable: false,
@@ -201,6 +228,15 @@ export default {
       this.employeeCompleted = [];
       this.employeeIncompleted = [];
       this.employeeIncompletedAndCompleted = [];
+      if (this.tableList.length <= 9) {
+        this.tempUser = [];
+        // eslint-disable-next-line no-plusplus
+        for (let i = 0; i < 9 - this.tableList.length; i++) {
+          this.tempUser.push({
+            temp1: '', temp2: '', temp3: '', temp4: '', temp5: '', temp6: '', temp7: '',
+          });
+        }
+      }
     },
     dataEmployee() {
       this.tableList = this.dataEmployee;
@@ -439,7 +475,7 @@ export default {
       }
     },
     updateBlock(evt) {
-      if (evt.added) {
+      if (evt.added && evt.added.element) {
         if (evt.added.element) {
           this.$api.manage.saveEmployeeToManager(this.department.id,
             [evt.added.element.id]).then(() => {
@@ -452,13 +488,14 @@ export default {
           });
         }
       }
-      if (evt.removed) {
-        this.$api.manage.removeOneEmployee(this.department.id, evt.removed.element.id).then(() => {
+      if (evt.removed && evt.removed.element) {
+        this.$api.manage.removeOneEmployee(this.department.id,
+          evt.removed.element.id).then(() => {
           this.getDepartments();
           this.$emit('enlarge-text', 1);
         });
       }
-      if (evt.moved) {
+      if (evt.moved && evt.moved.element) {
         this.getDepartments();
       }
     },
@@ -523,5 +560,8 @@ export default {
     font-family: sans-serif Montserrat;
     font-weight: bold;
     font-style: italic;
+  }
+  .table-manager {
+    min-height: 500px;
   }
 </style>

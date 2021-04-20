@@ -37,6 +37,18 @@
         </template>
         <template v-slot:body="props">
           <draggable :list="employeeList"
+                     v-tooltip="{ content: 'Click on individual users to select or' +
+                      ' shift+click for block selection',
+                      placement: 'bottom-center',
+                      classes: ['info'],
+                      targetClasses: ['it-has-a-tooltip'],
+                      offset: 100,
+                      autoHide: true,
+                      delay: {
+                       show: 0,
+                       hide: 500,
+                      },
+                      }"
                      tag="tbody"
                      :group="{ name: 'employeeList', put: false }"
                      class="drag-employers"
@@ -44,8 +56,7 @@
                      multi-drag>
             <tr
               v-for="(user, index) in props.items"
-              :key="index"
-            >
+              :key="index">
               <td> {{ user.name }} </td>
               <td> {{ user.surName }} </td>
               <td> {{ user.employeeDepartment }} </td>
@@ -87,6 +98,9 @@ export default {
     update: {
       type: Number,
     },
+    removeGroup: {
+      type: Number,
+    },
   },
   watch: {
     department() {
@@ -97,6 +111,11 @@ export default {
     },
     search() {
       this.hiddenClear = this.search.length === 0;
+    },
+    removeGroup() {
+      if (this.removeGroup > 1) {
+        this.employeeList = [];
+      }
     },
   },
   data() {
@@ -213,5 +232,14 @@ export default {
   .table-employers-list .v-btn {
     width: auto !important;
     height: auto !important;
+  }
+
+  .tooltip .tooltip-inner {
+    background: $bgCardColor4;
+    color: white;
+    margin-top: -75px;
+    border-radius: 16px;
+    padding: 5px 10px 4px;
+    max-width: 250px;
   }
 </style>
