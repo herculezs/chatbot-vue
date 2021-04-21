@@ -20,6 +20,7 @@ import vuetify from '@/plugins/vuetify';
 import VueFileAgent from 'vue-file-agent';
 // eslint-disable-next-line no-unused-vars
 import VueFileAgentStyles from 'vue-file-agent/dist/vue-file-agent.css';
+import VuePapaParse from 'vue-papa-parse';
 
 import 'echarts';
 
@@ -55,6 +56,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.use(VTooltip);
 Vue.use(VueMeta);
 Vue.use(VueFileAgent);
+Vue.use(VuePapaParse);
 
 library.add(faUserSecret);
 library.add(faUserAlt);

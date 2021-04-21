@@ -168,8 +168,6 @@ export default {
   },
   watch: {
     departmentName() {
-      console.log(this.departmentName);
-      console.log(this.department, '---');
       if (this.departmentName === '') {
         this.removeGroup = this.removeGroup + 1;
         this.tableData = [];

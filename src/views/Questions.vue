@@ -72,6 +72,7 @@ import Content from '@components/Content/Content.vue';
 import { debounce } from 'lodash';
 import { mapGetters } from 'vuex';
 import isFreeVersion from '@helpers/func';
+import fingerPrintBrowser from '@helpers/fingerPrintBrowser';
 import checkbox from '../assets/checkbox_fill.svg';
 
 export default {
@@ -169,10 +170,9 @@ export default {
     setAnswer(questionId) {
       this.formData[this.getDataByStep.qid] = questionId;
     },
-    saveAnswerByPersonalityTest() {
+    async saveAnswerByPersonalityTest() {
       if (!localStorage.getItem('uniqueId')) {
-        localStorage.setItem('uniqueId', `anonymous${Math.floor(Math.random()
-          * Math.floor(Math.random() * Date.now()) * Math.random())}`);
+        localStorage.setItem('uniqueId', await fingerPrintBrowser);
       }
 
       return this.$store.dispatch('invitation/setPersonalityTest',
@@ -202,7 +202,7 @@ export default {
       this.show.questions = !this.show.questions;
       this.show.attentions = !this.show.attentions;
     },
-    saveAnswer() {
+    async saveAnswer() {
       this.completedColleaguesTest();
       if (this.isPersonalityTest) {
         return this.saveAnswerByPersonalityTest();
@@ -210,8 +210,7 @@ export default {
 
       if (this.isFreeVersionWebSite && !this.getProfile.token) {
         if (!localStorage.getItem('uniqueId')) {
-          localStorage.setItem('uniqueId', `anonymous${Math.floor(Math.random()
-            * Math.floor(Math.random() * Date.now()) * Math.random())}`);
+          localStorage.setItem('uniqueId', await fingerPrintBrowser);
         }
 
         return this.$api.questionnaire.saveAnswerFreeVersion(this.formData, localStorage.getItem('uniqueId'))
