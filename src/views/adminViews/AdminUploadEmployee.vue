@@ -192,6 +192,12 @@ export default {
             }
             i += 1;
           });
+          if (i === 0) {
+            this.fileRecordsForUpload = [];
+            this.fileRecords = [];
+            this.showTable = false;
+            this.parsedDate = [];
+          }
         },
       });
     },
