@@ -181,7 +181,7 @@ export default {
         complete: (resultParse) => {
           let i = 0;
           resultParse.data.forEach((x) => {
-            if (i >= 1 && i < resultParse.data.length - 1) {
+            if (i >= 1 && x[0] !== '') {
               this.parsedDate.push({
                 name: x[0],
                 surName: x[1],
