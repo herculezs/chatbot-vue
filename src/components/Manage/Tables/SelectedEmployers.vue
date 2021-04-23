@@ -475,7 +475,7 @@ export default {
       }
     },
     updateBlock(evt) {
-      if (evt.added && evt.added.element) {
+      if (evt.added && (evt.added.element || evt.added[0].element)) {
         if (evt.added.element) {
           this.$api.manage.saveEmployeeToManager(this.department.id,
             [evt.added.element.id]).then(() => {
