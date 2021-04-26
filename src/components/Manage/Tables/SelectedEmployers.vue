@@ -1,70 +1,64 @@
 <template>
     <v-card>
       <v-app class="table-v-app">
-        <v-data-table
-          class="table-manager"
-          item-key="id"
-          :headers="headers"
-          :items="tableList"
-          :items-per-page="-1"
-          hide-default-footer
-        >
-        <template v-slot:body="props">
-          <draggable tag="tbody"
-                     v-tooltip="{ content: 'To remove, drag the name back to the employee list',
-                      placement: 'bottom-center',
-                      classes: ['info'],
-                      targetClasses: ['it-has-a-tooltip'],
-                      offset: 100,
-                      autoHide: true,
-                      disable: tableList.length === 0,
-                      delay: {
-                       show: 500,
-                       hide: 500,
-                      },
-                      }"
-                     :list="tableList" :disabled="disableClearAll"
-                     :group="{ name: 'selectedEmployers', put: 'employeeList'}"
-                     @change="updateBlock"
+        <ejs-tooltip mouseTrail='true'
+                     :cssClass="showHelp ? '' : 'custom'"
+                     :content="showHelp ? tableList.length <= 0 ?
+                      'Enter GROUP name and drag-and-drop users here to construct your groups' :
+                      'To remove, drag the name back to the employee list' : null"
+                     target="#selectedEmployeeTable"
+                     :showTipPointer=false>
+          <v-data-table
+                  class="table-manager"
+                  item-key="id"
+                  :headers="headers"
+                  :items="tableList"
+                  :items-per-page="-1"
+                  hide-default-footer
           >
-            <tr
-              v-for="(user, index) in props.items"
-              :key="index"
-            >
-              <td> {{ user.name }} </td>
-              <td> {{ user.surName }} </td>
-              <td class="emails"> {{ user.email }} </td>
-              <td> {{ user.phone }} </td>
-              <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
-                {{ user.invitationSend }}</td>
-              <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
-                {{ checkComplete(user.completeU1, user.countCompleteU2,
-                user.reminderSentOne, user.invitationSend, user.reminderSentTwo, false,
-                user.id)}}</td>
-              <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
-                {{ checkComplete(user.completeU1, user.countCompleteU2,
-                user.reminderSentTwo, user.reminderSentOne, user.reminderSentTwo, true,
-                user.id)}}</td>
-            </tr>
-            <tr
-              v-for="(user, index) in tempUser"
-              :key="'A'+ index"
-            >
-              <td> {{ user.temp1 }} </td>
-              <td> {{ user.temp2 }} </td>
-              <td> {{ user.temp3 }} </td>
-              <td> {{ user.temp4 }} </td>
-              <td> {{ user.temp5 }} </td>
-              <td> {{ user.temp6 }} </td>
-              <td> {{ user.temp7 }} </td>
-            </tr>
-          </draggable>
-        </template>
-      </v-data-table>
-        <div v-if="tableList.length <= 0">
-          <span class="no-item-text">Enter GROUP name and
-            drag-and-drop users here to construct your groups</span>
-        </div>
+            To remove, drag the name back to the employee list
+            <template v-slot:body="props">
+              <draggable tag="tbody"
+                         id="selectedEmployeeTable"
+                         :list="tableList" :disabled="disableClearAll"
+                         :group="{ name: 'selectedEmployers', put: 'employeeList'}"
+                         @change="updateBlock"
+              >
+                <tr
+                        v-for="(user, index) in props.items"
+                        :key="index"
+                >
+                  <td> {{ user.name }} </td>
+                  <td> {{ user.surName }} </td>
+                  <td class="emails"> {{ user.email }} </td>
+                  <td> {{ user.phone }} </td>
+                  <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
+                    {{ user.invitationSend }}</td>
+                  <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
+                    {{ checkComplete(user.completeU1, user.countCompleteU2,
+                    user.reminderSentOne, user.invitationSend, user.reminderSentTwo, false,
+                    user.id)}}</td>
+                  <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
+                    {{ checkComplete(user.completeU1, user.countCompleteU2,
+                    user.reminderSentTwo, user.reminderSentOne, user.reminderSentTwo, true,
+                    user.id)}}</td>
+                </tr>
+                <tr
+                        v-for="(user, index) in tempUser"
+                        :key="'A'+ index"
+                >
+                  <td> {{ user.temp1 }} </td>
+                  <td> {{ user.temp2 }} </td>
+                  <td> {{ user.temp3 }} </td>
+                  <td> {{ user.temp4 }} </td>
+                  <td> {{ user.temp5 }} </td>
+                  <td> {{ user.temp6 }} </td>
+                  <td> {{ user.temp7 }} </td>
+                </tr>
+              </draggable>
+            </template>
+          </v-data-table>
+        </ejs-tooltip>
       <div class="footer-selected-employee" v-if="showButton">
         <v-spacer></v-spacer>
         <v-btn v-if="currentButtonSend === true" @click.prevent="buttonPause"
@@ -153,6 +147,10 @@ export default {
     draggable,
   },
   props: {
+    showHelp: {
+      type: Boolean,
+      default: true,
+    },
     dataEmployee: {
       type: Array,
       default: () => [],

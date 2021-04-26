@@ -98,6 +98,49 @@
         </v-card>
       </v-dialog>
     </v-app>
+    <v-app>
+      <v-dialog
+        v-model="errorModal"
+        min-width="200"
+        max-width="700"
+        persistent
+      >
+        <v-card>
+          <v-card-title class="headline red lighten-1">
+            ERROR
+          </v-card-title>
+          <v-card-text>
+            <br/>
+            <h6>
+              This phone number already registered:
+            </h6>
+          </v-card-text>
+          <v-data-table
+            item-key="id"
+            :headers="headers"
+            :items="errorDate"
+            :items-per-page="-1"
+            mobile-breakpoint="1"
+            hide-default-footer
+          >
+          </v-data-table>
+          <div v-if="showTextMore" class="text-center">
+            <span class="more-errors-user">We have sent a full list of errors to your email</span>
+          </div>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="primary"
+              text
+              @click="errorModal = false"
+            >
+              Cancel
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-app>
   </div>
 </template>
 
@@ -115,8 +158,12 @@ export default {
       fileRecords: [],
       uploadHeaders: { 'X-Test-Header': 'vue-file-agent' },
       fileRecordsForUpload: [],
-      parsedDate: [],
+      parsedDate: [
+      ],
+      errorDate: [],
       showTable: false,
+      errorModal: false,
+      showTextMore: false,
       headers: [
         {
           text: 'NAME', value: 'name', align: 'center', sortable: false,
@@ -156,8 +203,33 @@ export default {
     },
     uploadFiles() {
       const formData = new FormData();
+      this.errorDate = [];
+      this.showTextMore = false;
       formData.append('file', this.fileRecordsForUpload[0].file);
-      this.$api.admin.uploadCSVEmployee(formData).then(() => {
+      this.$api.admin.uploadCSVEmployee(formData).then((res) => {
+        if (res.length === 11) {
+          for (let i = 0; i < res.length - 1; i += 1) {
+            this.errorDate.push({
+              name: res[i].name,
+              surName: res[i].surName,
+              email: res[i].email,
+              phone: res[i].phone,
+            });
+            this.errorModal = true;
+            this.showTextMore = true;
+          }
+        } else {
+          for (let i = 0; i < res.length; i += 1) {
+            this.errorDate.push({
+              name: res[i].name,
+              surName: res[i].surName,
+              email: res[i].email,
+              phone: res[i].phone,
+            });
+            this.errorModal = true;
+          }
+        }
+
         this.fileRecordsForUpload = [];
         this.fileRecords = [];
         this.showTable = false;
@@ -258,11 +330,15 @@ export default {
     margin-right: auto;
   }
 
-  .v-dialog {
+  .modal-warning .v-dialog {
     position: absolute;
     bottom: 10%;
     @media (max-width: 1150px) {
       bottom: 0;
     }
+  }
+  .more-errors-user {
+    font-weight: bold;
+    font-size: 20px;
   }
 </style>

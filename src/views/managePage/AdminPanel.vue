@@ -4,112 +4,135 @@
                  handle=".handle"
                  :options="trashOptions">
         <div class="col-11">
-          <div class="manager-name">
-            <v-toolbar>
-              <span>MANAGER: {{`${getProfile.name} ${getProfile.lastName}`.toUpperCase()}} </span>
-            </v-toolbar>
-          </div>
-          <div class="department">
-            <div class="padding-adaptive">
-            <v-app class="input-department">
-              <v-toolbar>
-                GROUP:
-                <v-autocomplete
-                  ref="autocomplete"
-                  v-model="department"
-                  :menu-props="{ closeOnClick: true }"
-                  :search-input.sync="departmentName"
-                  :items="items"
-                  item-text="name"
-                  item-value="id"
-                  flat
-                  hide-no-data
-                  hide-details
-                  return-object
-                  label="Enter Group name"
-                  solo
-                  @change="selectOtherDepartments"
-                  :disabled="disableAutoComplete"
-                  @blur="blurAutoSelect"
-                  data-app="true"
-                  @keyup.enter.stop="newDepartmentEv"
-                >
-                  <!--                  -->
-                  <template v-slot:item="{ item }">
-                    <v-list-item-content>
-                      <v-list-item-title v-text="item.name"></v-list-item-title>
-                    </v-list-item-content>
-                    <v-btn icon color="blue darken-1"
-                           @click="openModalUpdateDepartment" text>
-                      <v-icon>mdi-pencil</v-icon>
-                    </v-btn>
-                    <v-btn icon color="red darken-1"
-                           @click.stop="openModalDeleteDepartment(item.id)" text>
-                      <v-icon>mdi-delete</v-icon>
-                    </v-btn>
-                  </template>
-                </v-autocomplete>
-                <v-btn icon @click.prevent="newDepartmentEv">
-                  <v-icon :color="changeButtonColor">mdi-plus-circle-outline</v-icon>
-                </v-btn>
-              </v-toolbar>
-              <v-dialog v-model="showModalDepartmentDelete" max-width="500px">
-                <v-card>
-                  <v-card-title class="headline">
-                    Are you sure?</v-card-title>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="closeModalDeleteDepartment">
-                      Cancel</v-btn>
-                    <v-btn color="red darken-1" text @click="confirmDeleteDepartment">Yes</v-btn>
-                    <v-spacer></v-spacer>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-              <v-dialog v-model="showModalDepartmentUpdate" max-width="500px">
-                <v-card>
-                  <v-card-title class="headline">
-                    Update Group:
-                    <v-text-field
-                      class="updatedDepartment"
-                      v-model="departmentName"
-                      hide-details
-                      single-line
-                    /></v-card-title>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text
-                           @click="closeModalAutoRemind">Cancel</v-btn>
-                    <v-btn color="blue darken-1" text
-                           @click="confirmAutoRemind">Yes</v-btn>
-                    <v-spacer></v-spacer>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-            </v-app>
-            </div>
-          </div>
-          <div class="manager-remind-time" v-if="department != null && department.timeNextRemind">
-            <v-toolbar>
-              <span>
-                NEXT REMINDER: {{formatDateReminder()}}
-              </span>
-            </v-toolbar>
-          </div>
-          <div class="no-next-reminder" v-else></div>
           <div class="body-panel-table">
             <div class="col-9">
               <div class="table-employers">
+                <div class="manager-name">
+                  <v-toolbar>
+                    <span>MANAGER: {{`${getProfile.name} ${getProfile.lastName}`.toUpperCase()}}
+                    </span>
+                  </v-toolbar>
+                </div>
+                <div class="switch-help">
+                  <div class="text-help">
+                    <v-app>
+                      <v-toolbar>
+                        <span>Help text:</span>
+                        <v-switch class="show-switch-text"
+                                  v-model="showHelp"
+                                  inset
+                        ></v-switch>
+                      </v-toolbar>
+                    </v-app>
+                  </div>
+                </div>
+                <div class="manager-remind-time"
+                     v-if="department != null && department.timeNextRemind">
+                  <v-toolbar>
+                    <span>
+                      NEXT REMINDER: {{formatDateReminder()}}
+                    </span>
+                  </v-toolbar>
+                </div>
+                <div class="no-next-reminder" v-else></div>
                 <SelectedEmployers :dataEmployee="tableData" :department.sync="department"
                                    :getDepartments="getDepartments"
+                                   :showHelp="showHelp"
                                    v-on:enlarge-text="updateEmployeeList += $event"
                 />
               </div>
             </div>
             <div class="col-4 employee-list-main">
               <div class="list-employers">
+                <div class="department">
+                  <ejs-tooltip mouseTrail='true'
+                               :cssClass="showHelp ? '' : 'custom'"
+                               :content="showHelp ? 'Create, Select and Delete Groups' : null"
+                               target=".input-department"
+                               :showTipPointer=false>
+                    <v-app class="input-department">
+                      <v-toolbar>
+                        GROUP:
+                        <v-autocomplete
+                          ref="autocomplete"
+                          v-model="department"
+                          :menu-props="{ closeOnClick: true }"
+                          :search-input.sync="departmentName"
+                          :items="items"
+                          item-text="name"
+                          item-value="id"
+                          flat
+                          hide-no-data
+                          hide-details
+                          return-object
+                          label="Enter Group name"
+                          solo
+                          @change="selectOtherDepartments"
+                          :disabled="disableAutoComplete"
+                          @blur="blurAutoSelect"
+                          data-app="true"
+                          @keyup.enter.stop="newDepartmentEv"
+                        >
+                          <template v-slot:item="{ item }">
+                            <v-list-item-content>
+                              <v-list-item-title v-text="item.name"></v-list-item-title>
+                            </v-list-item-content>
+                            <v-btn icon color="blue darken-1"
+                                   @click="openModalUpdateDepartment" text>
+                              <v-icon>mdi-pencil</v-icon>
+                            </v-btn>
+                            <v-btn icon color="red darken-1"
+                                   @click.stop="openModalDeleteDepartment(item.id)" text>
+                              <v-icon>mdi-delete</v-icon>
+                            </v-btn>
+                          </template>
+                        </v-autocomplete>
+                        <v-btn icon @click.prevent="newDepartmentEv">
+                          <v-icon :color="changeButtonColor">mdi-plus-circle-outline</v-icon>
+                        </v-btn>
+                      </v-toolbar>
+                      <v-dialog v-model="showModalDepartmentDelete" max-width="500px">
+                        <v-card>
+                          <v-card-title class="headline">
+                            Are you sure?</v-card-title>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="blue darken-1" text @click="closeModalDeleteDepartment">
+                              Cancel</v-btn>
+                            <v-btn color="red darken-1" text @click="confirmDeleteDepartment">
+                              Yes</v-btn>
+                            <v-spacer></v-spacer>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+                      <v-dialog v-model="showModalDepartmentUpdate" max-width="500px">
+                        <v-card>
+                          <v-card-title class="headline">
+                            Update Group:
+                            <v-text-field
+                              class="updatedDepartment"
+                              v-model="departmentName"
+                              hide-details
+                              single-line
+                            /></v-card-title>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="blue darken-1" text
+                                   @click="closeModalAutoRemind">Cancel</v-btn>
+                            <v-btn color="blue darken-1" text
+                                   @click="confirmAutoRemind">Yes</v-btn>
+                            <v-spacer></v-spacer>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+                    </v-app>
+                  </ejs-tooltip>
+                  <div class="margin-group"></div>
+                </div>
                 <EmployeeList :department="department" :update="updateEmployeeList"
-                              :removeGroup="removeGroup"/>
+                              :removeGroup="removeGroup"
+                              :showHelp="showHelp"
+                />
               </div>
             </div>
           </div>
@@ -149,6 +172,7 @@ export default {
       updateEmployeeList: 1,
       postFontSize: 1,
       changeDate: 1,
+      showHelp: true,
       timer: 0,
       trashOptions: {
         group: {
@@ -332,7 +356,8 @@ export default {
     min-width: 223px !important;
   }
   .input-department {
-    width: 360px;
+    min-width: 250px;
+    max-width: 360px;
     display: inline-block;
     top: 20px;
   }
@@ -342,14 +367,12 @@ export default {
     display: inline-block;
   }
   .manager-name {
-    margin-left: 13px;
     font-weight: bold;
     font-size: 20px;
     display: inline-block;
     margin-right: 40%;
   }
   .manager-remind-time {
-    margin-left: 13px;
     font-weight: bold;
     font-size: 20px;
     display: inline-block;
@@ -386,9 +409,43 @@ export default {
     margin-left: 13px;
   }
   .no-next-reminder {
-    margin-top: 60px;
+    margin-top: 70px;
+  }
+  .margin-group {
+    margin-top: 70px;
+    @media (max-width: 1170px) {
+      margin-top: 140px;
+    }
   }
   .plus-icon {
     color: #005fff;
+  }
+  .switch-help {
+    width: 200px;
+    display: inline-block;
+  }
+  .show-switch-text {
+    padding-top: 18px !important;
+    padding-left: 20px !important;
+  }
+  .text-help {
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .employee-list-main {
+    flex: 0 0 35.5% !important;
+    max-width: 35.5% !important;
+  }
+  .e-tooltip-wrap.e-popup {
+    background: $bgCardColor4;
+    color: white;
+    border-radius: 10px;
+    padding: 5px 10px 4px;
+  }
+  .custom.e-tooltip-wrap.e-popup {
+    padding: 0;
+  }
+  .custom-padding.e-tooltip-wrap.e-popup {
+    margin-bottom: 1000px;
   }
 </style>
