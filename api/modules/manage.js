@@ -217,4 +217,23 @@ export default {
         });
     });
   },
+  offTextHelp(showHelp) {
+    let url;
+    if (showHelp != null) {
+      url = `manage/off-text-help?show-help=${showHelp}`;
+    } else {
+      url = 'manage/off-text-help';
+    }
+    return new Promise((resolve, reject) => {
+      http.post(url)
+        .then(
+          ({ data }) => {
+            resolve(data);
+          },
+        ).catch((error) => {
+          notifyError(error);
+          reject(error);
+        });
+    });
+  },
 };

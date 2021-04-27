@@ -20,6 +20,7 @@
                         <span>Help text:</span>
                         <v-switch class="show-switch-text"
                                   v-model="showHelp"
+                                  @change="changeSwitch"
                                   inset
                         ></v-switch>
                       </v-toolbar>
@@ -56,7 +57,7 @@
                         <v-autocomplete
                           ref="autocomplete"
                           v-model="department"
-                          :menu-props="{ closeOnClick: true }"
+                          :menu-props="{ closeOnClick: true, closeOnContentClick: true, }"
                           :search-input.sync="departmentName"
                           :items="items"
                           item-text="name"
@@ -69,7 +70,6 @@
                           solo
                           @change="selectOtherDepartments"
                           :disabled="disableAutoComplete"
-                          @blur="blurAutoSelect"
                           data-app="true"
                           @keyup.enter.stop="newDepartmentEv"
                         >
@@ -87,7 +87,7 @@
                             </v-btn>
                           </template>
                         </v-autocomplete>
-                        <v-btn icon @click.prevent="newDepartmentEv">
+                        <v-btn icon @click.prevent.stop="newDepartmentEv">
                           <v-icon :color="changeButtonColor">mdi-plus-circle-outline</v-icon>
                         </v-btn>
                       </v-toolbar>
@@ -165,6 +165,7 @@ export default {
       departmentId: null,
       newDepartment: null,
       departmentName: null,
+      departmentTempName: null,
       removeDepartmentId: null,
       changeButtonColor: '',
       showModalDepartmentUpdate: false,
@@ -172,7 +173,7 @@ export default {
       updateEmployeeList: 1,
       postFontSize: 1,
       changeDate: 1,
-      showHelp: true,
+      showHelp: false,
       timer: 0,
       trashOptions: {
         group: {
@@ -199,16 +200,34 @@ export default {
     },
   },
   mounted() {
+    this.changeSwitch();
     this.getDepartments();
     this.checkUpdated();
     const autocompleteInput = this.$refs.autocomplete.$refs.input;
     autocompleteInput.addEventListener('focus', this.focusAutoSelect, true);
+    autocompleteInput.addEventListener('blur', this.blurAutoSelect, true);
   },
   methods: {
+    changeSwitch(changeType) {
+      if (changeType != null) {
+        this.$api.manage.offTextHelp(changeType).then((res) => {
+          this.showHelp = res;
+        });
+      } else {
+        this.$api.manage.offTextHelp().then((res) => {
+          if (res === '') {
+            this.showHelp = true;
+          } else {
+            this.showHelp = res;
+          }
+        });
+      }
+    },
     focusAutoSelect() {
       this.changeButtonColor = '#ff0d00';
     },
     blurAutoSelect() {
+      this.departmentTempName = this.departmentName;
       this.changeButtonColor = '';
       this.$refs.autocomplete.blur();
     },
@@ -252,15 +271,21 @@ export default {
       }
     },
     departmentSave() {
-      if (this.departmentName != null && this.departmentName !== '') {
+      if ((this.departmentName != null && this.departmentName !== '')
+        || (this.departmentTempName != null && this.departmentTempName !== '')) {
+        const departmentName = this.departmentTempName ? this.departmentTempName
+          : this.departmentName;
+        this.departmentName = '';
         const id = this.department ? this.department.id : null;
         this.disableAutoComplete = true;
-        this.$api.manage.saveDepartment(this.departmentName, id).then(() => {
+        this.$api.manage.saveDepartment(departmentName, id).then(() => {
           this.getDepartments();
           this.showModalDepartmentUpdate = false;
           this.disableAutoComplete = false;
+          this.departmentTempName = null;
         }).catch(() => {
           this.disableAutoComplete = false;
+          this.departmentTempName = null;
           this.getDepartments();
         });
         this.checkUpdated();

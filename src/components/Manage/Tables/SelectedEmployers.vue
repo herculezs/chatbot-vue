@@ -20,7 +20,7 @@
             <template v-slot:body="props">
               <draggable tag="tbody"
                          id="selectedEmployeeTable"
-                         :list="tableList" :disabled="disableClearAll"
+                         :list="tableList" :disabled="disableDropDown()"
                          :group="{ name: 'selectedEmployers', put: 'employeeList'}"
                          @change="updateBlock"
               >
@@ -36,12 +36,10 @@
                     {{ user.invitationSend }}</td>
                   <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
                     {{ checkComplete(user.completeU1, user.countCompleteU2,
-                    user.reminderSentOne, user.invitationSend, user.reminderSentTwo, false,
-                    user.id)}}</td>
+                    user.reminderSentOne, user.invitationSend, user.reminderSentTwo, false)}}</td>
                   <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
                     {{ checkComplete(user.completeU1, user.countCompleteU2,
-                    user.reminderSentTwo, user.reminderSentOne, user.reminderSentTwo, true,
-                    user.id)}}</td>
+                    user.reminderSentTwo, user.reminderSentOne, user.reminderSentTwo, true)}}</td>
                 </tr>
                 <tr
                         v-for="(user, index) in tempUser"
@@ -66,11 +64,17 @@
                dark
                class="buttons-selected-employers">
           Pause</v-btn>
-        <v-btn v-else-if="currentButtonSend === null && retry && department.countRetry !== 2"
+        <v-btn v-else-if="currentButtonSend === null && (retry && department.countRetry === 2)"
+               :disabled="disableButtonSend"
+               @click.prevent="openModalAutoRemind"
+               class="buttons-selected-employers">
+          Send</v-btn>
+        <v-btn v-else-if="currentButtonSend === null && (retry || department.countRetry === 2)"
                @click.prevent="openModalAutoRemind"
                class="buttons-selected-employers">
           Retry</v-btn>
-        <v-btn v-else-if="currentButtonSend === null" :disabled="disableButtonSend"
+        <v-btn v-else-if="currentButtonSend === null"
+               :disabled="disableButtonSend"
                @click.prevent="openModalAutoRemind"
                class="buttons-selected-employers">
           Send</v-btn>
@@ -218,11 +222,19 @@ export default {
   },
   mounted() {
     this.showButton = this.tableList.length > 0;
+    if (this.tableList.length === 0) {
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < 10; i++) {
+        this.tempUser.push({
+          temp1: '', temp2: '', temp3: '', temp4: '', temp5: '', temp6: '', temp7: '',
+        });
+      }
+    }
   },
   watch: {
     tableList() {
       this.showButton = this.tableList.length > 0;
-      this.disableButtonSend = !(this.tableList.length >= 5);
+      this.disableButtonSend = (this.tableList.length >= 5);
       this.employeeCompleted = [];
       this.employeeIncompleted = [];
       this.employeeIncompletedAndCompleted = [];
@@ -267,6 +279,12 @@ export default {
     },
   },
   methods: {
+    disableDropDown() {
+      if (this.department && this.department.countRetry === 2) {
+        return this.disableClearAll || (this.department.countRetry === 2);
+      }
+      return this.disableClearAll;
+    },
     getDinamicHeaders() {
       if (this.department) {
         this.headers = [
@@ -316,10 +334,11 @@ export default {
       }
       return '';
     },
+    // eslint-disable-next-line no-unused-vars
     checkComplete(completeU1, countCompleteU2, remind, checkBeforeData, checkIncomplete,
       lastReminder, id) {
       if (checkBeforeData) {
-        if (!completeU1 && lastReminder) {
+        if (!completeU1 && lastReminder && checkIncomplete) {
           if (this.tableList.length !== this.employeeIncompleted.length - 1) {
             this.employeeIncompleted.push(id);
             this.employeeIncompletedAndCompleted.push(id);
@@ -367,7 +386,6 @@ export default {
           return 'Complete';
         }
       }
-
       return remind;
     },
     onlyUnique(value, index, self) {
@@ -435,7 +453,18 @@ export default {
       this.showModalAutoRemind = false;
     },
     confirmAutoRemind() {
-      if (this.retry && this.department.countRetry !== 2) {
+      if (this.currentButtonSend === null && (this.retry && this.department.countRetry === 2)) {
+        if (this.department) {
+          this.$api.manage.saveAutoReminders(this.department.id, this.numberValue).then(() => {
+            this.currentButtonSend = true;
+            this.disableClearAll = true;
+            this.getDepartments();
+            this.setUpRemind = true;
+            this.showModalAutoRemind = false;
+          });
+        }
+      } else if (this.currentButtonSend === null
+        && (this.retry || this.department.countRetry === 2)) {
         if (this.department) {
           const competedFilter = this.employeeCompleted.filter(this.onlyUnique);
           const inCompetedFilter = this.employeeIncompleted.filter(this.onlyUnique);
@@ -449,9 +478,7 @@ export default {
             this.showModalAutoRemind = false;
           });
         }
-        this.setUpRemind = true;
-        this.showModalAutoRemind = false;
-      } else {
+      } else if (this.currentButtonSend === null) {
         if (this.department) {
           this.$api.manage.saveAutoReminders(this.department.id, this.numberValue).then(() => {
             this.currentButtonSend = true;
@@ -461,9 +488,9 @@ export default {
             this.showModalAutoRemind = false;
           });
         }
-        this.setUpRemind = true;
-        this.showModalAutoRemind = false;
       }
+      this.setUpRemind = true;
+      this.showModalAutoRemind = false;
     },
     clearAll() {
       if (this.department) {
