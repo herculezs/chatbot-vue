@@ -234,7 +234,7 @@ export default {
   watch: {
     tableList() {
       this.showButton = this.tableList.length > 0;
-      this.disableButtonSend = (this.tableList.length >= 5);
+      this.disableButtonSend = !(this.tableList.length >= 5);
       this.employeeCompleted = [];
       this.employeeIncompleted = [];
       this.employeeIncompletedAndCompleted = [];

@@ -199,6 +199,9 @@ export default {
       }
     },
   },
+  beforeUpdate() {
+    this.checkUpdated();
+  },
   mounted() {
     this.changeSwitch();
     this.getDepartments();
