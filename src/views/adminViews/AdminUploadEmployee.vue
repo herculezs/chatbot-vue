@@ -88,6 +88,7 @@
               Cancel
             </v-btn>
             <v-btn
+              :disabled="disabledContinue"
               color="primary"
               text
               @click="uploadFiles()"
@@ -164,6 +165,7 @@ export default {
       showTable: false,
       errorModal: false,
       showTextMore: false,
+      disabledContinue: false,
       headers: [
         {
           text: 'NAME', value: 'name', align: 'center', sortable: false,
@@ -205,6 +207,7 @@ export default {
       const formData = new FormData();
       this.errorDate = [];
       this.showTextMore = false;
+      this.disabledContinue = true;
       formData.append('file', this.fileRecordsForUpload[0].file);
       this.$api.admin.uploadCSVEmployee(formData).then((res) => {
         if (res.length === 11) {
@@ -217,6 +220,7 @@ export default {
             });
             this.errorModal = true;
             this.showTextMore = true;
+            this.disabledContinue = false;
           }
         } else {
           for (let i = 0; i < res.length; i += 1) {
@@ -239,6 +243,7 @@ export default {
         this.fileRecords = [];
         this.showTable = false;
         this.parsedDate = [];
+        this.disabledContinue = false;
       });
     },
     closeWarningModal() {

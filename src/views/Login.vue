@@ -79,6 +79,8 @@ export default {
       phone: null,
       password: null,
     },
+    updatedTimeOut: null,
+    countUpdate: 1,
     diaCode: '',
   }),
   computed: {
@@ -90,7 +92,28 @@ export default {
       return `code-length-${this.diaCode.length}`;
     },
   },
+  mounted() {
+  },
+  watch: {
+    formData: {
+      // eslint-disable-next-line no-unused-vars
+      handler() {
+        if (this.formData.phone.length > 5) {
+          this.updatePhoneData();
+        }
+      },
+      deep: true,
+    },
+  },
   methods: {
+    updatePhoneData() {
+      clearTimeout(this.updatedTimeOut);
+      this.updatedTimeOut = setTimeout(() => {
+        if (this.formData.phone && this.diaCode) {
+          this.formData.phone = this.formData.phone.replace(`+${this.diaCode}`, '');
+        }
+      }, 50);
+    },
     prepareDataForRequest() {
       const formPhone = this.formData.phone;
       const phone = `+${this.diaCode}${formPhone.charAt(0) === '0' ? formPhone.substring(1) : formPhone}`
@@ -139,5 +162,9 @@ export default {
 <style lang="scss">
   .reset-password input {
     background-color: white;
+  }
+  button:focus {
+    border: 2px solid #66afe9;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
   }
 </style>

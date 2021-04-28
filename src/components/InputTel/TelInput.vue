@@ -93,7 +93,7 @@ export default {
 
   .form__input-tel.code-length-4{
     .vti__input{
-      padding-left: 50px;
+      padding-left: 65px;
     }
   }
 </style>
