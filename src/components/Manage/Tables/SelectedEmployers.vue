@@ -340,19 +340,21 @@ export default {
 
       return '';
     },
-    // eslint-disable-next-line no-unused-vars
     checkComplete(completeU1, countCompleteU2, remind, checkBeforeData, checkIncomplete,
       lastReminder, id) {
       if (checkBeforeData) {
         if (completeU1 && countCompleteU2 === this.tableList.length - 1) {
-          if (checkIncomplete && !lastReminder) {
-            return remind;
-          }
           if (this.tableList.length !== this.employeeCompleted.length) {
             this.employeeCompleted.push(id);
             this.employeeIncompletedAndCompleted.push(id);
           }
-          return 'Complete';
+          if (remind && checkIncomplete && lastReminder) {
+            return 'Complete';
+          }
+          if (!checkIncomplete && !lastReminder) {
+            return 'Complete';
+          }
+          return remind;
         }
 
         if (!completeU1 && lastReminder && checkIncomplete) {
