@@ -82,7 +82,7 @@
                               <v-icon>mdi-pencil</v-icon>
                             </v-btn>
                             <v-btn icon color="red darken-1"
-                                   @click.stop="openModalDeleteDepartment(item.id)" text>
+                                   @click.stop="openModalDeleteDepartment(item.id, item.name)" text>
                               <v-icon>mdi-delete</v-icon>
                             </v-btn>
                           </template>
@@ -94,7 +94,7 @@
                       <v-dialog v-model="showModalDepartmentDelete" max-width="500px">
                         <v-card>
                           <v-card-title class="headline">
-                            Are you sure?</v-card-title>
+                            Are you sure you want to delete {{removeDepartmentName}}?</v-card-title>
                           <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn color="blue darken-1" text @click="closeModalDeleteDepartment">
@@ -175,6 +175,7 @@ export default {
       changeDate: 1,
       showHelp: false,
       timer: 0,
+      removeDepartmentName: '',
       trashOptions: {
         group: {
           name: 'trash',
@@ -331,8 +332,9 @@ export default {
     openModalUpdateDepartment() {
       this.showModalDepartmentUpdate = true;
     },
-    openModalDeleteDepartment(id) {
+    openModalDeleteDepartment(id, name) {
       this.removeDepartmentId = id;
+      this.removeDepartmentName = name;
       this.showModalDepartmentDelete = true;
     },
     closeModalDeleteDepartment() {
@@ -346,6 +348,7 @@ export default {
           this.removeGroup = this.removeGroup + 1;
           this.getDepartments();
           this.showModalDepartmentDelete = false;
+          this.removeDepartmentName = '';
         });
       }
     },

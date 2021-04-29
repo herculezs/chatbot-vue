@@ -325,22 +325,36 @@ export default {
       }
     },
     checkCorrectColor(completeU1, countCompleteU2) {
-      if (completeU1 && countCompleteU2 === 0) {
-        return 'complete-people-u1';
-      } if (completeU1 && countCompleteU2 <= 4) {
-        return 'complete-people-u1 complete-people-u2-less4';
-      } if (completeU1 && countCompleteU2 > 3 && countCompleteU2 <= this.tableList.length - 1) {
-        return 'complete-people-u1 complete-people-u2-less-total';
-      }
       if (completeU1 && countCompleteU2 === this.tableList.length - 1) {
         return 'complete-people-u1 complete-people-u2-equal-total';
       }
+      if (completeU1 && countCompleteU2 > 3 && countCompleteU2 <= this.tableList.length - 1) {
+        return 'complete-people-u1 complete-people-u2-less-total';
+      }
+      if (completeU1 && countCompleteU2 <= 4) {
+        return 'complete-people-u1 complete-people-u2-less4';
+      }
+      if (completeU1 && countCompleteU2 === 0) {
+        return 'complete-people-u1';
+      }
+
       return '';
     },
     // eslint-disable-next-line no-unused-vars
     checkComplete(completeU1, countCompleteU2, remind, checkBeforeData, checkIncomplete,
       lastReminder, id) {
       if (checkBeforeData) {
+        if (completeU1 && countCompleteU2 === this.tableList.length - 1) {
+          if (checkIncomplete && !lastReminder) {
+            return remind;
+          }
+          if (this.tableList.length !== this.employeeCompleted.length) {
+            this.employeeCompleted.push(id);
+            this.employeeIncompletedAndCompleted.push(id);
+          }
+          return 'Complete';
+        }
+
         if (!completeU1 && lastReminder && checkIncomplete) {
           if (this.tableList.length !== this.employeeIncompleted.length - 1) {
             this.employeeIncompleted.push(id);
@@ -377,16 +391,6 @@ export default {
 
             return 'Incomplete';
           }
-        }
-        if (completeU1 && countCompleteU2 === this.tableList.length - 1) {
-          if (checkIncomplete && !lastReminder) {
-            return remind;
-          }
-          if (this.tableList.length !== this.employeeCompleted.length) {
-            this.employeeCompleted.push(id);
-            this.employeeIncompletedAndCompleted.push(id);
-          }
-          return 'Complete';
         }
       }
       return remind;
