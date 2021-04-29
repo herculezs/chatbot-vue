@@ -15,6 +15,7 @@
                   :items="tableList"
                   :items-per-page="-1"
                   hide-default-footer
+                  :loading="disableButtonAndLoadTable"
           >
             To remove, drag the name back to the employee list
             <template v-slot:body="props">
@@ -36,10 +37,12 @@
                     {{ user.invitationSend }}</td>
                   <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
                     {{ checkComplete(user.completeU1, user.countCompleteU2,
-                    user.reminderSentOne, user.invitationSend, user.reminderSentTwo, false)}}</td>
+                    user.reminderSentOne, user.invitationSend, user.reminderSentTwo, false,
+                    user.id)}}</td>
                   <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
                     {{ checkComplete(user.completeU1, user.countCompleteU2,
-                    user.reminderSentTwo, user.reminderSentOne, user.reminderSentTwo, true)}}</td>
+                    user.reminderSentTwo, user.reminderSentOne, user.reminderSentTwo, true,
+                    user.id)}}</td>
                 </tr>
                 <tr
                         v-for="(user, index) in tempUser"
@@ -60,27 +63,26 @@
       <div class="footer-selected-employee" v-if="showButton">
         <v-spacer></v-spacer>
         <v-btn v-if="currentButtonSend === true" @click.prevent="buttonPause"
-               color="primary"
                dark
                class="buttons-selected-employers">
-          Pause</v-btn>
+          PAUSE/STOP</v-btn>
         <v-btn v-else-if="currentButtonSend === null && (retry && department.countRetry === 2)"
-               :disabled="disableButtonSend"
+               :disabled="disableButtonSend || disableButtonAndLoadTable"
                @click.prevent="openModalAutoRemind"
                class="buttons-selected-employers">
           Send</v-btn>
         <v-btn v-else-if="currentButtonSend === null && (retry || department.countRetry === 2)"
                @click.prevent="openModalAutoRemind"
+               :disabled="disableButtonAndLoadTable"
                class="buttons-selected-employers">
-          Retry</v-btn>
+          MORE <br/>REMINDERS</v-btn>
         <v-btn v-else-if="currentButtonSend === null"
-               :disabled="disableButtonSend"
+               :disabled="disableButtonSend || disableButtonAndLoadTable"
                @click.prevent="openModalAutoRemind"
                class="buttons-selected-employers">
           Send</v-btn>
         <v-btn v-else-if="currentButtonSend === false" @click.prevent="resumeAutoRemind"
                class="buttons-selected-employers"
-               color="primary"
                dark
         >
           Resume</v-btn>
@@ -186,6 +188,7 @@ export default {
       employeeIncompletedAndCompleted: [],
       tableList: [],
       tempUser: [],
+      disableButtonAndLoadTable: false,
       headers: [
         {
           text: 'NAME', value: 'name', align: 'center', sortable: false,
@@ -375,7 +378,7 @@ export default {
             return 'Incomplete';
           }
         }
-        if (completeU1 && countCompleteU2 === this.tableList.length) {
+        if (completeU1 && countCompleteU2 === this.tableList.length - 1) {
           if (checkIncomplete && !lastReminder) {
             return remind;
           }
@@ -455,12 +458,16 @@ export default {
     confirmAutoRemind() {
       if (this.currentButtonSend === null && (this.retry && this.department.countRetry === 2)) {
         if (this.department) {
+          this.disableButtonAndLoadTable = true;
           this.$api.manage.saveAutoReminders(this.department.id, this.numberValue).then(() => {
             this.currentButtonSend = true;
             this.disableClearAll = true;
             this.getDepartments();
             this.setUpRemind = true;
             this.showModalAutoRemind = false;
+            this.disableButtonAndLoadTable = false;
+          }).catch(() => {
+            this.disableButtonAndLoadTable = false;
           });
         }
       } else if (this.currentButtonSend === null
@@ -468,7 +475,7 @@ export default {
         if (this.department) {
           const competedFilter = this.employeeCompleted.filter(this.onlyUnique);
           const inCompetedFilter = this.employeeIncompleted.filter(this.onlyUnique);
-
+          this.disableButtonAndLoadTable = true;
           this.$api.manage.retryAutoReminders(this.department.id, this.numberValue,
             competedFilter, inCompetedFilter).then(() => {
             this.currentButtonSend = true;
@@ -476,16 +483,23 @@ export default {
             this.getDepartments();
             this.setUpRemind = true;
             this.showModalAutoRemind = false;
+            this.disableButtonAndLoadTable = false;
+          }).catch(() => {
+            this.disableButtonAndLoadTable = false;
           });
         }
       } else if (this.currentButtonSend === null) {
         if (this.department) {
+          this.disableButtonAndLoadTable = true;
           this.$api.manage.saveAutoReminders(this.department.id, this.numberValue).then(() => {
             this.currentButtonSend = true;
             this.disableClearAll = true;
             this.getDepartments();
             this.setUpRemind = true;
             this.showModalAutoRemind = false;
+            this.disableButtonAndLoadTable = false;
+          }).catch(() => {
+            this.disableButtonAndLoadTable = false;
           });
         }
       }
@@ -533,6 +547,8 @@ export default {
     margin-left: 10px;
     margin-right: 20px;
     margin-bottom: 15px;
+    background-color: $btnColor1 !important;
+    color: white !important;
   }
   .table-v-app .v-application--wrap{
     min-height: initial;
