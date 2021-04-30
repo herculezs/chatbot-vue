@@ -89,12 +89,13 @@
           <Radar :data="radarData" />
         </div>
       </div>
-
+      <InvitationTableEmployees v-if="getProfile.registeredFromCSV"></InvitationTableEmployees>
       <b-modal
         modal-class="modal-sticky-bottom ask-contacts"
         class="ask-contacts"
         id="modal-multi-1"
         hide-footer
+        v-else
       >
         <template v-slot:modal-title>
           {{configEnv.report.textForReport.title}}
@@ -116,6 +117,7 @@
         <br/>
         <br/>
       </b-modal>
+
       <div v-if="isFreeVersionWebSite">
         <div class="buttons-report">
           <div class="block">
@@ -166,6 +168,7 @@ import Content from '@components/Content/Content.vue';
 import Radar from '@components/Radar/Radar.vue';
 import FeedbackModal from '@components/Modals/FeedbackModal.vue';
 import ChartCompare from '@components/Charts/ChartCompare.vue';
+import InvitationTableEmployees from '@components/Modals/Report/InvitationTableEmployees.vue';
 import AskOthers from '@components/AskOthers/AskOthers.vue';
 import configEnv from '@configEnv';
 import isFreeVersion from '@helpers/func';
@@ -183,6 +186,7 @@ export default {
     FeedbackModal,
     ChartCompare,
     AskOthers,
+    InvitationTableEmployees,
   },
   name: 'Report',
   data: () => ({
@@ -239,6 +243,7 @@ export default {
     },
   },
   created() {
+    console.log(this.getProfile.registeredFromCSV);
     this.fetchPersonalityTypeReport();
   },
   methods: {
@@ -334,7 +339,7 @@ export default {
 
           this.setYouAnswerCard(this.SelfCoordinate[2]);
           this.shareLink = `${window.location.protocol}//${window.location.host}${res.invitationLink}`;
-
+          console.log('11', this.shareLink);
           const [youAreX, youAreY] = this.SelfCoordinate;
 
           const mostLikelyCharacters = {

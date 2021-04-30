@@ -71,7 +71,8 @@
                @click.prevent="openModalAutoRemind"
                class="buttons-selected-employers">
           Send</v-btn>
-        <v-btn v-else-if="currentButtonSend === null && (retry || department.countRetry === 2)"
+        <v-btn v-else-if="currentButtonSend === null && (retry || department.countRetry === 2)
+         && allPeopleGetAllReminders"
                @click.prevent="openModalAutoRemind"
                :disabled="disableButtonAndLoadTable"
                class="buttons-selected-employers">
@@ -181,6 +182,7 @@ export default {
       currentButtonSend: null,
       disableButtonSend: true,
       disableClearAll: false,
+      allPeopleGetAllReminders: false,
       retry: false,
       numberValue: 1,
       employeeCompleted: [],
@@ -241,6 +243,8 @@ export default {
       this.employeeCompleted = [];
       this.employeeIncompleted = [];
       this.employeeIncompletedAndCompleted = [];
+      this.allPeopleGetAllReminders = this.tableList.every(x => x.reminderSentTwo);
+      console.log(this.allPeopleGetAllReminders);
       if (this.tableList.length <= 9) {
         this.tempUser = [];
         // eslint-disable-next-line no-plusplus
@@ -344,9 +348,11 @@ export default {
       lastReminder, id) {
       if (checkBeforeData) {
         if (completeU1 && countCompleteU2 === this.tableList.length - 1) {
-          if (this.tableList.length !== this.employeeCompleted.length) {
+          if (this.tableList.length !== this.employeeIncompletedAndCompleted.length) {
             this.employeeCompleted.push(id);
             this.employeeIncompletedAndCompleted.push(id);
+            this.employeeIncompletedAndCompleted = this.employeeIncompletedAndCompleted
+              .filter((item, pos) => this.employeeIncompletedAndCompleted.indexOf(item) === pos);
           }
           if (remind && checkIncomplete && lastReminder) {
             return 'Complete';
@@ -361,6 +367,8 @@ export default {
           if (this.tableList.length !== this.employeeIncompleted.length - 1) {
             this.employeeIncompleted.push(id);
             this.employeeIncompletedAndCompleted.push(id);
+            this.employeeIncompletedAndCompleted = this.employeeIncompletedAndCompleted
+              .filter((item, pos) => this.employeeIncompletedAndCompleted.indexOf(item) === pos);
           }
 
           return 'Incomplete';
@@ -370,6 +378,8 @@ export default {
             if (this.tableList.length !== this.employeeIncompleted.length - 1) {
               this.employeeIncompleted.push(id);
               this.employeeIncompletedAndCompleted.push(id);
+              this.employeeIncompletedAndCompleted = this.employeeIncompletedAndCompleted
+                .filter((item, pos) => this.employeeIncompletedAndCompleted.indexOf(item) === pos);
             }
 
             return 'Incomplete';
@@ -379,6 +389,8 @@ export default {
             if (this.tableList.length !== this.employeeIncompleted.length - 1) {
               this.employeeIncompleted.push(id);
               this.employeeIncompletedAndCompleted.push(id);
+              this.employeeIncompletedAndCompleted = this.employeeIncompletedAndCompleted
+                .filter((item, pos) => this.employeeIncompletedAndCompleted.indexOf(item) === pos);
             }
 
             return 'Incomplete';
@@ -389,6 +401,8 @@ export default {
             if (this.tableList.length !== this.employeeIncompleted.length - 1) {
               this.employeeIncompleted.push(id);
               this.employeeIncompletedAndCompleted.push(id);
+              this.employeeIncompletedAndCompleted = this.employeeIncompletedAndCompleted
+                .filter((item, pos) => this.employeeIncompletedAndCompleted.indexOf(item) === pos);
             }
 
             return 'Incomplete';
@@ -477,7 +491,7 @@ export default {
           });
         }
       } else if (this.currentButtonSend === null
-        && (this.retry || this.department.countRetry === 2)) {
+        && (this.retry || this.department.countRetry === 2) && this.allPeopleGetAllReminders) {
         if (this.department) {
           const competedFilter = this.employeeCompleted.filter(this.onlyUnique);
           const inCompetedFilter = this.employeeIncompleted.filter(this.onlyUnique);

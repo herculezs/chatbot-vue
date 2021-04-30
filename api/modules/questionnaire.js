@@ -74,4 +74,16 @@ export default {
       });
     });
   },
+  getListInvitation() {
+    return new Promise((resolve, reject) => {
+      http.post(`/questionnaire/get-list-invitation/${process.env.QUESTIONNAIRE_ID}`).then(
+        (res) => {
+          resolve(res.data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
 };
