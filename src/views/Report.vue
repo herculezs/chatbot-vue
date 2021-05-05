@@ -89,13 +89,16 @@
           <Radar :data="radarData" />
         </div>
       </div>
-      <InvitationTableEmployees v-if="getProfile.registeredFromCSV"></InvitationTableEmployees>
+      <InvitationTableEmployees
+        v-if="getProfile.registeredFromCSV"
+        v-on:show-button="showButtonAskContactsForInvitation1">
+      </InvitationTableEmployees>
       <b-modal
         modal-class="modal-sticky-bottom ask-contacts"
         class="ask-contacts"
         id="modal-multi-1"
         hide-footer
-        v-else
+        v-else-if="!getProfile.registeredFromCSV"
       >
         <template v-slot:modal-title>
           {{configEnv.report.textForReport.title}}
@@ -145,13 +148,23 @@
         <div class="buttons-report">
           <div class="block">
             <button
+              v-if="(getProfile.registeredFromCSV && showButtonAskContactsForInvitation) ||
+               !getProfile.registeredFromCSV"
               v-b-modal.modal-multi-1
               class="button button_theme-default button_size-m button-left">
               Ask Contacts
             </button>
             <button
+              v-if="(getProfile.registeredFromCSV && showButtonAskContactsForInvitation) ||
+               !getProfile.registeredFromCSV"
               @click="redirectToQuestionnaireManagement"
               class="button button_theme-default button_size-m button-right">
+              See Surveys
+            </button>
+            <button
+              v-else
+              @click="redirectToQuestionnaireManagement"
+              class="button button_w-100 button_theme-default button_size-m">
               See Surveys
             </button>
           </div>
@@ -211,6 +224,7 @@ export default {
         name: 'Contacts',
       },
     ],
+    showButtonAskContactsForInvitation: false,
     respondentsCount: 0,
     shareLink: null,
     tag: null,
@@ -243,10 +257,14 @@ export default {
     },
   },
   created() {
-    console.log(this.getProfile.registeredFromCSV);
     this.fetchPersonalityTypeReport();
   },
   methods: {
+    showButtonAskContactsForInvitation1() {
+      this.showButtonAskContactsForInvitation = true;
+      console.log(this.showButtonAskContactsForInvitation);
+      this.$forceUpdate();
+    },
     redirectToQuestionnaireManagement() {
       this.$router.push('questionnaire-management');
     },

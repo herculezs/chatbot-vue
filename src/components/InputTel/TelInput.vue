@@ -53,7 +53,7 @@ export default {
   },
   computed: {
     getClassByLengthCountryCode() {
-      if (this.diaCode && this.diaCode !== '' && this.diaCode != null) {
+      if (this.diaCode != null && this.diaCode && this.diaCode !== '') {
         return `code-length-${this.diaCode.length}`;
       }
       return 'code-length-3';

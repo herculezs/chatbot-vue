@@ -28,7 +28,7 @@
             <InformationForm
               icon="user-alt"
               size="1x"
-              :tooltip="'Your first name'">
+              :tooltip="'Your first name,<br/> so we don\'t call you \'it'">
             </InformationForm>
           </div>
           <template v-if="$v.formData.firstName.$error">
@@ -53,7 +53,7 @@
             <InformationForm
               icon="user-alt"
               size="1x"
-              :tooltip="'Your last name'">
+              :tooltip="'Your Last name,<br/> just in case you are not unique!'">
             </InformationForm>
           </div>
           <template v-if="$v.formData.surname.$error">

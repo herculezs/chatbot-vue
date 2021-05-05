@@ -10,7 +10,7 @@
             {{ currentStep }} / {{ allStepCount }}
           </div>
         </div>
-        <div class="text questions__text" v-if="getDataByStep">
+        <div class="text questions__text" v-if="getDataByStep" v-html="getDataByStep.text">
           {{ getDataByStep.text }}
         </div>
         <!-- TODO REMOVE INDEX WHEN {BE} ADDED ID TO ANSWER -->
@@ -106,7 +106,9 @@ export default {
       if (this.currentStep === 1) {
         this.startColleaguesTest();
       }
-
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      this.questions[this.currentStep - 1].text = this.questions[this.currentStep - 1].text
+        .replace(/{{/, '<span class="highlighting-name">').replace(/}}/, '</span>');
       return this.questions[this.currentStep - 1];
     },
     isPersonalityTest() {
@@ -299,5 +301,10 @@ export default {
         margin-bottom: 0;
       }
     }
+  }
+  .highlighting-name {
+    text-transform: uppercase;
+    color: red;
+    font-weight: bold;
   }
 </style>

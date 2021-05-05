@@ -6,12 +6,16 @@
       id="modal-multi-1"
       hide-footer
     >
+      <div slot="modal-title">
+        <span class="title-modal-invitation-table">Select colleague to survey ...</span>
+      </div>
       <v-data-table
         class="table-invite"
         item-key="id"
         :headers="headers"
         :items="employeeList"
         :page.sync="page"
+        :items-per-page="20"
         hide-default-footer
         @page-count="returnTotalPages()"
         @click:row="handleClick"
@@ -37,28 +41,9 @@ export default {
   data() {
     return {
       loadingTable: false,
-      totalPages: 100,
+      totalPages: 0,
       page: 1,
-      employeeList: [
-        {
-          name: '1111111111', surName: 'ALst', email: 'fsfes@gmteast', phone: '+380954168132', department: 'IW', manager: 'TEMP', link: 'https://google.com',
-        },
-        {
-          name: '1111111111', surName: 'ALst', email: 'fsfes@gmteast', phone: '+380954168132', department: 'IW', manager: 'TEMP', link: 'https://google.com',
-        },
-        {
-          name: '1111111111', surName: 'ALst', email: 'fsfes@gmteast', phone: '+380954168132', department: 'IW', manager: 'TEMP', link: 'https://google.com',
-        },
-        {
-          name: '1111111111', surName: 'ALst', email: 'fsfes@gmteast', phone: '+380954168132', department: 'IW', manager: 'TEMP', link: 'https://google.com',
-        },
-        {
-          name: '1111111111', surName: 'ALst', email: 'fsfes@gmteast', phone: '+380954168132', department: 'IW', manager: 'TEMP', link: 'https://google.com',
-        },
-        {
-          name: '1111111111', surName: 'ALst', email: 'fsfes@gmteast', phone: '+380954168132', department: 'IW', manager: 'TEMP', link: 'https://google.com',
-        },
-      ],
+      employeeList: [],
       headers: [
         {
           text: 'NAME', value: 'name', align: 'center', sortable: false,
@@ -97,19 +82,24 @@ export default {
       window.location.href = row.link;
     },
     getListInvitation() {
-      // this.$api.questionnaire.getListInvitation().then((res) => {
-      //   // res.content.forEach((x) => {
-      //   //   this.employeeList.push({
-      //   //     name: x.name,
-      //   //     surName: x.surName,
-      //   //     phone: x.phone,
-      //   //     manager: x.manager,
-      //   //     email: x.corporateEmail,
-      //   //     corporateEmail: x.corporateEmail,
-      //   //     department: x.department,
-      //   //   });
-      //   // });
-      // });
+      this.$api.questionnaire.getListInvitation().then((res) => {
+        this.employeeList = [];
+        this.page = res.number + 1;
+        this.totalPages = res.totalPages;
+        res.content.forEach((x) => {
+          this.employeeList.push({
+            name: x.name,
+            surName: x.surName,
+            phone: x.phone,
+            manager: x.manager,
+            email: x.corporateEmail,
+            corporateEmail: x.corporateEmail,
+            department: x.department,
+            link: `${window.location.protocol}//${window.location.host}${x.link}`,
+          });
+          this.$emit('show-button');
+        });
+      });
     },
   },
 };
@@ -123,5 +113,12 @@ export default {
 
   .pagination-invite .theme--light.v-pagination .v-pagination__item--active{
     background-color: $btnColor1;
+  }
+
+  .title-modal-invitation-table {
+    font-size: 21px;
+    display: inline-block;
+    padding-bottom: 10px;
+    font-family: Montserrat,serif;
   }
 </style>

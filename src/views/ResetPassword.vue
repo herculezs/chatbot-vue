@@ -7,6 +7,8 @@
           v-model="formData.phone"
           :diaCode="diaCode"
           :validPhone="$v.formData.phone"
+          :placeHolder="configEnv.onboarding.placeholderPhone"
+          :defaultCountry="configEnv.onboarding.defaultStatePhone"
           @onDiaCode="countryChanged"
         />
 
@@ -27,6 +29,7 @@
 import { validationMixin } from 'vuelidate';
 import Content from '@components/Content/Content.vue';
 import TelInput from '@components/InputTel/TelInput.vue';
+import configEnv from '@configEnv';
 
 const { required } = require('vuelidate/lib/validators');
 
@@ -44,6 +47,7 @@ export default {
     },
   },
   data: () => ({
+    configEnv,
     formData: {
       phone: null,
     },
