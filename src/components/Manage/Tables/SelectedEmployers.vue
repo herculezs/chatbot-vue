@@ -38,11 +38,13 @@
                   <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
                     {{ checkComplete(user.completeU1, user.countCompleteU2,
                     user.reminderSentOne, user.invitationSend, user.reminderSentTwo, false,
-                    user.id)}}</td>
+                    user.id)}}
+                  </td>
                   <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
                     {{ checkComplete(user.completeU1, user.countCompleteU2,
                     user.reminderSentTwo, user.reminderSentOne, user.reminderSentTwo, true,
-                    user.id)}}</td>
+                    user.id)}}
+                  </td>
                 </tr>
                 <tr
                         v-for="(user, index) in tempUser"
@@ -236,6 +238,12 @@ export default {
       }
     }
   },
+  updated() {
+    if (this.tableList.length !== 0) {
+      this.allPeopleGetAllReminders = this.tableList.every(x => x.reminderSentTwo
+      || this.employeeCompleted.find(y => y === x.id));
+    }
+  },
   watch: {
     tableList() {
       this.showButton = this.tableList.length > 0;
@@ -243,8 +251,6 @@ export default {
       this.employeeCompleted = [];
       this.employeeIncompleted = [];
       this.employeeIncompletedAndCompleted = [];
-      this.allPeopleGetAllReminders = this.tableList.every(x => x.reminderSentTwo);
-      console.log(this.allPeopleGetAllReminders);
       if (this.tableList.length <= 9) {
         this.tempUser = [];
         // eslint-disable-next-line no-plusplus
@@ -335,7 +341,7 @@ export default {
       if (completeU1 && countCompleteU2 > 3 && countCompleteU2 <= this.tableList.length - 1) {
         return 'complete-people-u1 complete-people-u2-less-total';
       }
-      if (completeU1 && countCompleteU2 <= 4) {
+      if (completeU1 && countCompleteU2 > 0 && countCompleteU2 <= 4) {
         return 'complete-people-u1 complete-people-u2-less4';
       }
       if (completeU1 && countCompleteU2 === 0) {
@@ -348,7 +354,7 @@ export default {
       lastReminder, id) {
       if (checkBeforeData) {
         if (completeU1 && countCompleteU2 === this.tableList.length - 1) {
-          if (this.tableList.length !== this.employeeIncompletedAndCompleted.length) {
+          if (this.tableList.length !== this.employeeCompleted.length) {
             this.employeeCompleted.push(id);
             this.employeeIncompletedAndCompleted.push(id);
             this.employeeIncompletedAndCompleted = this.employeeIncompletedAndCompleted

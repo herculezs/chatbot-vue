@@ -58,7 +58,26 @@ export default {
       return `code-length-${this.diaCode.length}`;
     },
   },
+  watch: {
+    formData: {
+      // eslint-disable-next-line no-unused-vars
+      handler() {
+        if (this.formData.phone.length > 5) {
+          this.updatePhoneData();
+        }
+      },
+      deep: true,
+    },
+  },
   methods: {
+    updatePhoneData() {
+      clearTimeout(this.updatedTimeOut);
+      this.updatedTimeOut = setTimeout(() => {
+        if (this.formData.phone && this.diaCode) {
+          this.formData.phone = this.formData.phone.replace(`+${this.diaCode}`, '');
+        }
+      }, 50);
+    },
     prepareDataForRequest() {
       const phone = `+${this.diaCode}${this.formData.phone}`
         .replace(/\s/g, '');

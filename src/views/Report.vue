@@ -262,7 +262,6 @@ export default {
   methods: {
     showButtonAskContactsForInvitation1() {
       this.showButtonAskContactsForInvitation = true;
-      console.log(this.showButtonAskContactsForInvitation);
       this.$forceUpdate();
     },
     redirectToQuestionnaireManagement() {
@@ -357,7 +356,6 @@ export default {
 
           this.setYouAnswerCard(this.SelfCoordinate[2]);
           this.shareLink = `${window.location.protocol}//${window.location.host}${res.invitationLink}`;
-          console.log('11', this.shareLink);
           const [youAreX, youAreY] = this.SelfCoordinate;
 
           const mostLikelyCharacters = {
