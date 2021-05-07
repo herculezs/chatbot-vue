@@ -64,22 +64,20 @@
         </ejs-tooltip>
       <div class="footer-selected-employee" v-if="showButton">
         <v-spacer></v-spacer>
-        {{currentButtonSend === null && (retry && department.countRetry === 2)}}
         <v-btn v-if="currentButtonSend === true" @click.prevent="buttonPause"
                dark
                class="buttons-selected-employers">
           PAUSE/STOP</v-btn>
-        <v-btn v-else-if="currentButtonSend === null && (retry && department.countRetry === 2)"
-               :disabled="disableButtonSend || disableButtonAndLoadTable"
-               @click.prevent="openModalAutoRemind"
-               class="buttons-selected-employers">
-          Send</v-btn>
-        <v-btn v-else-if="currentButtonSend === null
-         && (retry || department.countRetry === 2) && allPeopleGetAllReminders"
+        <v-btn v-else-if="checkRetryAutoRemind"
                @click.prevent="openModalAutoRemind"
                :disabled="disableButtonAndLoadTable"
                class="buttons-selected-employers">
           MORE <br/>REMINDERS</v-btn>
+        <v-btn v-else-if="checkSendAutoRemind"
+               :disabled="disableButtonSend || disableButtonAndLoadTable"
+               @click.prevent="openModalAutoRemind"
+               class="buttons-selected-employers">
+          Send</v-btn>
         <v-btn v-else-if="currentButtonSend === null"
                :disabled="disableButtonSend || disableButtonAndLoadTable"
                @click.prevent="openModalAutoRemind"
@@ -228,6 +226,18 @@ export default {
       ],
     };
   },
+  computed: {
+    checkRetryAutoRemind() {
+      return (this.currentButtonSend === null
+        && (this.department.countRetry === 2 && this.checkSecondStage))
+        || (this.department.countRetry === 1 && this.allPeopleGetAllReminders
+          && this.tableList.length >= 5);
+    },
+    checkSendAutoRemind() {
+      return this.currentButtonSend === null
+        && (this.department.countRetry === 2 && this.allPeopleGetAllReminders);
+    },
+  },
   mounted() {
     this.showButton = this.tableList.length > 0;
     if (this.tableList.length === 0) {
@@ -243,7 +253,8 @@ export default {
     if (this.tableList.length !== 0) {
       this.allPeopleGetAllReminders = this.tableList.every(x => x.reminderSentTwo
       || this.employeeCompleted.find(y => y === x.id));
-      this.checkSecondStage = this.tableList.every(x => x.reminderSentOne);
+      this.checkSecondStage = this.tableList.every(x => (x.reminderSentOne && !x.reminderSentTwo)
+        || this.employeeCompleted.find(y => y === x.id));
     }
   },
   watch: {
@@ -468,10 +479,12 @@ export default {
       this.showModalAutoRemind = false;
     },
     confirmAutoRemind() {
-      if (this.currentButtonSend === null && (this.retry && this.department.countRetry === 2)) {
+      if (this.checkRetryAutoRemind) {
         if (this.department) {
+          const competedFilter = this.employeeCompleted.filter(this.onlyUnique);
           this.disableButtonAndLoadTable = true;
-          this.$api.manage.saveAutoReminders(this.department.id, this.numberValue).then(() => {
+          this.$api.manage.retryAutoReminders(this.department.id, this.numberValue,
+            competedFilter).then(() => {
             this.currentButtonSend = true;
             this.disableClearAll = true;
             this.getDepartments();
@@ -482,13 +495,10 @@ export default {
             this.disableButtonAndLoadTable = false;
           });
         }
-      } else if (this.currentButtonSend === null
-        && (this.retry || this.department.countRetry === 2) && this.allPeopleGetAllReminders) {
+      } else if (this.checkSendAutoRemind) {
         if (this.department) {
-          const competedFilter = this.employeeCompleted.filter(this.onlyUnique);
           this.disableButtonAndLoadTable = true;
-          this.$api.manage.retryAutoReminders(this.department.id, this.numberValue,
-            competedFilter).then(() => {
+          this.$api.manage.saveAutoReminders(this.department.id, this.numberValue).then(() => {
             this.currentButtonSend = true;
             this.disableClearAll = true;
             this.getDepartments();
