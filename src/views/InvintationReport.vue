@@ -1,5 +1,5 @@
 <template>
-  <div class="report">
+  <div class="invitation-report">
     <Content>
       <div class="block">
         <h1 class="h4 mb-1">Report</h1>
@@ -188,7 +188,7 @@ export default {
       return this.data;
     },
     getChartBarData() {
-      if (this.getPersonalityTest.othersAmount >= 3) {
+      if (this.getPersonalityTest.othersAmount >= 4) {
         this.barChart = [
           {
             value: this.getPersonalityTest.result.split(/(?=[-+])/),
@@ -433,10 +433,10 @@ export default {
     font-size: 12px;
   }
 
-  .name-label-chart-left {
+  .invitation-report .name-label-chart-left {
     left: 10px;
   }
-  .name-label-chart-right {
+  .invitation-report .name-label-chart-right {
     right: 10px;
   }
   .button-left {

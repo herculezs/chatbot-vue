@@ -64,6 +64,7 @@
         </ejs-tooltip>
       <div class="footer-selected-employee" v-if="showButton">
         <v-spacer></v-spacer>
+        {{currentButtonSend === null && (retry && department.countRetry === 2)}}
         <v-btn v-if="currentButtonSend === true" @click.prevent="buttonPause"
                dark
                class="buttons-selected-employers">
@@ -73,8 +74,8 @@
                @click.prevent="openModalAutoRemind"
                class="buttons-selected-employers">
           Send</v-btn>
-        <v-btn v-else-if="currentButtonSend === null && (retry || department.countRetry === 2)
-         && allPeopleGetAllReminders"
+        <v-btn v-else-if="currentButtonSend === null
+         && (retry || department.countRetry === 2) && allPeopleGetAllReminders"
                @click.prevent="openModalAutoRemind"
                :disabled="disableButtonAndLoadTable"
                class="buttons-selected-employers">
@@ -187,8 +188,8 @@ export default {
       allPeopleGetAllReminders: false,
       retry: false,
       numberValue: 1,
+      checkSecondStage: false,
       employeeCompleted: [],
-      employeeIncompleted: [],
       employeeIncompletedAndCompleted: [],
       tableList: [],
       tempUser: [],
@@ -242,6 +243,7 @@ export default {
     if (this.tableList.length !== 0) {
       this.allPeopleGetAllReminders = this.tableList.every(x => x.reminderSentTwo
       || this.employeeCompleted.find(y => y === x.id));
+      this.checkSecondStage = this.tableList.every(x => x.reminderSentOne);
     }
   },
   watch: {
@@ -249,7 +251,6 @@ export default {
       this.showButton = this.tableList.length > 0;
       this.disableButtonSend = !(this.tableList.length >= 5);
       this.employeeCompleted = [];
-      this.employeeIncompleted = [];
       this.employeeIncompletedAndCompleted = [];
       if (this.tableList.length <= 9) {
         this.tempUser = [];
@@ -350,70 +351,55 @@ export default {
 
       return '';
     },
+    addedAndFilterCompletedUsers(id) {
+      this.employeeCompleted.push(id);
+      this.employeeIncompletedAndCompleted.push(id);
+      this.employeeIncompletedAndCompleted = this.employeeIncompletedAndCompleted
+        .filter((item, pos) => this.employeeIncompletedAndCompleted.indexOf(item) === pos);
+    },
+    addedAndFilterIncompletedUsers(id) {
+      this.employeeIncompletedAndCompleted.push(id);
+      this.employeeIncompletedAndCompleted = this.employeeIncompletedAndCompleted
+        .filter((item, pos) => this.employeeIncompletedAndCompleted.indexOf(item) === pos);
+    },
     checkComplete(completeU1, countCompleteU2, remind, checkBeforeData, checkIncomplete,
       lastReminder, id) {
-      if (checkBeforeData) {
-        if (completeU1 && countCompleteU2 === this.tableList.length - 1) {
-          if (this.tableList.length !== this.employeeCompleted.length) {
-            this.employeeCompleted.push(id);
-            this.employeeIncompletedAndCompleted.push(id);
-            this.employeeIncompletedAndCompleted = this.employeeIncompletedAndCompleted
-              .filter((item, pos) => this.employeeIncompletedAndCompleted.indexOf(item) === pos);
-          }
-          if (remind && checkIncomplete && lastReminder) {
-            return 'Complete';
-          }
-          if (!checkIncomplete && !lastReminder) {
-            return 'Complete';
-          }
-          return remind;
+      if (completeU1 && countCompleteU2 === this.tableList.length - 1) {
+        if (this.tableList.length > this.employeeIncompletedAndCompleted.length) {
+          this.addedAndFilterCompletedUsers(id);
+        }
+        if (checkIncomplete === null) {
+          return 'Complete';
+        }
+        if (remind && checkIncomplete && lastReminder) {
+          return 'Complete';
         }
 
-        if (!completeU1 && lastReminder && checkIncomplete) {
-          if (this.tableList.length !== this.employeeIncompleted.length - 1) {
-            this.employeeIncompleted.push(id);
-            this.employeeIncompletedAndCompleted.push(id);
-            this.employeeIncompletedAndCompleted = this.employeeIncompletedAndCompleted
-              .filter((item, pos) => this.employeeIncompletedAndCompleted.indexOf(item) === pos);
-          }
+        if (!checkIncomplete) {
+          return 'Complete';
+        }
 
+        return remind;
+      }
+      if (checkBeforeData) {
+        if (!completeU1 && lastReminder && checkIncomplete) {
+          if (this.tableList.length > this.employeeIncompletedAndCompleted.length) {
+            this.addedAndFilterIncompletedUsers(id);
+          }
           return 'Incomplete';
         }
-        if (completeU1 && countCompleteU2 === 0) {
+        if ((completeU1 && countCompleteU2 === 0) || (completeU1 && countCompleteU2 <= 4)
+        || (completeU1 && countCompleteU2 > 3 && countCompleteU2 <= this.tableList.length)) {
           if (checkIncomplete && lastReminder) {
-            if (this.tableList.length !== this.employeeIncompleted.length - 1) {
-              this.employeeIncompleted.push(id);
-              this.employeeIncompletedAndCompleted.push(id);
-              this.employeeIncompletedAndCompleted = this.employeeIncompletedAndCompleted
-                .filter((item, pos) => this.employeeIncompletedAndCompleted.indexOf(item) === pos);
+            if (this.tableList.length > this.employeeIncompletedAndCompleted.length) {
+              this.addedAndFilterIncompletedUsers(id);
             }
-
-            return 'Incomplete';
-          }
-        } if (completeU1 && countCompleteU2 <= 4) {
-          if (checkIncomplete && lastReminder) {
-            if (this.tableList.length !== this.employeeIncompleted.length - 1) {
-              this.employeeIncompleted.push(id);
-              this.employeeIncompletedAndCompleted.push(id);
-              this.employeeIncompletedAndCompleted = this.employeeIncompletedAndCompleted
-                .filter((item, pos) => this.employeeIncompletedAndCompleted.indexOf(item) === pos);
-            }
-
-            return 'Incomplete';
-          }
-        } if (completeU1 && countCompleteU2 > 3
-        && countCompleteU2 <= this.tableList.length) {
-          if (checkIncomplete && lastReminder) {
-            if (this.tableList.length !== this.employeeIncompleted.length - 1) {
-              this.employeeIncompleted.push(id);
-              this.employeeIncompletedAndCompleted.push(id);
-              this.employeeIncompletedAndCompleted = this.employeeIncompletedAndCompleted
-                .filter((item, pos) => this.employeeIncompletedAndCompleted.indexOf(item) === pos);
-            }
-
             return 'Incomplete';
           }
         }
+      }
+      if (this.tableList.length > this.employeeIncompletedAndCompleted.length) {
+        this.addedAndFilterIncompletedUsers(id);
       }
       return remind;
     },
@@ -500,10 +486,9 @@ export default {
         && (this.retry || this.department.countRetry === 2) && this.allPeopleGetAllReminders) {
         if (this.department) {
           const competedFilter = this.employeeCompleted.filter(this.onlyUnique);
-          const inCompetedFilter = this.employeeIncompleted.filter(this.onlyUnique);
           this.disableButtonAndLoadTable = true;
           this.$api.manage.retryAutoReminders(this.department.id, this.numberValue,
-            competedFilter, inCompetedFilter).then(() => {
+            competedFilter).then(() => {
             this.currentButtonSend = true;
             this.disableClearAll = true;
             this.getDepartments();

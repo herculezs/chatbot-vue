@@ -125,10 +125,10 @@ export default {
         });
     });
   },
-  retryAutoReminders(department, everyDays, completedEmployee, incompletedEmployee) {
+  retryAutoReminders(department, everyDays, completedEmployee) {
     return new Promise((resolve, reject) => {
       http.post(`manage/retry-auto-reminders/${process.env.QUESTIONNAIRE_ID}?departmentId=${department}&everyDays=${everyDays}`,
-        { completedEmployee, incompletedEmployee })
+        { completedEmployee })
         .then(
           ({ data }) => {
             resolve(data);
