@@ -231,7 +231,7 @@ export default {
               userId: x.id,
               employee: x.employee,
               department: x.department,
-              countOther: x.reviewerRanking,
+              countOther: x.numberConnection,
               manager: x.manager,
               scoreOverall: `${x.scoreOverall.generalPercent}%`,
               scoreOverallChart: x.scoreOverall,

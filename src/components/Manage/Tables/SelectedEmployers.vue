@@ -121,7 +121,38 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-
+        <v-app class="modal-error">
+          <v-dialog
+            v-model="errorTheSameEmployeeModal"
+            width="500"
+          >
+            <v-card>
+              <v-card-title class="headline red lighten-2">
+                Error
+              </v-card-title>
+              <v-card-text>
+                <br/>
+                <h4>
+                  This group is has the same employees
+                  as {{errorTheSameEmployee.duplicateGroupName}}.
+                  Please amend the employees or refer
+                  to the results for {{errorTheSameEmployee.originalGroupName}}
+                </h4>
+              </v-card-text>
+              <v-divider></v-divider>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="primary"
+                  text
+                  @click="errorTheSameEmployeeModal = false"
+                >
+                  Okay
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-app>
         <v-dialog v-model="showModalAutoRemind" max-width="500px">
           <v-card>
             <v-card-title class="headline">
@@ -185,6 +216,7 @@ export default {
       disableClearAll: false,
       allPeopleGetAllReminders: false,
       retry: false,
+      errorTheSameEmployeeModal: false,
       numberValue: 1,
       checkSecondStage: false,
       employeeCompleted: [],
@@ -192,6 +224,7 @@ export default {
       tableList: [],
       tempUser: [],
       disableButtonAndLoadTable: false,
+      errorTheSameEmployee: {},
       headers: [
         {
           text: 'NAME', value: 'name', align: 'center', sortable: false,
@@ -498,7 +531,12 @@ export default {
       } else if (this.checkSendAutoRemind) {
         if (this.department) {
           this.disableButtonAndLoadTable = true;
-          this.$api.manage.saveAutoReminders(this.department.id, this.numberValue).then(() => {
+          this.$api.manage.saveAutoReminders(this.department.id, this.numberValue).then((data) => {
+            this.errorTheSameEmployee = {
+              duplicateGroupName: data.duplicateGroupName,
+              originalGroupName: data.originalGroupName,
+            };
+            this.errorTheSameEmployeeModal = data.findSimilar;
             this.currentButtonSend = true;
             this.disableClearAll = true;
             this.getDepartments();
@@ -512,7 +550,12 @@ export default {
       } else if (this.currentButtonSend === null) {
         if (this.department) {
           this.disableButtonAndLoadTable = true;
-          this.$api.manage.saveAutoReminders(this.department.id, this.numberValue).then(() => {
+          this.$api.manage.saveAutoReminders(this.department.id, this.numberValue).then((data) => {
+            this.errorTheSameEmployee = {
+              duplicateGroupName: data.duplicateGroupName,
+              originalGroupName: data.originalGroupName,
+            };
+            this.errorTheSameEmployeeModal = data.findSimilar;
             this.currentButtonSend = true;
             this.disableClearAll = true;
             this.getDepartments();
