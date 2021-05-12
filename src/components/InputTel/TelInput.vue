@@ -5,6 +5,7 @@
   >
     <vue-tel-input
       class="form__input-tel"
+      id="telephone_number"
       :class="getClassByLengthCountryCode"
       :defaultCountry="this.defaultCountry"
       :placeholder="this.placeHolder"

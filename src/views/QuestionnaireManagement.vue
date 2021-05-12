@@ -5,6 +5,7 @@
       <div v-if="!selfResult && fetchRes">
         <button class="button-management button_w-100 button_theme-default button_size-m"
                 @click="redirectToQuestions"
+                id="survey"
         >
           Take Your Own Survey
         </button>

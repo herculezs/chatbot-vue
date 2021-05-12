@@ -22,6 +22,7 @@
           >
             <div
               class="questions-item__content"
+              :id="idForButton[index]"
               @click.prevent="selectAndNextStep(index+1)"
             >
               {{ item.text }}
@@ -87,6 +88,14 @@ export default {
     allStepCount: 1,
     selectedAnswer: null,
     formData: {},
+    idForButton: {
+      0: 'agree_strongly',
+      1: 'agree_moderately',
+      2: 'agree_little',
+      3: 'disagree_little',
+      4: 'disagree_moderately',
+      5: 'disagree_strongly',
+    },
     show: {
       questions: true,
       attentions: false,

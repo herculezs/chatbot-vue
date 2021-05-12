@@ -18,6 +18,7 @@
         >
           <input
             class="form__input"
+            id="login_password"
             placeholder="Password"
             type="password"
             v-model="formData.password"

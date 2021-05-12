@@ -21,6 +21,7 @@
             :class="{'form-group-error': $v.formData.firstName.$error}"
           >
             <input
+              id="first_name"
               class="form__input"
               placeholder="First name"
               v-model="formData.firstName"
@@ -46,6 +47,7 @@
             :class="{'form-group-error': $v.formData.surname.$error}"
           >
             <input
+              id="second_name"
               class="form__input"
               placeholder="Last Name"
               v-model="formData.surname"
@@ -71,6 +73,7 @@
             :class="{'form-group-error': $v.formData.youEmail.$error}"
           >
             <input
+              id="registration_email"
               class="form__input form__input_for_icon"
               :placeholder="configEnv.onboarding.emailPlaceHolder"
               v-model="formData.youEmail"
@@ -196,6 +199,7 @@
       <span class="registration-text">We will send your mobile phone a verification code</span>
     </div>
       <button
+        id="registration_send_code"
         class="button button_w-100 button_theme-default
         button_size-m slide-details__button"
         @click.prevent="start"

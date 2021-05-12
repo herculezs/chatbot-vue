@@ -2,18 +2,18 @@
   <div class="header">
     <!-- eslint-disable -->
     <router-link to="/">
-      <img src="../../assets/logo.png" alt="logo" height="70"/>
+      <img src="../../assets/logo.png" alt="logo" height="70" id="redirect_home"/>
     </router-link>
     <div v-if="headerRegistration()">
-      <span class="header__link" @click.prevent="redirectToRegistration"  v-if="!getProfile.token">
+      <span class="header__link" @click.prevent="redirectToRegistration" id="coop_registration"  v-if="!getProfile.token">
         Registration
       </span>
     </div>
     <div v-else>
-      <span class="header__link" @click.prevent="redirectToLogIn" v-if="!getProfile.token">
+      <span class="header__link" id="sing_in" @click.prevent="redirectToLogIn" v-if="!getProfile.token">
         Sign in
       </span>
-      <div class="header__link" v-else @click.prevent="logOut"> Log out</div>
+      <div class="header__link" v-else @click.prevent="logOut" id="log_out"> Log out</div>
     </div>
   </div>
 </template>
