@@ -38,12 +38,12 @@
                   <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
                     {{ checkComplete(user.completeU1, user.countCompleteU2,
                     user.reminderSentOne, user.invitationSend, user.reminderSentTwo, false,
-                    user.id)}}
+                    user.id, user.invitationSend)}}
                   </td>
                   <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
                     {{ checkComplete(user.completeU1, user.countCompleteU2,
                     user.reminderSentTwo, user.reminderSentOne, user.reminderSentTwo, true,
-                    user.id)}}
+                    user.id, user.invitationSend)}}
                   </td>
                 </tr>
                 <tr
@@ -407,23 +407,25 @@ export default {
         .filter((item, pos) => this.employeeIncompletedAndCompleted.indexOf(item) === pos);
     },
     checkComplete(completeU1, countCompleteU2, remind, checkBeforeData, checkIncomplete,
-      lastReminder, id) {
-      if (completeU1 && countCompleteU2 === this.tableList.length - 1) {
-        if (this.tableList.length > this.employeeIncompletedAndCompleted.length) {
-          this.addedAndFilterCompletedUsers(id);
-        }
-        if (checkIncomplete === null) {
-          return 'Complete';
-        }
-        if (remind && checkIncomplete && lastReminder) {
-          return 'Complete';
-        }
+      lastReminder, id, checkInvitation) {
+      if (checkInvitation) {
+        if (completeU1 && countCompleteU2 === this.tableList.length - 1) {
+          if (this.tableList.length > this.employeeIncompletedAndCompleted.length) {
+            this.addedAndFilterCompletedUsers(id);
+          }
+          if (checkIncomplete === null) {
+            return 'Complete';
+          }
+          if (remind && checkIncomplete && lastReminder) {
+            return 'Complete';
+          }
 
-        if (!checkIncomplete) {
-          return 'Complete';
-        }
+          if (!checkIncomplete) {
+            return 'Complete';
+          }
 
-        return remind;
+          return remind;
+        }
       }
       if (checkBeforeData) {
         if (!completeU1 && lastReminder && checkIncomplete) {
