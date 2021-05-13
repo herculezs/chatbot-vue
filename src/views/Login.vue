@@ -39,6 +39,7 @@
           <button
             class="form button button_w-100 button_theme-default button_size-m"
             @click.prevent="login"
+            id="log_in"
           >
             Log in
           </button>
