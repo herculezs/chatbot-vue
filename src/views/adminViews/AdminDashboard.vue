@@ -21,6 +21,16 @@
             :custom-sort="customSort"
             :expanded.sync="expanded"
             @page-count="calculateCountPage()">
+            <template v-slot:item.selectGroup="{ item, index }">
+              <v-select
+                v-model="selectedGroup[index]"
+                :items="item.itemsSelectGroups"
+                item-text="groupName"
+                item-value="id"
+                class="select-group"
+                @change="groupId => changeGroup(groupId, item.userId)"
+              ></v-select>
+            </template>
             <template v-slot:expanded-item="{ headers, item }">
               <td :colspan="headers.length">
                 <div class="row">
@@ -111,6 +121,7 @@ export default {
     departmentSummary: [],
     departmentSummaryOtherResult: [],
     expanded: [],
+    selectedGroup: [],
     headers: [
       { text: '', value: 'expand', align: 'end' },
       { text: 'Employee', value: 'employee', align: 'center' },
@@ -134,6 +145,12 @@ export default {
       {
         text: 'Type',
         value: 'type',
+        align: 'center',
+        sortable: false,
+      },
+      {
+        text: 'Select Group',
+        value: 'selectGroup',
         align: 'center',
         sortable: false,
       },
@@ -178,55 +195,12 @@ export default {
           this.dashboardData = [];
           this.loadingTable = true;
           response.forEach((x) => {
-            this.chartCompare = [];
-            this.selfCoordinate = [];
-            this.otherCoordinate = [];
-            this.departmentSummary = [];
-            this.departmentSummaryOtherResult = [];
-            this.countOther = null;
-            this.radarData = [
-              {
-                value: [],
-                type: 'bar',
-                areaStyle: {
-                  color: '#7811c9',
-                  colorHover: '#a111ff',
-                },
-                name: 'Me',
-              },
-              {
-                value: [],
-                type: 'bar',
-                areaStyle: {
-                  color: '#ff5151',
-                  colorHover: 'rgba(255,81,81,0.73)',
-                },
-                name: 'Contacts',
-              },
-            ];
-
-            let type = '';
-            let otherType = '';
-            if (x.result) {
-              // eslint-disable-next-line prefer-destructuring
-              type = helpFunction.Coordinates(x.result)[2];
-              this.setRadar(x.result.split(/(?=[-+])/), 'Me');
-              this.selfCoordinate = helpFunction.Coordinates(x.result);
-            }
-
-            if (x.otherResult) {
-              // eslint-disable-next-line prefer-destructuring
-              otherType = helpFunction.Coordinates(x.otherResult)[2];
-              this.setRadar(x.otherResult.split(/(?=[-+])/), 'Contacts');
-              this.otherCoordinate = helpFunction.Coordinates(x.otherResult);
-              x.eachU1Result.forEach((element) => {
-                this.departmentSummaryOtherResult.push(helpFunction.Coordinates(element));
-              });
-            }
+            this.resetData();
+            const type = this.calculateDataForChart(x);
             const d = new Date(x.createdDate);
-            const createdDate = `${(`0${d.getDate()}`).slice(-2)}-${(`0${d.getMonth() + 1}`).slice(-2)}-${d.getFullYear()}`;
-            this.chartOptionsBar(type, otherType);
-            this.chartOptionsBarDepartmentSummary();
+            const createdDate = `${(`0${d.getDate()}`).slice(-2)}-${(`0${d.getMonth() + 1}`)
+              .slice(-2)}-${d.getFullYear()}`;
+
             this.dashboardData.push({
               userId: x.id,
               employee: x.employee,
@@ -242,16 +216,102 @@ export default {
               chartBar: this.radarData,
               chartCompare: this.chartCompare,
               departmentSummary: this.departmentSummary,
+              itemsSelectGroups: x.userGroups,
             });
+            this.selectedGroup.push(x.userGroups[0]);
+
             this.loadingTable = false;
             this.$forceUpdate();
           });
         });
     },
 
+    changeGroup(groupId, userId) {
+      this.$api.admin.getInfoByGroup(userId, groupId).then((data) => {
+        this.resetData();
+        this.calculateDataForChart(data);
+
+        this.dashboardData = this.dashboardData.map((x) => {
+          if (x.userId === userId) {
+            return {
+              userId: x.userId,
+              employee: x.employee,
+              department: x.department,
+              numberConnections: x.numberConnections,
+              countOther: data.numberConnection,
+              manager: x.manager,
+              scoreOverall: x.scoreOverall,
+              scoreOverallChart: data.scoreOverall,
+              createdDate: x.createdDate,
+              type: x.type,
+              reviewerRanking: x.reviewerRanking,
+              chartBar: this.radarData,
+              chartCompare: this.chartCompare,
+              departmentSummary: this.departmentSummary,
+              itemsSelectGroups: x.itemsSelectGroups,
+            };
+          }
+
+          return x;
+        });
+      });
+    },
+    resetData() {
+      this.chartCompare = [];
+      this.selfCoordinate = [];
+      this.otherCoordinate = [];
+      this.departmentSummary = [];
+      this.departmentSummaryOtherResult = [];
+      this.countOther = null;
+      this.radarData = [
+        {
+          value: [],
+          type: 'bar',
+          areaStyle: {
+            color: '#7811c9',
+            colorHover: '#a111ff',
+          },
+          name: 'Me',
+        },
+        {
+          value: [],
+          type: 'bar',
+          areaStyle: {
+            color: '#ff5151',
+            colorHover: 'rgba(255,81,81,0.73)',
+          },
+          name: 'Contacts',
+        },
+      ];
+    },
+
     setRadar(data, name) {
       const average = this.radarData.find(item => item.name === name);
       average.value = Object.values(data);
+    },
+
+    calculateDataForChart(data) {
+      let otherType = '';
+      let type = '';
+      if (data.result) {
+        // eslint-disable-next-line prefer-destructuring
+        type = helpFunction.Coordinates(data.result)[2];
+        this.setRadar(data.result.split(/(?=[-+])/), 'Me');
+        this.selfCoordinate = helpFunction.Coordinates(data.result);
+      }
+
+      if (data.otherResult) {
+        // eslint-disable-next-line prefer-destructuring
+        otherType = helpFunction.Coordinates(data.otherResult)[2];
+        this.setRadar(data.otherResult.split(/(?=[-+])/), 'Contacts');
+        this.otherCoordinate = helpFunction.Coordinates(data.otherResult);
+        data.eachU1Result.forEach((element) => {
+          this.departmentSummaryOtherResult.push(helpFunction.Coordinates(element));
+        });
+      }
+      this.chartOptionsBar(type, otherType);
+      this.chartOptionsBarDepartmentSummary();
+      return type;
     },
 
     chartOptionsBar(type, otherType) {
@@ -446,5 +506,10 @@ export default {
   }
   .dashboard-chart-padding-bottom {
     padding: 10px;
+  }
+
+  .select-group {
+    width: 100%;
+    max-width: 200px;
   }
 </style>

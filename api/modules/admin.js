@@ -121,4 +121,23 @@ export default {
       });
     });
   },
+  getInfoByGroup(userId, groupId) {
+    let url;
+    if (!groupId) {
+      url = `admin/get-info-by-group/${process.env.QUESTIONNAIRE_ID}?userId=${userId}`;
+    } else {
+      url = `admin/get-info-by-group/${process.env.QUESTIONNAIRE_ID}?userId=${userId}&groupId=${groupId}`;
+    }
+
+    return new Promise((resolve, reject) => {
+      http.post(url).then(
+        ({ data }) => {
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
 };
