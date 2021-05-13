@@ -5,7 +5,7 @@
   >
     <vue-tel-input
       class="form__input-tel"
-      id="telephone_number"
+      id="telephone_number_main"
       :class="getClassByLengthCountryCode"
       :defaultCountry="this.defaultCountry"
       :placeholder="this.placeHolder"
@@ -51,6 +51,10 @@ export default {
     defaultCountry: {
       type: String,
     },
+  },
+  mounted() {
+    document.querySelector('#telephone_number_main .vti__input')
+      .setAttribute('id', 'telephone_number');
   },
   computed: {
     getClassByLengthCountryCode() {
