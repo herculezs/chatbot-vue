@@ -44,7 +44,8 @@ export default {
   },
   saveEmployeeToManager(department, idsEmployee) {
     return new Promise((resolve, reject) => {
-      http.post('manage/save-employee-to-manager', { department, idsEmployee })
+      http.post(`manage/save-employee-to-manager/${process.env.QUESTIONNAIRE_ID}`,
+        { department, idsEmployee })
         .then(
           ({ data }) => {
             resolve(data);

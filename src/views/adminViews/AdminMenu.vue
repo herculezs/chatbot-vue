@@ -23,6 +23,13 @@
       >
         Upload employees
       </button>
+      <button
+        class="form button button_w-100 button_theme-default
+         button_size-m button_theme button_theme"
+        @click.prevent="adminPanel"
+      >
+        Manage panel
+      </button>
     </Content>
   </div>
 </template>
@@ -44,6 +51,11 @@ export default {
     uploadEmployee() {
       this.$router.push({
         name: 'adminUploadEmployee',
+      });
+    },
+    adminPanel() {
+      this.$router.push({
+        name: 'adminPanel',
       });
     },
   },

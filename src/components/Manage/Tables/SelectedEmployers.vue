@@ -33,14 +33,14 @@
                   <td> {{ user.surName }} </td>
                   <td class="emails"> {{ user.email }} </td>
                   <td> {{ user.phone }} </td>
-                  <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
+                  <td :class="checkCorrectColor(user.colorInvitation)">
                     {{ user.invitationSend }}</td>
-                  <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
+                  <td :class="checkCorrectColor(user.colorReminder1)">
                     {{ checkComplete(user.completeU1, user.countCompleteU2,
                     user.reminderSentOne, user.invitationSend, user.reminderSentTwo, false,
                     user.id, user.invitationSend)}}
                   </td>
-                  <td :class="checkCorrectColor(user.completeU1, user.countCompleteU2)">
+                  <td :class="checkCorrectColor(user.colorReminder2)">
                     {{ checkComplete(user.completeU1, user.countCompleteU2,
                     user.reminderSentTwo, user.reminderSentOne, user.reminderSentTwo, true,
                     user.id, user.invitationSend)}}
@@ -379,17 +379,17 @@ export default {
         ];
       }
     },
-    checkCorrectColor(completeU1, countCompleteU2) {
-      if (completeU1 && countCompleteU2 === this.tableList.length - 1) {
+    checkCorrectColor(colorField) {
+      if (colorField === 'PURPLE') {
         return 'complete-people-u1 complete-people-u2-equal-total';
       }
-      if (completeU1 && countCompleteU2 > 3 && countCompleteU2 <= this.tableList.length - 1) {
+      if (colorField === 'GREEN') {
         return 'complete-people-u1 complete-people-u2-less-total';
       }
-      if (completeU1 && countCompleteU2 > 0 && countCompleteU2 <= 4) {
+      if (colorField === 'RED') {
         return 'complete-people-u1 complete-people-u2-less4';
       }
-      if (completeU1 && countCompleteU2 === 0) {
+      if (colorField === 'BOLD') {
         return 'complete-people-u1';
       }
 

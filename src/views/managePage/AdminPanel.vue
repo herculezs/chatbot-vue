@@ -308,8 +308,11 @@ export default {
               email: x.employeeDto.corporateEmail,
               invitationType: x.employeeDto.invitationType,
               invitationSend: x.employeeDto.invitationSend,
+              colorInvitation: x.employeeDto.colorInvitation,
               reminderSentOne: x.employeeDto.reminderSent1,
+              colorReminder1: x.employeeDto.colorReminder1,
               reminderSentTwo: x.employeeDto.reminderSent2,
+              colorReminder2: x.employeeDto.colorReminder2,
               completeU1: x.employeeDto.completeU1,
               countCompleteU2: x.employeeDto.countCompleteU2,
             });

@@ -20,6 +20,23 @@
         @page-count="returnTotalPages()"
         @click:row="handleClick"
       >
+        <template v-slot:body="props">
+          <tbody>
+          <tr
+            v-for="(user, index) in props.items"
+            :key="index"
+            :id="'colleague_survey_' + (index + 1)"
+            @click="handleClick(user)"
+          >
+            <td>{{user.name}}</td>
+            <td>{{user.surName}}</td>
+            <td>{{user.department}}</td>
+            <td>{{user.manager}}</td>
+            <td>{{user.phone}}</td>
+            <td>{{user.email}}</td>
+          </tr>
+          </tbody>
+        </template>
       </v-data-table>
       <v-pagination
         class="pagination-invite"
