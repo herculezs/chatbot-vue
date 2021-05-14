@@ -36,7 +36,7 @@ export default new Router({
       path: '/registration',
       name: 'registration',
       props: true,
-      component: () => import('@components/Onboarding/RegistrationPage'),
+      component: () => import('@components/Onboarding/RegistrationPage.vue'),
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
         const userAuth = Store.getters['auth/getProfile'].token;
