@@ -401,6 +401,7 @@ export default {
     display: inline-block;
   }
   .manager-name {
+    max-width: 430px;
     font-weight: bold;
     font-size: 20px;
     display: inline-block;

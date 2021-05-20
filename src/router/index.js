@@ -119,7 +119,7 @@ export default new Router({
       name: 'adminPanel',
       component: () => import('@views/managePage/AdminPanel.vue'),
       beforeEnter: (to, from, next) => {
-        if (!checkRole.isAdminAndSuperUser()) {
+        if (!checkRole.isAdminAndSuperUserAndSeleniumUser()) {
           next('/');
           return;
         }
@@ -148,7 +148,7 @@ export default new Router({
           return;
         }
 
-        if (checkRole.isSuperUser()) {
+        if (checkRole.isSuperUser() || checkRole.isSeleniumUser()) {
           next('/manage/panel');
           return;
         }
@@ -221,8 +221,9 @@ export default new Router({
           next('/admin/menu');
           return;
         }
-
-        if (checkRole.isSuperUser()) {
+        console.log(1);
+        if (checkRole.isSuperUser() || checkRole.isSeleniumUser()) {
+          console.log(1);
           next('/manage/panel');
           return;
         }
@@ -351,6 +352,10 @@ export default new Router({
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
         const userAuth = Store.getters['auth/getProfile'].token;
+
+        if (checkRole.isAdminAndSuperUserAndSeleniumUser) {
+          next('/');
+        }
 
         if (!userAuth) {
           next('/');

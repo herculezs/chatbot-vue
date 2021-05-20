@@ -293,6 +293,7 @@ export default {
     roles: [
       { label: 'Admin', value: 'ADMIN_USER' },
       { label: 'Super User', value: 'SUPER_USER' },
+      { label: 'SELENIUM User', value: 'SELENIUM_USER' },
       { label: 'User', value: 'USER' }],
     userChangeForm: {
       id: '',

@@ -24,10 +24,12 @@
                          :list="tableList" :disabled="disableDropDown()"
                          :group="{ name: 'selectedEmployers', put: 'employeeList'}"
                          @change="updateBlock"
+                         draggable=".draggableListUser"
               >
                 <tr
                         v-for="(user, index) in props.items"
                         :key="index"
+                        class="draggableListUser"
                 >
                   <td> {{ user.name }} </td>
                   <td> {{ user.surName }} </td>
@@ -305,6 +307,9 @@ export default {
           });
         }
       }
+      if (this.tableList.length > 10) {
+        this.tempUser = [];
+      }
     },
     dataEmployee() {
       this.tableList = this.dataEmployee;
@@ -580,6 +585,7 @@ export default {
       }
     },
     updateBlock(evt) {
+      console.log(evt);
       if (evt.added && (evt.added.element || evt.added[0].element)) {
         if (evt.added.element) {
           this.$api.manage.saveEmployeeToManager(this.department.id,
