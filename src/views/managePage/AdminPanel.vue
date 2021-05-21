@@ -132,6 +132,7 @@
                 <EmployeeList :department="department" :update="updateEmployeeList"
                               :removeGroup="removeGroup"
                               :showHelp="showHelp"
+                              :getDepartments="getDepartments"
                 />
               </div>
             </div>

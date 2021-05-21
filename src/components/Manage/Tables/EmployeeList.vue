@@ -66,6 +66,7 @@
                 <tr
                   id="data-in-table"
                   v-for="(user, index) in props.items"
+                  @click.ctrl.alt.exact="click(user.id)"
                   :key="index">
                   <td> {{ user.name }} </td>
                   <td> {{ user.surName }} </td>
@@ -109,13 +110,17 @@ export default {
     },
     department: {
       type: Object,
-      default: () => {},
+      default: () => {
+      },
     },
     update: {
       type: Number,
     },
     removeGroup: {
       type: Number,
+    },
+    getDepartments: {
+      type: Function,
     },
   },
   watch: {
@@ -161,6 +166,14 @@ export default {
     };
   },
   methods: {
+    click(id) {
+      if (this.department) {
+        this.$api.manage.saveEmployeeToManager(this.department.id,
+          [id]).then(() => {
+          this.getDepartments();
+        });
+      }
+    },
     searchEmployee(e) {
       if (e && (e.keyCode === 13 || e.button === 0)) {
         this.page = 1;

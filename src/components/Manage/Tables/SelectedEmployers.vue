@@ -70,19 +70,25 @@
                dark
                class="buttons-selected-employers">
           PAUSE/STOP</v-btn>
+        <!--suppress XmlDuplicatedId -->
         <v-btn v-else-if="checkRetryAutoRemind"
                @click.prevent="openModalAutoRemind"
                :disabled="disableButtonAndLoadTable"
+               id="send_remind"
                class="buttons-selected-employers">
           MORE <br/>REMINDERS</v-btn>
+        <!--suppress XmlDuplicatedId -->
         <v-btn v-else-if="checkSendAutoRemind"
-               :disabled="disableButtonSend || disableButtonAndLoadTable"
+               :disabled="disableButtonSend || disableButtonAndLoadTable || disableSend"
                @click.prevent="openModalAutoRemind"
+               id="send_remind"
                class="buttons-selected-employers">
           Send</v-btn>
+        <!--suppress XmlDuplicatedId -->
         <v-btn v-else-if="currentButtonSend === null"
-               :disabled="disableButtonSend || disableButtonAndLoadTable"
+               :disabled="disableButtonSend || disableButtonAndLoadTable || disableSend"
                @click.prevent="openModalAutoRemind"
+               id="send_remind"
                class="buttons-selected-employers">
           Send</v-btn>
         <v-btn v-else-if="currentButtonSend === false" @click.prevent="resumeAutoRemind"
@@ -169,7 +175,8 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="closeModalAutoRemind">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="confirmAutoRemind">Yes</v-btn>
+              <v-btn color="blue darken-1" id="confirm_remind" text @click="confirmAutoRemind">
+                Yes</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -217,12 +224,12 @@ export default {
       disableButtonSend: true,
       disableClearAll: false,
       allPeopleGetAllReminders: false,
-      retry: false,
+      disableSend: false,
       errorTheSameEmployeeModal: false,
       numberValue: 1,
       checkSecondStage: false,
       employeeCompleted: [],
-      employeeIncompletedAndCompleted: [],
+      employeeIncompletedAndCompleted: new Set(),
       tableList: [],
       tempUser: [],
       disableButtonAndLoadTable: false,
@@ -297,7 +304,8 @@ export default {
       this.showButton = this.tableList.length > 0;
       this.disableButtonSend = !(this.tableList.length >= 5);
       this.employeeCompleted = [];
-      this.employeeIncompletedAndCompleted = [];
+      this.employeeIncompletedAndCompleted = new Set();
+      this.disableSend = this.tableList.every(x => x.reminderSentTwo);
       if (this.tableList.length <= 9) {
         this.tempUser = [];
         // eslint-disable-next-line no-plusplus
@@ -335,10 +343,6 @@ export default {
           this.disableClearAll = false;
         }
       }
-    },
-    employeeIncompletedAndCompleted() {
-      this.retry = this.employeeIncompletedAndCompleted
-        .filter(this.onlyUnique).length === this.tableList.length;
     },
   },
   methods: {
@@ -402,20 +406,16 @@ export default {
     },
     addedAndFilterCompletedUsers(id) {
       this.employeeCompleted.push(id);
-      this.employeeIncompletedAndCompleted.push(id);
-      this.employeeIncompletedAndCompleted = this.employeeIncompletedAndCompleted
-        .filter((item, pos) => this.employeeIncompletedAndCompleted.indexOf(item) === pos);
+      this.employeeIncompletedAndCompleted.add(id);
     },
     addedAndFilterIncompletedUsers(id) {
-      this.employeeIncompletedAndCompleted.push(id);
-      this.employeeIncompletedAndCompleted = this.employeeIncompletedAndCompleted
-        .filter((item, pos) => this.employeeIncompletedAndCompleted.indexOf(item) === pos);
+      this.employeeIncompletedAndCompleted.add(id);
     },
     checkComplete(completeU1, countCompleteU2, remind, checkBeforeData, checkIncomplete,
       lastReminder, id, checkInvitation) {
       if (checkInvitation) {
         if (completeU1 && countCompleteU2 === this.tableList.length - 1) {
-          if (this.tableList.length > this.employeeIncompletedAndCompleted.length) {
+          if (this.tableList.length > this.employeeIncompletedAndCompleted.size) {
             this.addedAndFilterCompletedUsers(id);
           }
           if (checkIncomplete === null) {
@@ -434,7 +434,7 @@ export default {
       }
       if (checkBeforeData) {
         if (!completeU1 && lastReminder && checkIncomplete) {
-          if (this.tableList.length > this.employeeIncompletedAndCompleted.length) {
+          if (this.tableList.length > this.employeeIncompletedAndCompleted.size) {
             this.addedAndFilterIncompletedUsers(id);
           }
           return 'Incomplete';
@@ -442,14 +442,14 @@ export default {
         if ((completeU1 && countCompleteU2 === 0) || (completeU1 && countCompleteU2 <= 4)
         || (completeU1 && countCompleteU2 > 3 && countCompleteU2 <= this.tableList.length)) {
           if (checkIncomplete && lastReminder) {
-            if (this.tableList.length > this.employeeIncompletedAndCompleted.length) {
+            if (this.tableList.length > this.employeeIncompletedAndCompleted.size) {
               this.addedAndFilterIncompletedUsers(id);
             }
             return 'Incomplete';
           }
         }
       }
-      if (this.tableList.length > this.employeeIncompletedAndCompleted.length) {
+      if (this.tableList.length > this.employeeIncompletedAndCompleted.size) {
         this.addedAndFilterIncompletedUsers(id);
       }
       return remind;
@@ -585,7 +585,6 @@ export default {
       }
     },
     updateBlock(evt) {
-      console.log(evt);
       if (evt.added && (evt.added.element || evt.added[0].element)) {
         if (evt.added.element) {
           this.$api.manage.saveEmployeeToManager(this.department.id,
