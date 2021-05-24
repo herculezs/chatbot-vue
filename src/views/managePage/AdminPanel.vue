@@ -40,6 +40,7 @@
                                    :getDepartments="getDepartments"
                                    :showHelp="showHelp"
                                    v-on:enlarge-text="updateEmployeeList += $event"
+                                   v-on:disable-clear-all="disableMoveItem = $event"
                 />
               </div>
             </div>
@@ -133,6 +134,7 @@
                               :removeGroup="removeGroup"
                               :showHelp="showHelp"
                               :getDepartments="getDepartments"
+                              :disableMoveItem="disableMoveItem"
                 />
               </div>
             </div>
@@ -174,6 +176,7 @@ export default {
       updateEmployeeList: 1,
       postFontSize: 1,
       changeDate: 1,
+      disableMoveItem: false,
       showHelp: false,
       timer: 0,
       removeDepartmentName: '',

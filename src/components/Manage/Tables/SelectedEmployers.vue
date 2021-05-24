@@ -68,6 +68,7 @@
         <v-spacer></v-spacer>
         <v-btn v-if="currentButtonSend === true" @click.prevent="buttonPause"
                dark
+               id="button-reset-pause"
                class="buttons-selected-employers">
           PAUSE/STOP</v-btn>
         <!--suppress XmlDuplicatedId -->
@@ -112,6 +113,7 @@
               <v-btn color="buttons-selected-employers"
                       @click="buttonPauseCansel">PAUSE</v-btn>
               <v-btn color="buttons-selected-employers"
+                     id="button-reset"
                      @click="buttonRESET">RESET</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
@@ -167,6 +169,7 @@
               Remind every
               <v-text-field
                 class="remindEvery"
+                id="remind-every-select-time"
                 @keypress="isNumber($event)"
                 v-model.number="numberValue"
                 hide-details
@@ -300,6 +303,9 @@ export default {
     }
   },
   watch: {
+    disableClearAll() {
+      this.$emit('disable-clear-all', this.disableClearAll);
+    },
     tableList() {
       this.showButton = this.tableList.length > 0;
       this.disableButtonSend = !(this.tableList.length >= 5);

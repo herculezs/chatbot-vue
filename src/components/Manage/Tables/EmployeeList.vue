@@ -66,7 +66,7 @@
                 <tr
                   id="data-in-table"
                   v-for="(user, index) in props.items"
-                  @click.ctrl.alt.exact="click(user.id)"
+                  @click.ctrl.alt.exact="sendEmployeeToTableSelectedEmployeers(user.id)"
                   :key="index">
                   <td> {{ user.name }} </td>
                   <td> {{ user.surName }} </td>
@@ -115,6 +115,9 @@ export default {
     },
     update: {
       type: Number,
+    },
+    disableMoveItem: {
+      type: Boolean,
     },
     removeGroup: {
       type: Number,
@@ -166,8 +169,8 @@ export default {
     };
   },
   methods: {
-    click(id) {
-      if (this.department) {
+    sendEmployeeToTableSelectedEmployeers(id) {
+      if (this.department && (!this.disableMoveItem || this.department.countRetry === 2)) {
         this.$api.manage.saveEmployeeToManager(this.department.id,
           [id]).then(() => {
           this.getDepartments();
