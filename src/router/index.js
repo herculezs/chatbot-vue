@@ -221,9 +221,8 @@ export default new Router({
           next('/admin/menu');
           return;
         }
-        console.log(1);
+
         if (checkRole.isSuperUser() || checkRole.isSeleniumUser()) {
-          console.log(1);
           next('/manage/panel');
           return;
         }
@@ -352,8 +351,7 @@ export default new Router({
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
         const userAuth = Store.getters['auth/getProfile'].token;
-
-        if (checkRole.isAdminAndSuperUserAndSeleniumUser) {
+        if (checkRole.isAdminAndSuperUserAndSeleniumUser()) {
           next('/');
         }
 
