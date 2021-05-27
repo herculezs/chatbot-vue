@@ -40,12 +40,12 @@
                   <td :class="checkCorrectColor(user.colorReminder1)">
                     {{ checkComplete(user.completeU1, user.countCompleteU2,
                     user.reminderSentOne, user.invitationSend, user.reminderSentTwo, false,
-                    user.id, user.invitationSend)}}
+                    user.id, user.invitationSend, user.countAllGroup, user.countCompleteEmployee)}}
                   </td>
                   <td :class="checkCorrectColor(user.colorReminder2)">
                     {{ checkComplete(user.completeU1, user.countCompleteU2,
                     user.reminderSentTwo, user.reminderSentOne, user.reminderSentTwo, true,
-                    user.id, user.invitationSend)}}
+                    user.id, user.invitationSend, user.countAllGroup, user.countCompleteEmployee)}}
                   </td>
                 </tr>
                 <tr
@@ -418,10 +418,10 @@ export default {
       this.employeeIncompletedAndCompleted.add(id);
     },
     checkComplete(completeU1, countCompleteU2, remind, checkBeforeData, checkIncomplete,
-      lastReminder, id, checkInvitation) {
+      lastReminder, id, checkInvitation, countAllGroup, countCompleteEmployee) {
       if (checkInvitation) {
-        if (completeU1 && countCompleteU2 === this.tableList.length - 1) {
-          if (this.tableList.length > this.employeeIncompletedAndCompleted.size) {
+        if (completeU1 && countCompleteU2 === countAllGroup - 1) {
+          if (countAllGroup > this.employeeIncompletedAndCompleted.size + countCompleteEmployee) {
             this.addedAndFilterCompletedUsers(id);
           }
           if (checkIncomplete === null) {
@@ -440,22 +440,22 @@ export default {
       }
       if (checkBeforeData) {
         if (!completeU1 && lastReminder && checkIncomplete) {
-          if (this.tableList.length > this.employeeIncompletedAndCompleted.size) {
+          if (countAllGroup > this.employeeIncompletedAndCompleted.size + countCompleteEmployee) {
             this.addedAndFilterIncompletedUsers(id);
           }
           return 'Incomplete';
         }
         if ((completeU1 && countCompleteU2 === 0) || (completeU1 && countCompleteU2 <= 4)
-        || (completeU1 && countCompleteU2 > 3 && countCompleteU2 <= this.tableList.length)) {
+        || (completeU1 && countCompleteU2 > 3 && countCompleteU2 <= countAllGroup)) {
           if (checkIncomplete && lastReminder) {
-            if (this.tableList.length > this.employeeIncompletedAndCompleted.size) {
+            if (countAllGroup > this.employeeIncompletedAndCompleted.size + countCompleteEmployee) {
               this.addedAndFilterIncompletedUsers(id);
             }
             return 'Incomplete';
           }
         }
       }
-      if (this.tableList.length > this.employeeIncompletedAndCompleted.size) {
+      if (countAllGroup > this.employeeIncompletedAndCompleted.size + countCompleteEmployee) {
         this.addedAndFilterIncompletedUsers(id);
       }
       return remind;

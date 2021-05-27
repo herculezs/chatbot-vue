@@ -319,6 +319,8 @@ export default {
               colorReminder2: x.employeeDto.colorReminder2,
               completeU1: x.employeeDto.completeU1,
               countCompleteU2: x.employeeDto.countCompleteU2,
+              countAllGroup: x.employeeDto.countAllGroup,
+              countCompleteEmployee: x.employeeDto.countCompleteEmployee,
             });
           });
         });
