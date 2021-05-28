@@ -8,12 +8,12 @@
     >
         <v-card>
           <v-card-title class="headline orange lighten-2">
-            WARNING
+            Change phone number
           </v-card-title>
           <v-card-text >
             <br/>
             <h4>
-              This action cannot be reversed
+              Please enter your real phone number.
             </h4>
             <TelInput
               v-if="!showCodeAndSave"
@@ -48,6 +48,7 @@
             <v-spacer></v-spacer>
             <v-btn
               v-if="!showCodeAndSave"
+              class="saveButton"
               color="primary"
               text
               @click="sendCode()"
@@ -57,10 +58,11 @@
             <v-btn
               v-if="showCodeAndSave"
               color="primary"
+              class="saveButton"
               text
               @click="updatePhone()"
             >
-              Save
+              SAVE
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -176,5 +178,8 @@ export default {
 <style lang="scss">
   .not-real-phone .space {
     height: 70px;
+  }
+  .saveButton {
+    color: rgba(4, 131, 65, 0.78) !important;
   }
 </style>

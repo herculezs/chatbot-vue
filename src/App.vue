@@ -3,21 +3,27 @@
     <Header/>
     <router-view class="main__content" />
     <Notification />
+    <NotRealPhone v-if="getProfile.token"/>
   </div>
 </template>
 
 <script>
 import Header from '@components/Header/Header.vue';
 import Notification from '@components/Notification/Notification.vue';
+import NotRealPhone from '@components/InputTel/NotRealPhone.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'App',
   components: {
+    NotRealPhone,
     Header,
     Notification,
   },
-
   computed: {
+    ...mapGetters({
+      getProfile: 'auth/getProfile',
+    }),
     title() {
       if (process.env.VUE_APP_TITLE) {
         return process.env.VUE_APP_TITLE;

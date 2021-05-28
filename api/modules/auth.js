@@ -95,7 +95,7 @@ export default {
           Vue.notify({
             type: 'success',
             title: 'Success',
-            text: 'New code resent',
+            text: 'Phone was successfully update',
           });
           resolve(data);
         },
