@@ -170,6 +170,7 @@
           </div>
         </div>
       </div>
+      <NotRealPhone/>
     </Content>
   </div>
 </template>
@@ -189,9 +190,11 @@ import helpFunction from '@helpers/helpFuction';
 
 import { mapGetters } from 'vuex';
 import constants from '@constants';
+import NotRealPhone from '@components/InputTel/NotRealPhone.vue';
 
 export default {
   components: {
+    NotRealPhone,
     Card,
     InputCopy,
     Content,

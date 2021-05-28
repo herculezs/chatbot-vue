@@ -88,9 +88,9 @@ export default {
       });
     });
   },
-  updatePhoneNumber(phoneNumber, id) {
+  updatePhoneNumber(updatePhoneNumberDTO, id) {
     return new Promise((resolve, reject) => {
-      http.post(`/user-auth/${id}/new-phone-number?phoneNumber=${phoneNumber.replace('+', '%2B')}`).then(
+      http.post(`/user-auth/${id}/new-phone-number`, updatePhoneNumberDTO).then(
         ({ data }) => {
           Vue.notify({
             type: 'success',
@@ -105,9 +105,9 @@ export default {
       });
     });
   },
-  newCode(id) {
+  sendCode(updatePhoneNumberDTO) {
     return new Promise((resolve, reject) => {
-      http.post(`user-auth/${id}/resend-code`).then(
+      http.post('user-auth/send-code-for-update-phone-number', updatePhoneNumberDTO).then(
         ({ data }) => {
           Vue.notify({
             type: 'success',

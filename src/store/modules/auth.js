@@ -82,7 +82,11 @@ const mutations = {
     ];
   },
   updatePhoneNumber(state, data) {
-    state.profile.phone = data;
+    state.profile.phone = data.phone;
+    state.profile.isoCountryCode = data.isoCountryCode;
+    state.profile.codeCountry = data.codeCountry;
+    state.profile.phoneReal = null;
+    state.profile.token = data.token;
   },
   setRedirectAuth(state, path) {
     state.redirectAuth = path;
