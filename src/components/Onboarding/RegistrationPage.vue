@@ -240,6 +240,7 @@ import { mapGetters } from 'vuex';
 import { validationMixin } from 'vuelidate';
 import PolicyModal from '@components/Modals/PolicyModal.vue';
 import TermsConditionsModal from '@components/Modals/TermsConditionsModal.vue';
+import fingerPrintBrowser from '@helpers/fingerPrintBrowser';
 
 // numeric, minValue, maxValue,
 const {
@@ -347,8 +348,9 @@ export default {
       this.formData.isoCountryCode = data.iso2;
       this.formData.diaCode = data.dialCode;
     },
-    prepareDataForRequest() {
+    async prepareDataForRequest() {
       const formPhone = this.formData.phone;
+      const currentPosition = await fingerPrintBrowser.getGeolocation();
       const phone = `+${this.formData.diaCode}${formPhone.charAt(0) === '0' ? formPhone.substring(1) : formPhone}`
         .replace(/\s/g, '');
 
@@ -356,6 +358,7 @@ export default {
       if (localStorage.getItem('uniqueId') !== null) {
         uniqueId = localStorage.getItem('uniqueId');
       }
+
       // const currentMonthNumber = this.formData.month + 1;
       return {
         name: this.formData.firstName,
@@ -368,13 +371,15 @@ export default {
         codeCountry: `+${this.formData.diaCode}`,
         isoCountryCode: this.formData.isoCountryCode,
         uniqueId,
+        currentPosition,
+        fingerPrint: fingerPrintBrowser.getClientData(),
       };
     },
-    start() {
+    async start() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
         this.disableSendCode = true;
-        const data = this.prepareDataForRequest();
+        const data = await this.prepareDataForRequest();
         this.$store.dispatch('auth/registerRequest', data).then(() => {
           this.$router.push('enter-security-code');
           this.disableSendCode = false;

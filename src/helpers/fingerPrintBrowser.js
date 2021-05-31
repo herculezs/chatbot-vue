@@ -1,13 +1,19 @@
-import FingerprintJS from '@fingerprintjs/fingerprintjs';
+import apiRequest from '@api/modules/apiRequest';
+// eslint-disable-next-line no-unused-vars
+import ClientJS from 'clientjs';
 
-const fpPromise = FingerprintJS.load();
+const allDataForFingerPrint = {
+  async getGeolocation() {
+    return Promise.resolve(await apiRequest.getCurrentGeolocation());
+  },
+  getClientData() {
+    const client = new window.ClientJS();
+    const fingerPrintData = {};
+    fingerPrintData.installedFont = client.getFonts();
+    fingerPrintData.fingerPrintCode = client.getFingerprint();
 
-const visitorBrowserId = (async () => {
-  const fp = await fpPromise;
-  const result = await fp.get();
+    return fingerPrintData;
+  },
+};
 
-  const { visitorId } = result;
-  return visitorId;
-})();
-
-export default visitorBrowserId;
+export default allDataForFingerPrint;

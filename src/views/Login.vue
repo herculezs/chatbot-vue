@@ -56,6 +56,7 @@ import TelInput from '@components/InputTel/TelInput.vue';
 import { mapGetters } from 'vuex';
 import configEnv from '@configEnv';
 import checkRole from '@helpers/adminFunction';
+import fingerPrintBrowser from '@helpers/fingerPrintBrowser';
 
 const { required } = require('vuelidate/lib/validators');
 
@@ -116,7 +117,7 @@ export default {
         }
       }, 50);
     },
-    prepareDataForRequest() {
+    async prepareDataForRequest() {
       const formPhone = this.formData.phone;
       const phone = `+${this.diaCode}${formPhone.charAt(0) === '0' ? formPhone.substring(1) : formPhone}`
         .replace(/\s/g, '');
@@ -125,21 +126,25 @@ export default {
       if (localStorage.getItem('uniqueId') !== null) {
         uniqueId = localStorage.getItem('uniqueId');
       }
+      const currentPosition = await fingerPrintBrowser.getGeolocation();
 
       return {
         password: this.formData.password,
         phone,
         uniqueId,
         questionId: process.env.QUESTIONNAIRE_ID,
+        currentPosition,
+        fingerPrintData: fingerPrintBrowser.getClientData(),
       };
     },
     countryChanged(data) {
       this.diaCode = data.dialCode;
     },
-    login() {
+    async login() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        const data = this.prepareDataForRequest();
+        const data = await this.prepareDataForRequest();
+
         this.$store.dispatch('auth/loginRequest', data).then(() => {
           const { completedQuestionnaires } = this.getProfile;
 
