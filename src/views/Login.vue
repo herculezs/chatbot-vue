@@ -117,7 +117,7 @@ export default {
         }
       }, 50);
     },
-    async prepareDataForRequest() {
+    prepareDataForRequest() {
       const formPhone = this.formData.phone;
       const phone = `+${this.diaCode}${formPhone.charAt(0) === '0' ? formPhone.substring(1) : formPhone}`
         .replace(/\s/g, '');
@@ -126,14 +126,12 @@ export default {
       if (localStorage.getItem('uniqueId') !== null) {
         uniqueId = localStorage.getItem('uniqueId');
       }
-      const currentPosition = await fingerPrintBrowser.getGeolocation();
 
       return {
         password: this.formData.password,
         phone,
         uniqueId,
         questionId: process.env.QUESTIONNAIRE_ID,
-        currentPosition,
         fingerPrintData: fingerPrintBrowser.getClientData(),
       };
     },
@@ -145,8 +143,14 @@ export default {
       if (!this.$v.$invalid) {
         const data = await this.prepareDataForRequest();
 
-        this.$store.dispatch('auth/loginRequest', data).then(() => {
-          const { completedQuestionnaires } = this.getProfile;
+        this.$store.dispatch('auth/loginRequest', data).then(async () => {
+          const { completedQuestionnaires, isAlreadyGetGeolocationData } = this.getProfile;
+
+          const geolocation = await fingerPrintBrowser.getGeolocation();
+
+          if (!isAlreadyGetGeolocationData) {
+            this.$api.auth.updateGeoLocationUsers(geolocation);
+          }
 
           if (checkRole.isAdmin()) {
             this.$router.push({

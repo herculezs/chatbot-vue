@@ -122,4 +122,21 @@ export default {
       });
     });
   },
+  updateGeoLocationUsers(geoLocationDataDto) {
+    return new Promise((resolve, reject) => {
+      http.post('user-auth/update-geo-location-user', geoLocationDataDto).then(
+        ({ data }) => {
+          Vue.notify({
+            type: 'success',
+            title: 'Success',
+            text: 'The new code was successfully sent',
+          });
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
 };

@@ -5,7 +5,7 @@ const axios = require('axios').default;
 export default {
   getCurrentGeolocation() {
     return new Promise((resolve, reject) => {
-      axios.get('https://geolocation-db.com/json/e4f42070-ad2d-11eb-adf1-cf51da9b3410').then(
+      axios.get('https://ip-api.io/json?api_key=251556b5-95d8-4887-8304-5f6d23c7c17a').then(
         ({ data }) => {
           resolve(data);
         },
