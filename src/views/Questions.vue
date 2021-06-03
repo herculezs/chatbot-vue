@@ -73,7 +73,6 @@ import Content from '@components/Content/Content.vue';
 import { debounce } from 'lodash';
 import { mapGetters } from 'vuex';
 import isFreeVersion from '@helpers/func';
-import fingerPrintBrowser from '@helpers/fingerPrintBrowser';
 import checkbox from '../assets/checkbox_fill.svg';
 
 export default {
@@ -183,7 +182,8 @@ export default {
     },
     async saveAnswerByPersonalityTest() {
       if (!localStorage.getItem('uniqueId')) {
-        localStorage.setItem('uniqueId', await fingerPrintBrowser);
+        localStorage.setItem('uniqueId', `anonymous${Math.floor(Math.random()
+          * Math.floor(Math.random() * Date.now()) * Math.random())}`);
       }
 
       return this.$store.dispatch('invitation/setPersonalityTest',
@@ -221,7 +221,8 @@ export default {
 
       if (this.isFreeVersionWebSite && !this.getProfile.token) {
         if (!localStorage.getItem('uniqueId')) {
-          localStorage.setItem('uniqueId', await fingerPrintBrowser);
+          localStorage.setItem('uniqueId', `anonymous${Math.floor(Math.random()
+            * Math.floor(Math.random() * Date.now()) * Math.random())}`);
         }
 
         return this.$api.questionnaire.saveAnswerFreeVersion(this.formData, localStorage.getItem('uniqueId'))
