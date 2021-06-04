@@ -126,8 +126,6 @@ import Card from '@components/Card/Card.vue';
 import { mapGetters } from 'vuex';
 import api from '@api/index';
 
-
-
 export default {
   components: {
     FeedbackModal,
