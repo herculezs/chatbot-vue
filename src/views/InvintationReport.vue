@@ -83,7 +83,8 @@
           Personality trait comparison, by category
         </div>
         <div class="diagram mb-5" v-if="barChart !== null">
-          <Radar :data="barChart" />
+          <BubbleChart :data="barChart" :subGroup="subGroup"
+                       @click-to-character="setChosenGroupCharacteristic($event)"/>
         </div>
       </div>
 
@@ -117,21 +118,23 @@
 
 <script>
 import Content from '@components/Content/Content.vue';
-import Radar from '@components/Radar/Radar.vue';
+import BubbleChart from '@components/BubbleChart/BubbleChart.vue';
 import constants from '@constants';
 import FeedbackModal from '@components/Modals/FeedbackModal.vue';
 import ChartCompare from '@components/Charts/ChartCompare.vue';
 import Card from '@components/Card/Card.vue';
-
-
 import { mapGetters } from 'vuex';
 import api from '@api/index';
+
+import orangeBoll from '../assets/orange_ball.png';
+import purpleBall from '../assets/purple_ball.png';
+
 
 export default {
   components: {
     FeedbackModal,
     Content,
-    Radar,
+    BubbleChart,
     ChartCompare,
     Card,
   },
@@ -142,6 +145,8 @@ export default {
   },
   name: 'InvintationReport',
   data: () => ({
+    orangeBoll,
+    purpleBall,
     showReportModal: false,
     SelfCoordinate: null,
     OtherCoordinate: null,
@@ -153,6 +158,7 @@ export default {
     ready: false,
     barChart: null,
     respondentsCount: null,
+    subGroup: false,
   }),
   computed: {
     ...mapGetters({
@@ -187,38 +193,76 @@ export default {
     refreshData() {
       return this.data;
     },
-    getChartBarData() {
+    // eslint-disable-next-line no-unused-vars
+    getChartBarData(selectCategory = 'mainResult', colorU1 = '#E59576', colorU2 = '#9C11F7',
+      borderColorU1 = '#a66053', borderColorU2 = '#5e119f') {
       if (this.getPersonalityTest.othersAmount >= 4) {
         this.barChart = [
           {
-            value: this.getPersonalityTest.result.split(/(?=[-+])/),
-            areaStyle: {
-              color: '#7811c9',
-              colorHover: '#a111ff',
-            },
+            value: this.getPersonalityTest.result[selectCategory].split(/(?=[-+])/),
             name: 'You',
+            itemColor: {
+              borderColor: borderColorU1,
+              color: colorU1,
+            },
           },
           {
-            value: this.getPersonalityTest.othersAverageResult.split(/(?=[-+])/),
-            areaStyle: {
-              color: '#ff5151',
-              colorHover: 'rgba(255,81,81,0.73)',
+            itemColor: {
+              borderColor: borderColorU2,
+              color: colorU2,
             },
+            value: this.getPersonalityTest.othersAverageResult[selectCategory].split(/(?=[-+])/),
             name: 'Average',
           },
         ];
       } else { // eslint-disable-line
         this.barChart = [
           {
-            value: this.getPersonalityTest.result.split(/(?=[-+])/),
-            areaStyle: {
-              color: '#7811c9',
-              colorHover: '#a111ff',
+            value: this.getPersonalityTest.result[selectCategory].split(/(?=[-+])/),
+            itemColor: {
+              borderColor: borderColorU1,
+              color: colorU1,
             },
             name: 'You',
           },
         ];
       }
+    },
+    setChosenGroupCharacteristic(event) {
+      if (event === 'Open' && (this.getPersonalityTest.result.opensResult
+        || this.getPersonalityTest.othersAverageResult.opensResult)) {
+        this.chooseOtherResult(event, 'opensResult', true,
+          '#FC6F4D', '#B15771', '#c85e3f', '#88444e');
+      } else if (event === 'Conscientious' && (this.getPersonalityTest.result.conscientiousResult
+        || this.getPersonalityTest.othersAverageResult.conscientiousResult)) {
+        this.chooseOtherResult(event, 'conscientiousResult', true,
+          '#FD7c49', '#BE6867', '#be5f3c', '#974c4c');
+      } else if (event === 'Extraverted' && (this.getPersonalityTest.result.extravertedResult
+        || this.getPersonalityTest.othersAverageResult.extravertedResult)) {
+        this.chooseOtherResult(event, 'extravertedResult', true,
+          '#FD8945', '#CB795D', '#d27037', '#99534d');
+      } else if (event === 'Agreeable' && (this.getPersonalityTest.result.agreeableResult
+        || this.getPersonalityTest.othersAverageResult.agreeableResult)) {
+        this.chooseOtherResult(event, 'agreeableResult', true,
+          '#FE9741', '#D88B53', '#9d542b', '#ba744c');
+      } else if (event === 'Neurotic' && (this.getPersonalityTest.result.neuroticResult
+        || this.getPersonalityTest.othersAverageResult.neuroticResult)) {
+        this.chooseOtherResult(event, 'neuroticResult', true,
+          '#FEA43D', '#E59C49', '#9d5828', '#ae6a49');
+      } else if (event === 'General' && (this.getPersonalityTest.result.mainResult
+        || this.getPersonalityTest.othersAverageResult.mainResult)) {
+        this.chooseOtherResult(event, 'mainResult', false,
+          '#E59576', '#9C11F2', '#a66053', '#5e119f');
+      }
+    },
+    chooseOtherResult(event, nameResult, subGroup, colorU1, colorU2, borderColorU1, borderColorU2) {
+      if (this.getPersonalityTest.result[nameResult]) {
+        this.getChartBarData(nameResult, colorU1, colorU2, borderColorU1, borderColorU2);
+      }
+      if (this.getPersonalityTest.othersAverageResult[nameResult]) {
+        this.getChartBarData(nameResult, colorU1, colorU2, borderColorU1, borderColorU2);
+      }
+      this.subGroup = subGroup;
     },
     setChosenCharacteristic(event) {
       this.selectedCharateristic = {
@@ -280,11 +324,11 @@ export default {
       let resColleguag;
       if (this.getPersonalityTest.result) {
         this.respondentsCount = this.getPersonalityTest.othersAmount;
-        resYouThink = this.coordinates(this.getPersonalityTest.result);
+        resYouThink = this.coordinates(this.getPersonalityTest.result.mainResult);
         this.setYourAnswerCard(resYouThink[2]);
       }
       if (this.getPersonalityTest.othersAverageResult) {
-        resColleguag = this.coordinates(this.getPersonalityTest.othersAverageResult);
+        resColleguag = this.coordinates(this.getPersonalityTest.othersAverageResult.mainResult);
         this.setCollegeAnswerCard(resColleguag[2]);
       }
 

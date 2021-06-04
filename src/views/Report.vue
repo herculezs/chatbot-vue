@@ -83,10 +83,11 @@
           </template>
         </div>
         <div class="block">
-          <div class="h5 mb-4">
-            Personality trait comparison, by category
+          <div class="h5 mb-4 text-center color-chart-title">
+            Trait Comparison
           </div>
-          <Radar :data="radarData" />
+          <BubbleChart :data="radarData" :subGroup="subGroup"
+                       @click-to-character="setChosenGroupCharacteristic($event)"/>
         </div>
       </div>
       <InvitationTableEmployees
@@ -178,7 +179,6 @@
 import Card from '@components/Card/Card.vue';
 import InputCopy from '@components/InputCopy/InputCopy.vue';
 import Content from '@components/Content/Content.vue';
-import Radar from '@components/Radar/Radar.vue';
 import FeedbackModal from '@components/Modals/FeedbackModal.vue';
 import ChartCompare from '@components/Charts/ChartCompare.vue';
 import InvitationTableEmployees from '@components/Modals/Report/InvitationTableEmployees.vue';
@@ -186,17 +186,19 @@ import AskOthers from '@components/AskOthers/AskOthers.vue';
 import configEnv from '@configEnv';
 import isFreeVersion from '@helpers/func';
 import helpFunction from '@helpers/helpFuction';
-
 import { mapGetters } from 'vuex';
 import constants from '@constants';
+import BubbleChart from '@components/BubbleChart/BubbleChart.vue';
+import orangeBoll from '../assets/orange_ball.png';
+import purpleBall from '../assets/purple_ball.png';
 
 
 export default {
   components: {
+    BubbleChart,
     Card,
     InputCopy,
     Content,
-    Radar,
     FeedbackModal,
     ChartCompare,
     AskOthers,
@@ -205,26 +207,20 @@ export default {
   name: 'Report',
   data: () => ({
     configEnv,
-    radarData: [
-      {
-        value: [],
-        type: 'bar',
-        areaStyle: {
-          color: '#7811c9',
-          colorHover: '#a111ff',
-        },
-        name: 'Me',
-      },
-      {
-        value: [],
-        type: 'bar',
-        areaStyle: {
-          color: '#ff5151',
-          colorHover: 'rgba(255,81,81,0.73)',
-        },
-        name: 'Contacts',
-      },
-    ],
+    orangeBoll,
+    purpleBall,
+    radarData: [{
+      value: [],
+      itemColor: {},
+      name: 'Me',
+    },
+    {
+      value: [],
+      itemColor: {},
+      name: 'Contacts',
+    }],
+    subGroupData: [],
+    selectedGroup: 'general',
     showButtonAskContactsForInvitation: false,
     respondentsCount: 0,
     shareLink: null,
@@ -238,6 +234,13 @@ export default {
     youAnswerCard: {},
     selectedCharateristic: null,
     collegAnswerCard: {},
+    myResultsScoreData: {
+      opensResult: '',
+    },
+    othersResultsScoreData: {
+      opensResult: '',
+    },
+    subGroup: false,
   }),
   computed: {
     ...mapGetters({
@@ -278,6 +281,44 @@ export default {
         text: event[3],
       };
     },
+    setChosenGroupCharacteristic(event) {
+      if (event === 'Open' && (this.myResultsScoreData.opensResult
+        || this.othersResultsScoreData.opensResult)) {
+        this.chooseOtherResult(event, 'opensResult', true,
+          '#FC6F4D', '#B15771', '#c85e3f', '#88444e');
+      } else if (event === 'Conscientious' && (this.myResultsScoreData.conscientiousResult
+        || this.othersResultsScoreData.conscientiousResult)) {
+        this.chooseOtherResult(event, 'conscientiousResult', true,
+          '#FD7c49', '#BE6867', '#be5f3c', '#974c4c');
+      } else if (event === 'Extraverted' && (this.myResultsScoreData.extravertedResult
+        || this.othersResultsScoreData.extravertedResult)) {
+        this.chooseOtherResult(event, 'extravertedResult', true,
+          '#FD8945', '#CB795D', '#d27037', '#99534d');
+      } else if (event === 'Agreeable' && (this.myResultsScoreData.agreeableResult
+        || this.othersResultsScoreData.agreeableResult)) {
+        this.chooseOtherResult(event, 'agreeableResult', true,
+          '#FE9741', '#D88B53', '#9d542b', '#ba744c');
+      } else if (event === 'Neurotic' && (this.myResultsScoreData.neuroticResult
+        || this.othersResultsScoreData.neuroticResult)) {
+        this.chooseOtherResult(event, 'neuroticResult', true,
+          '#FEA43D', '#E59C49', '#9d5828', '#ae6a49');
+      } else if (event === 'General' && (this.myResultsScoreData.mainResult
+        || this.othersResultsScoreData.mainResult)) {
+        this.chooseOtherResult(event, 'mainResult', false,
+          '#E59576', '#9C11F2', '#a66053', '#5e119f');
+      }
+    },
+    chooseOtherResult(event, nameResult, subGroup, colorU1, colorU2, borderColorU1, borderColorU2) {
+      if (this.myResultsScoreData[nameResult]) {
+        this.setRadar(this.myResultsScoreData[nameResult].split(/(?=[-+])/),
+          'Me', subGroup, colorU1, colorU2, borderColorU1, borderColorU2);
+      }
+      if (this.othersResultsScoreData[nameResult]) {
+        this.setRadar(this.othersResultsScoreData[nameResult].split(/(?=[-+])/),
+          'Contacts', subGroup, colorU1, colorU2, borderColorU1, borderColorU2);
+      }
+      this.subGroup = subGroup;
+    },
     setYouAnswerCard(title) {
       this.youAnswerCard = constants.cards[title];
     },
@@ -313,9 +354,19 @@ export default {
     refreshData() {
       return this.data;
     },
-    setRadar(data, name) {
+    // eslint-disable-next-line no-unused-vars
+    setRadar(data, name, subGroup, colorU1 = '#E59576', colorU2 = '#9C11F7',
+      borderColorU1 = '#a66053', borderColorU2 = '#5e119f') {
       const average = this.radarData.find(item => item.name === name);
       average.value = Object.values(data);
+      this.radarData[1].itemColor = {
+        borderColor: borderColorU1,
+        color: colorU1,
+      };
+      this.radarData[0].itemColor = {
+        borderColor: borderColorU2,
+        color: colorU2,
+      };
     },
     fetchPersonalityTypeReport() {
       if (this.isFreeVersionWebSite) {
@@ -324,14 +375,13 @@ export default {
         this.$api.personalityTypeReport.fetchPersonalityTypeReportFreeVersion(uniqueId)
           .then((res) => {
             this.respondentsCount = res.othersAmount;
-
-            this.setRadar(res.selfResult.split(/(?=[-+])/), 'Me');
-
+            this.setRadar(res.selfResult.mainResult.split(/(?=[-+])/), 'Me');
             this.showFeedBackModalByParams(res.othersAmount);
 
-            this.tag = res.selfResult;
+            this.myResultsScoreData = res.selfResult;
+            this.tag = res.selfResult.mainResult;
             this.tagOthersAverage = res.othersAverageResult;
-            this.SelfCoordinate = helpFunction.Coordinates(res.selfResult);
+            this.SelfCoordinate = helpFunction.Coordinates(res.selfResult.mainResult);
 
             this.setYouAnswerCard(this.SelfCoordinate[2]);
 
@@ -340,20 +390,22 @@ export default {
       } else {
         this.$api.personalityTypeReport.fetchPersonalityTypeReport().then((res) => {
           this.respondentsCount = res.othersAmount;
-
-          this.setRadar(res.selfResult.split(/(?=[-+])/), 'Me');
+          this.setRadar(res.selfResult.mainResult.split(/(?=[-+])/), 'Me');
+          this.myResultsScoreData = res.selfResult;
+          this.other = res.selfResult;
 
           if (this.isOthersAmount) {
-            this.setRadar(res.othersAverageResult.split(/(?=[-+])/), 'Contacts');
-            this.OtherCoordinate = helpFunction.Coordinates(res.othersAverageResult);
+            this.othersResultsScoreData = res.othersAverageResult;
+            this.setRadar(res.othersAverageResult.mainResult.split(/(?=[-+])/), 'Contacts');
+            this.OtherCoordinate = helpFunction.Coordinates(res.othersAverageResult.mainResult);
             this.setCollegAnswerCard(this.OtherCoordinate[2]);
           }
 
           this.showFeedBackModalByParams(res.othersAmount);
 
           this.tag = res.selfResult;
-          this.tagOthersAverage = res.othersAverageResult;
-          this.SelfCoordinate = helpFunction.Coordinates(res.selfResult);
+          this.tagOthersAverage = res.othersAverageResult.mainResult;
+          this.SelfCoordinate = helpFunction.Coordinates(res.selfResult.mainResult);
 
           this.setYouAnswerCard(this.SelfCoordinate[2]);
           this.shareLink = `${window.location.protocol}//${window.location.host}${res.invitationLink}`;
@@ -451,6 +503,9 @@ export default {
       width: 100%;
       height: 310px;
     }
+  }
+  .color-chart-title {
+    color: $mnColor2;
   }
   .report__respondents{
     color: $txtColor3;
