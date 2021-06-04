@@ -126,8 +126,6 @@ import Card from '@components/Card/Card.vue';
 import { mapGetters } from 'vuex';
 import api from '@api/index';
 
-import orangeBoll from '../assets/orange_ball.png';
-import purpleBall from '../assets/purple_ball.png';
 
 
 export default {
@@ -145,8 +143,6 @@ export default {
   },
   name: 'InvintationReport',
   data: () => ({
-    orangeBoll,
-    purpleBall,
     showReportModal: false,
     SelfCoordinate: null,
     OtherCoordinate: null,

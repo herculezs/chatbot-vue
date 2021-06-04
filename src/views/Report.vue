@@ -189,8 +189,6 @@ import helpFunction from '@helpers/helpFuction';
 import { mapGetters } from 'vuex';
 import constants from '@constants';
 import BubbleChart from '@components/BubbleChart/BubbleChart.vue';
-import orangeBoll from '../assets/orange_ball.png';
-import purpleBall from '../assets/purple_ball.png';
 
 
 export default {
@@ -207,8 +205,6 @@ export default {
   name: 'Report',
   data: () => ({
     configEnv,
-    orangeBoll,
-    purpleBall,
     radarData: [{
       value: [],
       itemColor: {},
