@@ -301,7 +301,7 @@ export default {
       } else if (event === 'General' && (this.myResultsScoreData.mainResult
         || this.othersResultsScoreData.mainResult)) {
         this.chooseOtherResult(event, 'mainResult', false,
-          '#E59576', '#9C11F2', '#a66053', '#5e119f');
+          '#9C11F2', '#E59576', '#5e119f', '#a66053');
       }
     },
     chooseOtherResult(event, nameResult, subGroup, colorU1, colorU2, borderColorU1, borderColorU2) {
@@ -351,8 +351,8 @@ export default {
       return this.data;
     },
     // eslint-disable-next-line no-unused-vars
-    setRadar(data, name, subGroup, colorU1 = '#E59576', colorU2 = '#9C11F7',
-      borderColorU1 = '#a66053', borderColorU2 = '#5e119f') {
+    setRadar(data, name, subGroup, colorU1 = '#9C11F7', colorU2 = '#E59576',
+      borderColorU1 = '#5e119f', borderColorU2 = '#a66053') {
       const average = this.radarData.find(item => item.name === name);
       average.value = Object.values(data);
       this.radarData[1].itemColor = {

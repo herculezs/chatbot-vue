@@ -12,17 +12,18 @@
 <!--    <span class=shadow9></span>-->
 <!--    <span class=shadow10></span>-->
 
-    <span class="character-name character-open" :class="{lowPosition: !twoChart}">Open</span>
-    <span class="character-name character-conscientious" :class="{lowPosition: !twoChart}">
+    <span class="character-name character-open" :class="{lowPositionOpen: !twoChart}">Open</span>
+    <span class="character-name character-conscientious"
+          :class="{lowPositionConscientious: !twoChart}">
       Conscientious
     </span>
-    <span class="character-name character-extraverted" :class="{lowPosition: !twoChart}">
+    <span class="character-name character-extraverted" :class="{lowPositionExtraverted: !twoChart}">
       Extraverted
     </span>
-    <span class="character-name character-agreeable" :class="{lowPosition: !twoChart}">
+    <span class="character-name character-agreeable" :class="{lowPositionAgreeable: !twoChart}">
       Agreeable
     </span>
-    <span class="character-name character-neurotic" :class="{lowPosition: !twoChart}">
+    <span class="character-name character-neurotic" :class="{lowPositionNeurotic: !twoChart}">
       Neurotic
     </span>
 
@@ -32,6 +33,34 @@
       @click="choose"
       ref="chart"
     />
+    <div class="radar-legend">
+      <div class="radar-legend-list">
+        <template v-if="getDataForLegends.length >= 2">
+          <div
+            class="radar-legend-item"
+            v-for="(item, index) in getDataForLegends"
+            :key="index"
+            :class="'label-bubble-chart-' + (index + 1)"
+          >
+            <div class="radar-legend-item-text" :style="{color: item.itemColor.color}">
+              {{ item.name }}
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <div
+            class="radar-legend-item label-bubble-chart"
+            v-for="(item, index) in getDataForLegends"
+            :key="index"
+          >
+            <div  class="radar-legend-item-text"
+                 :style="{color: item.itemColor.color}">
+              {{ item.name }}
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -206,16 +235,14 @@ export default {
   .radar-legend{
     display: flex;
     justify-content: center;
-    margin-bottom: 7px;
   }
   .radar-legend-list{
     display: flex;
   }
   .radar-legend-item{
     display: flex;
-    padding: 0 25px;
     align-items: center;
-    width: 50%;
+    width: 25px;
   }
   .radar-legend-item-indicator{
     min-width: 22px;
@@ -229,12 +256,12 @@ export default {
   .radar-legend-item-text{
     font-family: $defaultFont;
     color: $txtColor2;
-    font-size: 16px;
+    font-size: 20px;
+    font-weight: bold;
   }
   .character-name {
     display: inline-block;
     position: relative;
-    top: 10px;
     transform: rotate(-35deg);
     color: #7811C9;
     font-weight: bold;
@@ -242,113 +269,341 @@ export default {
   }
   .character-open {
     left: 35px;
+    top: 20px
   }
   .character-conscientious {
     left: 35px;
   }
   .character-extraverted {
     left: 15px;
+    top: 5px;
    }
   .character-agreeable {
     left: 10px;
+    top: 8px;
   }
   .character-neurotic {
     left: 20px;
+    top: 12px;
   }
-  .lowPosition {
+  .lowPositionOpen {
+    top: 70px;
+  }
+  .lowPositionConscientious {
     top: 50px;
   }
-  .shadow1 {
-    background: #ccc;
-    border-radius: 100px/50px;
-    display: inline-block;
-    width: 40px;
-    height: 20px;
-    bottom: 100px;
-    right: 385px;
-    position: absolute;
+  .lowPositionExtraverted {
+    top: 55px;
   }
-  .shadow2 {
-    background: #ccc;
-    border-radius: 100px/50px;
-    display: inline-block;
-    width: 40px;
-    height: 20px;
-    right: 310px;
-    bottom: 100px;
-    position: absolute;
+  .lowPositionAgreeable {
+    top: 57px;
   }
-  .shadow3 {
-    background: #ccc;
-    border-radius: 100px/50px;
-    display: inline-block;
-    width: 40px;
-    height: 20px;
-    right: 230px;
-    bottom: 100px;
-    position: absolute;
-  }
-  .shadow4 {
-    background: #ccc;
-    border-radius: 100px/50px;
-    display: inline-block;
-    width: 40px;
-    height: 20px;
-    right: 155px;
-    bottom: 100px;
-    position: absolute;
-  }
-  .shadow5 {
-    background: #ccc;
-    border-radius: 100px/50px;
-    display: inline-block;
-    width: 40px;
-    height: 20px;
-    right: 75px;
-    bottom: 100px;
-    position: absolute;
-  }
-  .shadow6 {
-    background: #9CD6C0;
-    border-radius: 100px/50px;
-    display: inline-block;
-    width: 40px;
-    height: 20px;
-    position: absolute;
-  }
-  .shadow7 {
-    background: #9CD6C0;
-    border-radius: 100px/50px;
-    display: inline-block;
-    width: 40px;
-    height: 20px;
-    position: absolute;
-  }
-  .shadow8 {
-    background: #9CD6C0;
-    border-radius: 100px/50px;
-    display: inline-block;
-    width: 40px;
-    height: 20px;
-    position: absolute;
-  }
-  .shadow9 {
-    background: #9CD6C0;
-    border-radius: 100px/50px;
-    display: inline-block;
-    width: 40px;
-    height: 20px;
-    position: absolute;
-  }
-  .shadow10 {
-    background: #9CD6C0;
-    border-radius: 100px/50px;
-    display: inline-block;
-    width: 40px;
-    height: 20px;
-    position: absolute;
+  .lowPositionNeurotic {
+    top: 59px;
   }
   .shadow-main-position {
     left: 70px;
+  }
+  .label-bubble-chart {
+    position: absolute;
+    bottom: 75px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .label-bubble-chart-1 {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    width: 30px;
+  }
+
+  .label-bubble-chart-2 {
+    position: absolute;
+    bottom: 140px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    width: 80px;
+  }
+  @media (max-width: 490px) and (min-width: 470px) {
+    .character-name {
+      font-size: 16px;
+    }
+    .character-open {
+      left: 20px;
+      top: 20px
+    }
+    .character-conscientious {
+      left: 20px;
+    }
+    .character-extraverted {
+      left: 1%;
+      top: 5px;
+    }
+    .character-agreeable {
+      left: 1px;
+      top: 8px;
+    }
+    .character-neurotic {
+      left: -5px;
+      top: 12px;
+    }
+  }
+  @media (max-width: 470px) and (min-width: 450px) {
+    .character-name {
+      font-size: 15px;
+    }
+    .character-open {
+      left: 20px;
+      top: 20px
+    }
+    .character-conscientious {
+      left: 20px;
+    }
+    .character-extraverted {
+      left: 1%;
+      top: 5px;
+    }
+    .character-agreeable {
+      left: 1px;
+      top: 8px;
+    }
+    .character-neurotic {
+      left: -5px;
+      top: 12px;
+    }
+  }
+  @media (max-width: 450px) and (min-width: 415px) {
+    .character-name {
+      font-size: 14px;
+    }
+    .character-open {
+      left: 20px;
+      top: 20px
+    }
+    .character-conscientious {
+      left: 20px;
+    }
+    .character-extraverted {
+      left: 1%;
+      top: 5px;
+    }
+    .character-agreeable {
+      left: 1px;
+      top: 8px;
+    }
+    .character-neurotic {
+      left: -5px;
+      top: 12px;
+    }
+  }
+  @media (max-width: 415px) and (min-width: 405px) {
+    .character-name {
+      font-size: 13px;
+    }
+    .character-open {
+      left: 25px;
+      top: 20px
+    }
+    .character-conscientious {
+      left: 20px;
+    }
+    .character-extraverted {
+      left: 1%;
+      top: 5px;
+    }
+    .character-agreeable {
+      left: 0;
+      top: 8px;
+    }
+    .character-neurotic {
+      left: 0;
+      top: 12px;
+    }
+  }
+  @media (max-width: 450px) and (min-width: 450px) {
+    .character-name {
+      font-size: 14px;
+    }
+    .character-open {
+      left: 28px;
+      top: 20px
+    }
+    .character-conscientious {
+      left: 31px;
+    }
+    .character-extraverted {
+      left: 3%;
+      top: 5px;
+    }
+    .character-agreeable {
+      left: 4px;
+      top: 8px;
+    }
+    .character-neurotic {
+      left: 10px;
+      top: 12px;
+    }
+  }
+  @media (max-width: 375px) and (min-width: 375px) {
+    .character-name {
+      font-size: 12px;
+    }
+    .character-open {
+      left: 25px;
+      top: 20px
+    }
+    .character-conscientious {
+      left: 20px;
+      top: 5px;
+    }
+    .character-extraverted {
+      left: 1%;
+      top: 7px;
+    }
+    .character-agreeable {
+      left: 0;
+      top: 9px;
+    }
+    .character-neurotic {
+      left: 0;
+      top: 12px;
+    }
+  }
+  @media (max-width: 405px) and (min-width: 380px) {
+    .character-name {
+      font-size: 12px;
+    }
+    .character-open {
+      left: 25px;
+      top: 20px
+    }
+    .character-conscientious {
+      left: 20px;
+      top: 5px;
+    }
+    .character-extraverted {
+      left: 1%;
+      top: 7px;
+    }
+    .character-agreeable {
+      left: 0;
+      top: 9px;
+    }
+    .character-neurotic {
+      left: 0;
+      top: 12px;
+    }
+  }
+  @media (max-width: 380px) and (min-width: 360px) {
+    .character-name {
+      font-size: 11px;
+    }
+    .character-open {
+      left: 25px;
+      top: 20px
+    }
+    .character-conscientious {
+      left: 20px;
+      top: 5px;
+    }
+    .character-extraverted {
+      left: 1%;
+      top: 7px;
+    }
+    .character-agreeable {
+      left: 0;
+      top: 9px;
+    }
+    .character-neurotic {
+      left: 0;
+      top: 12px;
+    }
+  }
+  @media (max-width: 359px) and (min-width: 330px) {
+    .character-name {
+      font-size: 10px;
+    }
+    .character-open {
+      left: 17px;
+      top: 20px
+    }
+    .character-conscientious {
+      left: 20px;
+      top: 5px;
+    }
+    .character-extraverted {
+      left: 1%;
+      top: 7px;
+    }
+    .character-agreeable {
+      left: 0;
+      top: 9px;
+    }
+    .character-neurotic {
+      left: 0;
+      top: 12px;
+    }
+  }
+  @media (max-width: 330px) and (min-width: 305px) {
+    .character-name {
+      font-size: 9px;
+    }
+    .character-open {
+      left: 25px;
+      top: 20px
+    }
+    .character-conscientious {
+      left: 20px;
+      top: 5px;
+    }
+    .character-extraverted {
+      left: 1%;
+      top: 7px;
+    }
+    .character-agreeable {
+      left: 0;
+      top: 9px;
+    }
+    .character-neurotic {
+      left: 0;
+      top: 12px;
+    }
+  }
+  @media (max-width: 305px) and (min-width: 0px) {
+    .character-name {
+      font-size: 9px;
+    }
+    .character-open {
+      left: 14px;
+      top: 20px
+    }
+    .character-conscientious {
+      left: 11px;
+      top: 5px;
+    }
+    .character-extraverted {
+      left: -4px;
+      top: 7px;
+    }
+    .character-agreeable {
+      left: -9px;
+      top: 9px;
+    }
+    .character-neurotic {
+      left: -15px;
+      top: 12px;
+    }
   }
 </style>
