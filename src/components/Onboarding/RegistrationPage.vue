@@ -350,7 +350,6 @@ export default {
     },
     async prepareDataForRequest() {
       const formPhone = this.formData.phone;
-      const currentPosition = await fingerPrintBrowser.getGeolocation();
       const phone = `+${this.formData.diaCode}${formPhone.charAt(0) === '0' ? formPhone.substring(1) : formPhone}`
         .replace(/\s/g, '');
 
@@ -371,7 +370,6 @@ export default {
         codeCountry: `+${this.formData.diaCode}`,
         isoCountryCode: this.formData.isoCountryCode,
         uniqueId,
-        currentPosition,
         fingerPrint: fingerPrintBrowser.getClientData(),
       };
     },

@@ -122,15 +122,10 @@ export default {
       });
     });
   },
-  updateGeoLocationUsers(geoLocationDataDto) {
+  updateGeoLocationUsers(geoLocationDataDto, allowGetGeolocation, id) {
     return new Promise((resolve, reject) => {
-      http.post('user-auth/update-geo-location-user', geoLocationDataDto).then(
+      http.post(`user-auth/update-geo-location-user/${id}?allowGetGeolocation=${allowGetGeolocation}`, geoLocationDataDto).then(
         ({ data }) => {
-          Vue.notify({
-            type: 'success',
-            title: 'Success',
-            text: 'The new code was successfully sent',
-          });
           resolve(data);
         },
       ).catch((error) => {

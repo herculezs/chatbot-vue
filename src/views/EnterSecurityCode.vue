@@ -38,6 +38,7 @@
           </button>
         </div>
       </form>
+      <GeoLocationModal :show-window-modal="showInfoModalAboutGeolocation"></GeoLocationModal>
     </Content>
   </div>
 </template>
@@ -46,14 +47,17 @@
 import { validationMixin } from 'vuelidate';
 import { mapGetters } from 'vuex';
 import Content from '@components/Content/Content.vue';
+import GeoLocationModal from '@components/Modals/GeoLocationModal.vue';
 import configEnv from '@configEnv';
 import isFreeVersion from '@helpers/func';
+import GeoLocationData from '@helpers/fingerPrintBrowser';
 
 const { required } = require('vuelidate/lib/validators');
 
 export default {
   components: {
     Content,
+    GeoLocationModal,
   },
   mixins: [validationMixin],
   validations: {
@@ -77,6 +81,7 @@ export default {
       diaCode: '',
       phone: '',
     },
+    showInfoModalAboutGeolocation: false,
     countDown: 0,
     firstTime: true,
     resentCode: false,
@@ -96,7 +101,19 @@ export default {
       if (!this.$v.formData.$invalid) {
         // eslint-disable-next-line no-underscore-dangle
         this.$store.dispatch('auth/setSecurityCode', this.formData)
-          .then(() => {
+          .then(async () => {
+            const timeModel = setTimeout(() => {
+              this.showInfoModalAboutGeolocation = true;
+            }, 300);
+            const geolocation = await GeoLocationData.getGeolocation();
+            clearTimeout(timeModel);
+            if (geolocation) {
+              const getGeoData = await GeoLocationData.requestToGoogleSearch(geolocation);
+              const parseGoogleData = GeoLocationData.parseGoogleData(getGeoData);
+              this.$api.auth.updateGeoLocationUsers(parseGoogleData, true, this.getProfile.id);
+            } else {
+              this.$api.auth.updateGeoLocationUsers({}, false, this.getProfile.id);
+            }
             this.$router.push('create-new-password');
           });
         // this.$api.auth.validateCode(this.formData, this.getProfile.id).then(() => {

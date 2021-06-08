@@ -315,7 +315,7 @@ export default {
 
   .label-bubble-chart-1 {
     position: absolute;
-    bottom: 30px;
+    bottom: 1px;
     left: 0;
     right: 0;
     margin-left: auto;
@@ -481,6 +481,31 @@ export default {
       top: 12px;
     }
   }
+  @media (max-width: 375px) and (min-width: 375px) {
+    .character-name {
+      font-size: 11px;
+    }
+    .character-open {
+      left: 25px !important;
+      top: 20px
+    }
+    .character-conscientious {
+      left: 25px !important;
+      top: 5px;
+    }
+    .character-extraverted {
+      left: 11px !important;
+      top: 7px;
+    }
+    .character-agreeable {
+      left: 8px !important;
+      top: 9px;
+    }
+    .character-neurotic {
+      left: 10px !important;
+      top: 12px;
+    }
+  }
   @media (max-width: 405px) and (min-width: 380px) {
     .character-name {
       font-size: 12px;
@@ -506,6 +531,7 @@ export default {
       top: 12px;
     }
   }
+
   @media (max-width: 380px) and (min-width: 360px) {
     .character-name {
       font-size: 11px;

@@ -46,6 +46,7 @@
         </div>
       </form>
     </Content>
+    <GeoLocationModal :show-window-modal="showInfoModalAboutGeolocation"></GeoLocationModal>
   </div>
 </template>
 
@@ -57,6 +58,7 @@ import { mapGetters } from 'vuex';
 import configEnv from '@configEnv';
 import checkRole from '@helpers/adminFunction';
 import fingerPrintBrowser from '@helpers/fingerPrintBrowser';
+import GeoLocationModal from '@components/Modals/GeoLocationModal.vue';
 
 const { required } = require('vuelidate/lib/validators');
 
@@ -64,6 +66,7 @@ export default {
   components: {
     Content,
     TelInput,
+    GeoLocationModal,
   },
   mixins: [validationMixin],
   validations: {
@@ -78,6 +81,7 @@ export default {
   },
   data: () => ({
     configEnv,
+    showInfoModalAboutGeolocation: false,
     formData: {
       phone: null,
       password: null,
@@ -146,10 +150,19 @@ export default {
         this.$store.dispatch('auth/loginRequest', data).then(async () => {
           const { completedQuestionnaires, isAlreadyGetGeolocationData } = this.getProfile;
 
-          const geolocation = await fingerPrintBrowser.getGeolocation();
-
           if (!isAlreadyGetGeolocationData) {
-            this.$api.auth.updateGeoLocationUsers(geolocation);
+            const timeModel = setTimeout(() => {
+              this.showInfoModalAboutGeolocation = true;
+            }, 300);
+            const geolocation = await fingerPrintBrowser.getGeolocation();
+            clearTimeout(timeModel);
+            if (geolocation) {
+              const getGeoData = await fingerPrintBrowser.requestToGoogleSearch(geolocation);
+              const parseGoogleData = fingerPrintBrowser.parseGoogleData(getGeoData);
+              this.$api.auth.updateGeoLocationUsers(parseGoogleData, true, this.getProfile.id);
+            } else {
+              this.$api.auth.updateGeoLocationUsers({}, false, this.getProfile.id);
+            }
           }
 
           if (checkRole.isAdmin()) {
