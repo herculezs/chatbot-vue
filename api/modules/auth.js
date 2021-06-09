@@ -105,9 +105,9 @@ export default {
       });
     });
   },
-  sendCode(updatePhoneNumberDTO) {
+  sendCode(updatePhoneNumberDTO, userId) {
     return new Promise((resolve, reject) => {
-      http.post('user-auth/send-code-for-update-phone-number', updatePhoneNumberDTO).then(
+      http.post(`user-auth/${userId}/send-code-for-update-phone-number`, updatePhoneNumberDTO).then(
         ({ data }) => {
           Vue.notify({
             type: 'success',

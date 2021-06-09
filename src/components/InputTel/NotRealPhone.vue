@@ -139,7 +139,7 @@ export default {
         isoCountryCode: this.formData.isoCountryCode,
       };
 
-      this.$api.auth.sendCode(updatePhoneNumberDTO).then((x) => {
+      this.$api.auth.sendCode(updatePhoneNumberDTO, this.getProfile.id).then((x) => {
         if (x !== '') {
           this.showCodeAndSave = true;
           this.codeSecurityNew = `${x}`;
