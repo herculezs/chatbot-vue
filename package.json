@@ -65,7 +65,7 @@
     "vue-the-mask": "^0.11.1",
     "vue2-collapse": "^1.0.15",
     "vue2-touch-events": "^2.3.2",
-    "vuedraggable": "git://github.com/divinespear/Vue.Draggable.git#multi-drag",
+    "vuedraggable": "git://github.com/Flip535/Vue.Draggable.git#be82d2a15f99fc80c0fc836aa8550ff07d943a60",
     "vuelidate": "^0.7.5",
     "vuetify": "^2.4.5",
     "vuex": "^3.5.1",
