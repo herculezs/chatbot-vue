@@ -1,5 +1,6 @@
 <template>
   <div class="onBoarding-carousel">
+
     <VueSlickCarousel
       v-bind="carousel.settings"
       ref="slickCarousel"
@@ -39,12 +40,16 @@
         </button>
       </div>
       <div class="onBoarding-carousel__slide" v-if="isFreeV">
-        <RegistrationPage :afterCompleteQuiz="true">
+        <RegistrationPage @show-modal-strange="showModalStrange = $event"
+                          ref="registrationPage"
+                          :afterCompleteQuiz="true">
         </RegistrationPage>
       </div>
     </VueSlickCarousel>
     <TermsConditionsModal />
     <PolicyModal />
+    <ReCaptchaModal :show-window-modal="showModalStrange"
+                    :update-recaptcha="this.$refs.registrationPage"></ReCaptchaModal>
     <div class="footer-menu">
       <ul class="footer-menu__list">
         <li class="footer-menu__item">
@@ -70,6 +75,7 @@ import configEnv from '@configEnv';
 import { mapGetters } from 'vuex';
 import isFreeVersion from '@helpers/func';
 import RegistrationPage from '@components/Onboarding/RegistrationPage.vue';
+import ReCaptchaModal from '@components/Modals/ReCaptchaModal.vue';
 import step1 from '../../assets/step_1.gif';
 
 export default {
@@ -78,10 +84,12 @@ export default {
     PolicyModal,
     TermsConditionsModal,
     RegistrationPage,
+    ReCaptchaModal,
   },
   data: () => ({
     configEnv,
     step1,
+    showModalStrange: false,
     allMonths: ['January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'],
     disableSendCode: false,
@@ -133,6 +141,8 @@ export default {
   },
   mounted() {
     this.initialSlider();
+    this.$refs.registrationPage.captchaUpdate();
+    console.log(this.$refs.registrationPage.captchaUpdate());
   },
   methods: {
     initialSlider() {

@@ -134,4 +134,16 @@ export default {
       });
     });
   },
+  checkBotGoogleCaptcha(token) {
+    return new Promise((resolve, reject) => {
+      http.post('user-auth/check-bot-google-captcha', { token }).then(
+        ({ data }) => {
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
 };

@@ -6,6 +6,12 @@ function resolve(dir) {
   return path.join(__dirname, dir);
 }
 module.exports = {
+  devServer: {
+    disableHostCheck: true,
+    port: 8081,
+    public: '0.0.0.0:8081',
+  },
+  publicPath: '/',
   configureWebpack: (config) => {
     const customPlugins = [];
     customPlugins.push(new webpack.DefinePlugin({

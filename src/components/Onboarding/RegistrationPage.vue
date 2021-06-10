@@ -93,96 +93,6 @@
             </div>
           </template>
         </div>
-        <!--          <div-->
-        <!--            class="form-group flex-default-gap"-->
-        <!--            :class="{'form-group-error': $v.formData.month.$error}"-->
-        <!--          >-->
-        <!--            <select required-->
-        <!--                    class="form__input select-month"-->
-        <!--                    v-model="formData.month"-->
-        <!--            >-->
-        <!--              <option value="undefined" disabled selected hidden>Month</option>-->
-        <!--              <option :value="index" v-for="(month, index) in allMonths"
-         :key="month">-->
-        <!--                {{month}}-->
-        <!--              </option>-->
-        <!--            </select>-->
-
-        <!--            <input class="form__input"-->
-        <!--                   placeholder="Day"-->
-        <!--                   v-model="formData.day"-->
-        <!--            />-->
-        <!--            <input class="form__input"-->
-        <!--                   placeholder="Year"-->
-        <!--                   v-model="formData.year"-->
-        <!--            />-->
-
-        <!--          </div>-->
-        <!--          <div class="form-group flex-default-gap error-group-section">-->
-
-        <!--            <div class="full-width">-->
-
-        <!--              <template v-if="$v.formData.month.$error">-->
-        <!--                <div-->
-        <!--                        class="form__input-error"-->
-        <!--                        v-if="!$v.formData.month.required">-->
-        <!--                  Month is required-->
-        <!--                </div>-->
-        <!--              </template>-->
-        <!--            </div>-->
-
-        <!--            <div class="full-width">-->
-
-        <!--              <template v-if="$v.formData.day.$error">-->
-        <!--                <div-->
-        <!--                        class="form__input-error"-->
-        <!--                        v-if="!$v.formData.day.required">-->
-        <!--                  Day is required-->
-        <!--                </div>-->
-        <!--                <div-->
-        <!--                        class="form__input-error"-->
-        <!--                        v-if="!$v.formData.day.minValue ||
-         !$v.formData.day.maxValue">-->
-        <!--                  Must be from 1 to 31-->
-        <!--                </div>-->
-
-        <!--              </template>-->
-        <!--            </div>-->
-
-        <!--            <div class="full-width">-->
-
-        <!--              <template v-if="$v.formData.year.$error">-->
-        <!--                <div-->
-        <!--                        class="form__input-error"-->
-        <!--                        v-if="!$v.formData.year.required">-->
-        <!--                  Year is required-->
-        <!--                </div>-->
-        <!--                <div-->
-        <!--                        class="form__input-error"-->
-        <!--                        v-if="!$v.formData.year.minValue ||
-         !$v.formData.year.maxValue">-->
-        <!--                  From 1900 to {{new Date().getFullYear()}}-->
-        <!--                </div>-->
-        <!--              </template>-->
-        <!--            </div>-->
-
-        <!--              <template v-if="$v.formData.year.$error">-->
-        <!--                <div-->
-        <!--                        class="form__input-error"-->
-        <!--                        v-if="!$v.formData.year.required">-->
-        <!--                  Year is required-->
-        <!--                </div>-->
-        <!--                <div-->
-        <!--                        class="form__input-error"-->
-        <!--                        v-if="!$v.formData.year.minValue ||
-         !$v.formData.year.maxValue">-->
-        <!--                  From 1900 to {{new Date().getFullYear()}}-->
-        <!--                </div>-->
-        <!--              </template>-->
-        <!--            </div>-->
-
-        <!--          </div>-->
-
 
         <TelInput
           v-model="formData.phone"
@@ -198,12 +108,19 @@
     <div v-if="!afterCompleteQuiz" class="reg-notification">
       <span class="registration-text">We will send your mobile phone a verification code</span>
     </div>
+    <div class="google-text-recaptcha">
+      This site is protected by reCAPTCHA and the Google
+      <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+      <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+    </div>
+
+    <br/>
       <button
         id="registration_send_code"
         class="button button_w-100 button_theme-default
-        button_size-m slide-details__button"
+        button_size-m slide-details__button disabled-styles-send-code"
         @click.prevent="start"
-        :disabled="disableSendCode"
+        :disabled="disableSendCode || !googleCaptcha"
       >
         Send Code
       </button>
@@ -241,6 +158,10 @@ import { validationMixin } from 'vuelidate';
 import PolicyModal from '@components/Modals/PolicyModal.vue';
 import TermsConditionsModal from '@components/Modals/TermsConditionsModal.vue';
 import fingerPrintBrowser from '@helpers/fingerPrintBrowser';
+import Vue from 'vue';
+import { VueReCaptcha } from 'vue-recaptcha-v3';
+
+Vue.use(VueReCaptcha, { siteKey: '6LcSoCEbAAAAAE8oA3ASZIJqEA0biiN3bTY8kmAc' });
 
 // numeric, minValue, maxValue,
 const {
@@ -268,6 +189,7 @@ export default {
   },
   data: () => ({
     configEnv,
+    googleCaptcha: false,
     disableSendCode: false,
     formData: {
       phone: null,
@@ -296,21 +218,6 @@ export default {
       surname: {
         required,
       },
-      // month: {
-      //   required,
-      // },
-      // day: {
-      //   required,
-      //   numeric,
-      //   minValue: minValue(1),
-      //   maxValue: maxValue(31),
-      // },
-      // year: {
-      //   required,
-      //   numeric,
-      //   minValue: minValue(1900),
-      //   maxValue: maxValue(new Date().getFullYear()),
-      // },
       phone: {
         required,
       },
@@ -333,7 +240,7 @@ export default {
       return configEnv.onboarding.defaultStatePhone;
     },
   },
-  mounted() {
+  async mounted() {
     this.disableSendCode = false;
 
     if (this.getProfile.phone) {
@@ -342,8 +249,17 @@ export default {
       this.formData.youEmail = this.getProfile.email;
       this.formData.phone = this.getProfile.phone.replace(this.getProfile.codeCountry, '');
     }
+    this.captchaUpdate();
   },
   methods: {
+    async captchaUpdate() {
+      await this.$recaptchaLoaded();
+      const token = await this.$recaptcha('login');
+      this.$api.auth.checkBotGoogleCaptcha(token).then((result) => {
+        this.googleCaptcha = result;
+        this.$emit('show-modal-strange', !result);
+      });
+    },
     countryChanged(data) {
       this.formData.isoCountryCode = data.iso2;
       this.formData.diaCode = data.dialCode;
@@ -358,24 +274,22 @@ export default {
         uniqueId = localStorage.getItem('uniqueId');
       }
 
-      // const currentMonthNumber = this.formData.month + 1;
       return {
         name: this.formData.firstName,
         surname: this.formData.surname,
         youEmail: this.formData.youEmail.toLowerCase(),
-        // eslint-disable-next-line radix,max-len
-        // dateOfBirth: [this.formData.year, currentMonthNumber < 9 ? `0${currentMonthNumber}` : currentMonthNumber, this.formData.day <= 9 ? `0${parseInt(this.formData.day)}` : parseInt(this.formData.day)].join('-'),
         phone,
         questionId: process.env.QUESTIONNAIRE_ID,
         codeCountry: `+${this.formData.diaCode}`,
         isoCountryCode: this.formData.isoCountryCode,
         uniqueId,
         fingerPrint: fingerPrintBrowser.getClientData(),
+        googleCaptcha: this.googleCaptcha,
       };
     },
     async start() {
       this.$v.$touch();
-      if (!this.$v.$invalid) {
+      if (!this.$v.$invalid && this.googleCaptcha) {
         this.disableSendCode = true;
         const data = await this.prepareDataForRequest();
         this.$store.dispatch('auth/registerRequest', data).then(() => {
@@ -541,5 +455,20 @@ export default {
   }
   .registration input {
     background-color: white;
+  }
+  .google-text-recaptcha {
+    color: #9f9f9f;
+  }
+  .registration a {
+    color: #00719f;
+  }
+  .grecaptcha-badge {
+    visibility: hidden;
+  }
+
+  .disabled-styles-send-code:disabled,
+  .disabled-styles-send-code[disabled]{
+    background-color: #cccccc;
+    color: #666666;
   }
 </style>
