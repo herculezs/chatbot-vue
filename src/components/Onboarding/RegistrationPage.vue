@@ -143,8 +143,9 @@
         </li>
       </ul>
     </div>
-
   </Content>
+    <ReCaptchaModal v-if="isFreeV" :show-window-modal="showModalStrange"
+                    :update-recaptcha="captchaMethod"></ReCaptchaModal>
   </div>
 </template>
 
@@ -160,6 +161,8 @@ import TermsConditionsModal from '@components/Modals/TermsConditionsModal.vue';
 import fingerPrintBrowser from '@helpers/fingerPrintBrowser';
 import Vue from 'vue';
 import { VueReCaptcha } from 'vue-recaptcha-v3';
+import ReCaptchaModal from '@components/Modals/ReCaptchaModal.vue';
+import isFreeVersion from '@helpers/func';
 
 Vue.use(VueReCaptcha, { siteKey: '6LcSoCEbAAAAAE8oA3ASZIJqEA0biiN3bTY8kmAc' });
 
@@ -181,6 +184,7 @@ export default {
     TelInput,
     PolicyModal,
     TermsConditionsModal,
+    ReCaptchaModal,
   },
   props: {
     afterCompleteQuiz: {
@@ -188,6 +192,7 @@ export default {
     },
   },
   data: () => ({
+    showModalStrange: false,
     configEnv,
     googleCaptcha: false,
     disableSendCode: false,
@@ -225,11 +230,18 @@ export default {
   },
   mixins: [validationMixin],
   computed: {
+    isFreeV() {
+      return isFreeVersion();
+    },
     ...mapGetters({
       getPersonalityTest: 'invitation/getPersonalityTest',
       getProfile: 'auth/getProfile',
     }),
-
+    captchaMethod() {
+      return {
+        captchaUpdate: this.captchaUpdate,
+      };
+    },
     getClassByLengthCountryCode() {
       return `code-length-${this.formData.diaCode.length}`;
     },
@@ -257,6 +269,7 @@ export default {
       const token = await this.$recaptcha('login');
       this.$api.auth.checkBotGoogleCaptcha(token).then((result) => {
         this.googleCaptcha = result;
+        this.showModalStrange = !result;
         this.$emit('show-modal-strange', !result);
       });
     },

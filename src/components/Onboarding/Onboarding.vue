@@ -141,8 +141,6 @@ export default {
   },
   mounted() {
     this.initialSlider();
-    this.$refs.registrationPage.captchaUpdate();
-    console.log(this.$refs.registrationPage.captchaUpdate());
   },
   methods: {
     initialSlider() {
