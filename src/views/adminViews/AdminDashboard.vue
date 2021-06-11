@@ -137,7 +137,7 @@ export default {
         sortable: false,
       },
       {
-        text: 'Number connection\'s',
+        text: 'Connections',
         value: 'numberConnections',
         align: 'center',
         sortable: false,

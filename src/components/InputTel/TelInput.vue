@@ -18,7 +18,6 @@
     >
       <template slot="arrow-icon">
               <span class="form__input-tel-arrow-icon">
-                ⌄
               </span>
       </template>
     </vue-tel-input>
@@ -100,5 +99,25 @@ export default {
     .vti__input{
       padding-left: 65px;
     }
+  }
+  .vti__dropdown-list {
+    display: none !important;
+  }
+</style>
+
+<style lang="scss">
+  .form__input-tel.code-length-3 {
+    .vti__input{
+      padding-left: 62px;
+    }
+  }
+
+  .form__input-tel.code-length-4{
+    .vti__input{
+      padding-left: 65px;
+    }
+  }
+  .vti__dropdown-list {
+    display: none !important;
   }
 </style>
