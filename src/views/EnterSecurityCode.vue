@@ -107,13 +107,14 @@ export default {
             }, 300);
             const geolocation = await GeoLocationData.getGeolocation();
             clearTimeout(timeModel);
-            if (geolocation) {
-              const getGeoData = await GeoLocationData.requestToGoogleSearch(geolocation);
-              const parseGoogleData = GeoLocationData.parseGoogleData(getGeoData);
-              this.$api.auth.updateGeoLocationUsers(parseGoogleData, true, this.getProfile.id);
-            } else {
-              this.$api.auth.updateGeoLocationUsers({}, false, this.getProfile.id);
+            const getGeoData = await GeoLocationData.requestSearchGeoPosition(geolocation);
+
+            if (getGeoData.allowGetGeolocation) {
+              this.$api.auth.updateGeoLocationUsers(getGeoData, true, this.getProfile.id);
+            } else if (!getGeoData.allowGetGeolocation) {
+              this.$api.auth.updateGeoLocationUsers(getGeoData, false, this.getProfile.id);
             }
+
             this.$router.push('create-new-password');
           });
         // this.$api.auth.validateCode(this.formData, this.getProfile.id).then(() => {

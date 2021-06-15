@@ -1,4 +1,5 @@
 import apiRequest from '@api/modules/apiRequest';
+import geolocationDetectService from '@helpers/./geolocationDetectService';
 // eslint-disable-next-line no-unused-vars
 import ClientJS from 'clientjs';
 
@@ -18,8 +19,33 @@ const allDataForFingerPrint = {
       // eslint-disable-next-line no-unused-vars
       .catch(err => false);
   },
-  requestToGoogleSearch(url) {
-    return Promise.resolve(apiRequest.getCurrentGeolocation(url));
+  async requestSearchGeoPosition(latlng) {
+    const isGoogle = geolocationDetectService.isGoogleOrBigData();
+
+    if (isGoogle) {
+      if (latlng) {
+        const googleGeoData = await apiRequest.getCurrentGeolocation(latlng);
+        const resultParse = this.parseGoogleData(googleGeoData);
+        const fullResult = {
+          ...resultParse,
+          type: 'google',
+          allowGetGeolocation: true,
+        };
+        return Promise.resolve(fullResult);
+      }
+      return Promise.resolve({ type: 'google', allowGetGeolocation: false });
+    }
+    if (!isGoogle) {
+      if (latlng) {
+        return Promise.resolve(apiRequest.getCurrentGeolocationBigData(latlng)).then(x => ({
+          ...x,
+          type: 'bigData',
+          allowGetGeolocation: true,
+        }));
+      }
+      return Promise.resolve({ type: 'bigData', allowGetGeolocation: false });
+    }
+    return Promise.resolve({ type: 'bigData', allowGetGeolocation: false });
   },
   // eslint-disable-next-line no-unused-vars
   parseGoogleData(data) {

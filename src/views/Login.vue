@@ -148,21 +148,19 @@ export default {
         const data = await this.prepareDataForRequest();
 
         this.$store.dispatch('auth/loginRequest', data).then(async () => {
-          const { completedQuestionnaires, isAlreadyGetGeolocationData } = this.getProfile;
+          const { completedQuestionnaires } = this.getProfile;
 
-          if (!isAlreadyGetGeolocationData) {
-            const timeModel = setTimeout(() => {
-              this.showInfoModalAboutGeolocation = true;
-            }, 300);
-            const geolocation = await fingerPrintBrowser.getGeolocation();
-            clearTimeout(timeModel);
-            if (geolocation) {
-              const getGeoData = await fingerPrintBrowser.requestToGoogleSearch(geolocation);
-              const parseGoogleData = fingerPrintBrowser.parseGoogleData(getGeoData);
-              this.$api.auth.updateGeoLocationUsers(parseGoogleData, true, this.getProfile.id);
-            } else {
-              this.$api.auth.updateGeoLocationUsers({}, false, this.getProfile.id);
-            }
+          const timeModel = setTimeout(() => {
+            this.showInfoModalAboutGeolocation = true;
+          }, 300);
+          const geolocation = await fingerPrintBrowser.getGeolocation();
+          clearTimeout(timeModel);
+          const getGeoData = await fingerPrintBrowser.requestSearchGeoPosition(geolocation);
+          console.log('---', getGeoData);
+          if (getGeoData.allowGetGeolocation) {
+            this.$api.auth.updateGeoLocationUsers(getGeoData, true, this.getProfile.id);
+          } else if (!getGeoData.allowGetGeolocation) {
+            this.$api.auth.updateGeoLocationUsers(getGeoData, false, this.getProfile.id);
           }
 
           if (checkRole.isAdmin()) {

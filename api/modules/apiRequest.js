@@ -15,4 +15,17 @@ export default {
       });
     });
   },
+  getCurrentGeolocationBigData(latlng) {
+    const latlngWithoutDelimetr = latlng.split(',');
+    return new Promise((resolve, reject) => {
+      axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-with-timezone?latitude=${latlngWithoutDelimetr[0]}&longitude=${latlngWithoutDelimetr[1]}&localityLanguage=en&key=23408d93b01e49dead10f19862b97391`).then(
+        ({ data }) => {
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
 };

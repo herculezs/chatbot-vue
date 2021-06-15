@@ -14,11 +14,13 @@ module.exports = {
   publicPath: '/',
   configureWebpack: (config) => {
     const customPlugins = [];
+    console.log('process.env.GOOGLE_OR_BIGDATA_GEOLOCATION', process.env);
     customPlugins.push(new webpack.DefinePlugin({
       // allow access to process.env from within the vue app
       'process.env': {
         QUESTIONNAIRE_ID: JSON.stringify(process.env.QUESTIONNAIRE_ID),
         FEEDBACK_ID: JSON.stringify(process.env.FEEDBACK_ID),
+        GOOGLE_OR_BIGDATA_GEOLOCATION: JSON.stringify(process.env.GOOGLE_OR_BIGDATA_GEOLOCATION),
       },
     }));
 
