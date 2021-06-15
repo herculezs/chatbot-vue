@@ -28,4 +28,16 @@ export default {
       });
     });
   },
+  getAvatarApi(email) {
+    return new Promise((resolve, reject) => {
+      axios.get(`https://www.avatarapi.com/js.aspx?email=${email}&size=128`).then(
+        ({ data }) => {
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
 };

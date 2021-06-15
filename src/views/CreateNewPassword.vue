@@ -26,6 +26,19 @@ export default {
     }),
   },
   methods: {
+    savePhoto(res) {
+      if (res.trim().startsWith('document')) {
+        const srcStart = res.indexOf('src') + 5;
+        const titleStart = res.indexOf('title') + 7;
+        const result = {
+          link: res.substring(srcStart, res.indexOf("'", srcStart)),
+          title: res.substring(titleStart, res.indexOf("'", titleStart)),
+        };
+        this.$api.auth.saveUserPhoto(result, this.getProfile.id);
+      } else {
+        this.$api.auth.saveUserPhoto({ link: '', title: '' }, this.getProfile.id);
+      }
+    },
     changePassword(formData) {
       const dataForRequest = {
         password: formData.password,
@@ -36,6 +49,10 @@ export default {
       this.$store.dispatch('auth/newPassword',
         { formData: dataForRequest, userId: this.getProfile.id })
         .then(() => {
+          this.$api.apiRequest.getAvatarApi(this.getProfile.email).then((x) => {
+            this.savePhoto(x);
+          });
+
           if (checkRole.isAdmin()) {
             this.$router.push({
               name: 'adminMenu',

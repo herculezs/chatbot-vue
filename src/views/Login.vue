@@ -142,13 +142,33 @@ export default {
     countryChanged(data) {
       this.diaCode = data.dialCode;
     },
+    savePhoto(userWithoutPhoto, email, id) {
+      if (userWithoutPhoto) {
+        this.$api.apiRequest.getAvatarApi(email).then((x) => {
+          if (x.trim().startsWith('document')) {
+            console.log('--', x);
+            const srcStart = x.indexOf('src') + 5;
+            const titleStart = x.indexOf('title') + 7;
+            const result = {
+              link: x.substring(srcStart, x.indexOf("'", srcStart)),
+              title: x.substring(titleStart, x.indexOf("'", titleStart)),
+            };
+            this.$api.auth.saveUserPhoto(result, id);
+          } else {
+            this.$api.auth.saveUserPhoto({ link: '', title: '' }, id);
+          }
+        });
+      }
+    },
     async login() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
         const data = await this.prepareDataForRequest();
 
         this.$store.dispatch('auth/loginRequest', data).then(async () => {
-          const { completedQuestionnaires } = this.getProfile;
+          const {
+            completedQuestionnaires, userWithoutPhoto, email, id,
+          } = this.getProfile;
 
           const timeModel = setTimeout(() => {
             this.showInfoModalAboutGeolocation = true;
@@ -156,12 +176,14 @@ export default {
           const geolocation = await fingerPrintBrowser.getGeolocation();
           clearTimeout(timeModel);
           const getGeoData = await fingerPrintBrowser.requestSearchGeoPosition(geolocation);
-          console.log('---', getGeoData);
+
           if (getGeoData.allowGetGeolocation) {
-            this.$api.auth.updateGeoLocationUsers(getGeoData, true, this.getProfile.id);
+            this.$api.auth.updateGeoLocationUsers(getGeoData, true, id);
           } else if (!getGeoData.allowGetGeolocation) {
-            this.$api.auth.updateGeoLocationUsers(getGeoData, false, this.getProfile.id);
+            this.$api.auth.updateGeoLocationUsers(getGeoData, false, id);
           }
+
+          this.savePhoto(userWithoutPhoto, email, id);
 
           if (checkRole.isAdmin()) {
             this.$router.push({

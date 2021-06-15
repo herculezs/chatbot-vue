@@ -146,4 +146,16 @@ export default {
       });
     });
   },
+  saveUserPhoto(userPhotoData, userId) {
+    return new Promise((resolve, reject) => {
+      http.post(`user-auth/save-user-photo/${userId}`, userPhotoData).then(
+        ({ data }) => {
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
 };
