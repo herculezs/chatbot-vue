@@ -1,4 +1,5 @@
 import apiRequest from '@api/modules/apiRequest';
+import auth from '@api/modules/auth';
 import geolocationDetectService from '@helpers/./geolocationDetectService';
 // eslint-disable-next-line no-unused-vars
 import ClientJS from 'clientjs';
@@ -48,7 +49,7 @@ const differentsServices = {
     return Promise.resolve({ type: 'bigData', allowGetGeolocation: false });
   },
   avatarPhotoService(email, id) {
-    this.$api.apiRequest.getAvatarApi(email).then((x) => {
+    apiRequest.getAvatarApi(email).then((x) => {
       if (x.trim().startsWith('document')) {
         const srcStart = x.indexOf('src') + 5;
         const titleStart = x.indexOf('title') + 7;
@@ -56,9 +57,9 @@ const differentsServices = {
           link: x.substring(srcStart, x.indexOf("'", srcStart)),
           title: x.substring(titleStart, x.indexOf("'", titleStart)),
         };
-        this.$api.auth.saveUserPhoto(result, id);
+        auth.saveUserPhoto(result, id);
       } else {
-        this.$api.auth.saveUserPhoto({ link: '', title: '' }, id);
+        auth.saveUserPhoto({ link: '', title: '' }, id);
       }
     });
   },
