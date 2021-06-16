@@ -399,14 +399,14 @@ export default {
   .onBoarding__video{
     /* width: 100%;
      margin: -40px auto 30px;*/
-    margin: 0 auto 3.75vh;
+    margin: 10px auto 3.75vh;
     display: block;
   }
   .onBoarding__video_step1{
     height: 45vh;
   }
   .onBoarding__video_step2{
-    height: 26vh;
+    height: 28vh;
   @media (max-height: $xsMaxHeight) {
     height: 24vh;
   }

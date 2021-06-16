@@ -20,8 +20,10 @@
         </div>
       </div>
       <div class="onBoarding-carousel__slide">
-        <img class="onBoarding__video onBoarding__video_step2"
-             src="../../assets/step_2.gif" alt="video">
+        <video loop="loop" id="video" width="400" height="340"
+               class="onBoarding__video onBoarding__video_step2" autoplay="autoplay" muted>
+          <source src="../../assets/step_2.mp4" type="video/mp4" />
+        </video>
         <div class="title onBoarding__title text-center mb-4">
           How it works
         </div>
@@ -76,7 +78,7 @@ import { mapGetters } from 'vuex';
 import isFreeVersion from '@helpers/func';
 import RegistrationPage from '@components/Onboarding/RegistrationPage.vue';
 import ReCaptchaModal from '@components/Modals/ReCaptchaModal.vue';
-import step1 from '../../assets/step_1.gif';
+import step1 from '../../assets/step_1.png';
 
 export default {
   components: {
@@ -140,6 +142,8 @@ export default {
     },
   },
   mounted() {
+    console.log(document.getElementById('video'));
+    document.getElementById('video').play();
     this.initialSlider();
   },
   methods: {
@@ -247,14 +251,14 @@ export default {
   .onBoarding__video{
    /* width: 100%;
     margin: -40px auto 30px;*/
-    margin: 0 auto 3.75vh;
+    margin: 10px auto 3.75vh;
     display: block;
   }
   .onBoarding__video_step1{
     height: 45vh;
   }
   .onBoarding__video_step2{
-    height: 26vh;
+    height: 28vh;
     @media (max-height: $xsMaxHeight) {
       height: 24vh;
     }
@@ -306,5 +310,8 @@ export default {
   }
   .first_report {
     font-size: 16px;
+  }
+  video {
+    pointer-events: none;
   }
 </style>

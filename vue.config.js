@@ -6,11 +6,6 @@ function resolve(dir) {
   return path.join(__dirname, dir);
 }
 module.exports = {
-  devServer: {
-    disableHostCheck: true,
-    port: 8081,
-    public: '0.0.0.0:8081',
-  },
   publicPath: '/',
   configureWebpack: (config) => {
     const customPlugins = [];
@@ -20,6 +15,7 @@ module.exports = {
         QUESTIONNAIRE_ID: JSON.stringify(process.env.QUESTIONNAIRE_ID),
         FEEDBACK_ID: JSON.stringify(process.env.FEEDBACK_ID),
         GOOGLE_OR_BIGDATA_GEOLOCATION: JSON.stringify(process.env.GOOGLE_OR_BIGDATA_GEOLOCATION),
+        VUE_APP_VERSION_FREE: JSON.stringify(process.env.VUE_APP_VERSION_FREE),
       },
     }));
 
