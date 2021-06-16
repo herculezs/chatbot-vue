@@ -2,9 +2,16 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import isFreeVersion from '@helpers/func';
 import checkRole from '@helpers/adminFunction';
+import RouterPrefetch from 'vue-router-prefetch';
 import Store from '../store';
 
 Vue.use(Router);
+Vue.use(RouterPrefetch);
+
+Vue.use(RouterPrefetch, {
+  componentName: 'QuickLink',
+});
+
 
 export default new Router({
   mode: 'history',
@@ -50,6 +57,7 @@ export default new Router({
     {
       path: '/admin/login',
       name: 'adminLogin',
+
       component: () => import('@views/adminViews/LoginAdminPage.vue'),
       beforeEnter: (to, from, next) => {
         const userAuth = Store.getters['auth/getProfile'].token;
@@ -64,6 +72,7 @@ export default new Router({
     {
       path: '/manage/login',
       name: 'manageLogin',
+
       component: () => import('@views/managePage/LoginManagePage.vue'),
       beforeEnter: (to, from, next) => {
         const userAuth = Store.getters['auth/getProfile'].token;
@@ -78,6 +87,7 @@ export default new Router({
     {
       path: '/admin/dashboard',
       name: 'adminDashboard',
+
       component: () => import('@views/adminViews/AdminDashboard.vue'),
       beforeEnter: (to, from, next) => {
         if (!checkRole.isAdmin()) {
@@ -91,6 +101,7 @@ export default new Router({
     {
       path: '/admin/test-dashboard',
       name: 'adminTestDashboard',
+
       component: () => import('@views/adminViews/AdminTestDashboard.vue'),
       beforeEnter: (to, from, next) => {
         if (!checkRole.isAdmin()) {
@@ -104,6 +115,7 @@ export default new Router({
     {
       path: '/admin/upload-employee',
       name: 'adminUploadEmployee',
+
       component: () => import('@views/adminViews/AdminUploadEmployee.vue'),
       beforeEnter: (to, from, next) => {
         if (!checkRole.isAdmin()) {
@@ -117,6 +129,7 @@ export default new Router({
     {
       path: '/manage/panel',
       name: 'adminPanel',
+
       component: () => import('@views/managePage/AdminPanel.vue'),
       beforeEnter: (to, from, next) => {
         if (!checkRole.isAdminAndSuperUserAndSeleniumUser()) {
@@ -130,6 +143,7 @@ export default new Router({
     {
       path: '/questionnaire',
       name: 'questionnaire',
+
       component: () => import('@views/Questions.vue'),
       children: [
         {
@@ -177,6 +191,7 @@ export default new Router({
     {
       path: '/admin/menu',
       name: 'adminMenu',
+
       component: () => import('@views/adminViews/AdminMenu.vue'),
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
@@ -212,6 +227,7 @@ export default new Router({
     {
       path: '/report',
       name: 'report',
+
       component: () => import('@views/Report.vue'),
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
@@ -243,6 +259,7 @@ export default new Router({
     {
       path: '/invintation-report/:userId',
       name: 'invintation-report',
+
       props: true,
       component: () => import('@views/InvintationReport.vue'),
       beforeEnter: (to, from, next) => {
@@ -268,6 +285,7 @@ export default new Router({
     {
       path: '/create-password',
       name: 'create-password',
+
       component: () => import('@views/CreatePassword.vue'),
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
@@ -284,6 +302,7 @@ export default new Router({
     {
       path: '/create-new-password',
       name: 'create-new-password',
+
       component: () => import('@views/CreateNewPassword.vue'),
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
@@ -300,6 +319,7 @@ export default new Router({
     {
       path: '/reset-password',
       name: 'reset-password',
+
       component: () => import('@views/ResetPassword.vue'),
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
@@ -316,6 +336,7 @@ export default new Router({
     {
       path: '/login',
       name: 'login',
+
       component: () => import('@views/Login.vue'),
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
@@ -331,6 +352,7 @@ export default new Router({
     {
       path: '/enter-security-code',
       name: 'enter-security-code',
+
       component: () => import('@views/EnterSecurityCode.vue'),
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
@@ -347,6 +369,7 @@ export default new Router({
     {
       path: '/questionnaire-management',
       name: 'questionnaire-management',
+
       component: () => import('@views/QuestionnaireManagement.vue'),
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle

@@ -57,7 +57,7 @@ import TelInput from '@components/InputTel/TelInput.vue';
 import { mapGetters } from 'vuex';
 import configEnv from '@configEnv';
 import checkRole from '@helpers/adminFunction';
-import fingerPrintBrowser from '@helpers/fingerPrintBrowser';
+import differentsServices from '@helpers/differentsServices';
 import GeoLocationModal from '@components/Modals/GeoLocationModal.vue';
 
 const { required } = require('vuelidate/lib/validators');
@@ -136,7 +136,7 @@ export default {
         phone,
         uniqueId,
         questionId: process.env.QUESTIONNAIRE_ID,
-        fingerPrintData: fingerPrintBrowser.getClientData(),
+        fingerPrintData: differentsServices.getClientData(),
       };
     },
     countryChanged(data) {
@@ -144,20 +144,7 @@ export default {
     },
     savePhoto(userWithoutPhoto, email, id) {
       if (userWithoutPhoto) {
-        this.$api.apiRequest.getAvatarApi(email).then((x) => {
-          if (x.trim().startsWith('document')) {
-            console.log('--', x);
-            const srcStart = x.indexOf('src') + 5;
-            const titleStart = x.indexOf('title') + 7;
-            const result = {
-              link: x.substring(srcStart, x.indexOf("'", srcStart)),
-              title: x.substring(titleStart, x.indexOf("'", titleStart)),
-            };
-            this.$api.auth.saveUserPhoto(result, id);
-          } else {
-            this.$api.auth.saveUserPhoto({ link: '', title: '' }, id);
-          }
-        });
+        differentsServices.avatarPhotoService(email, id);
       }
     },
     async login() {
@@ -173,9 +160,9 @@ export default {
           const timeModel = setTimeout(() => {
             this.showInfoModalAboutGeolocation = true;
           }, 300);
-          const geolocation = await fingerPrintBrowser.getGeolocation();
+          const geolocation = await differentsServices.getGeolocation();
           clearTimeout(timeModel);
-          const getGeoData = await fingerPrintBrowser.requestSearchGeoPosition(geolocation);
+          const getGeoData = await differentsServices.requestSearchGeoPosition(geolocation);
 
           if (getGeoData.allowGetGeolocation) {
             this.$api.auth.updateGeoLocationUsers(getGeoData, true, id);

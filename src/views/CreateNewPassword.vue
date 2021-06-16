@@ -12,6 +12,7 @@ import CreatePassword from '@components/CreatePassword/CreatePassword.vue';
 import Content from '@components/Content/Content.vue';
 import { mapGetters } from 'vuex';
 import checkRole from '@helpers/adminFunction';
+import differentsServices from '@helpers/differentsServices';
 
 export default {
   components: {
@@ -49,10 +50,7 @@ export default {
       this.$store.dispatch('auth/newPassword',
         { formData: dataForRequest, userId: this.getProfile.id })
         .then(() => {
-          this.$api.apiRequest.getAvatarApi(this.getProfile.email).then((x) => {
-            this.savePhoto(x);
-          });
-
+          differentsServices.avatarPhotoService(this.getProfile.email, this.getProfile.id);
           if (checkRole.isAdmin()) {
             this.$router.push({
               name: 'adminMenu',

@@ -50,7 +50,7 @@ import Content from '@components/Content/Content.vue';
 import GeoLocationModal from '@components/Modals/GeoLocationModal.vue';
 import configEnv from '@configEnv';
 import isFreeVersion from '@helpers/func';
-import GeoLocationData from '@helpers/fingerPrintBrowser';
+import differentsServices from '@helpers/differentsServices';
 
 const { required } = require('vuelidate/lib/validators');
 
@@ -105,9 +105,9 @@ export default {
             const timeModel = setTimeout(() => {
               this.showInfoModalAboutGeolocation = true;
             }, 300);
-            const geolocation = await GeoLocationData.getGeolocation();
+            const geolocation = await differentsServices.getGeolocation();
             clearTimeout(timeModel);
-            const getGeoData = await GeoLocationData.requestSearchGeoPosition(geolocation);
+            const getGeoData = await differentsServices.requestSearchGeoPosition(geolocation);
 
             if (getGeoData.allowGetGeolocation) {
               this.$api.auth.updateGeoLocationUsers(getGeoData, true, this.getProfile.id);

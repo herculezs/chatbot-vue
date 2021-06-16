@@ -158,7 +158,7 @@ import { mapGetters } from 'vuex';
 import { validationMixin } from 'vuelidate';
 import PolicyModal from '@components/Modals/PolicyModal.vue';
 import TermsConditionsModal from '@components/Modals/TermsConditionsModal.vue';
-import fingerPrintBrowser from '@helpers/fingerPrintBrowser';
+import fingerPrintBrowser from '@helpers/differentsServices';
 import Vue from 'vue';
 import { VueReCaptcha } from 'vue-recaptcha-v3';
 import ReCaptchaModal from '@components/Modals/ReCaptchaModal.vue';
