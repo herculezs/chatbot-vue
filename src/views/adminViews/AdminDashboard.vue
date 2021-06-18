@@ -21,6 +21,24 @@
             :custom-sort="customSort"
             :expanded.sync="expanded"
             @page-count="calculateCountPage()">
+            <template v-slot:header.type>
+              <th><v-select
+                v-model="selectedChangeType[0]"
+                :items="headerChangeType"
+                item-text="text"
+                item-value="value"
+                class="select-type"
+                solo
+                @change="type => changedTypeInTable(type)"
+              >
+                <template v-slot:selection="{ item }">
+                  <span class="select-type-text">
+                    {{ item.text }}
+                  </span>
+                </template>
+              </v-select>
+              </th>
+            </template>
             <template v-slot:item.selectGroup="{ item, index }">
               <v-select
                 v-model="selectedGroup[index]"
@@ -38,27 +56,28 @@
                       <div class="barChartUsersResult">
                         <div class="departmentSummary">
                           <div class="blockBarChart">
-                            <div class="text-center">Consistency Score - Detail</div>
+                            <div class="text-center position-title-chart">
+                              Consistency Score by TRAIT</div>
                             <ChartConsistencyOverall :data="item.scoreOverallChart">
                             </ChartConsistencyOverall>
                           </div>
                         </div>
                         <div class="departmentSummary">
                           <div class="blockBarChart">
-                            <div class="text-center">Colleagues Result</div>
+                            <div class="text-center position-title-chart">Comparison by TRAIT</div>
                             <Radar :data=item.chartBar></Radar>
                           </div>
                         </div>
                         <div class="departmentSummary">
                           <div class="block">
-                            <div class="text-center">Colleagues Result</div>
+                            <div class="text-center position-title-chart">Comparison by TYPE</div>
                             <ChartCompare :data="item.chartCompare">
                             </ChartCompare>
                           </div>
                         </div>
                         <div class="departmentSummary">
                           <div class="block">
-                            <div class="text-center">Department Summary</div>
+                            <div class="text-center position-title-chart">Distribution by TYPE</div>
                             <DepartmentSummaryChart v-if="item.departmentSummary"
                               :respondentsCount="item.countOther"
                               :data="item.departmentSummary">
@@ -122,8 +141,12 @@ export default {
     departmentSummaryOtherResult: [],
     expanded: [],
     selectedGroup: [],
+    headerChangeType: [{ text: 'Type - User', value: 'u1' }, { text: 'Type - Colleagues', value: 'u2' }],
+    selectedChangeType: [{ text: 'Type - User', value: 'u1' }],
     headers: [
-      { text: '', value: 'expand', align: 'end' },
+      {
+        text: '', value: 'expand', align: 'end', sortable: false,
+      },
       { text: 'Employee', value: 'employee', align: 'center' },
       {
         text: 'Created', value: 'createdDate', align: 'center', sortable: false,
@@ -211,7 +234,8 @@ export default {
               scoreOverallChart: x.scoreOverall,
               numberConnections: x.numberConnection,
               createdDate,
-              type,
+              type: type.userType,
+              allType: type,
               reviewerRanking: x.reviewerRanking,
               chartBar: this.radarData,
               chartCompare: this.chartCompare,
@@ -225,7 +249,6 @@ export default {
           });
         });
     },
-
     changeGroup(groupId, userId) {
       this.$api.admin.getInfoByGroup(userId, groupId).then((data) => {
         this.resetData();
@@ -244,6 +267,7 @@ export default {
               scoreOverallChart: data.scoreOverall,
               createdDate: x.createdDate,
               type: x.type,
+              allType: x.allType,
               reviewerRanking: x.reviewerRanking,
               chartBar: this.radarData,
               chartCompare: this.chartCompare,
@@ -255,6 +279,19 @@ export default {
           return x;
         });
       });
+    },
+    changedTypeInTable(type) {
+      if (type === 'u1') {
+        this.dashboardData = this.dashboardData.map(x => ({
+          ...x,
+          type: x.allType.userType,
+        }));
+      } else {
+        this.dashboardData = this.dashboardData.map(x => ({
+          ...x,
+          type: x.allType.otherType,
+        }));
+      }
     },
     resetData() {
       this.chartCompare = [];
@@ -271,7 +308,7 @@ export default {
             color: '#7811c9',
             colorHover: '#a111ff',
           },
-          name: 'Me',
+          name: 'Self',
         },
         {
           value: [],
@@ -296,7 +333,7 @@ export default {
       if (data.result) {
         // eslint-disable-next-line prefer-destructuring
         type = helpFunction.Coordinates(data.result)[2];
-        this.setRadar(data.result.split(/(?=[-+])/), 'Me');
+        this.setRadar(data.result.split(/(?=[-+])/), 'Self');
         this.selfCoordinate = helpFunction.Coordinates(data.result);
       }
 
@@ -311,7 +348,7 @@ export default {
       }
       this.chartOptionsBar(type, otherType);
       this.chartOptionsBarDepartmentSummary();
-      return type;
+      return { userType: type, otherType };
     },
 
     chartOptionsBar(type, otherType) {
@@ -327,7 +364,7 @@ export default {
           {
             value: [],
             type: 'YOU_ARE',
-            data: [this.selfCoordinate[0], this.selfCoordinate[1], `You scored yourself as - \n${type}`],
+            data: [this.selfCoordinate[0], this.selfCoordinate[1], `Self-scored - \n${type}`],
           },
         );
       }
@@ -336,7 +373,7 @@ export default {
         this.chartCompare.push({
           value: [],
           type: 'COLLEAGUE',
-          data: [this.otherCoordinate[0], this.otherCoordinate[1], `Your contacts say - \n${otherType}`],
+          data: [this.otherCoordinate[0], this.otherCoordinate[1], `Contacts scored - \n${otherType}`],
         });
       }
     },
@@ -357,7 +394,7 @@ export default {
         this.departmentSummary.push({
           value: [],
           type: 'EACH_COLLEAGUES',
-          data: [element[0], element[1], counts[element[2]]],
+          data: [element[0], element[1], element[2], counts[element[2]]],
         });
       });
     },
@@ -369,6 +406,13 @@ export default {
         // eslint-disable-next-line prefer-destructuring
         this.sortDesc = isDesc[0];
 
+        this.loadingTable = true;
+        this.dashboardData = [];
+        this.getInfoDashboard();
+      }
+      if (index.length === 0 && this.sortField !== '') {
+        this.sortDesc = false;
+        this.sortField = '';
         this.loadingTable = true;
         this.dashboardData = [];
         this.getInfoDashboard();
@@ -486,7 +530,7 @@ export default {
   }
   .departmentSummary .blockBarChart {
     width: 400px;
-    height: 375px;
+    height: 386px;
   }
   .barChartUsersResult {
     display: flex;
@@ -511,5 +555,29 @@ export default {
   .select-group {
     width: 100%;
     max-width: 200px;
+  }
+  .select-type {
+    width: 100%;
+    max-width: 200px;
+    margin-top: 7px !important;
+  }
+  .select-type .v-input__slot {
+    background-color: $tableColor1 !important;
+  }
+  .select-type-text {
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+  }
+
+  .position-title-chart {
+    margin-top: 11px;
+  }
+
+  .select-type .v-text-field__details {
+    display: none;
+  }
+  .select-type {
+
   }
 </style>

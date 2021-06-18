@@ -16,7 +16,9 @@
             transform="translate(-1.79 -0.07)"
           />
         </svg>
-        Sales:  <span v-if="respondentsCount">{{ respondentsCount }}</span><span v-else> 0</span>
+        <b>Sales:
+          <span v-if="respondentsCount">{{ respondentsCount }}</span><span v-else> 0</span>
+        </b>
       </div>
     </div>
     <div class="name-label-chart-top-d"><b class="chart-label">More Flexible</b></div>
@@ -38,6 +40,7 @@ import 'echarts/lib/chart/pie';
 import 'echarts/lib/chart/map';
 import ECharts from 'vue-echarts';
 import configEnv from '@configEnv';
+import constant from '@constants/index';
 
 export default {
   components: {
@@ -63,7 +66,7 @@ export default {
       EACH_COLLEAGUES: {
         label: '#7811c9',
         border: '#54109a',
-        color: '#54109a',
+        color: '#FF0100',
         colorPoint: configEnv.charts.pointColor,
       },
     },
@@ -140,6 +143,7 @@ export default {
       });
       filter = [];
       return filterResult.map(({ data, type }) => {
+        let positionResult;
         const choseColor = configEnv.charts.chosePointColor;
         const color = data[2] === this.selectedCharateristic[2] ? choseColor
           : this.colorsByType[type].pointColor;
@@ -150,15 +154,47 @@ export default {
             show: true,
             position: 'inside',
             align: 'center',
-            fontSize: 20,
+            fontSize: 16,
             fontWeight: 'bold',
             color,
             formatter(d) {
               const v = d.value;
-              return v[2];
+              return v[3];
             },
           };
         } else {
+          if (data[1] >= 0 && (data[0] >= -2.16 && data[0] <= 0)) {
+            positionResult = {
+              position: ['10', '20'],
+            };
+          }
+
+          if (data[1] <= 0 && (data[0] >= -2.16 && data[0] <= 0)) {
+            positionResult = {
+              position: ['10', '-60'],
+            };
+          }
+
+          if (data[1] >= 0 && (data[0] <= 2.16 && data[0] >= 0)) {
+            positionResult = {
+              position: ['10', '20'],
+            };
+          }
+          if ((data[1] <= 0 && (data[0] <= 2.16 && data[0] >= 0))
+            || (data[1] === 0 && data[0] === 0)) {
+            positionResult = {
+              position: ['10', '-60'],
+            };
+          }
+          if (data[0] >= 2.16) {
+            positionResult = {
+              position: ['-36', '-10'],
+            };
+          } else if (data[0] <= -2.16) {
+            positionResult = {
+              position: ['65', '-10'],
+            };
+          }
           labelByPoint = {
             show: false,
             position: 'top',
@@ -171,6 +207,32 @@ export default {
           symbolSize: 15,
           symbol: 'diamond',
           label: labelByPoint,
+          emphasis: {
+            label: {
+              show: true,
+              formatter(param) {
+                let res = `${param.data[2]}`;
+                const oneCharacter = Object.values(constant.cards)
+                  .filter(x => x.title === param.value[2]);
+
+                if (oneCharacter[0]) {
+                  res += ':\n';
+                  oneCharacter[0].detailedCharacteristics.forEach((d) => {
+                    res += `${d}\n`;
+                  });
+                }
+
+                return res;
+              },
+              color: configEnv.charts.pointColor,
+              fontWeight: 'bold',
+              backgroundColor: configEnv.charts.backGroundColorLabel,
+              position: 'top',
+              fontSize: 12,
+              align: 'center',
+              ...positionResult,
+            },
+          },
           itemStyle: {
             normal: {
               color: this.colorsByType[type].color,
@@ -235,6 +297,8 @@ export default {
     align-items: center;
     margin-left: auto;
     padding-top: 6px;
+    float: right;
+    padding-right: 10px;
   }
 
   .report__respondents-icon{

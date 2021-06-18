@@ -142,8 +142,6 @@ export default {
     },
   },
   mounted() {
-    console.log(document.getElementById('video'));
-    document.getElementById('video').play();
     this.initialSlider();
   },
   methods: {
