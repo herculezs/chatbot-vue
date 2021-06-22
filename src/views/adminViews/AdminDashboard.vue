@@ -147,11 +147,18 @@ export default {
       {
         text: '', value: 'expand', align: 'end', sortable: false,
       },
-      { text: 'Employee', value: 'employee', align: 'center' },
       {
-        text: 'Created', value: 'createdDate', align: 'center', sortable: false,
+        text: 'Employee', value: 'employee', align: 'start', width: 180,
       },
-      { text: 'Department', value: 'department', align: 'center' },
+      {
+        text: 'Created', value: 'created_date', align: 'center',
+      },
+      {
+        text: 'Department', value: 'department', align: 'center',
+      },
+      {
+        text: 'Role', value: 'role', align: 'center',
+      },
       { text: 'Manager', value: 'manager', align: 'center' },
       {
         text: 'Consistency score overall',
@@ -161,9 +168,8 @@ export default {
       },
       {
         text: 'Connections',
-        value: 'numberConnections',
+        value: 'number_connections',
         align: 'center',
-        sortable: false,
       },
       {
         text: 'Type',
@@ -179,9 +185,8 @@ export default {
       },
       {
         text: 'Preferred Reviewer Ranking',
-        value: 'reviewerRanking',
+        value: 'preferred_reviewer_ranking',
         align: 'center',
-        sortable: false,
       },
     ],
   }),
@@ -232,11 +237,12 @@ export default {
               manager: x.manager,
               scoreOverall: `${x.scoreOverall.generalPercent}%`,
               scoreOverallChart: x.scoreOverall,
-              numberConnections: x.numberConnection,
-              createdDate,
+              number_connections: x.numberConnection,
+              created_date: createdDate,
+              role: x.role,
               type: type.userType,
               allType: type,
-              reviewerRanking: x.reviewerRanking,
+              preferred_reviewer_ranking: x.reviewerRanking,
               chartBar: this.radarData,
               chartCompare: this.chartCompare,
               departmentSummary: this.departmentSummary,
@@ -260,15 +266,16 @@ export default {
               userId: x.userId,
               employee: x.employee,
               department: x.department,
-              numberConnections: x.numberConnections,
+              number_connections: x.number_connections,
               countOther: data.numberConnection,
               manager: x.manager,
               scoreOverall: x.scoreOverall,
               scoreOverallChart: data.scoreOverall,
-              createdDate: x.createdDate,
+              created_date: x.created_date,
               type: x.type,
+              role: x.role,
               allType: x.allType,
-              reviewerRanking: x.reviewerRanking,
+              preferred_reviewer_ranking: x.preferred_reviewer_ranking,
               chartBar: this.radarData,
               chartCompare: this.chartCompare,
               departmentSummary: this.departmentSummary,
@@ -399,6 +406,7 @@ export default {
       });
     },
     customSort(items, index, isDesc) {
+      console.log(items);
       if (index.length !== 0 && isDesc.length !== 0 && (this.sortField !== index[0]
         || this.sortDesc !== isDesc[0])) {
         // eslint-disable-next-line prefer-destructuring

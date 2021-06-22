@@ -649,7 +649,6 @@ export default {
   }
   .select-type-text {
     position: relative;
-    top: 21px;
     right: 10px;
     font-weight: bold;
   }
