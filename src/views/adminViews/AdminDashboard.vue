@@ -406,7 +406,6 @@ export default {
       });
     },
     customSort(items, index, isDesc) {
-      console.log(items);
       if (index.length !== 0 && isDesc.length !== 0 && (this.sortField !== index[0]
         || this.sortDesc !== isDesc[0])) {
         // eslint-disable-next-line prefer-destructuring
@@ -583,6 +582,9 @@ export default {
   }
 
   .select-type .v-text-field__details {
+    display: none;
+  }
+  .v-sheet .v-text-field__details {
     display: none;
   }
   .select-type {

@@ -14,6 +14,10 @@ export default {
           AGREEABLENESS: 2,
           NEUROTICISM: 4,
         },
+      alphaBetaScore: {
+        y: 0,
+        x: 3,
+      },
     },
     Aloof: {
       title: 'Aloof',
@@ -29,6 +33,10 @@ export default {
           AGREEABLENESS: 2,
           NEUROTICISM: 3,
         },
+      alphaBetaScore: {
+        y: 2,
+        x: 3,
+      },
     },
     Apathetic: {
       title: 'Apathetic',
@@ -44,6 +52,10 @@ export default {
           AGREEABLENESS: 3,
           NEUROTICISM: 3,
         },
+      alphaBetaScore: {
+        y: 4,
+        x: 3,
+      },
     },
     Discreet: {
       title: 'Discreet',
@@ -59,6 +71,10 @@ export default {
           AGREEABLENESS: 4,
           NEUROTICISM: 2,
         },
+      alphaBetaScore: {
+        y: 6,
+        x: 3,
+      },
     },
     Compassionate: {
       title: 'Compassionate',
@@ -74,6 +90,10 @@ export default {
           AGREEABLENESS: 5,
           NEUROTICISM: 3,
         },
+      alphaBetaScore: {
+        y: 6,
+        x: 3,
+      },
     },
     Eccentric: {
       title: 'Eccentric',
@@ -89,6 +109,10 @@ export default {
           AGREEABLENESS: 2,
           NEUROTICISM: 4,
         },
+      alphaBetaScore: {
+        y: 0,
+        x: 4,
+      },
     },
     Suspicious: {
       title: 'Suspicious',
@@ -105,6 +129,10 @@ export default {
           AGREEABLENESS: 1,
           NEUROTICISM: 4,
         },
+      alphaBetaScore: {
+        y: 1,
+        x: 4,
+      },
     },
     'Self-critical': {
       title: 'Self-critical',
@@ -121,6 +149,10 @@ export default {
           AGREEABLENESS: 3,
           NEUROTICISM: 4,
         },
+      alphaBetaScore: {
+        y: 3,
+        x: 4,
+      },
     },
     Anxious: {
       title: 'Anxious',
@@ -137,6 +169,10 @@ export default {
           AGREEABLENESS: 5,
           NEUROTICISM: 4,
         },
+      alphaBetaScore: {
+        y: 4,
+        x: 4,
+      },
     },
     Perfectionist: {
       title: 'Perfectionist',
@@ -153,6 +189,10 @@ export default {
           AGREEABLENESS: 3,
           NEUROTICISM: 4,
         },
+      alphaBetaScore: {
+        y: 4,
+        x: 4,
+      },
     },
     Determined: {
       title: 'Determined',
@@ -169,6 +209,10 @@ export default {
           AGREEABLENESS: 4,
           NEUROTICISM: 1,
         },
+      alphaBetaScore: {
+        y: 7,
+        x: 4,
+      },
     },
     Procrastinator: {
       title: 'Procrastinator',
@@ -185,6 +229,10 @@ export default {
           AGREEABLENESS: 2,
           NEUROTICISM: 5,
         },
+      alphaBetaScore: {
+        y: -1,
+        x: 5,
+      },
     },
     Isolated: {
       title: 'Isolated',
@@ -201,6 +249,10 @@ export default {
           AGREEABLENESS: 3,
           NEUROTICISM: 4,
         },
+      alphaBetaScore: {
+        y: 3,
+        x: 5,
+      },
     },
     Humble: {
       title: 'Humble',
@@ -217,6 +269,10 @@ export default {
           AGREEABLENESS: 5,
           NEUROTICISM: 3,
         },
+      alphaBetaScore: {
+        y: 5,
+        x: 5,
+      },
     },
     Responsible: {
       title: 'Responsible',
@@ -233,6 +289,10 @@ export default {
           AGREEABLENESS: 5,
           NEUROTICISM: 3,
         },
+      alphaBetaScore: {
+        y: 6,
+        x: 5,
+      },
     },
     Active: {
       title: 'Active',
@@ -249,6 +309,10 @@ export default {
           AGREEABLENESS: 2,
           NEUROTICISM: 5,
         },
+      alphaBetaScore: {
+        y: -2,
+        x: 6,
+      },
     },
     Unsatisfied: {
       title: 'Unsatisfied',
@@ -265,6 +329,10 @@ export default {
           AGREEABLENESS: 5,
           NEUROTICISM: 5,
         },
+      alphaBetaScore: {
+        y: 2,
+        x: 6,
+      },
     },
     Neutral: {
       title: 'Neutral',
@@ -281,6 +349,10 @@ export default {
           AGREEABLENESS: 3,
           NEUROTICISM: 3,
         },
+      alphaBetaScore: {
+        y: 3,
+        x: 6,
+      },
     },
     Productive: {
       title: 'Productive',
@@ -297,6 +369,10 @@ export default {
           AGREEABLENESS: 1,
           NEUROTICISM: 1,
         },
+      alphaBetaScore: {
+        y: 4,
+        x: 6,
+      },
     },
     Calm: {
       title: 'Calm',
@@ -313,6 +389,10 @@ export default {
           AGREEABLENESS: 4,
           NEUROTICISM: 1,
         },
+      alphaBetaScore: {
+        y: 8,
+        x: 6,
+      },
     },
     Unemotional: {
       title: 'Unemotional',
@@ -329,6 +409,10 @@ export default {
           AGREEABLENESS: 1,
           NEUROTICISM: 3,
         },
+      alphaBetaScore: {
+        y: 0,
+        x: 7,
+      },
     },
     'Self-centred': {
       title: 'Self-centred',
@@ -345,6 +429,10 @@ export default {
           AGREEABLENESS: 1,
           NEUROTICISM: 3,
         },
+      alphaBetaScore: {
+        y: 1,
+        x: 7,
+      },
     },
     Positive: {
       title: 'Positive',
@@ -360,6 +448,10 @@ export default {
           AGREEABLENESS: 4,
           NEUROTICISM: 1,
         },
+      alphaBetaScore: {
+        y: 7,
+        x: 7,
+      },
     },
     Impulsive: {
       title: 'Impulsive',
@@ -376,6 +468,10 @@ export default {
           AGREEABLENESS: 2,
           NEUROTICISM: 5,
         },
+      alphaBetaScore: {
+        y: -1,
+        x: 8,
+      },
     },
     Autonomous: {
       title: 'Autonomous',
@@ -392,6 +488,10 @@ export default {
           AGREEABLENESS: 1,
           NEUROTICISM: 2,
         },
+      alphaBetaScore: {
+        y: 2,
+        x: 8,
+      },
     },
     Patient: {
       title: 'Patient',
@@ -408,6 +508,10 @@ export default {
           AGREEABLENESS: 3,
           NEUROTICISM: 2,
         },
+      alphaBetaScore: {
+        y: 2,
+        x: 8,
+      },
     },
     Optimistic: {
       title: 'Optimistic',
@@ -424,6 +528,10 @@ export default {
           AGREEABLENESS: 3,
           NEUROTICISM: 2,
         },
+      alphaBetaScore: {
+        y: 3,
+        x: 8,
+      },
     },
     Trusting: {
       title: 'Trusting',
@@ -439,6 +547,10 @@ export default {
           AGREEABLENESS: 5,
           NEUROTICISM: 2,
         },
+      alphaBetaScore: {
+        y: 5,
+        x: 8,
+      },
     },
     Practical: {
       title: 'Practical',
@@ -455,6 +567,10 @@ export default {
           AGREEABLENESS: 4,
           NEUROTICISM: 2,
         },
+      alphaBetaScore: {
+        y: 6,
+        x: 8,
+      },
     },
     Lively: {
       title: 'Lively',
@@ -471,6 +587,10 @@ export default {
           AGREEABLENESS: 2,
           NEUROTICISM: 4,
         },
+      alphaBetaScore: {
+        y: 0,
+        x: 9,
+      },
     },
     Harsh: {
       title: 'Harsh',
@@ -487,6 +607,10 @@ export default {
           AGREEABLENESS: 1,
           NEUROTICISM: 3,
         },
+      alphaBetaScore: {
+        y: 0,
+        x: 9,
+      },
     },
     Uninhibited: {
       title: 'Uninhibited',
@@ -503,6 +627,10 @@ export default {
           AGREEABLENESS: 3,
           NEUROTICISM: 3,
         },
+      alphaBetaScore: {
+        y: 2,
+        x: 9,
+      },
     },
     Engaged: {
       title: 'Engaged',
@@ -519,6 +647,10 @@ export default {
           AGREEABLENESS: 3,
           NEUROTICISM: 2,
         },
+      alphaBetaScore: {
+        y: 2,
+        x: 9,
+      },
     },
     Sociable: {
       title: 'Sociable',
@@ -534,6 +666,10 @@ export default {
           AGREEABLENESS: 4,
           NEUROTICISM: 3,
         },
+      alphaBetaScore: {
+        y: 3,
+        x: 9,
+      },
     },
     Outgoing: {
       title: 'Outgoing',
@@ -549,6 +685,10 @@ export default {
           AGREEABLENESS: 4,
           NEUROTICISM: 3,
         },
+      alphaBetaScore: {
+        y: 5,
+        x: 9,
+      },
     },
   },
 };

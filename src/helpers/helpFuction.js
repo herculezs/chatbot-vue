@@ -9,17 +9,16 @@ const generalFunction = {
     const matchScore = [];
 
     currentCards.forEach((x) => {
-      const openess = x.categories.OPENESS;
-      const conscientiousness = x.categories.CONSCIENTIOUSNESS;
-      const extraversion = x.categories.EXTRAVERSION;
-      const agreeableness = x.categories.AGREEABLENESS;
-      const neuroticism = x.categories.NEUROTICISM;
+      const xAxis = x.alphaBetaScore.x;
+      const yAxis = x.alphaBetaScore.y;
 
-      const score = ((finalCategoryFormula[0] - openess) ** 2)
-        + ((finalCategoryFormula[1] - conscientiousness) ** 2)
-        + ((finalCategoryFormula[2] - extraversion) ** 2)
-        + ((finalCategoryFormula[3] - agreeableness) ** 2)
-        + ((finalCategoryFormula[4] - neuroticism) ** 2);
+      const betaY = (+finalCategoryFormula[3]
+        + +finalCategoryFormula[1] - +finalCategoryFormula[4]);
+      const alphaX = (+finalCategoryFormula[0] + +finalCategoryFormula[2]);
+
+      const score = ((xAxis - alphaX) ** 2)
+        + ((yAxis - betaY) ** 2);
+
 
       matchScore.push({
         matchScore: score,
