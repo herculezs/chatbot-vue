@@ -3,6 +3,36 @@
     <Content>
       <h1 class="h4 text-center mb-3">Dashboard</h1>
       <ButtonToMenu/>
+      <div class="position-search" id="search">
+          <v-text-field
+            class="search-panel-static"
+            solo
+            v-model="searchText"
+            type="text"
+            label="Search by Text"
+          >
+            <template v-slot:append>
+              <span class="vl"></span>
+              <div class="icon-search-position">
+                <v-fade-transition leave-absolute>
+                  <v-btn
+                    icon
+                    width="22"
+                    height="22"
+                    color="black"
+                    @click="searchText = ''"
+                  >
+                    <v-icon
+                      size="18"
+                      class="icon-search"
+                      color="#212121"
+                    >mdi-close</v-icon>
+                  </v-btn>
+                </v-fade-transition>
+              </div>
+            </template>
+          </v-text-field>
+      </div>
       <v-app>
         <v-card>
           <v-data-table
@@ -20,6 +50,7 @@
             single-expand
             :custom-sort="customSort"
             :expanded.sync="expanded"
+            :search="searchText"
             @page-count="calculateCountPage()">
             <template v-slot:header.type>
               <th><v-select
@@ -136,6 +167,7 @@ export default {
     chartCompare: [],
     radarData: [],
     sortField: '',
+    searchText: '',
     sortDesc: false,
     departmentSummary: [],
     departmentSummaryOtherResult: [],
@@ -199,6 +231,12 @@ export default {
   watch: {
   },
   methods: {
+    // eslint-disable-next-line no-unused-vars
+    filterSearch(value, search, item) {
+      return value != null
+        && search != null
+        && value.toString().toLowerCase().indexOf(search) !== -1;
+    },
     open() {
       this.snack = true;
     },
@@ -357,7 +395,6 @@ export default {
       this.chartOptionsBarDepartmentSummary();
       return { userType: type, otherType };
     },
-
     chartOptionsBar(type, otherType) {
       Object.values(constants.cards).forEach((value) => {
         this.chartCompare.push({
@@ -587,7 +624,26 @@ export default {
   .v-sheet .v-text-field__details {
     display: none;
   }
-  .select-type {
+  .search-panel-static {
+    width: 350px;
+    display: inline-block;
+    position: absolute;
+    right: 23px;
+    z-index: 10000;
+  }
 
+  .position-search {
+    height: 70px;
+  }
+  .icon-search {
+    font-weight: bold;
+  }
+  .vl {
+    border-left: 1px solid #BFBFBF;
+    height: 32px;
+  }
+  .icon-search-position {
+    padding-top: 5px;
+    padding-left: 10px;
   }
 </style>
