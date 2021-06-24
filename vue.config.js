@@ -29,7 +29,7 @@ module.exports = {
         `../profiles/${process.env.VUE_APP_BUILD}/checkbox_fill.svg`,
       ),
       new webpack.NormalModuleReplacementPlugin(
-        /src\/assets\/step_1\.gif/,
+        /src\/assets\/step_1\.png/,
         `../profiles/${process.env.VUE_APP_BUILD}/step_1.gif`,
       ),
       new webpack.NormalModuleReplacementPlugin(
