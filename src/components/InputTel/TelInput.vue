@@ -16,7 +16,6 @@
       v-model="getPhone"
       :ignoredCountries="ignoredCountries"
       @focus="focusInput"
-      @blur="blurInput"
     >
       <template slot="arrow-icon">
               <span class="form__input-tel-arrow-icon">
@@ -95,13 +94,8 @@ export default {
       // this.diaCode = data.dialCode;
     },
     focusInput() {
-      if (!this.enableCountryCode && this.getPhone.length === 0) {
+      if (!this.enableCountryCode && this.getPhone.length === 0 && this.getPhone === '') {
         this.getPhone = '+';
-      }
-    },
-    blurInput() {
-      if (!this.enableCountryCode && this.getPhone.length === 1 && this.getPhone[0] === '+') {
-        this.getPhone = '';
       }
     },
   },

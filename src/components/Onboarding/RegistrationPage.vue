@@ -99,7 +99,7 @@
           :diaCode="formData.diaCode"
           :validPhone="$v.formData.phone"
           @onDiaCode="countryChanged"
-          :placeHolder="configEnv.onboarding.placeholderPhone"
+          :placeHolder="configEnv.onboarding.placeholderPhoneRegistration"
           :defaultCountry="getCountryCode"
           :enableCountryCode="false"
         >
