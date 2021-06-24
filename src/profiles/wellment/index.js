@@ -44,7 +44,7 @@ export default {
   },
   onboarding: {
     defaultStatePhone: 'US',
-    placeholderPhone: '123-456-7890',
+    placeholderPhone: '+4412345-678901',
     emailPlaceHolder: 'Work Email',
     tooltipEmail: 'Your work email - so we can contact you when you have results!',
     buttonOnFirstPage: 'Get Started',

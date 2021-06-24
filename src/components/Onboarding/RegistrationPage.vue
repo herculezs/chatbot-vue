@@ -101,6 +101,7 @@
           @onDiaCode="countryChanged"
           :placeHolder="configEnv.onboarding.placeholderPhone"
           :defaultCountry="getCountryCode"
+          :enableCountryCode="false"
         >
 
         </TelInput>
@@ -196,8 +197,9 @@ export default {
     configEnv,
     googleCaptcha: false,
     disableSendCode: false,
+    diaCode: '',
     formData: {
-      phone: null,
+      phone: '',
       firstName: '',
       surname: '',
       youEmail: '',
@@ -279,8 +281,10 @@ export default {
     },
     async prepareDataForRequest() {
       const formPhone = this.formData.phone;
-      const phone = `+${this.formData.diaCode}${formPhone.charAt(0) === '0' ? formPhone.substring(1) : formPhone}`
-        .replace(/\s/g, '');
+      console.log(this.formData);
+      // const phone = `+${this.formData.diaCode}
+      // ${formPhone.charAt(0) === '0' ? formPhone.substring(1) : formPhone}`
+      //   .replace(/\s/g, '');
 
       let uniqueId = null;
       if (localStorage.getItem('uniqueId') !== null) {
@@ -291,7 +295,7 @@ export default {
         name: this.formData.firstName,
         surname: this.formData.surname,
         youEmail: this.formData.youEmail.toLowerCase(),
-        phone,
+        phone: formPhone,
         questionId: process.env.QUESTIONNAIRE_ID,
         codeCountry: `+${this.formData.diaCode}`,
         isoCountryCode: this.formData.isoCountryCode,

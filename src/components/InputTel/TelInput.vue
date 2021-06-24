@@ -9,12 +9,14 @@
       :class="getClassByLengthCountryCode"
       :defaultCountry="this.defaultCountry"
       :placeholder="this.placeHolder"
-      enabledCountryCode
+      :enabledCountryCode="enableCountryCode"
       validCharactersOnly
       @input="changeTel"
       @country-changed="countryChanged"
       v-model="getPhone"
       :ignoredCountries="ignoredCountries"
+      @focus="focusInput"
+      @blur="blurInput"
     >
       <template slot="arrow-icon">
               <span class="form__input-tel-arrow-icon">
@@ -50,6 +52,10 @@ export default {
     defaultCountry: {
       type: String,
     },
+    enableCountryCode: {
+      type: Boolean,
+      default: true,
+    },
   },
   mounted() {
     document.querySelector('#telephone_number_main .vti__input')
@@ -57,6 +63,10 @@ export default {
   },
   computed: {
     getClassByLengthCountryCode() {
+      if (!this.enableCountryCode) {
+        return 'code-length-1';
+      }
+
       if (this.diaCode != null && this.diaCode && this.diaCode !== '') {
         return `code-length-${this.diaCode.length}`;
       }
@@ -84,28 +94,27 @@ export default {
       this.$emit('onDiaCode', data);
       // this.diaCode = data.dialCode;
     },
+    focusInput() {
+      if (!this.enableCountryCode && this.getPhone.length === 0) {
+        this.getPhone = '+';
+      }
+    },
+    blurInput() {
+      if (!this.enableCountryCode && this.getPhone.length === 1 && this.getPhone[0] === '+') {
+        this.getPhone = '';
+      }
+    },
   },
 };
 </script>
 
 <style lang="scss">
-  .form__input-tel.code-length-3 {
+  .form__input-tel.code-length-1 {
     .vti__input{
-      padding-left: 62px;
+      padding-left: 20px;
     }
   }
 
-  .form__input-tel.code-length-4{
-    .vti__input{
-      padding-left: 65px;
-    }
-  }
-  .vti__dropdown-list {
-    display: none !important;
-  }
-</style>
-
-<style lang="scss">
   .form__input-tel.code-length-3 {
     .vti__input{
       padding-left: 62px;

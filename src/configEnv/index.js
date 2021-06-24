@@ -38,7 +38,7 @@ export default {
   },
   onboarding: {
     defaultStatePhone: 'GB',
-    placeholderPhone: '12345-678901',
+    placeholderPhone: '+4412345-678901',
     emailPlaceHolder: 'Email',
     tooltipEmail: 'Your email, so we can let you know what others are finished talking about you',
     buttonOnFirstPage: 'Get Started',
