@@ -29,6 +29,12 @@
       >
         Field is required
       </div>
+      <div
+        class="form__input-error"
+        v-if="!validPhone.mustBeCodeTheSameCountry"
+      >
+        Please enter valid phone number
+      </div>
     </template>
   </div>
 </template>

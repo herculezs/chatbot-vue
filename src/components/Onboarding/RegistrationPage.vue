@@ -177,6 +177,7 @@ const mustBeCool = (emailValid) => {
   return re.test(String(emailValid).toLowerCase());
 };
 
+const mustBeCodeTheSameCountry = (phone, objectResult) => phone.startsWith(`+${objectResult.diaCode}`);
 
 export default {
   name: 'RegistrationPage',
@@ -227,6 +228,7 @@ export default {
       },
       phone: {
         required,
+        mustBeCodeTheSameCountry,
       },
     },
   },
@@ -281,7 +283,6 @@ export default {
     },
     async prepareDataForRequest() {
       const formPhone = this.formData.phone;
-      console.log(this.formData);
       // const phone = `+${this.formData.diaCode}
       // ${formPhone.charAt(0) === '0' ? formPhone.substring(1) : formPhone}`
       //   .replace(/\s/g, '');
