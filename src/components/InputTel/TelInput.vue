@@ -9,6 +9,7 @@
       :class="getClassByLengthCountryCode"
       :placeholder="this.placeHolder"
       :enabledCountryCode="enableCountryCode"
+      :defaultCountry="defaultCountryCheck"
       :autoDefaultCountry="autoDefaultCountry"
       validCharactersOnly
       @input="changeTel"
@@ -71,6 +72,12 @@ export default {
       .setAttribute('id', 'telephone_number');
   },
   computed: {
+    defaultCountryCheck() {
+      if (this.autoDefaultCountry) {
+        return '';
+      }
+      return this.defaultCountry;
+    },
     getClassByLengthCountryCode() {
       if (!this.enableCountryCode) {
         return 'code-length-1';
