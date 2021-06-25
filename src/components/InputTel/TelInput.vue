@@ -105,7 +105,7 @@ export default {
     },
     focusInput() {
       if (!this.enableCountryCode && this.getPhone.length === 0 && this.getPhone === '') {
-        this.getPhone = '+';
+        this.getPhone = `+${this.diaCode}`;
       }
     },
   },

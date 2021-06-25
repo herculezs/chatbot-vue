@@ -39,7 +39,7 @@ export default {
   onboarding: {
     defaultStatePhone: 'GB',
     placeholderPhone: '12345-678901',
-    placeholderPhoneRegistration: '+4412345-678901',
+    placeholderPhoneRegistration: '+CountryCode PhoneNumber',
     emailPlaceHolder: 'Email',
     tooltipEmail: 'Your email, so we can let you know what others are finished talking about you',
     buttonOnFirstPage: 'Get Started',
