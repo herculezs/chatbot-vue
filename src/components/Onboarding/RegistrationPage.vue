@@ -99,9 +99,9 @@
           :diaCode="formData.diaCode"
           :validPhone="$v.formData.phone"
           @onDiaCode="countryChanged"
-          :placeHolder="configEnv.onboarding.placeholderPhoneRegistration"
+          :placeHolder="configEnv.onboarding.placeholderPhone"
           :defaultCountry="getCountryCode"
-          :enableCountryCode="false"
+          :autoDefaultCountry="true"
         >
 
         </TelInput>
@@ -177,7 +177,8 @@ const mustBeCool = (emailValid) => {
   return re.test(String(emailValid).toLowerCase());
 };
 
-const mustBeCodeTheSameCountry = (phone, objectResult) => phone.startsWith(`+${objectResult.diaCode}`);
+// const mustBeCodeTheSameCountry
+// = (phone, objectResult) => phone.startsWith(`+${objectResult.diaCode}`);
 
 export default {
   name: 'RegistrationPage',
@@ -199,6 +200,7 @@ export default {
     googleCaptcha: false,
     disableSendCode: false,
     diaCode: '',
+    updatedTimeOut: null,
     formData: {
       phone: '',
       firstName: '',
@@ -228,8 +230,18 @@ export default {
       },
       phone: {
         required,
-        mustBeCodeTheSameCountry,
       },
+    },
+  },
+  watch: {
+    formData: {
+      // eslint-disable-next-line no-unused-vars
+      handler() {
+        if (this.formData.phone.length > 5) {
+          this.updatePhoneData();
+        }
+      },
+      deep: true,
     },
   },
   mixins: [validationMixin],
@@ -268,6 +280,14 @@ export default {
     this.captchaUpdate();
   },
   methods: {
+    updatePhoneData() {
+      clearTimeout(this.updatedTimeOut);
+      this.updatedTimeOut = setTimeout(() => {
+        if (this.formData.phone && this.formData.diaCode) {
+          this.formData.phone = this.formData.phone.replace(`+${this.formData.diaCode}`, '');
+        }
+      }, 50);
+    },
     async captchaUpdate() {
       await this.$recaptchaLoaded();
       const token = await this.$recaptcha('login');
@@ -283,9 +303,8 @@ export default {
     },
     async prepareDataForRequest() {
       const formPhone = this.formData.phone;
-      // const phone = `+${this.formData.diaCode}
-      // ${formPhone.charAt(0) === '0' ? formPhone.substring(1) : formPhone}`
-      //   .replace(/\s/g, '');
+      const phone = `+${this.formData.diaCode}${formPhone.charAt(0) === '0' ? formPhone.substring(1) : formPhone}`
+        .replace(/\s/g, '');
 
       let uniqueId = null;
       if (localStorage.getItem('uniqueId') !== null) {
@@ -296,7 +315,7 @@ export default {
         name: this.formData.firstName,
         surname: this.formData.surname,
         youEmail: this.formData.youEmail.toLowerCase(),
-        phone: formPhone,
+        phone,
         questionId: process.env.QUESTIONNAIRE_ID,
         codeCountry: `+${this.formData.diaCode}`,
         isoCountryCode: this.formData.isoCountryCode,

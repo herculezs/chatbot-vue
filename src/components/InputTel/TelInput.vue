@@ -7,9 +7,9 @@
       class="form__input-tel"
       id="telephone_number_main"
       :class="getClassByLengthCountryCode"
-      :defaultCountry="this.defaultCountry"
       :placeholder="this.placeHolder"
       :enabledCountryCode="enableCountryCode"
+      :autoDefaultCountry="autoDefaultCountry"
       validCharactersOnly
       @input="changeTel"
       @country-changed="countryChanged"
@@ -60,6 +60,10 @@ export default {
     enableCountryCode: {
       type: Boolean,
       default: true,
+    },
+    autoDefaultCountry: {
+      type: Boolean,
+      default: false,
     },
   },
   mounted() {
