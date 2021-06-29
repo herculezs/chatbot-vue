@@ -40,7 +40,22 @@
   }
 
 }
-
+.button_size-m-report-page{
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+  padding-top: 20px;
+  padding-bottom: 25px;
+  @media (max-height: $xsMaxHeight) {
+    padding-top: 15px;
+    padding-bottom: 20px;
+  }
+  @media (max-height: $xxsMaxHeight) {
+    font-size: 15px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+  }
+}
 .button_w-100{
   width: 100%;
 }

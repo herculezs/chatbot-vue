@@ -321,7 +321,7 @@ export default {
   .name-label-chart-bottom {
     position: absolute;
     text-align: center;
-    top: 350px;
+    bottom: -15px;
     left: 0;
     right: 0;
   }
@@ -331,25 +331,24 @@ export default {
     margin-right: auto;
     left: 0;
     right: 0;
-    top: 30px;
     text-align: center;
   }
 
   .name-label-chart-left {
     text-align: left;
     position: absolute;
-    top: 200px;
-    left: 38px;
+    top: 160px;
   }
 
   .name-label-chart-right {
     text-align: right;
     position: absolute;
-    top: 200px;
-    right: 38px;
+    top: 160px;
+    right: 0;
   }
 
   .chartCompare {
+    position: relative;
     margin-top: 20px;
     margin-bottom: 19px;
   }

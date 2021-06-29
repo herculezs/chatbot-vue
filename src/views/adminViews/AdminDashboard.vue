@@ -1,6 +1,7 @@
 <template>
   <div class="admin-dashboard">
     <Content>
+      <Loading :is-loading.sync="createPdf"/>
       <h1 class="h4 text-center mb-3">Dashboard</h1>
       <ButtonToMenu/>
       <div class="position-search" id="search">
@@ -80,6 +81,15 @@
                 @change="groupId => changeGroup(groupId, item.userId)"
               ></v-select>
             </template>
+            <template v-slot:item.save_pdf_file="{ item, index }">
+              <v-btn
+                :disabled="createPdf || !item.allType.userType"
+                @click="saveCSVFile(item)"
+                color="purple"
+              >
+                <span class="button-save-pdf-text">Save to PDF</span>
+              </v-btn>
+            </template>
             <template v-slot:expanded-item="{ headers, item }">
               <td :colspan="headers.length">
                 <div class="row">
@@ -94,21 +104,26 @@
                           </div>
                         </div>
                         <div class="departmentSummary">
-                          <div class="blockBarChart">
+                          <div class="blockBarChart" id="bubble-chart">
                             <div class="text-center position-title-chart">Comparison by TRAIT</div>
-                            <Radar :data=item.chartBar></Radar>
+                            <BubbleChart :data=item.chartBar :subGroup="subGroup"
+                                         :showLabels="!!item.allType.userType"
+                                         @click-to-character="setChosenGroupCharacteristic($event)">
+                            </BubbleChart>
                           </div>
                         </div>
                         <div class="departmentSummary">
-                          <div class="block">
+                          <div class="block" id="chart-compare">
                             <div class="text-center position-title-chart">Comparison by TYPE</div>
                             <ChartCompare :data="item.chartCompare">
                             </ChartCompare>
                           </div>
                         </div>
-                        <div class="departmentSummary">
+                        <div class="departmentSummary departmentSummaryChart">
                           <div class="block">
-                            <div class="text-center position-title-chart">Distribution by TYPE</div>
+                            <div class="text-center position-title-chart">
+                              Distribution by TYPE
+                            </div>
                             <DepartmentSummaryChart v-if="item.departmentSummary"
                               :respondentsCount="item.countOther"
                               :data="item.departmentSummary">
@@ -142,23 +157,32 @@ import Stretch from 'vue-loading-spinner/src/components/Stretch';
 import helpFunction from '@helpers/helpFuction';
 import ChartConsistencyOverall from '@components/Admin/Charts/ChartConsistencyOverall.vue';
 import DepartmentSummaryChart from '@components/Admin/Charts/DepartmentSummaryChart.vue';
-import Radar from '@components/Radar/Radar.vue';
 import constants from '@constants/index';
 import ChartCompare from '@components/Charts/ChartCompare.vue';
 import ButtonToMenu from '@components/Dashboard/ButtonToMenu.vue';
+import pdf from '@helpers/createPDF';
+import Loading from '@components/Spinner/Loading.vue';
+import BubbleChart from '@components/BubbleChart/BubbleChart.vue';
 
 export default {
   name: 'adminDashboard',
   components: {
+    BubbleChart,
     ChartConsistencyOverall,
-    Radar,
     ChartCompare,
     DepartmentSummaryChart,
     ButtonToMenu,
+    Loading,
   },
   data: () => ({
     Stretch,
     page: 1,
+    myResultsScoreData: {
+    },
+    othersResultsScoreData: {
+    },
+    createPdf: false,
+    subGroup: false,
     snack: false,
     pageCount: 0,
     itemsPerPage: 20,
@@ -220,22 +244,70 @@ export default {
         value: 'preferred_reviewer_ranking',
         align: 'center',
       },
+      {
+        text: '',
+        value: 'save_pdf_file',
+        align: 'center',
+        sortable: false,
+      },
     ],
   }),
   mounted() {
     this.countUsers();
     this.getInfoDashboard();
   },
-  computed: {
-  },
-  watch: {
-  },
   methods: {
-    // eslint-disable-next-line no-unused-vars
-    filterSearch(value, search, item) {
-      return value != null
-        && search != null
-        && value.toString().toLowerCase().indexOf(search) !== -1;
+    setChosenGroupCharacteristic(event) {
+      if (event === 'Open' && (this.myResultsScoreData.opensResult
+        || this.othersResultsScoreData.opensResult)) {
+        this.chooseOtherResult(event, 'opensResult', true,
+          '#FC6F4D', '#B15771', '#c85e3f', '#88444e');
+      } else if (event === 'Conscientious' && (this.myResultsScoreData.conscientiousResult
+        || this.othersResultsScoreData.conscientiousResult)) {
+        this.chooseOtherResult(event, 'conscientiousResult', true,
+          '#FD7c49', '#BE6867', '#be5f3c', '#974c4c');
+      } else if (event === 'Extraverted' && (this.myResultsScoreData.extravertedResult
+        || this.othersResultsScoreData.extravertedResult)) {
+        this.chooseOtherResult(event, 'extravertedResult', true,
+          '#FD8945', '#CB795D', '#d27037', '#99534d');
+      } else if (event === 'Agreeable' && (this.myResultsScoreData.agreeableResult
+        || this.othersResultsScoreData.agreeableResult)) {
+        this.chooseOtherResult(event, 'agreeableResult', true,
+          '#FE9741', '#D88B53', '#9d542b', '#ba744c');
+      } else if (event === 'Neurotic' && (this.myResultsScoreData.neuroticResult
+        || this.othersResultsScoreData.neuroticResult)) {
+        this.chooseOtherResult(event, 'neuroticResult', true,
+          '#FEA43D', '#E59C49', '#9d5828', '#ae6a49');
+      } else if (event === 'General' && (this.myResultsScoreData.mainResult
+        || this.othersResultsScoreData.mainResult)) {
+        this.chooseOtherResult(event, 'mainResult', false,
+          '#9C11F2', '#E59576', '#5e119f', '#a66053');
+      }
+    },
+    chooseOtherResult(event, nameResult, subGroup, colorU1, colorU2, borderColorU1, borderColorU2) {
+      if (this.myResultsScoreData[nameResult]) {
+        this.setRadar(this.myResultsScoreData[nameResult].split(/(?=[-+])/),
+          'Me', subGroup, colorU1, colorU2, borderColorU1, borderColorU2);
+      }
+      if (this.othersResultsScoreData[nameResult]) {
+        this.setRadar(this.othersResultsScoreData[nameResult].split(/(?=[-+])/),
+          'Contacts', subGroup, colorU1, colorU2, borderColorU1, borderColorU2);
+      }
+      this.subGroup = subGroup;
+    },
+    saveCSVFile(item) {
+      if (item.allType.userType) {
+        this.createPdf = true;
+        this.expanded.push(item);
+        pdf.delay(1000).then(async () => {
+          await pdf.saveCSVFile(document.getElementById('chart-compare'),
+            document.getElementById('bubble-chart'),
+            constants.cards[item.allType.userType].showText, item.allType.userType,
+            false, 20, 115);
+          this.createPdf = false;
+          this.expanded = [];
+        });
+      }
     },
     open() {
       this.snack = true;
@@ -353,10 +425,12 @@ export default {
             color: '#7811c9',
             colorHover: '#a111ff',
           },
+          itemColor: {},
           name: 'Self',
         },
         {
           value: [],
+          itemColor: {},
           type: 'bar',
           areaStyle: {
             color: '#ff5151',
@@ -367,26 +441,35 @@ export default {
       ];
     },
 
-    setRadar(data, name) {
+    setRadar(data, name, subGroup, colorU1 = '#E59576', colorU2 = '#9C11F7',
+      borderColorU1 = '#a66053', borderColorU2 = '#5e119f') {
       const average = this.radarData.find(item => item.name === name);
       average.value = Object.values(data);
+      this.radarData[1].itemColor = {
+        borderColor: borderColorU1,
+        color: colorU1,
+      };
+      this.radarData[0].itemColor = {
+        borderColor: borderColorU2,
+        color: colorU2,
+      };
     },
 
     calculateDataForChart(data) {
       let otherType = '';
       let type = '';
-      if (data.result) {
+      if (data.result.mainResult) {
         // eslint-disable-next-line prefer-destructuring
-        type = helpFunction.Coordinates(data.result)[2];
-        this.setRadar(data.result.split(/(?=[-+])/), 'Self');
-        this.selfCoordinate = helpFunction.Coordinates(data.result);
+        type = helpFunction.Coordinates(data.result.mainResult)[2];
+        this.setRadar(data.result.mainResult.split(/(?=[-+])/), 'Self');
+        this.selfCoordinate = helpFunction.Coordinates(data.result.mainResult);
       }
 
-      if (data.otherResult) {
+      if (data.otherResult && data.otherResult.mainResult) {
         // eslint-disable-next-line prefer-destructuring
-        otherType = helpFunction.Coordinates(data.otherResult)[2];
-        this.setRadar(data.otherResult.split(/(?=[-+])/), 'Contacts');
-        this.otherCoordinate = helpFunction.Coordinates(data.otherResult);
+        otherType = helpFunction.Coordinates(data.otherResult.mainResult)[2];
+        this.setRadar(data.otherResult.mainResult.split(/(?=[-+])/), 'Contacts');
+        this.otherCoordinate = helpFunction.Coordinates(data.result.mainResult);
         data.eachU1Result.forEach((element) => {
           this.departmentSummaryOtherResult.push(helpFunction.Coordinates(element));
         });
@@ -511,6 +594,16 @@ export default {
     border: 1px solid #ccc;
     padding: 0 7px 0 7px;
   }
+  .admin-dashboard .bubbleChart {
+    height: 349px;
+    width: 350px;
+    background-color: white;
+    display: inline-block;
+    position: relative;
+    margin: 9px 30px 43px 17px;
+    border: 1px solid #ccc;
+    padding: 40px 7px 0 7px;
+  }
   .col {
     margin-bottom: 20px;
   }
@@ -519,14 +612,18 @@ export default {
   }
   .departmentSummary .chartCompare {
     margin-top: 10px;
-    height: 319px;
+    height: 332px;
     width: 350px;
     background-color: white;
     display: inline-block;
     border: 1px solid #ccc;
     margin-bottom: 23px;
     margin-left: 5%;
-    padding-bottom: 18px;
+    padding-bottom: 22px;
+  }
+  .departmentSummary .chartCompareType {
+    height: 319px;
+    padding-bottom: 24px;
   }
   .name-label-chart-left {
     top: 150px;
@@ -541,7 +638,7 @@ export default {
     right: 4px;
   }
   .name-label-chart-bottom {
-    top: 300px;
+    top: 312px;
   }
   .chart-label {
     @media (max-height: $xxsMaxHeight) {
@@ -574,7 +671,7 @@ export default {
   }
   .departmentSummary .blockBarChart {
     width: 400px;
-    height: 386px;
+    height: 403px;
   }
   .barChartUsersResult {
     display: flex;
@@ -645,5 +742,11 @@ export default {
   .icon-search-position {
     padding-top: 5px;
     padding-left: 10px;
+  }
+  .departmentSummaryChart {
+    height: 415px;
+  }
+  .button-save-pdf-text {
+    color: white;
   }
 </style>

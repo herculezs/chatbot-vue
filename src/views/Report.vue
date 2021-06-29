@@ -1,6 +1,7 @@
 <template>
   <div class="report">
     <Content>
+      <Loading :is-loading.sync="createPdf"/>
       <div class="report-notifications" v-if="!isOthersAmount">
         To keep responses anonymous and honest,
         we will wait until we have received at least <b>4 responses</b> before
@@ -46,7 +47,7 @@
         </div>
       </template>
       <div class="diagram mb-5">
-        <div class="block">
+        <div class="block" id="chart-compare-pdf">
           <div class="diagram__title-with-respondents">
             <div class="report__respondents">
               <svg class="report__respondents-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.42 15.93">
@@ -82,8 +83,8 @@
             />
           </template>
         </div>
-        <div class="block">
-          <div class="h5 mb-4 text-center color-chart-title">
+        <div class="block" id="chartForPdf">
+          <div class="h5 mb-5 text-center color-chart-title">
             Trait Comparison
           </div>
           <BubbleChart :data="radarData" :subGroup="subGroup"
@@ -147,20 +148,27 @@
       <div v-else>
         <FeedbackModal v-model="showReportModal" />
         <div class="buttons-report">
-          <div class="block">
+          <div class="block-button">
             <button
+              v-b-modal.modal-multi-1
               v-if="(getProfile.registeredFromCSV && showButtonAskContactsForInvitation) ||
                !getProfile.registeredFromCSV"
-              v-b-modal.modal-multi-1
-              class="button button_theme-default button_size-m button-left">
-              Ask Contacts
+              class="button button_theme-default button_size-m-report-page">
+              <span class="outer-space-button-text">Ask Contacts</span>
             </button>
             <button
               v-if="(getProfile.registeredFromCSV && showButtonAskContactsForInvitation) ||
                !getProfile.registeredFromCSV"
               @click="redirectToQuestionnaireManagement"
-              class="button button_theme-default button_size-m button-right">
-              See Surveys
+              class="button button_theme-default button_size-m-report-page button-dinamic-size">
+              <span class="outer-space-button-text">See Surveys</span>
+            </button>
+            <button
+              v-if="(getProfile.registeredFromCSV && showButtonAskContactsForInvitation) ||
+               !getProfile.registeredFromCSV"
+              @click="saveCSVFile"
+              class="button button_theme-default button_size-m-report-page button-dinamic-size">
+              <span class="outer-space-button-text">Save to PDF</span>
             </button>
             <button
               v-else
@@ -189,7 +197,8 @@ import helpFunction from '@helpers/helpFuction';
 import { mapGetters } from 'vuex';
 import constants from '@constants';
 import BubbleChart from '@components/BubbleChart/BubbleChart.vue';
-
+import Loading from '@components/Spinner/Loading.vue';
+import pdf from '@helpers/createPDF';
 
 export default {
   components: {
@@ -201,20 +210,32 @@ export default {
     ChartCompare,
     AskOthers,
     InvitationTableEmployees,
+    Loading,
   },
   name: 'Report',
   data: () => ({
     configEnv,
     radarData: [{
       value: [],
+      type: 'bar',
+      areaStyle: {
+        color: '#7811c9',
+        colorHover: '#a111ff',
+      },
       itemColor: {},
       name: 'Me',
     },
     {
       value: [],
       itemColor: {},
+      type: 'bar',
+      areaStyle: {
+        color: '#ff5151',
+        colorHover: 'rgba(255,81,81,0.73)',
+      },
       name: 'Contacts',
     }],
+    createPdf: false,
     subGroupData: [],
     selectedGroup: 'general',
     showButtonAskContactsForInvitation: false,
@@ -260,6 +281,13 @@ export default {
     this.fetchPersonalityTypeReport();
   },
   methods: {
+    async saveCSVFile() {
+      this.createPdf = true;
+      await pdf.saveCSVFile(document.getElementById('chart-compare-pdf'),
+        document.getElementById('chartForPdf'), this.youAnswerCard.showText,
+        this.youAnswerCard.title, true);
+      this.createPdf = false;
+    },
     showButtonAskContactsForInvitation1() {
       this.showButtonAskContactsForInvitation = true;
       this.$forceUpdate();
@@ -599,15 +627,46 @@ export default {
     padding: 0 7px 0 7px;
     margin: 20px 5px 0 5px;
   }
+
+  .block-button {
+    border: 1px solid #ccc;
+    padding: 10px 7px 10px 7px;
+    margin: 20px 5px 0 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+  }
+
   .buttons-report .block {
     padding: 6px 7px 6px 7px;
   }
+
   #modal-1 {
-    & .modal-dialog{
+    & .modal-dialog {
       width: auto;
       position: relative;
       max-width: 490px !important;
       margin: auto auto;
+    }
   }
-}
+
+  .button-dinamic-size {
+    margin-left: 10px;
+    flex: 1;
+  }
+
+  .outer-space-button-text {
+    padding: 0 5px 0 5px;
+  }
+
+  .bar-chart-pfd {
+    height: 333px;
+    width: 430px;
+  }
+  .bar-chart-pfd-block {
+    height: 426px;
+    width: 448px;
+  }
 </style>

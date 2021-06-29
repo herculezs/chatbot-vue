@@ -1,5 +1,5 @@
 <template>
-  <div class="chartCompare">
+  <div class="chartCompare chartCompareType">
     <div class="diagram__title-with-respondents">
       <div class="report__respondents">
         <svg class="report__respondents-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.42 15.93">
@@ -251,7 +251,7 @@ export default {
   .name-label-chart-bottom-d {
     position: absolute;
     text-align: center;
-    top: 300px;
+    top: 299px;
     left: 0;
     right: 0;
   }
@@ -268,14 +268,14 @@ export default {
   .name-label-chart-left-d {
     text-align: left;
     position: absolute;
-    top: 152px;
+    top: 146px;
     left: 5px;
   }
 
   .name-label-chart-right-d {
     text-align: right;
     position: absolute;
-    top: 152px;
+    top: 146px;
     right: 5px;
   }
 
@@ -307,6 +307,6 @@ export default {
     margin-right: 5px;
   }
   .padding {
-    margin-top: -2px;
+    margin-top: 15px;
   }
 </style>

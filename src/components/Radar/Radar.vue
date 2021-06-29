@@ -43,6 +43,7 @@ export default {
   },
   beforeUpdate() {
     this.$refs.chart.clear();
+    console.log('this.data', this.data);
   },
   computed: {
     getDataForLegends() {
