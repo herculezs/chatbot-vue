@@ -11,7 +11,11 @@ const pdf = {
       // eslint-disable-next-line no-param-reassign
       chartComparePath.style.width = '445px';
       // eslint-disable-next-line no-param-reassign
+      chartComparePath.style.marginTop = 'auto';
+      // eslint-disable-next-line no-param-reassign
       barChartPath.style.width = '445px';
+      // eslint-disable-next-line no-param-reassign
+      barChartPath.style.marginTop = 'auto';
     }
     window.scrollTo(0, 0);
     return Promise.resolve(this.delay(1000).then(() => html2canvas(chartComparePath, {
@@ -34,9 +38,9 @@ const pdf = {
       }).then((img2) => {
         doc.addImage(img2.toDataURL('image/jpeg'), 'JPEG', x2, 10, 110, 110);
         // eslint-disable-next-line no-param-reassign
-        chartComparePath.style.width = '';
+        chartComparePath.style = '';
         // eslint-disable-next-line no-param-reassign
-        barChartPath.style.width = '';
+        barChartPath.style = '';
         const cardHTML = `<div style="padding: 0 2px 0 2px; width: 190px; height: 80%">
                             <div style="text-align: center; font-size: 8px;margin-bottom: 5px">
                                   <b>Based on your answers, your type is ...</b>
