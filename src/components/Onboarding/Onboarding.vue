@@ -47,12 +47,17 @@
                           :afterCompleteQuiz="true">
         </RegistrationPage>
       </div>
+      <template #customPaging="page">
+        <ul class="slick-dots" @click="gotToSlide(page)">
+          <li><button>{{page}}</button></li>
+        </ul>
+      </template>
     </VueSlickCarousel>
     <TermsConditionsModal />
     <PolicyModal />
     <ReCaptchaModal :show-window-modal="showModalStrange"
                     :update-recaptcha="this.$refs.registrationPage"></ReCaptchaModal>
-    <div class="footer-menu">
+    <div class="footer-menu" v-show="currentPage !== 2">
       <ul class="footer-menu__list">
         <li class="footer-menu__item">
           <span v-b-modal.modal-terms>
@@ -161,6 +166,7 @@ export default {
     },
     gotToSlide(numberSlide) {
       // eslint-disable-next-line no-new-wrappers
+      this.currentPage = numberSlide;
       this.$refs.slickCarousel.goTo(numberSlide);
     },
   },
@@ -311,5 +317,19 @@ export default {
   }
   video {
     pointer-events: none;
+  }
+
+  .custom-dots {
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    cursor: pointer;
+    color: transparent;
+    border: 0;
+    outline: none;
+    background: transparent;
   }
 </style>
