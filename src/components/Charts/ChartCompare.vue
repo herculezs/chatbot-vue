@@ -331,6 +331,7 @@ export default {
     margin-right: auto;
     left: 0;
     right: 0;
+    top: -18px;
     text-align: center;
   }
 

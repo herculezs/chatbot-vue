@@ -749,4 +749,7 @@ export default {
   .button-save-pdf-text {
     color: white;
   }
+  .label-bubble-chart {
+    left: 37%;
+  }
 </style>
