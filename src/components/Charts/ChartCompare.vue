@@ -33,10 +33,7 @@ export default {
     },
   },
   beforeUpdate() {
-    if (this.updatedChart) {
-      this.$refs.chart.clear();
-    }
-    this.updatedChart = true;
+    this.updateChart();
   },
   data: () => ({
     updatedChart: true,
@@ -302,6 +299,12 @@ export default {
     },
   },
   methods: {
+    updateChart() {
+      if (this.updatedChart) {
+        this.$refs.chart.clear();
+      }
+      this.updatedChart = true;
+    },
     choose(dataObject) {
       // return data only if text is available
       this.updatedChart = false;

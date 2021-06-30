@@ -47,48 +47,53 @@
         </div>
       </template>
       <div class="diagram mb-5">
-        <div class="block" id="chart-compare-pdf">
-          <div class="diagram__title-with-respondents">
-            <div class="report__respondents">
-              <svg class="report__respondents-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.42 15.93">
-                <circle
-                  fill="none"
-                  stroke="#999"
-                  stroke-miterlimit="10"
-                  cx="6.21"
-                  cy="4"
-                  r="3.91"/>
-                <path
-                  fill="none" stroke="#999" stroke-miterlimit="10"
-                  d="M2.29,16a5.71,5.71,0,0,1,11.34-.92,5.62,5.62,0,0,1,.08.92"
-                  transform="translate(-1.79 -0.07)"
-                />
-              </svg>
-              Respondents:  {{ respondentsCount }}
+        <div id="chart-compare-pdf">
+          <div class="block">
+            <div class="diagram__title-with-respondents">
+              <div class="report__respondents">
+                <svg class="report__respondents-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.42 15.93">
+                  <circle
+                    fill="none"
+                    stroke="#999"
+                    stroke-miterlimit="10"
+                    cx="6.21"
+                    cy="4"
+                    r="3.91"/>
+                  <path
+                    fill="none" stroke="#999" stroke-miterlimit="10"
+                    d="M2.29,16a5.71,5.71,0,0,1,11.34-.92,5.62,5.62,0,0,1,.08.92"
+                    transform="translate(-1.79 -0.07)"
+                  />
+                </svg>
+                Respondents:  {{ respondentsCount }}
+              </div>
             </div>
-          </div>
-          <ChartCompare :data="refreshData()"
-                        @charateristic-click="setChosenCharacteristic($event)">
-          </ChartCompare>
+            <ChartCompare :data="refreshData()"
+                          :update-data.sync="updateChart"
+                          @charateristic-click="setChosenCharacteristic($event)">
+            </ChartCompare>
 
-          <template v-if="selectedCharateristic">
-            <div class="h5">
-              You clicked ...
-            </div>
-            <Card
-              :title="selectedCharateristic.name"
-              :showText="selectedCharateristic.text"
-              :typeCard="'Based'"
-              default-open
-            />
-          </template>
-        </div>
-        <div class="block" id="chartForPdf">
-          <div class="h5 mb-5 text-center color-chart-title">
-            Trait Comparison
+            <template v-if="selectedCharateristic">
+              <div class="h5">
+                You clicked ...
+              </div>
+              <Card
+                :title="selectedCharateristic.name"
+                :showText="selectedCharateristic.text"
+                :typeCard="'Based'"
+                default-open
+              />
+            </template>
           </div>
-          <BubbleChart :data="radarData" :subGroup="subGroup"
-                       @click-to-character="setChosenGroupCharacteristic($event)"/>
+        </div>
+        <div id="chartForPdf">
+          <div class="block">
+            <div class="h5 mb-5 text-center color-chart-title">
+              Trait Comparison
+            </div>
+            <BubbleChart :data="radarData" :subGroup="subGroup"
+                         @click-to-character="setChosenGroupCharacteristic($event)"/>
+          </div>
         </div>
       </div>
       <InvitationTableEmployees
@@ -235,6 +240,7 @@ export default {
       },
       name: 'Contacts',
     }],
+    updateChart: false,
     createPdf: false,
     subGroupData: [],
     selectedGroup: 'general',
@@ -283,10 +289,15 @@ export default {
   methods: {
     async saveCSVFile() {
       this.createPdf = true;
+      const temp = this.selectedCharateristic;
+      this.selectedCharateristic = null;
+
+      this.refreshData();
       await pdf.saveCSVFile(document.getElementById('chart-compare-pdf'),
         document.getElementById('chartForPdf'), this.youAnswerCard.showText,
         this.youAnswerCard.title, true);
       this.createPdf = false;
+      this.selectedCharateristic = temp;
     },
     showButtonAskContactsForInvitation1() {
       this.showButtonAskContactsForInvitation = true;
