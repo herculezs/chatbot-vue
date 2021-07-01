@@ -109,6 +109,44 @@ export default {
   beforeUpdate() {
     this.$refs.chart.clear();
   },
+  methods: {
+    checkPosition(data) {
+      let positionResult;
+      if (data[1] >= 0 && (data[0] >= -2.16 && data[0] <= 0)) {
+        positionResult = {
+          position: ['10', '20'],
+        };
+      }
+
+      if (data[1] <= 0 && (data[0] >= -2.16 && data[0] <= 0)) {
+        positionResult = {
+          position: ['10', '-60'],
+        };
+      }
+
+      if (data[1] >= 0 && (data[0] <= 2.16 && data[0] >= 0)) {
+        positionResult = {
+          position: ['10', '20'],
+        };
+      }
+      if ((data[1] <= 0 && (data[0] <= 2.16 && data[0] >= 0))
+        || (data[1] === 0 && data[0] === 0)) {
+        positionResult = {
+          position: ['10', '-60'],
+        };
+      }
+      if (data[0] >= 2.16) {
+        positionResult = {
+          position: ['-36', '-10'],
+        };
+      } else if (data[0] <= -2.16) {
+        positionResult = {
+          position: ['65', '-10'],
+        };
+      }
+      return positionResult;
+    },
+  },
   computed: {
     series() {
       const xNeutralOffset = 6;
@@ -162,39 +200,9 @@ export default {
               return v[3];
             },
           };
+          positionResult = this.checkPosition(data);
         } else {
-          if (data[1] >= 0 && (data[0] >= -2.16 && data[0] <= 0)) {
-            positionResult = {
-              position: ['10', '20'],
-            };
-          }
-
-          if (data[1] <= 0 && (data[0] >= -2.16 && data[0] <= 0)) {
-            positionResult = {
-              position: ['10', '-60'],
-            };
-          }
-
-          if (data[1] >= 0 && (data[0] <= 2.16 && data[0] >= 0)) {
-            positionResult = {
-              position: ['10', '20'],
-            };
-          }
-          if ((data[1] <= 0 && (data[0] <= 2.16 && data[0] >= 0))
-            || (data[1] === 0 && data[0] === 0)) {
-            positionResult = {
-              position: ['10', '-60'],
-            };
-          }
-          if (data[0] >= 2.16) {
-            positionResult = {
-              position: ['-36', '-10'],
-            };
-          } else if (data[0] <= -2.16) {
-            positionResult = {
-              position: ['65', '-10'],
-            };
-          }
+          positionResult = this.checkPosition(data);
           labelByPoint = {
             show: false,
             position: 'top',
@@ -216,9 +224,9 @@ export default {
                   .filter(x => x.title === param.value[2]);
 
                 if (oneCharacter[0]) {
-                  res += ':\n';
+                  res += ':';
                   oneCharacter[0].detailedCharacteristics.forEach((d) => {
-                    res += `${d}\n`;
+                    res += `\n${d}`;
                   });
                 }
 
@@ -227,7 +235,6 @@ export default {
               color: configEnv.charts.pointColor,
               fontWeight: 'bold',
               backgroundColor: configEnv.charts.backGroundColorLabel,
-              position: 'top',
               fontSize: 12,
               align: 'center',
               ...positionResult,

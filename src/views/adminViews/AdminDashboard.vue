@@ -469,7 +469,7 @@ export default {
         // eslint-disable-next-line prefer-destructuring
         otherType = helpFunction.Coordinates(data.otherResult.mainResult)[2];
         this.setRadar(data.otherResult.mainResult.split(/(?=[-+])/), 'Contacts');
-        this.otherCoordinate = helpFunction.Coordinates(data.result.mainResult);
+        this.otherCoordinate = helpFunction.Coordinates(data.otherResult.mainResult);
         data.eachU1Result.forEach((element) => {
           this.departmentSummaryOtherResult.push(helpFunction.Coordinates(element));
         });

@@ -282,15 +282,15 @@ export default {
   }
   .character-conscientious {
     left: 19%;
-    top: -5px
+    top: -15px;
   }
   .character-extraverted {
     left: 38%;
-    top: -5px;
+    top: -10px;
    }
   .character-agreeable {
     left: 57%;
-    top: -5px;
+    top: -10px;
   }
   .character-neurotic {
     left: 76%;
