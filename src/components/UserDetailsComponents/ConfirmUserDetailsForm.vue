@@ -141,6 +141,11 @@ export default {
       required,
     },
   },
+  watch: {
+    userSecretAnswer() {
+      this.userSecretAnswer = this.userSecretAnswer.trim();
+    },
+  },
   data: () => ({
     showInputQuestion: false,
     formData: {
