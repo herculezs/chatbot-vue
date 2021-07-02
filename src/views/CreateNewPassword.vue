@@ -1,5 +1,5 @@
 <template>
-  <div class="create-password">
+  <div class="create-password" data-app>
     <Content>
       <h1 class="h4 text-center mb-6">Create new password</h1>
       <CreatePassword @submit="changePassword" />
@@ -44,6 +44,8 @@ export default {
       const dataForRequest = {
         password: formData.password,
         code: this.getSecurityCode,
+        questionId: formData.selectSecretQuestion.questionId,
+        secretAnswer: formData.secretAnswer,
       };
 
       // eslint-disable-next-line no-underscore-dangle

@@ -3,6 +3,8 @@
     <Header/>
     <router-view class="main__content" />
     <Notification />
+    <SaveSecretDataModal v-if="showSecretDataModal" open-modal="showSecretDataModal">
+    </SaveSecretDataModal>
   </div>
 </template>
 
@@ -10,10 +12,12 @@
 import Header from '@components/Header/Header.vue';
 import Notification from '@components/Notification/Notification.vue';
 import { mapGetters } from 'vuex';
+import SaveSecretDataModal from '@components/Modals/SaveSecretDataModal.vue';
 
 export default {
   name: 'App',
   components: {
+    SaveSecretDataModal,
     Header,
     Notification,
   },
@@ -27,9 +31,8 @@ export default {
       }
       return 'InnerWorks';
     },
-    mainPageHeader() {
-      const route = this.$route.path.split('/').filter(x => x !== '');
-      return route[0] !== 'manage';
+    showSecretDataModal() {
+      return this.getProfile.userWithoutSecretAnswer === false;
     },
   },
   created() {

@@ -34,6 +34,9 @@
         </div>
         <div class="form-group form-group_link">
           <router-link to="/reset-password" class="link">Forgot password?</router-link>
+          <router-link to="/confirm-user-details" class="link change-details-link">
+            Change details?
+          </router-link>
         </div>
         <div class="form-group form-group_submit">
           <button
@@ -197,5 +200,8 @@ export default {
   button:focus {
     border: 2px solid #66afe9;
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+  }
+  .change-details-link {
+    float: right;
   }
 </style>

@@ -57,6 +57,9 @@ const actions = {
   updateProfile({ commit }, data) {
     commit('setProfile', data);
   },
+  updateSavedSecretAnswers({ commit }) {
+    commit('setSavedSecretAnswers', commit);
+  },
 };
 
 const mutations = {
@@ -90,6 +93,12 @@ const mutations = {
   },
   setRedirectAuth(state, path) {
     state.redirectAuth = path;
+  },
+  setSavedSecretAnswers(state) {
+    state.profile = {
+      ...state.profile,
+      userWithoutSecretAnswer: true,
+    };
   },
 };
 

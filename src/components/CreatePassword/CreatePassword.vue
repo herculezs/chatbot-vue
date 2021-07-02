@@ -45,6 +45,53 @@
           </div>
         </template>
       </div>
+      <div
+        class="form-group"
+        :class="{'form-group-error': $v.formData.selectSecretQuestion.$error}"
+      >
+        <v-select
+          hide-details
+          id="select"
+          class="form-group"
+          :items="questions"
+          v-model="formData.selectSecretQuestion"
+          label="Choose a Question"
+          background-color="#ffffff"
+          solo
+          ref="select"
+          item-text="question"
+          item-value="id"
+          return-object
+        ></v-select>
+
+        <template v-if="$v.formData.selectSecretQuestion.$error">
+          <div
+            class="form__input-error"
+            v-if="!$v.formData.selectSecretQuestion.required"
+          >
+            Choose please secret question
+          </div>
+        </template>
+      </div>
+      <div
+        class="form-group"
+        :class="{'form-group-error': $v.formData.secretAnswer.$error}"
+      >
+        <input
+          class="form__input"
+          placeholder="Secret Answer"
+          type="text"
+          v-model="formData.secretAnswer"
+        />
+        <template v-if="$v.formData.secretAnswer.$error">
+          <div
+            class="form__input-error"
+            v-if="!$v.formData.secretAnswer.required"
+          >
+            Fill this field please
+          </div>
+        </template>
+      </div>
       <div class="form-group form-group_submit">
         <button
           class="button button_w-100 button_theme-default button_size-m"
@@ -59,6 +106,7 @@
 
 <script>
 import { validationMixin } from 'vuelidate';
+import secretQuestions from '@constants/secretQuestions';
 
 const { required, sameAs, minLength } = require('vuelidate/lib/validators');
 
@@ -75,14 +123,34 @@ export default {
       repeatPassword: {
         sameAsPassword: sameAs('password'),
       },
+      secretAnswer: {
+        required,
+      },
+      selectSecretQuestion: {
+        required,
+      },
     },
   },
   data: () => ({
+    questions: secretQuestions,
     formData: {
       password: null,
       repeatPassword: null,
+      secretAnswer: null,
+      selectSecretQuestion: null,
     },
   }),
+  watch: {
+    formData: {
+      // eslint-disable-next-line no-unused-vars
+      handler() {
+        if (this.formData.secretAnswer) {
+          this.formData.secretAnswer = this.formData.secretAnswer.trim();
+        }
+      },
+      deep: true,
+    },
+  },
   computed: {},
   methods: {
     changePassword() {
@@ -96,7 +164,31 @@ export default {
 </script>
 
 <style lang="scss">
-  .password-input input {
+  .questions-secret-list {
+    height: 50px !important;
+  }
+
+  .password-input .form__input {
     background-color: white;
+  }
+
+  .password-input .v-input__slot {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+
+  }
+
+  .password-input .v-select__slot > label {
+    padding-left: 10px;
+  }
+  .password-input #select {
+    padding-left: 10px;
+    color: #A89C99;
+  }
+
+  .password-input .v-select__selections {
+    margin-left: 10px;
+    color: #A89C99;
   }
 </style>

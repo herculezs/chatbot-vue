@@ -334,6 +334,22 @@ export default new Router({
       },
     },
     {
+      path: '/confirm-user-details',
+      name: 'confirm-user-details',
+      component: () => import('@views/ConfirmUserDetails.vue'),
+      beforeEnter: (to, from, next) => {
+        // eslint-disable-next-line no-underscore-dangle
+        const userAuth = Store.getters['auth/getProfile'].token;
+
+        if (userAuth) {
+          next('/questionnaire');
+          return;
+        }
+
+        next();
+      },
+    },
+    {
       path: '/login',
       name: 'login',
 

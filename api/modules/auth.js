@@ -88,6 +88,91 @@ export default {
       });
     });
   },
+  confirmDataForChangeDetails(formData) {
+    return new Promise((resolve, reject) => {
+      http.post('/user-auth/confirm-data-for-change-details', formData).then(
+        ({ data }) => {
+          Vue.notify({
+            type: 'success',
+            title: 'Success',
+            text: 'User details is correct',
+          });
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
+  confirmSecretAnswer(formData) {
+    return new Promise((resolve, reject) => {
+      http.post('/user-auth/confirm-secret-answer', formData).then(
+        ({ data }) => {
+          Vue.notify({
+            type: 'success',
+            title: 'Success',
+            text: 'Secret answer is correct',
+          });
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
+  updateUserDetails(formData) {
+    return new Promise((resolve, reject) => {
+      http.post('/user-auth/update-user-details', formData).then(
+        ({ data }) => {
+          Vue.notify({
+            type: 'success',
+            title: 'Success',
+            text: 'New details saved successful',
+          });
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
+  sendSmsToCheckPhoneNumber(formData) {
+    return new Promise((resolve, reject) => {
+      http.post('/user-auth/send-sms-before-update-phone-number', formData).then(
+        ({ data }) => {
+          Vue.notify({
+            type: 'success',
+            title: 'Success',
+            text: 'Sent',
+          });
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
+  saveSecretAnswer(formData, id) {
+    return new Promise((resolve, reject) => {
+      http.post(`/user-auth/${id}/save-secret-answer`, formData).then(
+        ({ data }) => {
+          Vue.notify({
+            type: 'success',
+            title: 'Success',
+            text: 'Secret answer saved successful',
+          });
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
   updatePhoneNumber(updatePhoneNumberDTO, id) {
     return new Promise((resolve, reject) => {
       http.post(`/user-auth/${id}/new-phone-number`, updatePhoneNumberDTO).then(

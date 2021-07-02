@@ -266,7 +266,7 @@ export default {
     font-size: 20px;
     font-weight: bold;
     position: absolute;
-    left: 29%;
+    /*left: 91%;*/
   }
   .character-name {
     display: inline-block;
@@ -317,14 +317,14 @@ export default {
   .label-bubble-chart {
     position: absolute;
     bottom: 75px;
-    left: 41%;
+    left: 46%;
     right: 0;
   }
 
   .label-bubble-chart-1 {
     position: absolute;
     bottom: 30px;
-    left: 48%;
+    left: 50%;
     display: inline-block;
     align-items: center;
     width: 30px;
@@ -335,7 +335,7 @@ export default {
   .label-bubble-chart-2 {
     position: absolute;
     bottom: 160px;
-    left: 44%;
+    left: 49%;
     display: inline-block;
     align-items: center;
     width: 80px;

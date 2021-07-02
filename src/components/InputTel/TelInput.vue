@@ -7,7 +7,7 @@
       class="form__input-tel"
       id="telephone_number_main"
       :class="getClassByLengthCountryCode"
-      :placeholder="this.placeHolder"
+      :placeholder="placeHolder"
       :enabledCountryCode="enableCountryCode"
       :defaultCountry="defaultCountryCheck"
       :autoDefaultCountry="autoDefaultCountry"
