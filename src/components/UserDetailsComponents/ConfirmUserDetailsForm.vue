@@ -165,11 +165,9 @@ export default {
         };
 
         this.$api.auth.confirmDataForChangeDetails(data).then((res) => {
-          if (res >= 1) {
-            this.showInputQuestion = true;
-            this.secretAnswerId = res;
-            this.labelSecretQuestion = secretQuestions[res].question;
-          }
+          this.showInputQuestion = true;
+          this.secretAnswerId = res;
+          this.labelSecretQuestion = secretQuestions[res].question;
         });
       }
     },
@@ -183,6 +181,7 @@ export default {
 
         this.$api.auth.confirmSecretAnswer(data).then(() => {
           this.showChangeData = true;
+          console.log(this.showChangeData);
         });
       }
     },
