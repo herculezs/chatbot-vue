@@ -84,6 +84,7 @@ export default {
       }
 
       if (this.diaCode != null && this.diaCode && this.diaCode !== '') {
+        console.log(this.diaCode.length);
         return `code-length-${this.diaCode.length}`;
       }
       return 'code-length-3';
@@ -122,7 +123,7 @@ export default {
 <style lang="scss">
   .form__input-tel.code-length-1 {
     .vti__input{
-      padding-left: 20px;
+      padding-left: 45px;
     }
   }
 
