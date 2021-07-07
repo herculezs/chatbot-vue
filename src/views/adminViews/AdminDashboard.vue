@@ -441,17 +441,17 @@ export default {
       ];
     },
 
-    setRadar(data, name, subGroup, colorU1 = '#E59576', colorU2 = '#9C11F7',
-      borderColorU1 = '#a66053', borderColorU2 = '#5e119f') {
+    setRadar(data, name, subGroup, colorU1 = '#9C11F7', colorU2 = '#E59576',
+      borderColorU1 = '#5e119f', borderColorU2 = '#a66053') {
       const average = this.radarData.find(item => item.name === name);
       average.value = Object.values(data);
       this.radarData[1].itemColor = {
-        borderColor: borderColorU1,
-        color: colorU1,
-      };
-      this.radarData[0].itemColor = {
         borderColor: borderColorU2,
         color: colorU2,
+      };
+      this.radarData[0].itemColor = {
+        borderColor: borderColorU1,
+        color: colorU1,
       };
     },
 

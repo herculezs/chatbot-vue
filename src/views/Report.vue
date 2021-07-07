@@ -395,12 +395,12 @@ export default {
       const average = this.radarData.find(item => item.name === name);
       average.value = Object.values(data);
       this.radarData[1].itemColor = {
-        borderColor: borderColorU1,
-        color: colorU1,
-      };
-      this.radarData[0].itemColor = {
         borderColor: borderColorU2,
         color: colorU2,
+      };
+      this.radarData[0].itemColor = {
+        borderColor: borderColorU1,
+        color: colorU1,
       };
     },
     fetchPersonalityTypeReport() {
