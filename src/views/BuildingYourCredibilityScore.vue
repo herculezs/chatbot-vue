@@ -35,13 +35,59 @@
             <span class="outer-space-button-text">Photo ID</span>
           </button>
         </div>
-        <div class="button-credibility-score">
+        <div class="button-credibility-score" v-if="!savedIdCard && !confirmBankAccount">
           <button
             @click="redirectToQuestionnaire"
             class="button button_w-100 button_theme-default button_size-m">
             <span class="outer-space-button-text">Skip for Now</span>
           </button>
         </div>
+        <div class="button-credibility-score" v-else>
+          <button
+            @click="continueButton"
+            class="button button_w-100 button_theme-default button_size-m">
+            <span class="outer-space-button-text">Continue</span>
+          </button>
+        </div>
+      </div>
+      <div data-app>
+        <v-dialog
+          class="v-dialog"
+          v-model="showModal"
+          min-width="280"
+          max-width="450"
+        >
+          <v-card>
+            <v-card-title class="headline red lighten-2">
+              Information
+            </v-card-title>
+            <v-card-text>
+              <br/>
+              <h4>
+                Are you sure you want to move on? If you add credit card/id,
+                your score will be even higher.
+              </h4>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-btn
+                color="primary"
+                text
+                @click="dialogOff"
+              >
+                Add DEBIT/CREDIT card<br/> or Photo ID
+              </v-btn>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="primary"
+                text
+                @click="dialogOff"
+              >
+                Yes, continue
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </div>
     </Content>
   </div>
@@ -62,7 +108,28 @@ export default {
       getProfile: 'auth/getProfile',
     }),
   },
+  data: () => ({
+    savedIdCard: false,
+    confirmBankAccount: false,
+    showModal: false,
+  }),
+  mounted() {
+    this.$api.auth.checkIdentificationData().then((res) => {
+      this.savedIdCard = res.savedIdCard;
+      this.confirmBankAccount = res.confirmBankAccount;
+    });
+  },
   methods: {
+    dialogOff() {
+      this.redirectPath();
+    },
+    continueButton() {
+      if (this.savedIdCard && this.confirmBankAccount) {
+        this.redirectPath();
+      } else {
+        this.showModal = true;
+      }
+    },
     bankAccountRoute() {
       this.$router.push({ name: 'bank-account' });
     },
@@ -79,6 +146,9 @@ export default {
       const formData = new FormData();
       this.$api.auth.uploadIdentificationCardUser(formData, this.getProfile.id, true);
 
+      this.redirectPath();
+    },
+    redirectPath() {
       if (checkRole.isAdmin()) {
         this.$router.push({
           name: 'adminMenu',
@@ -126,5 +196,23 @@ export default {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .building-your-credibility-score .v-card__title {
+    background: $btnColor1;
+    color: white;
+  }
+  .building-your-credibility-score .v-btn {
+    color: $btnColor1;
+  }
+  @media screen and (max-width: 415px) {
+    .building-your-credibility-score .v-btn {
+      font-size: .7rem;
+    }
+  }
+  @media screen and (max-width: 350px) {
+    .building-your-credibility-score .v-btn {
+      font-size: .6rem;
+    }
   }
 </style>
