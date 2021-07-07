@@ -22,6 +22,7 @@ import VueFileAgent from 'vue-file-agent';
 import VueFileAgentStyles from 'vue-file-agent/dist/vue-file-agent.css';
 import VuePapaParse from 'vue-papa-parse';
 import { TooltipPlugin } from '@syncfusion/ej2-vue-popups';
+import VuePaycard from 'vue-paycard';
 
 import 'echarts';
 
@@ -59,6 +60,7 @@ Vue.use(VueMeta);
 Vue.use(VueFileAgent);
 Vue.use(VuePapaParse);
 Vue.use(TooltipPlugin);
+Vue.use(VuePaycard);
 
 library.add(faUserSecret);
 library.add(faUserAlt);
