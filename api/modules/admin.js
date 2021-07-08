@@ -121,6 +121,17 @@ export default {
       });
     });
   },
+  checkValidEmployeeCSV(file) {
+    return new Promise((resolve, reject) => {
+      http.post('admin/check-valid-employee-csv', file).then(
+        ({ data }) => {
+          resolve(data);
+        },
+      ).catch((error) => {
+        reject(error);
+      });
+    });
+  },
   getInfoByGroup(userId, groupId) {
     let url;
     if (!groupId) {

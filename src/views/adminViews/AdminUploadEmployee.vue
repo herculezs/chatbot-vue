@@ -142,6 +142,38 @@
         </v-card>
       </v-dialog>
     </v-app>
+    <v-app class="modal-error modal-warning">
+      <v-dialog
+        class="v-dialog"
+        v-model="showErrorWithIncorrect"
+        min-width="400"
+        max-width="600"
+        persistent
+      >
+        <v-card>
+          <v-card-title class="headline red lighten-2">
+            <span class="more-errors-user">ERROR</span>
+          </v-card-title>
+          <v-card-text>
+            <br/>
+            <h4>
+              {{ this.incorrectMessage }}
+            </h4>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="primary"
+              text
+              @click="showErrorWithIncorrect = false"
+            >
+              OK
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-app>
   </div>
 </template>
 
@@ -166,6 +198,8 @@ export default {
       errorModal: false,
       showTextMore: false,
       disabledContinue: false,
+      showErrorWithIncorrect: false,
+      incorrectMessage: '',
       headers: [
         {
           text: 'NAME', value: 'name', align: 'center', sortable: false,
@@ -192,7 +226,7 @@ export default {
       this.fileRecords = validFileRecords;
       this.fileRecordsForUpload = this.fileRecordsForUpload.concat(validFileRecords);
       if (this.fileRecordsForUpload) {
-        this.parseFileBeforeSend();
+        this.checkCorrectCsv();
       }
     },
     fileDeleted(fileRecord) {
@@ -251,6 +285,20 @@ export default {
       this.fileRecords = [];
       this.showTable = false;
       this.parsedDate = [];
+    },
+    checkCorrectCsv() {
+      const formData = new FormData();
+      formData.append('file', this.fileRecordsForUpload[0].file);
+      this.$api.admin.checkValidEmployeeCSV(formData).then(() => {
+        this.parseFileBeforeSend();
+      }).catch((error) => {
+        this.incorrectMessage = error.response.data.message;
+        this.showErrorWithIncorrect = true;
+        this.fileRecordsForUpload = [];
+        this.fileRecords = [];
+        this.showTable = false;
+        this.parsedDate = [];
+      });
     },
     parseFileBeforeSend() {
       this.$papa.parse(this.fileRecordsForUpload[0].file, {
