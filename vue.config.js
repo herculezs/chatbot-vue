@@ -7,6 +7,9 @@ function resolve(dir) {
 }
 module.exports = {
   publicPath: '/',
+  devServer: {
+    disableHostCheck: true,
+  },
   configureWebpack: (config) => {
     const customPlugins = [];
     customPlugins.push(new webpack.DefinePlugin({

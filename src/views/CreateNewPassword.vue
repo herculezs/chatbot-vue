@@ -11,7 +11,6 @@
 import CreatePassword from '@components/CreatePassword/CreatePassword.vue';
 import Content from '@components/Content/Content.vue';
 import { mapGetters } from 'vuex';
-import checkRole from '@helpers/adminFunction';
 import differentsServices from '@helpers/differentsServices';
 
 export default {
@@ -53,16 +52,7 @@ export default {
         { formData: dataForRequest, userId: this.getProfile.id })
         .then(() => {
           differentsServices.avatarPhotoService(this.getProfile.email, this.getProfile.id);
-          if (checkRole.isAdmin()) {
-            this.$router.push({
-              name: 'adminMenu',
-            });
-          } else if (this.getProfile.completedQuestionnaires
-            .includes(process.env.QUESTIONNAIRE_ID)) {
-            this.$router.replace('report');
-          } else {
-            this.$router.replace(this.getRedirectAuth);
-          }
+          this.$router.push({ name: 'building-credibility-score' });
         });
     },
   },

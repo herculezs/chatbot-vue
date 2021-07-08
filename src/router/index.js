@@ -334,6 +334,54 @@ export default new Router({
       },
     },
     {
+      path: '/building-credibility-score',
+      name: 'building-credibility-score',
+      component: () => import('@views/BuildingYourCredibilityScore.vue'),
+      beforeEnter: (to, from, next) => {
+        // eslint-disable-next-line no-underscore-dangle
+        const userAuth = Store.getters['auth/getProfile'].token;
+
+        if (!userAuth) {
+          next('/');
+          return;
+        }
+
+        next();
+      },
+    },
+    {
+      path: '/building-credibility-score/bank-account',
+      name: 'bank-account',
+      component: () => import('@views/BankAccountComponent.vue'),
+      beforeEnter: (to, from, next) => {
+        // eslint-disable-next-line no-underscore-dangle
+        const userAuth = Store.getters['auth/getProfile'].token;
+
+        if (!userAuth) {
+          next('/');
+          return;
+        }
+
+        next();
+      },
+    },
+    {
+      path: '/building-credibility-score/identification-card',
+      name: 'identification-card',
+      component: () => import('@views/IdentificationCard.vue'),
+      beforeEnter: (to, from, next) => {
+        // eslint-disable-next-line no-underscore-dangle
+        const userAuth = Store.getters['auth/getProfile'].token;
+
+        if (!userAuth) {
+          next('/');
+          return;
+        }
+
+        next();
+      },
+    },
+    {
       path: '/confirm-user-details',
       name: 'confirm-user-details',
       component: () => import('@views/ConfirmUserDetails.vue'),

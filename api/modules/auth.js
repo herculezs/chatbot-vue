@@ -243,4 +243,40 @@ export default {
       });
     });
   },
+  checkBankAccountValidate(userBankAccountData, userId) {
+    return new Promise((resolve, reject) => {
+      http.post(`user-auth/${userId}/check-bank-account-validate`, userBankAccountData).then(
+        ({ data }) => {
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
+  uploadIdentificationCardUser(userPhotoData, userId, skipStep) {
+    return new Promise((resolve, reject) => {
+      http.post(`user-auth/${userId}/upload-identification-card-user?skipStep=${skipStep}`, userPhotoData).then(
+        ({ data }) => {
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
+  checkIdentificationData() {
+    return new Promise((resolve, reject) => {
+      http.post('user-auth/check-identification-data').then(
+        ({ data }) => {
+          resolve(data);
+        },
+      ).catch((error) => {
+        notifyError(error);
+        reject(error);
+      });
+    });
+  },
 };
