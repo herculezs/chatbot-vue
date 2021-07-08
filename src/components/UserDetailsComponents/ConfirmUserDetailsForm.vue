@@ -73,6 +73,7 @@
             :placeholder="labelSecretQuestion"
             type="text"
             v-model="userSecretAnswer"
+            maxlength="25"
           />
           <template v-if="$v.userSecretAnswer.$error">
             <div
@@ -143,7 +144,7 @@ export default {
   },
   watch: {
     userSecretAnswer() {
-      this.userSecretAnswer = this.userSecretAnswer.trim();
+      this.userSecretAnswer = this.userSecretAnswer.replace(/\s+/gi, '');
     },
   },
   data: () => ({

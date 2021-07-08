@@ -80,14 +80,14 @@ export default {
     },
     getClassByLengthCountryCode() {
       if (!this.enableCountryCode) {
-        return 'code-length-1';
+        return 'code-length-0';
       }
 
       if (this.diaCode != null && this.diaCode && this.diaCode !== '') {
         console.log(this.diaCode.length);
         return `code-length-${this.diaCode.length}`;
       }
-      return 'code-length-3';
+      return 'code-length-0';
     },
     getPhone: {
       get() {
@@ -136,6 +136,12 @@ export default {
   .form__input-tel.code-length-4{
     .vti__input{
       padding-left: 65px;
+    }
+  }
+
+  .form__input-tel.code-length-0{
+    .vti__input{
+      padding-left: 20px;
     }
   }
   .vti__dropdown-list {

@@ -79,9 +79,10 @@
       >
         <input
           class="form__input"
-          placeholder="Secret Answer"
+          placeholder="Secret Answer - entered as AllOneWord"
           type="text"
           v-model="formData.secretAnswer"
+          maxlength="25"
         />
         <template v-if="$v.formData.secretAnswer.$error">
           <div
@@ -145,7 +146,7 @@ export default {
       // eslint-disable-next-line no-unused-vars
       handler() {
         if (this.formData.secretAnswer) {
-          this.formData.secretAnswer = this.formData.secretAnswer.trim();
+          this.formData.secretAnswer = this.formData.secretAnswer.replace(/\s+/gi, '');
         }
       },
       deep: true,
