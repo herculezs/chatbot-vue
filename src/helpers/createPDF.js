@@ -3,17 +3,17 @@ import html2canvas from 'html2canvas';
 
 const pdf = {
   async saveCSVFile(chartComparePath, barChartPath, textCharacter,
-    titleCharacter, reportPage = false, x1 = 15, x2 = 108) {
+    titleCharacter, reportPage = false, x1 = 15, x2 = 108, fileName) {
     // eslint-disable-next-line new-cap
     const doc = new jsPDF({ orientation: 'p', unit: 'mm' });
     // eslint-disable-next-line no-undef
     if (reportPage) {
       // eslint-disable-next-line no-param-reassign
-      chartComparePath.style.width = '445px';
+      chartComparePath.style.width = '455px';
       // eslint-disable-next-line no-param-reassign
       chartComparePath.style.paddingTop = '30px';
       // eslint-disable-next-line no-param-reassign
-      barChartPath.style.width = '445px';
+      barChartPath.style.width = '455px';
       // eslint-disable-next-line no-param-reassign
       barChartPath.style.paddingTop = '30px';
     }
@@ -56,7 +56,7 @@ const pdf = {
         return doc.html(cardHTML, {
           // eslint-disable-next-line no-shadow
           callback(doc) {
-            doc.save('report');
+            doc.save(fileName);
           },
           x: 10,
           y: 120,
