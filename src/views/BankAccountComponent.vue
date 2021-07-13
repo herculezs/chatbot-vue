@@ -30,6 +30,7 @@
             class="form__input"
             placeholder="Card Holder Name"
             v-model="valueFields.cardName"
+            maxlength="27"
           />
           <template v-if="$v.valueFields.cardName.$error">
             <div
@@ -235,7 +236,7 @@ export default {
     'valueFields.cardName': {
       // eslint-disable-next-line no-unused-vars
       handler(after, before) {
-        if (this.valueFields.cardName.split(' ').length >= 3) {
+        if (this.valueFields.cardName.length >= 27) {
           this.valueFields.cardName = before;
         }
       },
