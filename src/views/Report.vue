@@ -8,7 +8,9 @@
         we send your first results. We will update you as further responses come in ...
       </div>
       <div class="block">
-        <h1 class="h4 text-center mb-1">Well done {{ getProfile.name }}!</h1>
+        <h1 class="h4 text-center mb-1" v-if="getProfile.token">
+          Well done {{ getProfile.name }}!</h1>
+        <h1 class="h4 text-center mb-1" v-else>Well done !</h1>
         <h2 class="first_report text mb-5 text-center">
           Here's your first report. It shows your personality
           type in relation to the other 34 personality
