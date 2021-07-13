@@ -21,7 +21,7 @@
       </div>
       <div class="content-building-your-credibility-score-main
        content-building-your-credibility-score-main-3">
-        Just drag and drop a photo or san of it below it's done.
+        Just drop a photo or a scan of the id below and it's done
       </div>
       <div class="upload-id-data">
         <VueFileAgent
