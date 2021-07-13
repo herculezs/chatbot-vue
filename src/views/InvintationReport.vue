@@ -188,8 +188,8 @@ export default {
       return this.data;
     },
     // eslint-disable-next-line no-unused-vars
-    getChartBarData(selectCategory = 'mainResult', colorU1 = '#E59576', colorU2 = '#9C11F7',
-      borderColorU1 = '#a66053', borderColorU2 = '#5e119f') {
+    getChartBarData(selectCategory = 'mainResult', colorU1 = '#9C11F2', colorU2 = '#ff5151',
+      borderColorU1 = '#5e119f', borderColorU2 = '#bf4545') {
       if (this.getPersonalityTest.othersAmount >= 4) {
         this.barChart = [
           {
@@ -246,7 +246,7 @@ export default {
       } else if (event === 'General' && (this.getPersonalityTest.result.mainResult
         || this.getPersonalityTest.othersAverageResult.mainResult)) {
         this.chooseOtherResult(event, 'mainResult', false,
-          '#E59576', '#9C11F2', '#a66053', '#5e119f');
+          '#9C11F2', '#ff5151', '#5e119f', '#bf4545');
       }
     },
     chooseOtherResult(event, nameResult, subGroup, colorU1, colorU2, borderColorU1, borderColorU2) {
