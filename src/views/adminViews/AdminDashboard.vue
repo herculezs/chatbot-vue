@@ -301,13 +301,16 @@ export default {
         this.expanded.push(item);
         const nameForFileName = item.employee.replace(' ', '_');
         const d = new Date();
-        const createdDate = `${(`0${d.getDate()}`).slice(-2)}/${(`0${d.getMonth() + 1}`).slice(-2)}/${d.getFullYear()}`;
+        const createdDate = `${(`0${d.getDate()}`).slice(-2)}-${(`0${d.getMonth() + 1}`).slice(-2)}-${d.getFullYear()}`;
         const fullFileName = `${nameForFileName} ${createdDate} ${(`0${d.getHours()}`).slice(-2)}-${(`0${d.getMinutes()}`).slice(-2)}`;
+        const nameAndSurname = item.employee.split(' ');
+
+        const title = `innerworks assessment for ${nameAndSurname[0]} ${nameAndSurname[1]}, ${createdDate}`;
         pdf.delay(1000).then(async () => {
           await pdf.saveCSVFile(document.getElementById('chart-compare'),
             document.getElementById('bubble-chart'),
             constants.cards[item.allType.userType].showText, item.allType.userType,
-            false, 20, 115, fullFileName);
+            false, 20, 115, fullFileName, title);
           this.createPdf = false;
           this.expanded = [];
         });

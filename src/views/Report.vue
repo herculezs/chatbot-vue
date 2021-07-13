@@ -296,11 +296,13 @@ export default {
 
       this.refreshData();
       const d = new Date();
-      const createdDate = `${(`0${d.getDate()}`).slice(-2)}/${(`0${d.getMonth() + 1}`).slice(-2)}/${d.getFullYear()}`;
+      const createdDate = `${(`0${d.getDate()}`).slice(-2)}-${(`0${d.getMonth() + 1}`).slice(-2)}-${d.getFullYear()}`;
       const fullFileName = `${this.getProfile.name}_${this.getProfile.lastName} ${createdDate} ${(`0${d.getHours()}`).slice(-2)}-${(`0${d.getMinutes()}`).slice(-2)}`;
+      const titleForPDF = `innerworks assessment for ${this.getProfile.name} ${this.getProfile.lastName}, ${createdDate}`;
+
       await pdf.saveCSVFile(document.getElementById('chart-compare-pdf'),
         document.getElementById('chartForPdf'), this.youAnswerCard.showText,
-        this.youAnswerCard.title, true, 15, 108, fullFileName);
+        this.youAnswerCard.title, true, 15, 108, fullFileName, titleForPDF);
       this.createPdf = false;
       this.selectedCharateristic = temp;
     },
