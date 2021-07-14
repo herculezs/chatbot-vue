@@ -1,6 +1,7 @@
 <template>
   <div class="identification-card" data-app>
     <Content>
+      <Loading :is-loading.sync="loadFile" :scroll-lock="false"/>
       <h1 class="h4 text-center mb-3">Identification Card</h1>
       <div class="content-building-your-credibility-score-main
       content-building-your-credibility-score-main-1">
@@ -30,9 +31,12 @@
           :meta="true"
           :accept="'image/*'"
           :maxSize="'20MB'"
-          :maxFiles="1"
+          :maxFiles="5"
+          :thumbnailSize="120"
           :deletable="true"
+          :multiple="true"
           :helpText="'Drop or paste your photo here'"
+
           :errorText="{
       type: 'Please select an image',
       size: 'Files should not exceed 20MB in size',
@@ -97,18 +101,20 @@
 <script>
 import Content from '@components/Content/Content.vue';
 import { mapGetters } from 'vuex';
-
+import Loading from '@components/Spinner/Loading.vue';
 
 export default {
   name: 'IdentificationCard',
   components: {
     Content,
+    Loading,
   },
   data: () => ({
     fileRecords: [],
     fileRecordsForUpload: [],
     dialog: false,
     disableSubmitButton: true,
+    loadFile: false,
   }),
   computed: {
     ...mapGetters({
@@ -121,11 +127,8 @@ export default {
       if (checkErrors) {
         this.dialog = true;
       }
-      const validFileRecords = fileRecordsNewlySelected.filter(fileRecord => !fileRecord.error);
-      this.fileRecords = validFileRecords;
-      this.fileRecordsForUpload = this.fileRecordsForUpload.concat(validFileRecords);
 
-      if (this.fileRecordsForUpload.length) {
+      if (this.fileRecords.length) {
         this.disableSubmitButton = false;
       }
     },
@@ -133,37 +136,36 @@ export default {
       this.$refs.vueFileAgent.deleteFileRecord(fileRecord);
     },
     uploadFiles() {
+      this.loadFile = true;
       const formData = new FormData();
-      formData.append('file', this.fileRecordsForUpload[0].file);
+
+      this.fileRecords.forEach((x) => {
+        formData.append('file', x.file);
+      });
+
       this.$api.auth.uploadIdentificationCardUser(formData, this.getProfile.id, false).then(() => {
-        this.fileRecordsForUpload = [];
-        this.fileRecords = [];
-        this.disableSubmitButton = true;
-        this.$router.push({ name: 'building-credibility-score' });
+        this.updateData();
       }).catch(() => {
-        this.fileRecordsForUpload = [];
-        this.fileRecords = [];
-        this.disableSubmitButton = true;
-        this.$router.push({ name: 'building-credibility-score' });
+        this.updateData();
       });
     },
     dialogOff() {
       this.dialog = false;
+      this.fileRecords.pop();
+    },
+    updateData() {
       this.fileRecordsForUpload = [];
       this.fileRecords = [];
+      this.disableSubmitButton = true;
+      this.loadFile = false;
+      this.$router.push({ name: 'building-credibility-score' });
     },
     skipButton() {
       const formData = new FormData();
       this.$api.auth.uploadIdentificationCardUser(formData, this.getProfile.id, true).then(() => {
-        this.fileRecordsForUpload = [];
-        this.fileRecords = [];
-        this.disableSubmitButton = true;
-        this.$router.push({ name: 'building-credibility-score' });
+        this.updateData();
       }).catch(() => {
-        this.fileRecordsForUpload = [];
-        this.fileRecords = [];
-        this.disableSubmitButton = true;
-        this.$router.push({ name: 'building-credibility-score' });
+        this.updateData();
       });
     },
   },

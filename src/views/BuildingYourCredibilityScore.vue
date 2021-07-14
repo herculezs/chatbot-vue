@@ -81,7 +81,7 @@
               <v-btn
                 color="primary"
                 text
-                @click="dialogOff"
+                @click="redirectToQuestionnaire"
               >
                 Yes, continue
               </v-btn>
@@ -136,15 +136,15 @@ export default {
     identificationCardRoute() {
       this.$router.push({ name: 'identification-card' });
     },
-    redirectToQuestionnaire() {
+    async redirectToQuestionnaire() {
       const request = {
         skipThisStep: true,
       };
 
-      this.$api.auth.checkBankAccountValidate(request, this.getProfile.id);
+      await this.$api.auth.checkBankAccountValidate(request, this.getProfile.id);
 
       const formData = new FormData();
-      this.$api.auth.uploadIdentificationCardUser(formData, this.getProfile.id, true);
+      await this.$api.auth.uploadIdentificationCardUser(formData, this.getProfile.id, true);
 
       this.redirectPath();
     },

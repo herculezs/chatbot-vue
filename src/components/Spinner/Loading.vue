@@ -2,7 +2,7 @@
   <div>
     <loading :active.sync="isLoading"
              :color="'#7811C9'"
-             :lock-scroll="true"
+             :lock-scroll="scrollLock"
              :height="128"
              :width="128"
              :background-color="'#ccccc'"
@@ -27,6 +27,10 @@ export default {
     isLoading: {
       type: Boolean,
       default: false,
+    },
+    scrollLock: {
+      type: Boolean,
+      default: true,
     },
   },
 };
