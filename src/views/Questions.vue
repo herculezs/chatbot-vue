@@ -186,11 +186,19 @@ export default {
           * Math.floor(Math.random() * Date.now()) * Math.random())}`);
       }
 
+      let requestParam = '?option=';
+      if (this.$route.query.option) {
+        requestParam += this.$route.query.option;
+      } else {
+        requestParam = '';
+      }
+
       return this.$store.dispatch('invitation/setPersonalityTest',
         {
           formData: this.formData,
           id: this.$route.params.id,
           uniqueId: localStorage.getItem('uniqueId'),
+          requestParam,
         }).then(() => {
         if (this.isAuth) {
           return this.$router.push({ name: 'questionnaire-management' });

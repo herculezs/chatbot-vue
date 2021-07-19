@@ -1,7 +1,10 @@
 <template>
   <div class="header">
     <!-- eslint-disable -->
-    <router-link to="/">
+    <span v-if="$route.path.startsWith(pathWithoutLinkInIcon)">
+      <img src="../../assets/logo.png" alt="logo" height="70" />
+    </span>
+    <router-link v-else to="/">
       <img src="../../assets/logo.png" alt="logo" height="70" id="redirect_home"/>
     </router-link>
     <div v-if="headerRegistration()">
@@ -29,6 +32,9 @@ export default {
       getProfile: 'auth/getProfile',
     }),
   },
+  data: () => ({
+    pathWithoutLinkInIcon: '/building-credibility-score',
+  }),
   methods: {
     logOut() {
       this.$store.dispatch('auth/logout');

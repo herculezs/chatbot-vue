@@ -7,7 +7,8 @@ const getters = {
 
 const actions = {
   setPersonalityTest({ commit }, data) {
-    return api.questionnaire.saveInvitationAnswer(data.formData, data.id, data.uniqueId)
+    return api.questionnaire.saveInvitationAnswer(data.formData, data.id, data.uniqueId,
+      data.requestParam)
       .then((res) => {
         commit('setPersonalityTest', res);
       });

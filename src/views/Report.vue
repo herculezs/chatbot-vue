@@ -49,11 +49,15 @@
         </div>
       </template>
       <div class="diagram mb-5">
+        <vue-select v-if="!isFreeVersionWebSiteWithCheck && isFreeVersionWebSite"
+                    :options="options" v-model='selectedOptions' :clearable="false"
+                    class="select-group-for-chart"></vue-select>
         <div id="chart-compare-pdf">
           <div class="block">
             <div class="diagram__title-with-respondents">
               <div class="report__respondents">
-                <svg class="report__respondents-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.42 15.93">
+                <svg class="report__respondents-icon" xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 12.42 15.93">
                   <circle
                     fill="none"
                     stroke="#999"
@@ -88,49 +92,26 @@
             </template>
           </div>
         </div>
-        <div id="chartForPdf">
-          <div class="block">
-            <div class="h5 mb-5 text-center color-chart-title">
-              Trait Comparison
+        <div class="bubble_chart_main_block">
+          <div id="chartForPdf">
+            <div class="block">
+              <div class="h5 mb-5 text-center color-chart-title">
+                Trait Comparison
+              </div>
+              <BubbleChart :data="radarData" :subGroup="subGroup"
+                           @click-to-character="setChosenGroupCharacteristic($event,
+                           myResultsScoreData, othersResultsScoreData, chooseOtherResult)"/>
             </div>
-            <BubbleChart :data="radarData" :subGroup="subGroup"
-                         @click-to-character="setChosenGroupCharacteristic($event)"/>
           </div>
         </div>
       </div>
       <InvitationTableEmployees
-        v-if="getProfile.registeredFromCSV"
+        v-if="userRegisteredFromCSV"
         v-on:show-button="showButtonAskContactsForInvitation1">
       </InvitationTableEmployees>
-      <b-modal
-        modal-class="modal-sticky-bottom ask-contacts"
-        class="ask-contacts"
-        id="modal-multi-1"
-        hide-footer
-        v-else-if="!getProfile.registeredFromCSV"
-      >
-        <template v-slot:modal-title>
-          {{configEnv.report.textForReport.title}}
-        </template>
-        <p class="text mb-3" v-html="configEnv.report.textForReport.paragraph1">
-          {{configEnv.report.textForReport.paragraph1}}
-        </p>
-        <p class="text mb-3">
-          {{configEnv.report.textForReport.paragraph2}}
-        </p>
-        <p class="text mb-3" v-html="configEnv.report.textForReport.paragraph3">
-          {{configEnv.report.textForReport.paragraph3}}
-        </p>
-        <p class="text mb-4">
-          Click the <b>copy button below</b> and paste the explanatory
-          text and link to your colleagues using your favorite method.
-        </p>
-        <InputCopy v-model="shareLink" class="mb-4" />
-        <br/>
-        <br/>
-      </b-modal>
-
-      <div v-if="isFreeVersionWebSite">
+      <AskUserModal v-else-if="!userRegisteredFromCSV" :share-link="shareLink"
+                    :is-free-version="isFreeVersionWebSite"/>
+      <div v-if="isFreeVersionWebSiteWithCheck">
         <div class="buttons-report">
           <div class="block">
             <h2 class="first_report text mb-5 text-center">
@@ -158,21 +139,18 @@
           <div class="block-button">
             <button
               v-b-modal.modal-multi-1
-              v-if="(getProfile.registeredFromCSV && showButtonAskContactsForInvitation) ||
-               !getProfile.registeredFromCSV"
+              v-if="showButtons"
               class="button button_theme-default button_size-m-report-page">
               <span class="outer-space-button-text">Ask Contacts</span>
             </button>
             <button
-              v-if="(getProfile.registeredFromCSV && showButtonAskContactsForInvitation) ||
-               !getProfile.registeredFromCSV"
+              v-if="showButtons"
               @click="redirectToQuestionnaireManagement"
               class="button button_theme-default button_size-m-report-page button-dinamic-size">
               <span class="outer-space-button-text">See Surveys</span>
             </button>
             <button
-              v-if="(getProfile.registeredFromCSV && showButtonAskContactsForInvitation) ||
-               !getProfile.registeredFromCSV"
+              v-if="showButtons"
               @click="saveCSVFile"
               class="button button_theme-default button_size-m-report-page button-dinamic-size">
               <span class="outer-space-button-text">Save to PDF</span>
@@ -192,7 +170,7 @@
 
 <script>
 import Card from '@components/Card/Card.vue';
-import InputCopy from '@components/InputCopy/InputCopy.vue';
+import AskUserModal from '@components/Modals/AskUserModal.vue';
 import Content from '@components/Content/Content.vue';
 import FeedbackModal from '@components/Modals/FeedbackModal.vue';
 import ChartCompare from '@components/Charts/ChartCompare.vue';
@@ -211,17 +189,19 @@ export default {
   components: {
     BubbleChart,
     Card,
-    InputCopy,
     Content,
     FeedbackModal,
     ChartCompare,
     AskOthers,
     InvitationTableEmployees,
     Loading,
+    AskUserModal,
   },
   name: 'Report',
   data: () => ({
     configEnv,
+    options: [],
+    selectedOptions: 'general',
     radarData: [{
       value: [],
       type: 'bar',
@@ -255,7 +235,6 @@ export default {
     SelfCoordinate: null,
     OtherCoordinate: null,
     data: [],
-    nearPoints: [],
     youAnswerCard: {},
     selectedCharateristic: null,
     collegAnswerCard: {},
@@ -266,22 +245,35 @@ export default {
       opensResult: '',
     },
     subGroup: false,
+    otherLastResult: null,
   }),
+  watch: {
+    selectedOptions(value) {
+      this.otherAmountCalculate(this.otherLastResult, value);
+    },
+  },
   computed: {
     ...mapGetters({
       getProfile: 'auth/getProfile',
     }),
+    showButtons() {
+      return (this.getProfile.registeredFromCSV && this.showButtonAskContactsForInvitation)
+        || !this.getProfile.registeredFromCSV;
+    },
     isOthersAmount() {
       return this.respondentsCount > 3;
     },
-    getGuessedCard() {
-      return constants.cards[this.getProfile.selfPersonalityType];
+    userRegisteredFromCSV() {
+      return this.getProfile.registeredFromCSV;
     },
-    isFreeVersionWebSite() {
+    isFreeVersionWebSiteWithCheck() {
       if (this.getProfile.completedQuestionnaires) {
         return isFreeVersion() && !this.getProfile.completedQuestionnaires
           .includes(process.env.QUESTIONNAIRE_ID);
       }
+      return isFreeVersion();
+    },
+    isFreeVersionWebSite() {
       return isFreeVersion();
     },
   },
@@ -289,6 +281,10 @@ export default {
     this.fetchPersonalityTypeReport();
   },
   methods: {
+    setChosenGroupCharacteristic(event, myResultsSc, othersResultsSc, chooseOtherResult) {
+      helpFunction.setChosenGroupCharacteristic(event, myResultsSc, othersResultsSc,
+        chooseOtherResult);
+    },
     async saveCSVFile() {
       this.createPdf = true;
       const temp = this.selectedCharateristic;
@@ -322,33 +318,6 @@ export default {
         name: event[2],
         text: event[3],
       };
-    },
-    setChosenGroupCharacteristic(event) {
-      if (event === 'Open' && (this.myResultsScoreData.opensResult
-        || this.othersResultsScoreData.opensResult)) {
-        this.chooseOtherResult(event, 'opensResult', true,
-          '#FC6F4D', '#B15771', '#c85e3f', '#88444e');
-      } else if (event === 'Conscientious' && (this.myResultsScoreData.conscientiousResult
-        || this.othersResultsScoreData.conscientiousResult)) {
-        this.chooseOtherResult(event, 'conscientiousResult', true,
-          '#FD7c49', '#BE6867', '#be5f3c', '#974c4c');
-      } else if (event === 'Extraverted' && (this.myResultsScoreData.extravertedResult
-        || this.othersResultsScoreData.extravertedResult)) {
-        this.chooseOtherResult(event, 'extravertedResult', true,
-          '#FD8945', '#CB795D', '#d27037', '#99534d');
-      } else if (event === 'Agreeable' && (this.myResultsScoreData.agreeableResult
-        || this.othersResultsScoreData.agreeableResult)) {
-        this.chooseOtherResult(event, 'agreeableResult', true,
-          '#FE9741', '#D88B53', '#9d542b', '#ba744c');
-      } else if (event === 'Neurotic' && (this.myResultsScoreData.neuroticResult
-        || this.othersResultsScoreData.neuroticResult)) {
-        this.chooseOtherResult(event, 'neuroticResult', true,
-          '#FEA43D', '#E59C49', '#9d5828', '#ae6a49');
-      } else if (event === 'General' && (this.myResultsScoreData.mainResult
-        || this.othersResultsScoreData.mainResult)) {
-        this.chooseOtherResult(event, 'mainResult', false,
-          '#9C11F2', '#ff5151', '#5e119f', '#bf4545');
-      }
     },
     chooseOtherResult(event, nameResult, subGroup, colorU1, colorU2, borderColorU1, borderColorU2) {
       if (this.myResultsScoreData[nameResult]) {
@@ -411,7 +380,7 @@ export default {
       };
     },
     fetchPersonalityTypeReport() {
-      if (this.isFreeVersionWebSite) {
+      if (this.isFreeVersionWebSiteWithCheck) {
         const uniqueId = localStorage.getItem('uniqueId');
 
         this.$api.personalityTypeReport.fetchPersonalityTypeReportFreeVersion(uniqueId)
@@ -421,8 +390,6 @@ export default {
             this.showFeedBackModalByParams(res.othersAmount);
 
             this.myResultsScoreData = res.selfResult;
-            this.tag = res.selfResult.mainResult;
-            this.tagOthersAverage = res.othersAverageResult;
             this.SelfCoordinate = helpFunction.Coordinates(res.selfResult.mainResult);
 
             this.setYouAnswerCard(this.SelfCoordinate[2]);
@@ -435,87 +402,28 @@ export default {
           this.setRadar(res.selfResult.mainResult.split(/(?=[-+])/), 'Me');
           this.myResultsScoreData = res.selfResult;
           this.other = res.selfResult;
-
-          if (this.isOthersAmount) {
-            this.othersResultsScoreData = res.othersAverageResult;
-            this.setRadar(res.othersAverageResult.mainResult.split(/(?=[-+])/), 'Contacts');
-            this.OtherCoordinate = helpFunction.Coordinates(res.othersAverageResult.mainResult);
-            this.setCollegAnswerCard(this.OtherCoordinate[2]);
-          }
-
+          this.otherLastResult = res;
           this.showFeedBackModalByParams(res.othersAmount);
 
-          this.tag = res.selfResult;
-          this.tagOthersAverage = res.othersAverageResult.mainResult;
           this.SelfCoordinate = helpFunction.Coordinates(res.selfResult.mainResult);
 
           this.setYouAnswerCard(this.SelfCoordinate[2]);
+
           this.shareLink = `${window.location.protocol}//${window.location.host}${res.invitationLink}`;
-          const [youAreX, youAreY] = this.SelfCoordinate;
-
-          const mostLikelyCharacters = {
-            left: {},
-            right: {},
-            bottom: {},
-            top: {},
-          };
-
-          const allDirections = [{
-            key: 'left',
-            isRightDirection: (sourceX, sourceY, x) => sourceX <= x,
-          },
-          {
-            key: 'right',
-            isRightDirection: (sourceX, sourceY, x) => sourceX > x,
-          },
-          {
-            key: 'bottom',
-            isRightDirection: (sourceX, sourceY, x, y) => sourceY <= y,
-          },
-          {
-            key: 'top',
-            isRightDirection: (sourceX, sourceY, x, y) => sourceY > y,
-          },
-          ];
-
-          allDirections.forEach((direction) => {
-            const currentCards = Object.values(constants.cards);
-            currentCards
-              .filter(({ title }) => {
-                const allValues = Object.values(mostLikelyCharacters);
-                return !allValues.filter(d => title === d.title).length;
-              })
-              .forEach(({ value, title }) => {
-                const coordinateX = value[0];
-                const coordinateY = value[1];
-                const distance = Math.sqrt(((coordinateX - youAreX) ** 2)
-                  + ((coordinateY - youAreY) ** 2));
-
-                const rightDirection = direction.isRightDirection(coordinateX, coordinateY,
-                  youAreX, youAreY);
-
-                const lastDistance = mostLikelyCharacters[direction.key].distance
-                  || Number.MAX_VALUE;
-
-                if (rightDirection && lastDistance > distance) {
-                  mostLikelyCharacters[direction.key].distance = distance;
-                  mostLikelyCharacters[direction.key].title = title;
-                  mostLikelyCharacters[direction.key].value = value;
-                }
-              });
-          });
-
-          Object.values(mostLikelyCharacters).filter(v => v.value).forEach(({ title, value }) => {
-            this.nearPoints.push({
-              value: [],
-              type: 'NEAREST',
-              data: [...value, title],
-
-            });
-          });
-
-          this.chartOptionsBar();
+          this.otherAmountCalculate(this.otherLastResult, this.selectedGroup);
         });
+      }
+    },
+    otherAmountCalculate(res, groupName) {
+      if (this.isOthersAmount) {
+        this.othersResultsScoreData = res.othersAverageResult[groupName];
+        this.setRadar(res.othersAverageResult[groupName].mainResult.split(/(?=[-+])/), 'Contacts');
+        this.OtherCoordinate = helpFunction
+          .Coordinates(res.othersAverageResult[groupName].mainResult);
+        this.setCollegAnswerCard(this.OtherCoordinate[2]);
+        this.options = Object.keys(res.othersAverageResult);
+        this.data = [];
+        this.chartOptionsBar();
       }
     },
     showFeedBackModalByParams() {
@@ -686,5 +594,15 @@ export default {
   .bar-chart-pfd-block {
     height: 426px;
     width: 448px;
+  }
+  .select-group-for-chart {
+    width: 35%;
+    min-width: 107px;
+    position: absolute;
+    top: 0;
+    left: 30px;
+  }
+  .bubble_chart_main_block {
+    position: relative;
   }
 </style>

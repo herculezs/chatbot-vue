@@ -187,7 +187,6 @@ export default {
 
         this.$api.auth.confirmSecretAnswer(data).then(() => {
           this.showChangeData = true;
-          console.log(this.showChangeData);
         });
       }
     },

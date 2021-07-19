@@ -84,7 +84,6 @@ export default {
       }
 
       if (this.diaCode != null && this.diaCode && this.diaCode !== '') {
-        console.log(this.diaCode.length);
         return `code-length-${this.diaCode.length}`;
       }
       return 'code-length-0';

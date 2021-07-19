@@ -141,7 +141,6 @@ export default {
 
         this.$api.auth.saveSecretAnswer(dataRequest, this.getProfile.id).then(() => {
           this.$store.dispatch('auth/updateSavedSecretAnswers');
-          console.log(this.getProfile);
         });
       }
     },

@@ -62,7 +62,7 @@ export default new Router({
       beforeEnter: (to, from, next) => {
         const userAuth = Store.getters['auth/getProfile'].token;
         // eslint-disable-next-line no-underscore-dangle
-        // isFreeVersion() ||
+
         if (userAuth) {
           next('/');
         }
@@ -77,7 +77,7 @@ export default new Router({
       beforeEnter: (to, from, next) => {
         const userAuth = Store.getters['auth/getProfile'].token;
         // eslint-disable-next-line no-underscore-dangle
-        // isFreeVersion() ||
+
         if (userAuth) {
           next('/');
         }
@@ -195,9 +195,7 @@ export default new Router({
       component: () => import('@views/adminViews/AdminMenu.vue'),
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
-        // if (isFreeVersion()) {
-        //   next('/');
-        // }
+
         if (checkRole.isAdmin()) {
           next();
           return;
@@ -343,6 +341,11 @@ export default new Router({
 
         if (!userAuth) {
           next('/');
+          return;
+        }
+
+        if (isFreeVersion()) {
+          next('/questionnaire');
           return;
         }
 

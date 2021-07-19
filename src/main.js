@@ -18,6 +18,8 @@ import VueI18n from 'vue-i18n';
 import VueMeta from 'vue-meta';
 import vuetify from '@/plugins/vuetify';
 import VueFileAgent from 'vue-file-agent';
+import vSelect from 'vue-select';
+
 // eslint-disable-next-line no-unused-vars
 import VueFileAgentStyles from 'vue-file-agent/dist/vue-file-agent.css';
 import VuePapaParse from 'vue-papa-parse';
@@ -61,6 +63,7 @@ Vue.use(VueFileAgent);
 Vue.use(VuePapaParse);
 Vue.use(TooltipPlugin);
 Vue.use(VuePaycard);
+Vue.component('vue-select', vSelect);
 
 library.add(faUserSecret);
 library.add(faUserAlt);

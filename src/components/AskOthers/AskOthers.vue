@@ -5,7 +5,7 @@
         <div class="ask-text-change">We hope that was interesting so far!</div>
         <div class="ask-text-change">
         The really insightful part comes from asking your contacts about you.
-        For the app to work, we need you name, phone and email address.
+        For the app to work, we need your name, phone and email address.
         </div>
         <div class="ask-text-change">
         Before we do that, a short word about your data:
