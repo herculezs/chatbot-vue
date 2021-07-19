@@ -411,6 +411,7 @@ export default {
 
           this.shareLink = `${window.location.protocol}//${window.location.host}${res.invitationLink}`;
           this.otherAmountCalculate(this.otherLastResult, this.selectedGroup);
+          this.chartOptionsBar();
         });
       }
     },
@@ -423,7 +424,6 @@ export default {
         this.setCollegAnswerCard(this.OtherCoordinate[2]);
         this.options = Object.keys(res.othersAverageResult);
         this.data = [];
-        this.chartOptionsBar();
       }
     },
     showFeedBackModalByParams() {
