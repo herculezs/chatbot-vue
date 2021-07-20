@@ -25,7 +25,7 @@
               >
                 <v-text-field
                   v-model="search"
-                  label="Search by Phone or Email"
+                  label="Search"
                   :append-outer-icon="'mdi-send'"
                   clear-icon="mdi-close-circle"
                   class="mx-4"
@@ -250,11 +250,6 @@ const {
   required,
 } = require('vuelidate/lib/validators');
 
-const mustBeCool = (emailValid) => {
-  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(emailValid).toLowerCase());
-};
-
 const roleValidate = (role) => {
   if (!(role.label && role.value)) {
     return false;
@@ -291,10 +286,10 @@ export default {
     selectRole: { label: 'Admin', value: 'ADMIN_USER' },
     editedIndex: -1,
     roles: [
-      { label: 'Admin', value: 'ADMIN_USER' },
-      { label: 'Super User', value: 'SUPER_USER' },
-      { label: 'SELENIUM User', value: 'SELENIUM_USER' },
-      { label: 'User', value: 'USER' }],
+      { label: 'ADMIN_USER', value: 'ADMIN_USER' },
+      { label: 'SUPER_USER', value: 'SUPER_USER' },
+      { label: 'SELENIUM_USER', value: 'SELENIUM_USER' },
+      { label: 'USER', value: 'USER' }],
     userChangeForm: {
       id: '',
       phone: '',
@@ -346,7 +341,6 @@ export default {
       },
       yourEmail: {
         required,
-        mustBeCool,
       },
       lastName: {
         required,
@@ -395,13 +389,17 @@ export default {
       this.getDataTestDashboard();
     },
     getDataTestDashboard() {
-      this.$api.admin.getDataTestDashboard(process.env.QUESTIONNAIRE_ID, this.page - 1, this.search,
-        this.searchField)
+      this.$api.admin.getDataTestDashboard(process.env.QUESTIONNAIRE_ID, this.page - 1, this.search)
         .then((response) => {
           this.dashboardData = [];
           this.page = response.number + 1;
           this.itemsPerPage = response.numberOfElements;
           this.totalPages = response.totalPages;
+
+          if (response.content.length === 0) {
+            this.loadingTable = false;
+          }
+
           let resultRole;
           response.content.forEach((x) => {
             resultRole = this.roles.map(role => x.roles.map((y) => {
@@ -450,13 +448,6 @@ export default {
     },
     searchUser(e) {
       if (e.keyCode === 13 || e.button === 0) {
-        this.page = 1;
-        this.loadingTable = true;
-        if (this.search.match(/^[+]*?\d+$/)) {
-          this.searchField = 'PHONE';
-        } else {
-          this.searchField = 'EMAIL';
-        }
         this.getDataTestDashboard();
       }
     },
