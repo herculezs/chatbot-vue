@@ -62,6 +62,7 @@ import configEnv from '@configEnv';
 import checkRole from '@helpers/adminFunction';
 import differentsServices from '@helpers/differentsServices';
 import GeoLocationModal from '@components/Modals/GeoLocationModal.vue';
+import isFreeVersion from '@helpers/func';
 
 const { required } = require('vuelidate/lib/validators');
 
@@ -175,7 +176,10 @@ export default {
 
           this.savePhoto(userWithoutPhoto, email, id);
 
-          if (checkRole.isAdmin()) {
+          if (isFreeVersion && (!this.getProfile.userWithCreditCard
+            || !this.getProfile.userWithIdentificationCard)) {
+            this.$router.push('building-credibility-score');
+          } else if (checkRole.isAdmin()) {
             this.$router.push({
               name: 'adminMenu',
             });

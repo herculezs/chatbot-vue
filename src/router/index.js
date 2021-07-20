@@ -338,15 +338,18 @@ export default new Router({
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
         const userAuth = Store.getters['auth/getProfile'].token;
+        const { userWithCreditCard, userWithIdentificationCard } = Store.getters['auth/getProfile'];
+
+        if (userAuth && (userWithCreditCard && userWithIdentificationCard)) {
+          next('/questionnaire');
+        }
 
         if (!userAuth) {
           next('/');
-          return;
         }
 
         if (isFreeVersion()) {
           next('/questionnaire');
-          return;
         }
 
         next();
@@ -359,6 +362,15 @@ export default new Router({
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
         const userAuth = Store.getters['auth/getProfile'].token;
+        const { userWithCreditCard } = Store.getters['auth/getProfile'];
+
+        if (isFreeVersion()) {
+          next('/questionnaire');
+        }
+
+        if (userAuth && userWithCreditCard) {
+          next('/building-credibility-score');
+        }
 
         if (!userAuth) {
           next('/');
@@ -375,6 +387,15 @@ export default new Router({
       beforeEnter: (to, from, next) => {
         // eslint-disable-next-line no-underscore-dangle
         const userAuth = Store.getters['auth/getProfile'].token;
+        const { userWithIdentificationCard } = Store.getters['auth/getProfile'];
+
+        if (userAuth && userWithIdentificationCard) {
+          next('/building-credibility-score');
+        }
+
+        if (isFreeVersion()) {
+          next('/questionnaire');
+        }
 
         if (!userAuth) {
           next('/');

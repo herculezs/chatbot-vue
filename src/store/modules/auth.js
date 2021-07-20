@@ -47,6 +47,9 @@ const actions = {
       commit('setCompletedFeedback', process.env.FEEDBACK_ID);
     });
   },
+  updateIdentificationData({ commit }, data) {
+    commit('updateIdentificationData', data);
+  },
   logout({ commit }) {
     commit('setProfile', {});
     commit('setRedirectAuth', 'questionnaire');
@@ -98,6 +101,13 @@ const mutations = {
     state.profile = {
       ...state.profile,
       userWithoutSecretAnswer: true,
+    };
+  },
+  updateIdentificationData(state, data) {
+    state.profile = {
+      ...state.profile,
+      userWithIdentificationCard: data.userWithIdentificationCard,
+      userWithCreditCard: data.userWithCreditCard,
     };
   },
 };

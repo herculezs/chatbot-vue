@@ -23,6 +23,7 @@
       <div class="buttons-building-credibility">
         <div class="button-credibility-score">
           <button
+            v-if="!confirmBankAccount"
             @click="bankAccountRoute"
             class="button button_w-100 button_theme-default button_size-m">
             <span class="outer-space-button-text">Debit/Credit Card</span>
@@ -30,6 +31,7 @@
         </div>
         <div class="button-credibility-score">
           <button
+            v-if="!savedIdCard"
             @click="identificationCardRoute"
             class="button button_w-100 button_theme-default button_size-m">
             <span class="outer-space-button-text">Photo ID</span>
@@ -117,6 +119,13 @@ export default {
     this.$api.auth.checkIdentificationData().then((res) => {
       this.savedIdCard = res.savedIdCard;
       this.confirmBankAccount = res.confirmBankAccount;
+      this.$store.dispatch('auth/updateIdentificationData', {
+        userWithIdentificationCard: this.savedIdCard,
+        userWithCreditCard: this.confirmBankAccount,
+      });
+      if (this.savedIdCard && this.confirmBankAccount) {
+        this.$router.push('questionnaire');
+      }
     });
   },
   methods: {
