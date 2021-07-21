@@ -265,6 +265,7 @@ export default {
               phone: res[i].phone,
             });
             this.errorModal = true;
+            this.disabledContinue = false;
           }
         }
 
@@ -298,6 +299,7 @@ export default {
         this.fileRecords = [];
         this.showTable = false;
         this.parsedDate = [];
+        this.disabledContinue = false;
       });
     },
     parseFileBeforeSend() {
