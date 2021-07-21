@@ -47,11 +47,14 @@
             <div class="col-4 employee-list-main">
               <div class="list-employers">
                 <div class="department">
-                  <ejs-tooltip mouseTrail='true'
-                               :cssClass="showHelp ? '' : 'custom'"
-                               :content="showHelp ? 'Create, Select and Delete Groups' : null"
-                               target=".input-department"
-                               :showTipPointer=false>
+                  <tippy toSelector=".input-department"
+                         class="tooltip" v-if="showHelp">
+                    <template>
+                      <div class="tooltip">
+                        <span class="custom">Create, Select and Delete Groups</span>
+                      </div>
+                    </template>
+                  </tippy>
                     <v-app class="input-department">
                       <v-toolbar>
                         GROUP:
@@ -127,7 +130,6 @@
                         </v-card>
                       </v-dialog>
                     </v-app>
-                  </ejs-tooltip>
                   <div class="margin-group"></div>
                 </div>
                 <EmployeeList :department="department" :update="updateEmployeeList"
@@ -399,7 +401,7 @@ export default {
     min-width: 250px;
     max-width: 360px;
     display: inline-block;
-    top: 20px;
+    top: 0;
   }
   .department {
     font-weight: bold;
@@ -477,16 +479,12 @@ export default {
     flex: 0 0 35.5% !important;
     max-width: 35.5% !important;
   }
-  .e-tooltip-wrap.e-popup {
+  .tippy-popper .tippy-backdrop {
     background: $bgCardColor4;
-    color: white;
+  }
+  .tippy-popper .tippy-tooltip {
+    background: $bgCardColor4;
     border-radius: 10px;
-    padding: 5px 10px 4px;
   }
-  .custom.e-tooltip-wrap.e-popup {
-    padding: 0;
-  }
-  .custom-padding.e-tooltip-wrap.e-popup {
-    margin-bottom: 1000px;
-  }
+
 </style>

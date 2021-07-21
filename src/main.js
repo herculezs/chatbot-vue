@@ -19,11 +19,11 @@ import VueMeta from 'vue-meta';
 import vuetify from '@/plugins/vuetify';
 import VueFileAgent from 'vue-file-agent';
 import vSelect from 'vue-select';
+import VueTippy, { TippyComponent } from 'vue-tippy';
 
 // eslint-disable-next-line no-unused-vars
 import VueFileAgentStyles from 'vue-file-agent/dist/vue-file-agent.css';
 import VuePapaParse from 'vue-papa-parse';
-import { TooltipPlugin } from '@syncfusion/ej2-vue-popups';
 import VuePaycard from 'vue-paycard';
 
 import 'echarts';
@@ -56,14 +56,15 @@ Vue.use(BootstrapVue);
 Vue.use(VueSocialSharing);
 Vue.use(Vue2TouchEvents);
 Vue.use(VueI18n);
-Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.use(VTooltip);
 Vue.use(VueMeta);
 Vue.use(VueFileAgent);
 Vue.use(VuePapaParse);
-Vue.use(TooltipPlugin);
+Vue.use(VueTippy);
 Vue.use(VuePaycard);
 Vue.component('vue-select', vSelect);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+Vue.component('tippy', TippyComponent);
 
 library.add(faUserSecret);
 library.add(faUserAlt);

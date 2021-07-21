@@ -4,80 +4,83 @@
       <div>
         <span class="class-title-employee-list">Employee List</span>
       </div>
-      <ejs-tooltip mouseTrail='true'
-                   :cssClass="showHelp ? '' : 'custom'"
-                   :content="showHelp ? 'Click on title to sort ascending or descending' : null"
-                   target=".v-data-table-header"
-                   :showTipPointer=false>
-        <ejs-tooltip
-                     :cssClass="showHelp ? '' : 'custom'"
-                     :content="showHelp ? 'Click on individual users to select or\n' +
-                      ' shift+click for block selection' : null"
-                     :offsetX="-10"
-                     :offsetY="-25"
-                     target="#data-in-table"
-                     :showTipPointer=false
-                     >
-          <v-data-table
-            item-key="id"
-            :headers="headers"
-            hide-default-footer
-            :items-per-page="20"
-            :page.sync="page"
-            :loading="loadingTable"
-            :custom-sort="customSort"
-            :items="employeeList">
-            <template v-slot:top>
-              <ejs-tooltip mouseTrail='true'
-                           :cssClass="showHelp ? '' : 'custom'"
-                           :content="showHelp ? 'Search by any of these fields' : null"
-                           target="#tooltipSearch"
-                           :showTipPointer=false>
-                <v-toolbar
-                  flat
-                >
-                  <v-text-field
-                    id="tooltipSearch"
-                    ref="searchInput"
-                    v-model="search"
-                    label="Search"
-                    :append-icon="'mdi-send'"
-                    class="mx-4"
-                    @click:append="searchEmployee"
-                    @keydown="searchEmployee"
-                    @change="searchEmployee"
-                  >
-                    <template v-slot:append-outer>
-                      <v-btn :class="{test: hiddenClear}" icon @click="clearSearchEmployee">
-                        <v-icon>mdi-close-circle</v-icon>
-                      </v-btn>
-                    </template>
-                  </v-text-field>
-                </v-toolbar>
-              </ejs-tooltip>
+      <tippy toSelector=".table-employers-list .v-data-table-header"
+       class="tooltip-sort" v-if="showHelp" followCursor="true" placement="top">
+        <template>
+          <div class="tooltip">
+            <span class="custom">Click on title to sort ascending or descending</span>
+          </div>
+        </template>
+      </tippy>
+      <tippy toSelector=".drag-employers" class="tooltip" v-if="showHelp"
+             followCursor="true" placement="top">
+        <template>
+          <div class="tooltip">
+            <span class="custom" >Click on individual users to
+              select or shift+click for block selection</span>
+          </div>
+        </template>
+      </tippy>
+      <v-data-table
+        item-key="id"
+        :headers="headers"
+        hide-default-footer
+        :items-per-page="20"
+        :page.sync="page"
+        :loading="loadingTable"
+        :custom-sort="customSort"
+        :items="employeeList">
+        <template v-slot:top>
+          <tippy to="headerEmployeeList" arrow v-if="showHelp">
+            <template>
+              <div class="tooltip">
+                <span class="custom" >Search by any of these fields</span>
+              </div>
             </template>
-            <template v-slot:body="props">
-              <draggable :list="employeeList"
-                         tag="tbody"
-                         :group="{ name: 'employeeList', put: false }"
-                         class="drag-employers"
-                         selected-class="multi-drag"
-                         multi-drag>
-                <tr
-                  id="data-in-table"
-                  v-for="(user, index) in props.items"
-                  @click.ctrl.alt.exact="sendEmployeeToTableSelectedEmployeers(user.id)"
-                  :key="index">
-                  <td> {{ user.name }} </td>
-                  <td> {{ user.surName }} </td>
-                  <td> {{ user.employeeDepartment }} </td>
-                  <td> {{ user.manager }} </td>
-                </tr>
-              </draggable>
-            </template>
-          </v-data-table>
-        </ejs-tooltip>
-      </ejs-tooltip>
+          </tippy>
+          <v-toolbar
+            name="headerEmployeeList"
+            flat
+          >
+            <v-text-field
+              id="tooltipSearch"
+              ref="searchInput"
+              v-model="search"
+              label="Search"
+              :append-icon="'mdi-send'"
+              class="mx-4"
+              @click:append="searchEmployee"
+              @keydown="searchEmployee"
+              @change="searchEmployee"
+            >
+              <template v-slot:append-outer>
+                <v-btn :class="{test: hiddenClear}" icon @click="clearSearchEmployee">
+                  <v-icon>mdi-close-circle</v-icon>
+                </v-btn>
+              </template>
+            </v-text-field>
+          </v-toolbar>
+        </template>
+        <template v-slot:body="props">
+          <draggable :list="employeeList"
+                     tag="tbody"
+                     :group="{ name: 'employeeList', put: false }"
+                     class="drag-employers"
+                     selected-class="multi-drag"
+                     multi-drag>
+            <tr
+              id="data-in-table"
+              v-for="(user, index) in props.items"
+              @click.ctrl.alt.exact="sendEmployeeToTableSelectedEmployeers(user.id)"
+              :key="index">
+              <td> {{ user.name }} </td>
+              <td> {{ user.surName }} </td>
+              <td> {{ user.employeeDepartment }} </td>
+              <td> {{ user.manager }} </td>
+            </tr>
+          </draggable>
+        </template>
+      </v-data-table>
     </v-card>
     <div class="text-center">
       <v-pagination
@@ -280,8 +283,13 @@ export default {
     border-radius: 10px;
     padding: 5px 10px 4px;
   }
-  .custom.e-tooltip-wrap.e-popup {
-    padding: 0;
-  }
 
+  .custom-tooltip {
+    padding: 0;
+    color: white;
+    background: $bgCardColor4;
+  }
+  .tooltip-sort {
+    background: $bgCardColor4;
+  }
 </style>

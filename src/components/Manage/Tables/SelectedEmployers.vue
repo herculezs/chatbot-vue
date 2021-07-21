@@ -1,69 +1,79 @@
 <template>
     <v-card>
       <v-app class="table-v-app">
-        <ejs-tooltip mouseTrail='true'
-                     :cssClass="showHelp ? '' : 'custom'"
-                     :content="showHelp ? tableList.length <= 0 ?
-                      'Enter GROUP name and drag-and-drop users here to construct your groups' :
-                      'To remove, drag the name back to the employee list' : null"
-                     target="#selectedEmployeeTable"
-                     :showTipPointer=false>
-          <v-data-table
-                  class="table-manager"
-                  item-key="id"
-                  :headers="headers"
-                  :items="tableList"
-                  :items-per-page="-1"
-                  hide-default-footer
-                  :loading="disableButtonAndLoadTable"
-          >
-            To remove, drag the name back to the employee list
-            <template v-slot:body="props">
-              <draggable tag="tbody"
-                         id="selectedEmployeeTable"
-                         :list="tableList" :disabled="disableDropDown()"
-                         :group="{ name: 'selectedEmployers', put: 'employeeList'}"
-                         @change="updateBlock"
-                         draggable=".draggableListUser"
+        <tippy toSelector=".table-v-app .v-data-table-header"
+               class="tooltip" v-if="showHelp" :placement="'top'" followCursor="true">
+          <template>
+            <div class="tooltip">
+              <span class="custom">Click on title to sort ascending or descending</span>
+            </div>
+          </template>
+        </tippy>
+        <tippy toSelector="#selectedEmployeeTable"
+               class="tooltip" v-if="showHelp" followCursor="true" placement="top">
+          <template>
+            <div class="tooltip">
+              <span class="custom">
+                Enter GROUP name and drag-and-drop users here to construct your groups
+              </span>
+            </div>
+          </template>
+        </tippy>
+        <v-data-table
+          class="table-manager"
+          item-key="id"
+          :headers="headers"
+          :items="tableList"
+          :items-per-page="-1"
+          hide-default-footer
+          :loading="disableButtonAndLoadTable"
+        >
+          To remove, drag the name back to the employee list
+          <template v-slot:body="props">
+            <draggable tag="tbody"
+                       id="selectedEmployeeTable"
+                       :list="tableList" :disabled="disableDropDown()"
+                       :group="{ name: 'selectedEmployers', put: 'employeeList'}"
+                       @change="updateBlock"
+                       draggable=".draggableListUser"
+            >
+              <tr
+                v-for="(user, index) in props.items"
+                :key="index"
+                class="draggableListUser"
               >
-                <tr
-                        v-for="(user, index) in props.items"
-                        :key="index"
-                        class="draggableListUser"
-                >
-                  <td> {{ user.name }} </td>
-                  <td> {{ user.surName }} </td>
-                  <td class="emails"> {{ user.email }} </td>
-                  <td> {{ user.phone }} </td>
-                  <td :class="checkCorrectColor(user.colorInvitation)">
-                    {{ user.invitationSend }}</td>
-                  <td :class="checkCorrectColor(user.colorReminder1)">
-                    {{ checkComplete(user.completeU1, user.countCompleteU2,
-                    user.reminderSentOne, user.invitationSend, user.reminderSentTwo, false,
-                    user.id, user.invitationSend, user.countAllGroup, user.countCompleteEmployee)}}
-                  </td>
-                  <td :class="checkCorrectColor(user.colorReminder2)">
-                    {{ checkComplete(user.completeU1, user.countCompleteU2,
-                    user.reminderSentTwo, user.reminderSentOne, user.reminderSentTwo, true,
-                    user.id, user.invitationSend, user.countAllGroup, user.countCompleteEmployee)}}
-                  </td>
-                </tr>
-                <tr
-                        v-for="(user, index) in tempUser"
-                        :key="'A'+ index"
-                >
-                  <td> {{ user.temp1 }} </td>
-                  <td> {{ user.temp2 }} </td>
-                  <td> {{ user.temp3 }} </td>
-                  <td> {{ user.temp4 }} </td>
-                  <td> {{ user.temp5 }} </td>
-                  <td> {{ user.temp6 }} </td>
-                  <td> {{ user.temp7 }} </td>
-                </tr>
-              </draggable>
-            </template>
-          </v-data-table>
-        </ejs-tooltip>
+                <td> {{ user.name }} </td>
+                <td> {{ user.surName }} </td>
+                <td class="emails"> {{ user.email }} </td>
+                <td> {{ user.phone }} </td>
+                <td :class="checkCorrectColor(user.colorInvitation)">
+                  {{ user.invitationSend }}</td>
+                <td :class="checkCorrectColor(user.colorReminder1)">
+                  {{ checkComplete(user.completeU1, user.countCompleteU2,
+                  user.reminderSentOne, user.invitationSend, user.reminderSentTwo, false,
+                  user.id, user.invitationSend, user.countAllGroup, user.countCompleteEmployee)}}
+                </td>
+                <td :class="checkCorrectColor(user.colorReminder2)">
+                  {{ checkComplete(user.completeU1, user.countCompleteU2,
+                  user.reminderSentTwo, user.reminderSentOne, user.reminderSentTwo, true,
+                  user.id, user.invitationSend, user.countAllGroup, user.countCompleteEmployee)}}
+                </td>
+              </tr>
+              <tr
+                v-for="(user, index) in tempUser"
+                :key="'A'+ index"
+              >
+                <td> {{ user.temp1 }} </td>
+                <td> {{ user.temp2 }} </td>
+                <td> {{ user.temp3 }} </td>
+                <td> {{ user.temp4 }} </td>
+                <td> {{ user.temp5 }} </td>
+                <td> {{ user.temp6 }} </td>
+                <td> {{ user.temp7 }} </td>
+              </tr>
+            </draggable>
+          </template>
+        </v-data-table>
       <div class="footer-selected-employee" v-if="showButton">
         <v-spacer></v-spacer>
         <v-btn v-if="currentButtonSend === true" @click.prevent="buttonPause"
