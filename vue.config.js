@@ -19,6 +19,8 @@ module.exports = {
         FEEDBACK_ID: JSON.stringify(process.env.FEEDBACK_ID),
         GOOGLE_OR_BIGDATA_GEOLOCATION: JSON.stringify(process.env.GOOGLE_OR_BIGDATA_GEOLOCATION),
         VUE_APP_VERSION_FREE: JSON.stringify(process.env.VUE_APP_VERSION_FREE),
+        HOTJAR_SITE_ID: JSON.stringify(process.env.HOTJAR_SITE_ID),
+        HOTJAR_PRODUCTION_MODE: JSON.stringify(process.env.HOTJAR_PRODUCTION_MODE),
       },
     }));
 

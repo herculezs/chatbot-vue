@@ -20,6 +20,7 @@ import vuetify from '@/plugins/vuetify';
 import VueFileAgent from 'vue-file-agent';
 import vSelect from 'vue-select';
 import VueTippy, { TippyComponent } from 'vue-tippy';
+import Hotjar from 'vue-hotjar';
 
 // eslint-disable-next-line no-unused-vars
 import VueFileAgentStyles from 'vue-file-agent/dist/vue-file-agent.css';
@@ -62,6 +63,12 @@ Vue.use(VueFileAgent);
 Vue.use(VuePapaParse);
 Vue.use(VueTippy);
 Vue.use(VuePaycard);
+Vue.use(Hotjar, {
+  id: process.env.HOTJAR_SITE_ID,
+  isProduction: (process.env.HOTJAR_PRODUCTION_MODE === 'true'),
+  snippetVersion: 6,
+});
+
 Vue.component('vue-select', vSelect);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('tippy', TippyComponent);
