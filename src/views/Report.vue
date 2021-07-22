@@ -290,7 +290,6 @@ export default {
       const temp = this.selectedCharateristic;
       this.selectedCharateristic = null;
 
-      this.refreshData();
       const d = new Date();
       const createdDate = `${(`0${d.getDate()}`).slice(-2)}-${(`0${d.getMonth() + 1}`).slice(-2)}-${d.getFullYear()}`;
       const fullFileName = `${this.getProfile.name}_${this.getProfile.lastName} ${createdDate} ${(`0${d.getHours()}`).slice(-2)}-${(`0${d.getMinutes()}`).slice(-2)}`;
@@ -424,6 +423,7 @@ export default {
         this.setCollegAnswerCard(this.OtherCoordinate[2]);
         this.options = Object.keys(res.othersAverageResult);
         this.data = [];
+        this.chartOptionsBar();
       }
     },
     showFeedBackModalByParams() {
