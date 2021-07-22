@@ -27,9 +27,11 @@
       <div class="block-buttons" v-if="isFreeVersion">
         <div class="links-free-version">
           <v-select class="select-ask-user" ref="select" :items="items" solo @click="blurEvent"
-                    label="Who do you want to ask"
+                    :label.sync="labelSelect"
                     color="white"
-                    v-model="selected"></v-select>
+                    @input="changeGroup"
+                    v-model="selected">
+          </v-select>
         </div>
         <InputCopy v-model="newLink" class="mb-4" />
       </div>
@@ -123,6 +125,7 @@ export default {
   data: () => ({
     configEnv,
     valid: true,
+    labelSelect: 'Who do you want to ask',
     rulesCustomGroup: [v => v !== ('colleagues' && v !== 'colleague') || 'Please use another world'],
     selected: null,
     newLink: '',
@@ -156,6 +159,16 @@ export default {
     shareFamilyLink: '',
   }),
   methods: {
+    changeGroup(newData) {
+      if (this.selected != null) {
+        if (newData === 'choose') {
+          this.showWindowModalWithCustomOptions = true;
+        } else {
+          this.createLink(newData);
+        }
+        this.selected = null;
+      }
+    },
     blurAutoSelect() {
       this.$refs.select.blur();
     },
@@ -168,6 +181,7 @@ export default {
       return '';
     },
     blurEvent() {
+      this.$refs.select.internalValue = [];
       const autocompleteInput = this.$refs.select.$refs.input;
       autocompleteInput.addEventListener('blur', this.blurAutoSelect, true);
     },
