@@ -1,0 +1,93 @@
+//Fonts
+//@font-face {
+//  font-family: 'Roboto';
+//  font-style: normal;
+//  font-display: swap;
+//  src: local('Roboto'), url(https://fonts.gstatic.com/s/roboto/v19/KFOmCnqEu92Fr1Mu72xKOzY.woff2) format('woff2');
+//  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+//}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+$defaultFont: 'Lato', sans-serif;
+$titleFont: 'Montserrat', sans-serif;
+$btnFont: 'Montserrat', sans-serif;
+
+//Background card
+$bgCardColor1: #7811c9;
+$bgCardColor2: #e9dcf3ff;
+$bgCardColor3: #ff5151;
+$bgCardColor4: #7811c9;
+
+//Background card hover
+$bgCardHoverColor1: #4e1191;
+$bgCardHoverColor2: #bcb1c6;
+$bgCardHoverColor3: #a83636;
+
+// General Color
+$mnColor1: #333;
+$mnColor2: #7811C9;
+$mnColor3: #E9DCF3;
+
+//Background color
+$bgColor1: #fdf9fe;
+$bgColor2: #f9fdff;
+$bgColor3: #d6e7ff;
+$bgColor4: #deffed;
+$bgColor5: #d2d2ef;
+
+//Text color
+$txtColor1: #333;
+$txtColor2: #666;
+$txtColor3: #999;
+$txtColor4: #999;
+$txtColor5: #ffffff;
+$txtColor6: #ffffff;
+$txtColor7: #7811c9;
+$txtColorDanger: #f05000;
+
+//Link color
+$lnkColo1: #666;
+$lnkColor2: #7811C9;
+
+//Press link color
+$activeLnkColor2: #50118f;
+
+//Button color
+$btnColor1: #7811C9;
+$btnColor2: #333;
+$btnColor3: #e9dcf3ff;
+
+//Form
+//Input
+$formInputBorderRadius: 4px;
+$formInputBorderColor: #ddd;
+$formInputBorderDangerColor: #f05000;
+$formInputColor: #999;
+
+//ProgressBar
+$progressBarBg: #7811C9;
+$progressBarAllFieldBg: #E9DCF3;
+
+//Responsive
+$xsMaxHeight: 668px;
+$xxsMaxHeight: 580px;
+
+//star color
+$starActiveColor: #7811C9;
+$starBorderColor: #7811C9;
+
+$md-gap: 24px;
+
+$pointColor: #b990da;
+$chartLabel: #FFFFFF;
+
+$tableColor1: #f2e7fa;
+$tableColor2: #e4cff4;
+
+:export{
+  starActiveColor: $starActiveColor;
+  starBorderColor: $starBorderColor;
+  pointColor: $pointColor;
+}

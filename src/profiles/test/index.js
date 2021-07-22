@@ -5,15 +5,16 @@ export default {
       paragraph1: 'Your report so far is what <b>you think your personality is</b>. This is called your Anima.'
         + ' The "you" that others experience is called your Persona. We'
         + ' can find out what your Social Persona is by asking people you'
-        + ' know socially to answer questions about you.',
-      paragraph2: 'Share the link with your friends and family - they can answer a'
-        + ' similar questionnaire about you and all answers remain'
-        + ' totally anonymous. We do this so everyone can be more open and'
-        + ' honest than they might be if they were asked directly.',
+        + ' know socially to answer questions about you.'
+        + 'Below, you can select Friends, Family or choose another social group who\'s an opinion you want.',
+      paragraph2: 'Share the the specific link with the specific group so that they can'
+        + ' answer a similar questionnaire about you and all answers remain totally anonymous'
+        + '. We do this so everyone can be more open and honest than they might be if '
+        + 'they were asked directly.',
       paragraph3: 'You need to get at least <b>4 responses</b> for us to show the'
         + ' anonymised results. We will continue to update you as we receive more responses.',
-      paragraph4: 'Click the <b>copy button below</b> and paste the explanatory'
-        + 'text and link to your colleagues using your favorite method.',
+      paragraph4: 'Use the copy button {copy-icon}'
+        + ' anonymised results. We will continue to update you as we receive more responses.',
     },
   },
   charts: {
@@ -40,7 +41,7 @@ export default {
   },
   onboarding: {
     defaultStatePhone: 'GB',
-    placeholderPhone: '+4412345-678901',
+    placeholderPhone: '12345-678901',
     placeholderPhoneRegistration: '+CountryCode PhoneNumber',
     emailPlaceHolder: 'Email',
     tooltipEmail: 'Your email, so we can let you know what others are finished talking about you',

@@ -12,6 +12,8 @@ export default {
         + ' honest than they might be if they were asked directly.',
       paragraph3: 'You need to get at least <b>4 responses</b> for us to show the'
         + ' anonymised results. We will continue to update you as we receive more responses.',
+      paragraph4: 'Click the <b>copy button below</b> and paste the explanatory'
+        + 'text and link to your colleagues using your favorite method.',
     },
   },
   charts: {

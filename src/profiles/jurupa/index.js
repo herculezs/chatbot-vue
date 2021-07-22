@@ -9,6 +9,8 @@ export default {
         + 'all answers remain totally anonymous. We do this so they are more open and honest than they might be if you asked them directly.',
       paragraph3: 'You need to get at least <b>4 responses</b> for us to show the anonymised'
         + ' results. We will continue to update you as we receive more responses.',
+      paragraph4: 'Click the <b>copy button below</b> and paste the explanatory'
+        + 'text and link to your colleagues using your favorite method.',
     },
     textForInput: {
       paragraph1: 'Hi, {{firstName}} {{secondName}} would like you to'
