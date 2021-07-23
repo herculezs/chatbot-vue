@@ -104,7 +104,7 @@ export default {
       type: Boolean,
     },
     itemsForSelect: {
-      type: Object,
+      type: Array,
     },
   },
   validations: {
