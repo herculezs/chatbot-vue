@@ -114,16 +114,11 @@ export default {
   },
   watch: {
     itemsForSelect() {
-      const tempItems = this.itemsForSelect.map((x) => {
-        if (x.value !== 'Colleagues' && x.value !== 'Family' && x.value !== 'Friends') {
-          return {
-            text: x.label,
-            value: x.value,
-            disabled: false,
-          };
-        }
-        return null;
-      });
+      const tempItems = this.itemsForSelect.filter(x => x.value !== 'Contacts' && x.value !== 'Family' && x.value !== 'Friends').map(x => ({
+        text: x.label,
+        value: x.value,
+        disabled: false,
+      }));
 
       this.items.splice(2, 0, ...tempItems);
     },
