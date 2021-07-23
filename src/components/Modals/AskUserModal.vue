@@ -103,6 +103,9 @@ export default {
     isFreeVersion: {
       type: Boolean,
     },
+    itemsForSelect: {
+      type: Object,
+    },
   },
   validations: {
     defineUser: {
@@ -110,6 +113,20 @@ export default {
     },
   },
   watch: {
+    itemsForSelect() {
+      const tempItems = this.itemsForSelect.map((x) => {
+        if (x.value !== 'Colleagues' && x.value !== 'Family' && x.value !== 'Friends') {
+          return {
+            text: x.label,
+            value: x.value,
+            disabled: false,
+          };
+        }
+        return null;
+      });
+
+      this.items.splice(2, 0, ...tempItems);
+    },
     selected(newData) {
       if (this.selected != null) {
         if (newData === 'choose') {

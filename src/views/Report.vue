@@ -111,6 +111,7 @@
         v-on:show-button="showButtonAskContactsForInvitation1">
       </InvitationTableEmployees>
       <AskUserModal v-else-if="!userRegisteredFromCSV" :share-link="shareLink"
+                    :items-for-select.sync="options"
                     :is-free-version="isFreeVersionWebSite"/>
       <div v-if="isFreeVersionWebSiteWithCheck">
         <div class="buttons-report">
@@ -438,11 +439,10 @@ export default {
             };
           }
           return {
-            label: x,
+            label: x.charAt(0).toUpperCase() + x.slice(1),
             value: x,
           };
         });
-        console.log(res.othersAverageResult);
       }
     },
     showFeedBackModalByParams() {
