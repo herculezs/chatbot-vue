@@ -371,14 +371,14 @@ export default {
           this.loadingTable = true;
           response.forEach((x) => {
             this.resetData();
-            const type = this.calculateDataForChart(x.result, x.otherResult, 'general');
+            const type = this.calculateDataForChart(x.result, x.otherResult, 'Contacts');
 
             const d = new Date(x.createdDate);
             const createdDate = `${(`0${d.getDate()}`).slice(-2)}-${(`0${d.getMonth() + 1}`)
               .slice(-2)}-${d.getFullYear()}`;
 
-            const countConnection = x.otherResult.general
-              ? x.otherResult.general.numberConnection : 0;
+            const countConnection = x.otherResult.Contacts
+              ? x.otherResult.Contacts.numberConnection : 0;
 
             this.dashboardData.push({
               userId: x.id,
@@ -399,7 +399,7 @@ export default {
               departmentSummary: this.departmentSummary,
               itemsSelectGroups: x.userGroups,
               options: Object.keys(x.otherResult),
-              selectedOptions: 'general',
+              selectedOptions: 'Contacts',
               allOtherResult: x.otherResult,
               allSelfResult: x.result,
             });
@@ -413,12 +413,12 @@ export default {
     changeGroup(groupId, userId) {
       this.$api.admin.getInfoByGroup(userId, groupId).then((data) => {
         this.resetData();
-        this.calculateDataForChart(data.result, data.otherResult, 'general');
+        this.calculateDataForChart(data.result, data.otherResult, 'Contacts');
 
         this.dashboardData = this.dashboardData.map((x) => {
           if (x.userId === userId) {
-            const countConnection = data.otherResult.general
-              ? data.otherResult.general.numberConnection : 0;
+            const countConnection = data.otherResult.Contacts
+              ? data.otherResult.Contacts.numberConnection : 0;
 
             return {
               ...x,
@@ -428,7 +428,7 @@ export default {
               chartCompare: this.chartCompare,
               departmentSummary: this.departmentSummary,
               itemsSelectGroups: x.itemsSelectGroups,
-              selectedOptions: 'general',
+              selectedOptions: 'Contacts',
               allOtherResult: data.otherResult,
               allSelfResult: data.result,
             };
@@ -483,8 +483,7 @@ export default {
 
     setRadar(data, name, subGroup, colorU1 = '#9C11F2', colorU2 = '#ff5151',
       borderColorU1 = '#5e119f', borderColorU2 = '#bf4545') {
-      const average = this.radarData.find(item => item.name === name);
-      average.value = Object.values(data);
+      this.radarData[1].name = name;
       this.radarData[1].itemColor = {
         borderColor: borderColorU2,
         color: colorU2,
@@ -493,6 +492,9 @@ export default {
         borderColor: borderColorU1,
         color: colorU1,
       };
+
+      const average = this.radarData.find(item => item.name === name);
+      average.value = Object.values(data);
     },
 
     calculateDataForChart(result, otherResult, groupNameFreeVersion) {
@@ -513,7 +515,7 @@ export default {
         otherType = helpFunction.Coordinates(otherResult[groupNameFreeVersion]
           .mainResult)[2];
         this.setRadar(otherResult[groupNameFreeVersion]
-          .mainResult.split(/(?=[-+])/), 'Contacts');
+          .mainResult.split(/(?=[-+])/), groupNameFreeVersion);
         this.otherCoordinate = helpFunction
           .Coordinates(otherResult[groupNameFreeVersion].mainResult);
         this.othersResultsScoreData = otherResult[groupNameFreeVersion];

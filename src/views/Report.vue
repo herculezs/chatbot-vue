@@ -201,7 +201,7 @@ export default {
   data: () => ({
     configEnv,
     options: [],
-    selectedOptions: 'general',
+    selectedOptions: 'Contacts',
     radarData: [{
       value: [],
       type: 'bar',
@@ -225,7 +225,7 @@ export default {
     updateChart: false,
     createPdf: false,
     subGroupData: [],
-    selectedGroup: 'general',
+    selectedGroup: 'Contacts',
     showButtonAskContactsForInvitation: false,
     respondentsCount: 0,
     shareLink: null,
@@ -335,7 +335,7 @@ export default {
     setCollegAnswerCard(title) {
       this.collegAnswerCard = constants.cards[title];
     },
-    chartOptionsBar() {
+    chartOptionsBar(groupNameContacts) {
       Object.values(constants.cards).forEach((value) => {
         this.data.push({
           value: [],
@@ -357,7 +357,7 @@ export default {
         this.data.push({
           value: [],
           type: 'COLLEAGUE',
-          data: [this.OtherCoordinate[0], this.OtherCoordinate[1], `Your contacts say - \n${this.collegAnswerCard.title.toUpperCase()}`],
+          data: [this.OtherCoordinate[0], this.OtherCoordinate[1], `Your ${groupNameContacts ? groupNameContacts.toLowerCase() : 'contacts'} say - \n${this.collegAnswerCard.title.toUpperCase()}`],
         });
       }
     },
@@ -367,8 +367,7 @@ export default {
     // eslint-disable-next-line no-unused-vars
     setRadar(data, name, subGroup, colorU1 = '#9C11F2', colorU2 = '#ff5151',
       borderColorU1 = '#5e119f', borderColorU2 = '#bf4545') {
-      const average = this.radarData.find(item => item.name === name);
-      average.value = Object.values(data);
+      this.radarData[1].name = name;
       this.radarData[1].itemColor = {
         borderColor: borderColorU2,
         color: colorU2,
@@ -377,6 +376,8 @@ export default {
         borderColor: borderColorU1,
         color: colorU1,
       };
+      const average = this.radarData.find(item => item.name === name);
+      average.value = Object.values(data);
     },
     fetchPersonalityTypeReport() {
       if (this.isFreeVersionWebSiteWithCheck) {
@@ -417,13 +418,13 @@ export default {
     otherAmountCalculate(res, groupName) {
       if (this.isOthersAmount) {
         this.othersResultsScoreData = res.othersAverageResult[groupName];
-        this.setRadar(res.othersAverageResult[groupName].mainResult.split(/(?=[-+])/), 'Contacts');
+        this.setRadar(res.othersAverageResult[groupName].mainResult.split(/(?=[-+])/), groupName);
         this.OtherCoordinate = helpFunction
           .Coordinates(res.othersAverageResult[groupName].mainResult);
         this.setCollegAnswerCard(this.OtherCoordinate[2]);
         this.options = Object.keys(res.othersAverageResult);
         this.data = [];
-        this.chartOptionsBar();
+        this.chartOptionsBar(groupName);
       }
     },
     showFeedBackModalByParams() {
@@ -601,6 +602,14 @@ export default {
     position: absolute;
     top: 0;
     left: 30px;
+    .vs__selected-options {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .vs__dropdown-toggle {
+      height: 30px;
+    }
   }
   .bubble_chart_main_block {
     position: relative;

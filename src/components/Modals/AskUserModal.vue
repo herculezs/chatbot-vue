@@ -135,12 +135,12 @@ export default {
     items: [
       {
         text: 'Family',
-        value: 'family',
+        value: 'Family',
         disabled: false,
       },
       {
         text: 'Friends',
-        value: 'friends',
+        value: 'Friends',
         disabled: false,
       },
       {

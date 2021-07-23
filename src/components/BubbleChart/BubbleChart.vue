@@ -324,23 +324,19 @@ export default {
   .label-bubble-chart-1 {
     position: absolute;
     bottom: 30px;
-    left: 50%;
-    display: inline-block;
+    display: flex;
     align-items: center;
-    width: 30px;
-    text-align: center;
-    transform: translate(-50%, -50%);
+    justify-content: center;
+    left: 50%;
   }
 
   .label-bubble-chart-2 {
     position: absolute;
     bottom: 160px;
-    left: 49%;
-    display: inline-block;
+    display: flex;
     align-items: center;
-    width: 80px;
-    text-align: center;
-    transform: translate(-50%, -50%);
+    justify-content: center;
+    left: 50%;
   }
   .character {
     position: relative;
