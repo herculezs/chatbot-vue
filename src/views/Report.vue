@@ -50,6 +50,7 @@
       </template>
       <div class="diagram mb-5">
         <vue-select v-if="!isFreeVersionWebSiteWithCheck && isFreeVersionWebSite"
+                    :disabled="options.length === 0"
                     :options="options" v-model='selectedOptions' :clearable="false"
                     class="select-group-for-chart"></vue-select>
         <div id="chart-compare-pdf">
@@ -201,7 +202,7 @@ export default {
   data: () => ({
     configEnv,
     options: [],
-    selectedOptions: 'Contacts',
+    selectedOptions: 'Total',
     radarData: [{
       value: [],
       type: 'bar',
@@ -225,7 +226,10 @@ export default {
     updateChart: false,
     createPdf: false,
     subGroupData: [],
-    selectedGroup: 'Contacts',
+    selectedGroup: {
+      label: 'Total',
+      value: 'Contacts',
+    },
     showButtonAskContactsForInvitation: false,
     respondentsCount: 0,
     shareLink: null,
@@ -415,17 +419,30 @@ export default {
         });
       }
     },
-    otherAmountCalculate(res, groupName) {
+    otherAmountCalculate(res, group) {
       if (this.isOthersAmount) {
+        const groupName = group.value;
         this.othersResultsScoreData = res.othersAverageResult[groupName];
         this.setRadar(res.othersAverageResult[groupName].mainResult.split(/(?=[-+])/), groupName);
         this.OtherCoordinate = helpFunction
           .Coordinates(res.othersAverageResult[groupName].mainResult);
         this.setCollegAnswerCard(this.OtherCoordinate[2]);
-        this.options = Object.keys(res.othersAverageResult);
         this.data = [];
         this.chartOptionsBar(groupName);
         this.respondentsCount = res.othersAverageResult[groupName].numberConnection;
+        this.options = Object.keys(res.othersAverageResult).map((x) => {
+          if (x === 'Contacts') {
+            return {
+              label: 'Total',
+              value: x,
+            };
+          }
+          return {
+            label: x,
+            value: x,
+          };
+        });
+        console.log(res.othersAverageResult);
       }
     },
     showFeedBackModalByParams() {

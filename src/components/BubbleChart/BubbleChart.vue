@@ -323,7 +323,7 @@ export default {
 
   .label-bubble-chart-1 {
     position: absolute;
-    bottom: 30px;
+    bottom: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -332,7 +332,7 @@ export default {
 
   .label-bubble-chart-2 {
     position: absolute;
-    bottom: 160px;
+    bottom: 155px;
     display: flex;
     align-items: center;
     justify-content: center;
