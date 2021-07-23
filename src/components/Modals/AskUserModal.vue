@@ -45,7 +45,7 @@
           hide-header-close
           data-app
         >
-            <v-card-title class="headline">
+            <v-card-title class="modal-window-card-title">
               <v-text-field
                 class="remindEvery"
                 ref="input"
@@ -307,4 +307,21 @@ export default {
       border-radius: 12px;
     }
   }
+  .modal-window-card-title {
+    .v-input__slot .v-label {
+      font-size: 16px;
+      top: 0;
+      height: 22px;
+    }
+    @media (max-width: 1430px) {
+      .v-input__slot .v-label {
+        font-size: 15px;
+      }
+    }
+    .v-text-field .v-label--active {
+      -webkit-transform: translateY(-18px) scale(.75);
+      transform: translateY(-18px) scale(.95);
+    }
+  }
+
 </style>
