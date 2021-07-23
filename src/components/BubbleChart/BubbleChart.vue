@@ -33,7 +33,7 @@
             :class="'label-bubble-chart-' + (index + 1)"
           >
             <div class="bubble-legend-item-text" :style="{color: item.itemColor.color}">
-              {{ item.name }}
+              {{ item.name.charAt(0).toUpperCase() + item.name.slice(1) }}
             </div>
           </div>
         </template>
@@ -45,7 +45,7 @@
           >
             <div  class="bubble-legend-item-text"
                  :style="{color: item.itemColor.color}">
-              {{ item.name }}
+              {{ item.name.charAt(0).toUpperCase() + item.name.slice(1) }}
             </div>
           </div>
         </template>

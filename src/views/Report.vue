@@ -425,6 +425,7 @@ export default {
         this.options = Object.keys(res.othersAverageResult);
         this.data = [];
         this.chartOptionsBar(groupName);
+        this.respondentsCount = res.othersAverageResult[groupName].numberConnection;
       }
     },
     showFeedBackModalByParams() {
@@ -602,13 +603,11 @@ export default {
     position: absolute;
     top: 0;
     left: 30px;
-    .vs__selected-options {
+    .vs__dropdown-toggle {
+      height: 30px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-    .vs__dropdown-toggle {
-      height: 30px;
     }
   }
   .bubble_chart_main_block {
