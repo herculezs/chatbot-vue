@@ -19,9 +19,8 @@
       <p class="text mb-3" v-html="configEnv.report.textForReport.paragraph3">
         {{configEnv.report.textForReport.paragraph3}}
       </p>
-      <p class="text mb-4">
-        Click the <b>copy button below</b> and paste the explanatory
-        text and link to your colleagues using your favorite method.
+      <p class="text mb-4" v-html="addCopyIcon">
+        {{addCopyIcon}}
       </p>
 
       <div class="block-buttons" v-if="isFreeVersion">
@@ -46,7 +45,7 @@
           hide-header-close
           data-app
         >
-            <v-card-title class="headline">
+            <v-card-title class="modal-window-card-title">
               <v-text-field
                 class="remindEvery"
                 ref="input"
@@ -81,6 +80,7 @@ import InputCopy from '@components/InputCopy/InputCopy.vue';
 import { encode } from 'js-base64';
 
 import { validationMixin } from 'vuelidate';
+import copyIcon from '../../assets/copy-icon.svg';
 
 // eslint-disable-next-line no-unused-vars
 const mustNotBeColleagues = (field) => {
@@ -136,6 +136,7 @@ export default {
   },
   data: () => ({
     configEnv,
+    copyIcon,
     valid: true,
     labelSelect: 'Who do you want to ask',
     rulesCustomGroup: [v => v !== ('colleagues' && v !== 'colleague') || 'Please use another world'],
@@ -170,6 +171,12 @@ export default {
     generateLink: '',
     shareFamilyLink: '',
   }),
+  computed: {
+    addCopyIcon() {
+      return configEnv.report.textForReport.paragraph4
+        .replace('{copy-icon}', `<img src="${copyIcon}" alt="copy-icon"/>`);
+    },
+  },
   methods: {
     changeGroup(newData) {
       if (this.selected != null) {
@@ -312,4 +319,21 @@ export default {
       border-radius: 12px;
     }
   }
+  .modal-window-card-title {
+    .v-input__slot .v-label {
+      font-size: 16px;
+      top: 0;
+      height: 22px;
+    }
+    @media (max-width: 1430px) {
+      .v-input__slot .v-label {
+        font-size: 15px;
+      }
+    }
+    .v-text-field .v-label--active {
+      -webkit-transform: translateY(-18px) scale(.75);
+      transform: translateY(-18px) scale(.95);
+    }
+  }
+
 </style>
