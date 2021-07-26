@@ -414,7 +414,7 @@ export default {
           this.SelfCoordinate = helpFunction.Coordinates(res.selfResult.mainResult);
 
           this.setYouAnswerCard(this.SelfCoordinate[2]);
-
+          this.groupOptions = res.groupForInLink;
           this.shareLink = `${window.location.protocol}//${window.location.host}${res.invitationLink}`;
           this.otherAmountCalculate(this.otherLastResult, this.selectedGroup);
           this.chartOptionsBar();
@@ -432,7 +432,6 @@ export default {
         this.data = [];
         this.chartOptionsBar(groupName);
         this.respondentsCount = res.othersAverageResult[groupName].numberConnection;
-        this.groupOptions = res.groupForInLink;
         this.options = Object.keys(res.othersAverageResult).map((x) => {
           if (x === 'Contacts') {
             return {
