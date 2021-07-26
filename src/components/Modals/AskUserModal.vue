@@ -114,9 +114,9 @@ export default {
   },
   watch: {
     itemsForSelect() {
-      const tempItems = this.itemsForSelect.filter(x => x.value !== 'Contacts' && x.value !== 'Family' && x.value !== 'Friends').map(x => ({
-        text: x.label,
-        value: x.value,
+      const tempItems = this.itemsForSelect.map(x => ({
+        text: x.charAt(0).toUpperCase() + x.slice(1),
+        value: x,
         disabled: false,
       }));
 

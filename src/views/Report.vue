@@ -111,7 +111,7 @@
         v-on:show-button="showButtonAskContactsForInvitation1">
       </InvitationTableEmployees>
       <AskUserModal v-else-if="!userRegisteredFromCSV" :share-link="shareLink"
-                    :items-for-select.sync="options"
+                    :items-for-select.sync="groupOptions"
                     :is-free-version="isFreeVersionWebSite"/>
       <div v-if="isFreeVersionWebSiteWithCheck">
         <div class="buttons-report">
@@ -203,6 +203,7 @@ export default {
   data: () => ({
     configEnv,
     options: [],
+    groupOptions: [],
     selectedOptions: 'Total',
     radarData: [{
       value: [],
@@ -431,6 +432,7 @@ export default {
         this.data = [];
         this.chartOptionsBar(groupName);
         this.respondentsCount = res.othersAverageResult[groupName].numberConnection;
+        this.groupOptions = res.groupForInLink;
         this.options = Object.keys(res.othersAverageResult).map((x) => {
           if (x === 'Contacts') {
             return {
