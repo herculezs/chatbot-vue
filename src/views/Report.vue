@@ -410,6 +410,7 @@ export default {
           });
       } else {
         this.$api.personalityTypeReport.fetchPersonalityTypeReport().then((res) => {
+          this.data = [];
           this.respondentsCount = res.othersAmount;
           this.setRadar(res.selfResult.mainResult.split(/(?=[-+])/), 'Me');
           this.myResultsScoreData = res.selfResult;
@@ -422,20 +423,20 @@ export default {
           this.setYouAnswerCard(this.SelfCoordinate[2]);
           this.groupOptions = res.groupForInLink;
           this.shareLink = `${window.location.protocol}//${window.location.host}${res.invitationLink}`;
-          this.otherAmountCalculate(this.otherLastResult, this.selectedGroup);
           this.chartOptionsBar();
+          this.otherAmountCalculate(this.otherLastResult, this.selectedGroup);
         });
       }
     },
     otherAmountCalculate(res, group) {
       if (this.isOthersAmount) {
+        this.data = [];
         const groupName = group.value;
         this.othersResultsScoreData = res.othersAverageResult[groupName];
         this.setRadar(res.othersAverageResult[groupName].mainResult.split(/(?=[-+])/), groupName);
         this.OtherCoordinate = helpFunction
           .Coordinates(res.othersAverageResult[groupName].mainResult);
         this.setCollegAnswerCard(this.OtherCoordinate[2]);
-        this.data = [];
         this.chartOptionsBar(groupName);
         this.respondentsCount = res.othersAverageResult[groupName].numberConnection;
         this.options = Object.keys(res.othersAverageResult).map((x) => {

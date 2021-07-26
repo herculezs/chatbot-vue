@@ -134,13 +134,7 @@ export default {
         }
       });
       alignedData.forEach(({ data, type }) => {
-        const filter1 = filter.filter(({ data: dataInner }) => {
-          // eslint-disable-next-line no-empty
-          if (data[0] === dataInner[0] && data[1] === dataInner[1] && type === 'GUESS') {
-            return true;
-          }
-          return false;
-        });
+        const filter1 = filter.filter(({ data: dataInner }) => data[0] === dataInner[0] && data[1] === dataInner[1] && type === 'GUESS');
         if (filter1.length === 0) {
           filterResult.push({
             data,
