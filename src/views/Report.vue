@@ -373,7 +373,13 @@ export default {
     // eslint-disable-next-line no-unused-vars
     setRadar(data, name, subGroup, colorU1 = '#9C11F2', colorU2 = '#ff5151',
       borderColorU1 = '#5e119f', borderColorU2 = '#bf4545') {
-      this.radarData[1].name = name;
+      let newName;
+      if (this.isFreeVersionWebSite && name === 'Contacts') {
+        newName = 'Total';
+      } else {
+        newName = name;
+      }
+      this.radarData[1].name = newName;
       this.radarData[1].itemColor = {
         borderColor: borderColorU2,
         color: colorU2,
@@ -382,7 +388,7 @@ export default {
         borderColor: borderColorU1,
         color: colorU1,
       };
-      const average = this.radarData.find(item => item.name === name);
+      const average = this.radarData.find(item => item.name === newName);
       average.value = Object.values(data);
     },
     fetchPersonalityTypeReport() {
