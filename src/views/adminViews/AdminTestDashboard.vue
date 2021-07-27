@@ -34,6 +34,22 @@
                   clearable
                   @click:clear="clearSearchUser"
                 ></v-text-field>
+                <font-awesome-icon
+                  :icon="'info-circle'"
+                  :size="'3x'"
+                  class="py-3 purple--text icon-info"
+                  alt="information"
+                />
+                <tippy toSelector=".icon-info"
+                       class="tooltip" :placement="'top'">
+                  <template>
+                    <div class="tooltip">
+                      <span class="custom">To search a specific colum enter “column name:
+                        search string. For example,
+                        entering first:joe would search for “joe” in the First column</span>
+                    </div>
+                  </template>
+                </tippy>
                 <v-spacer></v-spacer>
                 <v-dialog
                   v-model="dialog"
@@ -317,16 +333,16 @@ export default {
         text: 'Phone', value: 'phone', align: 'center', sortable: false,
       },
       {
-        text: 'First Name', value: 'name', align: 'center', sortable: false,
+        text: 'First', value: 'name', align: 'center', sortable: false,
       },
       {
-        text: 'Last Name', value: 'lastName', align: 'center', sortable: false,
+        text: 'Last', value: 'lastName', align: 'center', sortable: false,
       },
       {
-        text: 'Your Email', value: 'yourEmail', align: 'center', sortable: false,
+        text: 'Email', value: 'yourEmail', align: 'center', sortable: false,
       },
       {
-        text: 'Roles', value: 'roles', align: 'center', sortable: false,
+        text: 'Role', value: 'roles', align: 'center', sortable: false,
       },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
@@ -389,7 +405,29 @@ export default {
       this.getDataTestDashboard();
     },
     getDataTestDashboard() {
-      this.$api.admin.getDataTestDashboard(process.env.QUESTIONNAIRE_ID, this.page - 1, this.search)
+      const searchTestDashboard = {};
+      if (this.search) {
+        const splitSearch = this.search.split(/;/g);
+
+        if (splitSearch.length && splitSearch[0].indexOf(':') !== -1) {
+          splitSearch.forEach((x) => {
+            const trimSearch = x.trim();
+            const getColumn = this.headers.find(y => y.text.toLowerCase() === trimSearch.substring(0, trimSearch.indexOf(':')));
+            if (getColumn) {
+              const getTextColumn = getColumn.text.toLowerCase();
+              searchTestDashboard[getTextColumn] = trimSearch.substring(trimSearch.indexOf(':') + 1, trimSearch.length).trim();
+            }
+          });
+        } else {
+          searchTestDashboard.findByAllFields = this.search;
+        }
+        searchTestDashboard.withSearch = true;
+      } else {
+        searchTestDashboard.withSearch = false;
+      }
+
+      this.$api.admin.getDataTestDashboard(process.env.QUESTIONNAIRE_ID,
+        this.page - 1, searchTestDashboard)
         .then((response) => {
           this.dashboardData = [];
           this.page = response.number + 1;
@@ -448,6 +486,7 @@ export default {
     },
     searchUser(e) {
       if (e.keyCode === 13 || e.button === 0) {
+        this.page = 1;
         this.getDataTestDashboard();
       }
     },
@@ -577,5 +616,12 @@ export default {
   }
   .admin-dashboard-test .v-input__control .v-input__slot{
     margin-bottom: -10px;
+  }
+  .tippy-popper .tippy-backdrop {
+    background: $bgCardColor4;
+  }
+  .tippy-popper .tippy-tooltip {
+    background: $bgCardColor4;
+    border-radius: 10px;
   }
 </style>

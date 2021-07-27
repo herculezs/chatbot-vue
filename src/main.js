@@ -30,7 +30,7 @@ import VuePaycard from 'vue-paycard';
 import 'echarts';
 
 import {
-  faUserSecret, faUserAlt, faEnvelope, faUserTag, faUserFriends, faMobile, faTrashAlt,
+  faUserSecret, faUserAlt, faEnvelope, faUserTag, faUserFriends, faMobile, faTrashAlt, faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -80,6 +80,7 @@ library.add(faUserTag); // role
 library.add(faUserFriends); // depart
 library.add(faMobile); // phone
 library.add(faTrashAlt); // phone
+library.add(faInfoCircle); // phone
 
 
 window.app = new Vue({

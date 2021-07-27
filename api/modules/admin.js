@@ -24,7 +24,7 @@ export default {
   },
   getDataTestDashboard(id, page, search) {
     return new Promise((resolve, reject) => {
-      http.post(`admin/get-data-test-dashboard/${id}?page=${page}`, { search }).then(
+      http.post(`admin/get-data-test-dashboard/${id}?page=${page}`, search).then(
         ({ data }) => {
           resolve(data);
         },
