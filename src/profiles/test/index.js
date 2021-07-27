@@ -13,7 +13,7 @@ export default {
         + 'they were asked directly.',
       paragraph3: 'You need to get at least <b>4 responses</b> for us to show the'
         + ' anonymised results. We will continue to update you as we receive more responses.',
-      paragraph4: 'Use the copy button anonymised results. We will continue to update you as we receive more responses.',
+      paragraph4: 'Use the copy button {copy-icon} below to copy explanatory text and send the link to your groups and wait for the results!',
     },
   },
   charts: {
