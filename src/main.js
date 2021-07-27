@@ -64,8 +64,8 @@ Vue.use(VuePapaParse);
 Vue.use(VueTippy);
 Vue.use(VuePaycard);
 Vue.use(Hotjar, {
-  id: process.env.HOTJAR_SITE_ID,
-  isProduction: (process.env.HOTJAR_PRODUCTION_MODE === 'true'),
+  id: process.env.VUE_APP_HOTJAR_SITE_ID,
+  isProduction: (process.env.VUE_APP_HOTJAR_PRODUCTION_MODE === 'true'),
   snippetVersion: 6,
 });
 
